@@ -2,6 +2,17 @@
 
 <div class="mld">
 <div>
+  <details><summary><span class='relation'>AVIS</span> (
+    <span class='primary'>IDAVIS</span>,
+    <span class='normal'>DESCRIPTION</span>
+  )</summary>
+  <ul>
+    <li>Le champ <i>IDAVIS</i> constitue la clé primaire de la table. C'était déjà un identifiant de l'entité <i>AVIS</i>.</li>
+    <li>Le champ <i>DESCRIPTION</i> était déjà un simple attribut de l'entité <i>AVIS</i>.</li>
+  </ul></details>
+</div>
+
+<div>
   <details><summary><span class='relation'>AVOIR</span> (
     <span class='foreign primary'>#IDLOGEMENT</span>,
     <span class='foreign primary'>#IDPROPRIO</span>
@@ -19,17 +30,17 @@
     <span class='normal'>DATEACHAT</span>,
     <span class='normal'>PRIX</span>,
     <span class='foreign'>#IDPROPRIO</span>,
-    <span class='foreign'>#IDPIECE</span>,
     <span class='foreign'>#IDCAT</span>,
-    <span class='foreign'>#IDTYPE</span>
+    <span class='foreign'>#IDTYPE</span>,
+    <span class='foreign'>#IDPIECE</span>
   )</summary>
   <ul>
     <li>Le champ <i>IDBIEN</i> constitue la clé primaire de la table. C'était déjà un identifiant de l'entité <i>BIEN</i>.</li>
     <li>Les champs <i>NOMB</i>, <i>DATEACHAT</i> et <i>PRIX</i> étaient déjà de simples attributs de l'entité <i>BIEN</i>.</li>
     <li>Le champ <i>IDPROPRIO</i> est une clé étrangère. Il a migré par l'association de dépendance fonctionnelle <i>POSSEDER</i> à partir de l'entité <i>PROPRIETAIRE</i> en perdant son caractère identifiant.</li>
-    <li>Le champ <i>IDPIECE</i> est une clé étrangère. Il a migré par l'association de dépendance fonctionnelle <i>SE_TROUVER</i> à partir de l'entité <i>PIECE</i> en perdant son caractère identifiant.</li>
     <li>Le champ <i>IDCAT</i> est une clé étrangère. Il a migré par l'association de dépendance fonctionnelle <i>ETRE</i> à partir de l'entité <i>CATEGORIE</i> en perdant son caractère identifiant.</li>
     <li>Le champ <i>IDTYPE</i> est une clé étrangère. Il a migré par l'association de dépendance fonctionnelle <i>ETRE</i> à partir de l'entité <i>TYPEBIEN</i> en perdant son caractère identifiant.</li>
+    <li>Le champ <i>IDPIECE</i> est une clé étrangère. Il a migré par l'association de dépendance fonctionnelle <i>SE_TROUVER</i> à partir de l'entité <i>PIECE</i> en perdant son caractère identifiant.</li>
   </ul></details>
 </div>
 
@@ -86,11 +97,13 @@
   <details><summary><span class='relation'>PROPRIETAIRE</span> (
     <span class='primary'>IDPROPRIO</span>,
     <span class='normal'>NOMPROPRIO</span>,
-    <span class='normal'>PRENOM</span>
+    <span class='normal'>PRENOM</span>,
+    <span class='foreign'>#IDAVIS</span>
   )</summary>
   <ul>
     <li>Le champ <i>IDPROPRIO</i> constitue la clé primaire de la table. C'était déjà un identifiant de l'entité <i>PROPRIETAIRE</i>.</li>
     <li>Les champs <i>NOMPROPRIO</i> et <i>PRENOM</i> étaient déjà de simples attributs de l'entité <i>PROPRIETAIRE</i>.</li>
+    <li>Le champ <i>IDAVIS</i> est une clé étrangère. Il a migré par l'association de dépendance fonctionnelle <i>DONNER</i> à partir de l'entité <i>AVIS</i> en perdant son caractère identifiant.</li>
   </ul></details>
 </div>
 
