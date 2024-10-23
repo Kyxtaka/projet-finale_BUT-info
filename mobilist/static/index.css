@@ -47,6 +47,8 @@ button {
   touch-action: manipulation;
   width: fit-content;
   word-break: break-word;
+  position: absolute;
+  top: 36px;
 }
 
 .connexion {
@@ -64,6 +66,29 @@ button {
     color: #000000;
     position: absolute;
     right: 30px;
-    border: 1;
+    border: 1px solid;
     border-color: #000000;
+}
+
+footer {
+    background-color: #FFFFFF;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid;
+}
+
+#appstore {
+    height: 60px;
+}
+
+#googleplay {
+    height: 51px;
+}
+
+p {
+    position: absolute;
+    top: 35px;
+    left : 550px;
+    text-align: center;
 }
