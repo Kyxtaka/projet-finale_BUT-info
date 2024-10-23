@@ -10,7 +10,7 @@
         <h1>VOTRE ALLIÉ EN CAS DE SINISTRE</h1> 
         <div class="schema">
             <div class="texte">
-                <p>Contactez votre assurance en toute simplicité</p>
+                <p>Contactez votre assurance<br>en toute simplicité</br></p>
                 <P>Vos biens répertoriés</P>
                 <p>Inventaire dans votre poche</p>
             </div>
@@ -23,8 +23,26 @@
 <div class="inscription">
     <h2>TOUJOURS PRÊT ? ALLONS-Y !</h2>
     <div class="d-grid gap-2">
-        <button class="btn-primary" type="button">Button</button>
+        <button class="btn-primary" type="button">S'INSCRIRE</button>
     </div>
 </div>
-<div class="contact"></div>
+<div class="contact">
+    <div class="texte_contact">
+        <p>Vous souhaitez</p>
+        <p>nous contacter ?</p>
+        <p>Nous sommes à votre écoute</p>
+    </div>
+    <div class="telephone">
+        <img src="{{ url_for('static', filename='img/telephone.jpg') }}" alt="téléphone">
+        <p>Par téléphone</p>
+        <p>Nos conseillers vous répondent du lundi au<br>vendredi de 8h à 19h00.</br></p>
+        <button></button>
+    </div>
+    <div class="mail">
+        <img src="{{ url_for('static', filename='img/mail.jpg') }}" alt="mail">
+        <p>Par e-mail</p>
+        <p>Envoyez-nous un message. Un conseiller<br>prendra en charge votre demande.</br></p>
+        <button></button>
+    </div>
+</div>
 {% endblock %}
