@@ -46,6 +46,19 @@ class Logement(Base):
     def __repr__(self):
         return "<Logement (%d) %s %s>" % (self.idLogement, self.typeL, self.adresse)
     
+class AVOIR(Base):
+    __tablename__ = "AVOIR"
+
+    idProprio = Column(Integer, ForeignKey("PROPRIETAIRE.idProprio"), primary_key = True)
+    idLogement = Column(Integer, ForeignKey("LOGEMENT.idLogement"), primary_key = True)
+
+    def __init__(self, idP, idL):
+        self.idProprio = idP
+        self.idLogement = idL
+
+    def __repr__(self):
+        return "Avoir %d %d" % (self.idProprio, self.idLogement)
+    
 class Bien(Base):
     __tablename__ = "BIEN"
     
