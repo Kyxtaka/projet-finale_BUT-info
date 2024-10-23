@@ -48,7 +48,9 @@
                 <a class="nav-link active" aria-current="page" href="#">Avis</a>
               </li> 
               <li id="connexion">
-                <button class="connexion">Se connecter</button>
+                <a href="{{ url_for('connexion') }}">
+                  <button class="connexion">Se connecter</button>
+                </a>
               </li>
               <li id="information">
                 <button class="information">À propos de nous</button>

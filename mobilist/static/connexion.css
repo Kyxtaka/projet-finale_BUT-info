@@ -3,6 +3,7 @@
 h1 {
     font-size: 45px;
 }
+
 .retour {
     height: 35px;
 }
@@ -23,6 +24,7 @@ label {
 }
 div {
     margin: 3px;
+    align-items: column;
 }
 .signin{
     padding: 5px;
