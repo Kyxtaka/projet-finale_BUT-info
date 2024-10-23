@@ -1,8 +1,8 @@
 from flask import Flask
 from flask_sqlalchemy  import SQLAlchemy
 from flask_bootstrap import Bootstrap5
-from constante import *
-from secure_constante import * 
+from .constante import *
+from .secure_constante import * 
 import os
 
 
@@ -14,7 +14,7 @@ def mkpath (p):
 app = Flask( __name__ )
 app.config['BOOTSTRAP_SERVE_LOCAL'] = True
 # app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://{USER}:{PASSWD}@{HOST}:{PORT}/{DB}'
-app.config['SQLALCHEMY_DATABASE_URI'] = ('sqlite:///'+mkpath('../myapp.db')) #marche actuellement
+app.config['SQLALCHEMY_DATABASE_URI'] = ('sqlite:///'+mkpath('../DBMOBILIST.db')) #marche actuellement
 db = SQLAlchemy(app)
-if db: print('DB cnx works')
+if db: print('working on DBMOBILIS')
 Bootstrap = Bootstrap5(app)
