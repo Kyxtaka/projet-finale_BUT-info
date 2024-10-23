@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_bootstrap import Bootstrap5
+from flask_bootstrap import Bootstrap5
 
 app = Flask( __name__ )
 # configuration avec bootstrap

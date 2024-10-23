@@ -1,0 +1,15 @@
+form-control { color:black;}
+
+form {
+    align-self: center;
+ 
+ }
+ div{
+     position:relative;
+     top:300px;
+     left:20px;
+ 
+ }
+input {
+    padding: 2px;
+}
