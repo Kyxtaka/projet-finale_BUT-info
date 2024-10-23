@@ -1,0 +1,16 @@
+img {
+    height: 100px;
+}
+
+nav {
+    border-bottom: 1px solid;
+    
+}
+
+#navbar-collapse  a {
+    color: black;
+}
+
+.nav-item-accueil img {
+    height: 5;
+}
