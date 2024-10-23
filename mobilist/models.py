@@ -1,16 +1,16 @@
-import yaml, os.path
 from sqlalchemy.orm import registry, relationship, Session
 from sqlalchemy import select, Column, Integer, Text, Enum, Date, DECIMAL, Float, create_engine
 from .app import db
 from sqlalchemy.sql.schema import ForeignKey
-import time
 from datetime import date
+import yaml, os.path
+import time
 import enum
 
-mapper_registry = registry()
+# mapper_registry = registry()
 Base = db.Model
 
-class LogementType(Base,enum.Enum):
+class LogementType(enum.Enum):
     __tablename__ = "LOGEMENTTYPE"
     
     APPART = "appart"
