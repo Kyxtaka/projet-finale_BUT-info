@@ -1,0 +1,25 @@
+.mobilist{
+    display: flex;
+}
+
+.schema_titre{
+    margin-left: 800px;
+}
+
+.img_maison, .schema_titre{
+    padding: 3% 0;
+}
+
+.img_maison > img{
+    width: 1200px;
+    height: 900px;
+}
+
+.schema{
+    display: flex;
+}
+
+.btn-primary{
+    background-color: pink;
+    font-size: 500;
+}
