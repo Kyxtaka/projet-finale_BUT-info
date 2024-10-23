@@ -3,14 +3,14 @@
 }
 
 .schema_titre{
-    margin-top: 50px;
-    margin-left: 500px;
+    margin-top: 30px;
+    margin-left: 300px;
 }
 
 .img_maison > img{
-    width: 1400px;
-    height: 1000px;
-    margin-top: 200px;
+    width: 600px;
+    height: 400px;
+    margin-top: 100px;
 }
 
 .schema{
@@ -19,7 +19,7 @@
 }
 
 h1 {
-    font-size: 80;
+    font-size: 40;
     font-family: sans-serif;
     font-weight: bold;
 }
@@ -31,43 +31,90 @@ h1 {
 .texte{
     z-index: 1;
     position: relative;
-    margin-top: 117px;
+    margin-top: 50px;
 }
 
 .bulle{
     position: absolute;
-    margin-left: 500px;
-    margin-top: 60px;
+    margin-left: 265px;
+    margin-top: 30px;
 }
 
 .bulle img{
-    width : 300;
-    height: 900;
+    width : 130;
+    height: 400;
 }
 
 .texte p {
-    font-size: 40;
+    font-size: 20;
     font-family: sans-serif;
     font-weight: bold;
-    margin-bottom: 250px;
+    margin-bottom: 110px;
     margin-left: 32px;
 }
 
 .texte p:first-child, p:last-child {
-    margin-left: 815px;
+    margin-left: 415px;
 }
 
 .inscription{
-    height: 250px;
-    background-color: rgb(182, 182, 182);
+    height: 150px;
+    background-color: #e9eaee;
 }
 
 .inscription h2{
     padding-top: 20px;
+    padding-bottom: 10px;
     text-align: center;
-    font-size: 55;
+    font-size: 25;
     font-family: sans-serif;
     font-weight: bold;
 }
 
+button {
+  border-radius: 999px;
+  box-sizing: border-box;
+  cursor: pointer;
+  font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  opacity: 1;
+  outline: 0 solid transparent;
+  padding: 8px 18px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: fit-content;
+  word-break: break-word;
+}
 
+.inscription .inscrire {
+    background: #5E5DF0;
+    box-shadow: #5E5DF0 0 10px 20px -10px;
+    color: #FFFFFF;
+    display: block;
+    margin : auto;
+}
+
+.debut {
+    display: flex;
+    justify-content: center;
+}
+
+.debut p:last-child {
+    color: #612bb7;
+}
+
+.debut p {
+    font-size: 20;
+    font-family: sans-serif;
+    font-weight: bold;
+    margin: 3px;
+}
+
+.texte_contact p{
+    font-size: 15;
+    font-family: sans-serif;
+    text-align: center;
+}
