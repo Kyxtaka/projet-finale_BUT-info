@@ -14,3 +14,8 @@ def connexion():
 @app.route("/inscription")
 def inscription():
     return render_template("inscription.html")
+
+
+@app.route("/information")
+def information():
+    return render_template("information.html")

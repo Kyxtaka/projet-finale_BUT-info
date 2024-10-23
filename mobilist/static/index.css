@@ -47,8 +47,6 @@ button {
   width: fit-content;
   word-break: break-word;
   position: absolute;
-  top: 38px;
-  position: absolute;
   top: 36px;
 }
 
@@ -89,7 +87,7 @@ footer {
     height: 51px;
 }
 
-p {
+#groupe {
     position: absolute;
     top: 35px;
     left : 550px;

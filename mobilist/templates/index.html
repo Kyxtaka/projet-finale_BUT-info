@@ -53,18 +53,21 @@
                 </a>
               </li>
               <li id="information">
-                <button class="information">À propos de nous</button>
+                <a href="{{ url_for('information') }}">
+                  <button class="information">À propos de nous</button>
+                </a>
               </li>
             </ul>           
   </header>
   <main>
+    {% block content %} {% endblock %}
   </main>
 
   <footer class="footer mt-auto py-3 bg-light">
     <div class="footer">
       <img id="appstore" src="{{ url_for('static',filename='img/appstore.jpg') }}" alt="Dispo sur appstore"/>
       <img id="googleplay" src="{{ url_for('static',filename='img/googleplay.png') }}" alt="Dispo sur Google play"/>
-      <p> © AKHTAR NAIMA - VALIN OPHÉLIE - BOCQUET CLÉMENCE - VILCOQ YOHANN - RANDRIANTSOA NATHAN </p>
+      <p id="groupe"> © AKHTAR NAIMA - VALIN OPHÉLIE - BOCQUET CLÉMENCE - VILCOQ YOHANN - RANDRIANTSOA NATHAN </p>
     </div>
   </footer>
 </body>
