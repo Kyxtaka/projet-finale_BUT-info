@@ -1,0 +1,135 @@
+####################################################################################################################
+# Fichier set data Test, une partie de ce fichier à été généré avec l'IA Chatgpt pour creer un set de données tests#
+####################################################################################################################
+# Attention verifier si le fichier est conforme a notre application (note aux devs)
+# Table Personne
+- TYPE: personne
+  idpersonne: 1
+  NOM: BOCQUET
+  PRENOM: Clémence
+- TYPE: personne
+  idpersonne: 2
+  NOM: VALIN
+  PRENOM: Ophélie
+- TYPE: personne
+  idpersonne: 3
+  NOM: AKHTAR
+  PRENOM: Naima
+- TYPE: personne
+  idpersonne: 4
+  NOM: RANDRIANTSOA
+  PRENOM: Nathan
+- TYPE: personne
+  idpersonne: 5
+  NOM: VILCOQ
+  PRENOM: Yohann
+- TYPE: personne
+  idpersonne: 6
+  NOM: DALAIGRE
+  PRENOM: Chritophe
+
+# Table Logement
+- TYPE: logement
+  idlogement: 1
+  TYPE_LOGEMENT: maison
+  ADRESSE: '2 rue du pavillon, 71004 Paname'
+  DESCRIPTION: 'maison principale située à Paname avec toutes mes voitures'
+
+# Table piece de logement
+- TYPE: piece
+  idpiece: 1
+  NOM_PIECE: Cuisine - arrière-cuisine
+  DESCRIPTION: 'Espace pour préparer les repas et stocker les équipements de cuisine'
+- TYPE: piece
+  idpiece: 2
+  NOM_PIECE: Salon
+  DESCRIPTION: 'Espace principal de détente et de réception'
+
+# Table categorie de bien
+- TYPE: categorie_bien
+  idcat: 1
+  NOM_CATEGORIE: Mobilier
+- TYPE: categorie_bien
+  idcat: 2
+  NOM_CATEGORIE: Gros électroménager
+- TYPE: categorie_bien
+  idcat: 3
+  NOM_CATEGORIE: Petit électroménager
+- TYPE: categorie_bien
+  idcat: 4
+  NOM_CATEGORIE: Service de table
+- TYPE: categorie_bien
+  idcat: 5
+  NOM_CATEGORIE: Divers
+
+# Table type de bien
+- TYPE: type_bien
+  idtype: 1
+  NOM_TYPE: 'cuisine intégrée'
+- TYPE: type_bien
+  idtype: 2
+  NOM_TYPE: 'réfrigérateur, congélateur, lave-vaisselle'
+- TYPE: type_bien
+  idtype: 3
+  NOM_TYPE: 'cafetière, bouilloire'
+- TYPE: type_bien
+  idtype: 4
+  NOM_TYPE: 'vaisselle (assiettes, verres, couverts, plats)'
+
+# Table bien (specific items and their details)
+- TYPE: bien
+  idbien: 1
+  NOM_BIEN: 'Cuisine intégrée'
+  DATE_ACHAT: '2021-08-15'
+  PRIX: 12000
+  CATEGORIE: 1  # Mobilier
+  PIECE: 1  # Cuisine - arrière-cuisine
+
+- TYPE: bien
+  idbien: 2
+  NOM_BIEN: 'Réfrigérateur congélateur'
+  DATE_ACHAT: '2020-11-10'
+  PRIX: 800
+  CATEGORIE: 2  # Gros électroménager
+  PIECE: 1  # Cuisine - arrière-cuisine
+
+- TYPE: bien
+  idbien: 3
+  NOM_BIEN: 'Cafetière expresso'
+  DATE_ACHAT: '2022-03-05'
+  PRIX: 150
+  CATEGORIE: 3  # Petit électroménager
+  PIECE: 1  # Cuisine - arrière-cuisine
+
+# Table Justificatif (for each item)
+- TYPE: justificatif
+  idjustif: 1
+  NOM_JUSTIFICATIF: 'Facture cuisine intégrée'
+  DATE_AJOUT: '2021-08-20'
+  URL: 'http://example.com/facture_cuisine.pdf'
+  BIEN: 1  # Cuisine intégrée
+
+- TYPE: justificatif
+  idjustif: 2
+  NOM_JUSTIFICATIF: 'Facture réfrigérateur'
+  DATE_AJOUT: '2020-11-15'
+  URL: 'http://example.com/facture_frigo.pdf'
+  BIEN: 2  # Réfrigérateur congélateur
+
+- TYPE: justificatif
+  idjustif: 3
+  NOM_JUSTIFICATIF: 'Facture cafetière'
+  DATE_AJOUT: '2022-03-07'
+  URL: 'http://example.com/facture_cafetiere.pdf'
+  BIEN: 3  # Cafetière expresso
+
+# Table Avis (feedback or comments)
+- TYPE: avis
+  idavis: 1
+  DESCRIPTION: "Grasse a Mobilist j'ai pu être entierement remboursé, Mobilist c'est la vie !!!!"
+  idpersonne: 2
+  
+- TYPE: avis
+  idavis: 2
+  DESCRIPTION: "Si j'avais connu mobilist avant, je n'aurais pas pas perdu 5000€ a cause d'une inondation il y a 5 ans"
+  idpersonne: 6
