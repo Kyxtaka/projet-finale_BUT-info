@@ -1,38 +1,16 @@
 import yaml, os.path
 from sqlalchemy.orm import registry, relationship, Session
 from sqlalchemy import select, Column, Integer, Text, Enum, Date, DECIMAL, Float, create_engine
-import sqlalchemy
+from .app import db
 from sqlalchemy.sql.schema import ForeignKey
 import time
 from datetime import date
 import enum
 
 mapper_registry = registry()
-Base = mapper_registry.generate_base()
+Base = db.Model
 
-def ouvrir_connexion(user,passwd,host,database,port=3306):
-    """
-    ouverture d'une connexion MySQL
-    paramètres:
-       user     (str) le login MySQL de l'utilsateur
-       passwd   (str) le mot de passe MySQL de l'utilisateur
-       host     (str) le nom ou l'adresse IP de la machine hébergeant le serveur MySQL
-       database (str) le nom de la base de données à utiliser
-    résultat: L'engine de la BD
-    """
-    try:
-        #creation de l'objet gérant les interactions avec le serveur de BD
-        # engine=create_engine('mysql://'+user+':'+passwd+'@'+host+':'+port+'/'+database)
-        engine=create_engine(f'mysql://{user}:{passwd}@{host}:{port}/{database}')
-        #creation de la connexion
-        cnx = engine.connect()
-    except Exception as err:
-        print(err)
-        raise err
-    print("connexion réussie")
-    return engine 
-
-class LogementType(enum.Enum):
+class LogementType(Base,enum.Enum):
     __tablename__ = "LOGEMENTTYPE"
     
     APPART = "appart"
