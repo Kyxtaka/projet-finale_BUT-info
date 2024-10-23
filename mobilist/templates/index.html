@@ -19,22 +19,41 @@
       </a>
       <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbar-collapse">
-            <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                <li class="nav-item-accueil">
-                    <!-- <img src="{{ url_for('static',filename='img/accueil.png') }}" alt="icône accueil"/> -->
-                    <a class="nav-link active" aria-current="page" href="#">Accueil</a>
+            <ul class="navbar-nav-left">
+                <li class="nav-img" >
+                  <img src="{{ url_for('static',filename='img/accueil.png') }}" alt="icône accueil"/>
                 </li>
-                <li class="nav-item-services">
-                  <a class="nav-link active" aria-current="page" href="#">Nos services</a>
-                </li> 
-                <li class="nav-item-contact">
-                  <a class="nav-link active" aria-current="page" href="#">Contact</a>
-                </li> 
-                <li class="nav-item-avis">
-                  <a class="nav-link active" aria-current="page" href="#">Avis</a>
-                </li> 
+                <li class="nav-item-accueil">
+                  <a class="nav-link active" aria-current="page" href="#">Accueil</a>
+              </li>
 
-                
+              <li class="nav-img" >
+                <img src="{{ url_for('static',filename='img/services.png') }}" alt="icône nos services"/>
+              </li>
+              <li class="nav-item-services">
+                <a class="nav-link active" aria-current="page" href="#">Nos services</a>
+              </li> 
+
+              <li class="nav-img" >
+                <img src="{{ url_for('static',filename='img/contact.png') }}" alt="icône contact"/>
+              </li>
+              <li class="nav-item-contact">
+                <a class="nav-link active" aria-current="page" href="#">Contact</a>
+              </li> 
+
+              <li class="nav-img" >
+                <img src="{{ url_for('static',filename='img/avis.png') }}" alt="icône avis"/>
+              </li>
+              <li class="nav-item-avis">
+                <a class="nav-link active" aria-current="page" href="#">Avis</a>
+              </li> 
+              <li id="connexion">
+                <button class="connexion">Se connecter</button>
+              </li>
+              <li id="information">
+                <button class="information">À propos de nous</button>
+              </li>
+            </ul>           
   </header>
   <main>
   </main>
