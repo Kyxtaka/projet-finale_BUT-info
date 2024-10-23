@@ -1,19 +1,29 @@
-{% extends "index.html" %}
-{% block main %}
+
+{% block styles %}
+
 <link rel="stylesheet" href="{{ url_for('static', filename='connexion.css')}}">
+{% endblock %}
+{% block content %}
+<a> <img class="retour" src="{{ url_for('static',filename='img/retour.png') }}" alt="retour"></a>
+<section>
+  <a> <img id="logo" src="{{ url_for('static',filename='img/logo_mobilist.jpg') }}" alt="retour"></a>
+  <h1>Connexion</h1> 
 <form>  
-  <div class="mb-3">
-    <label for="exampleFormControlInput1" class="form-label">Email address</label>
+  
+  <div class="form-control-static">
+    <label for="exampleFormControlInput1" class="form-label">Adresse e-mail</label>
     <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
   </div>
 
-  <div class="mb-3 row">
-    <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+  <div class="form-control-static">
+    <label for="inputPassword" class="col-sm-2 col-form-label">Mot de passe</label>
       <input type="password" class="form-control" id="inputPassword">
   </div>  
   
-  <div class="col-auto">
-    <button type="submit" class="btn btn-primary mb-3">Confirmer</button>
-  </div>
+  <span class="form-control-static">
+    <button type="submit" class="btn btn-primary mb-3">Se connecter</button>
+  </span>
 </form>
+ <p id="signin"> Pas de compte ? Commencez <a href="">maintenant</a> !</p>
+</section>
 {% endblock %}
