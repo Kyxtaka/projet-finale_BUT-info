@@ -1,0 +1,37 @@
+
+{% block styles %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='connexion.css')}}">
+{% endblock %}
+{% block content %}
+<a href="{{ url_for('home') }}"> <img class="retour" src="{{ url_for('static',filename='img/retour.png') }}" alt="retour"></a>
+<section>
+  <a> <img src="{{ url_for('static',filename='img/logo_mobilist.jpg') }}" alt="retour"></a>
+  <h1>Inscription</h1> 
+<form>  
+    <div class="form-control-static">
+        <label for="exampleFormControlInput1" class="form-label">Nom</label>
+        <input type="email" class="form-control" placeholder="Votre nom">
+    </div> 
+
+    <div class="form-control-static">
+        <label for="exampleFormControlInput1" class="form-label">Prénom</label>
+        <input type="email" class="form-control" placeholder="Votre prénom">
+    </div>
+
+  <div class="form-control-static">
+    <label for="exampleFormControlInput1" class="form-label">Adresse e-mail</label>
+    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="nom@exemple.com">
+  </div>
+
+  <div class="form-control-static">
+    <label for="inputPassword" class="col-sm-2 col-form-label">Mot de passe</label>
+      <input type="password" class="form-control" id="inputPassword">
+  </div>  
+  
+  <span class="form-control-static">
+    <button type="submit" class="btn btn-primary mb-3">S'inscrire</button>
+  </span>
+</form>
+</section>
+{% endblock %}
