@@ -1,5 +1,5 @@
 from sqlalchemy.orm import registry, relationship, Session
-from sqlalchemy import select, Column, Integer, Text, Enum, Date, DECIMAL, Float, create_engine
+from sqlalchemy import select, Column, Integer, String, Enum, Date, DECIMAL, Float, String, create_engine
 from .app import db
 from sqlalchemy.sql.schema import ForeignKey
 from datetime import date
@@ -20,7 +20,7 @@ class Avis(Base) :
     __tablename__ = "AVIS"
     
     idAvis = Column(Integer, primary_key = True, nullable=False)
-    descriptionAvis = Column(Text(1000), nullable=False) 
+    descriptionAvis = Column(String(1000), nullable=False) 
     idProprio = Column(Integer, ForeignKey("PROPRIETAIRE.idProprio"), nullable=False)
     def __repr__(self):
         return "<Avis (%d) %s>" % (self.idAvis, self.descriptionAvis)
@@ -29,9 +29,10 @@ class Proprietaire(Base):
     __tablename__ = "PROPRIETAIRE"
     
     idProprio = Column(Integer, primary_key = True, nullable=False)
-    nomProprio = Column(Text(20), nullable=False)
-    prenom = Column(Text(20), nullable=False)
-    logements = relationship("Logement", back_populates = "proprio")
+    nom = Column(String(20), nullable=False)
+    prenom = Column(String(20), nullable=False)
+    logements = relationship("Logement", secondary="AVOIR", back_populates="proprietaires")
+    
     def __repr__(self):
         return "<Proprietaire (%d) %s %s>" % (self.idProprio, self.nomProprio, self.prenom)
 
@@ -40,9 +41,9 @@ class Logement(Base):
     
     idLogement = Column(Integer, primary_key = True, nullable=False)
     typeL = Column(Enum(LogementType), nullable=False)
-    adresse = Column(Text(100), nullable=True)
-    descriptionLogement = Column(Text(1000), nullable=True)
-    proprio = relationship("Proprietaire" , back_populates = "logements")
+    adresse = Column(String(100), nullable=True)
+    descriptionLogement = Column(String(1000), nullable=True)
+    proprietaires = relationship("Proprietaire", secondary="AVOIR", back_populates="logements")
     def __repr__(self):
         return "<Logement (%d) %s %s>" % (self.idLogement, self.typeL, self.adresse)
     
@@ -63,10 +64,10 @@ class Bien(Base):
     __tablename__ = "BIEN"
     
     idBien = Column(Integer, primary_key = True, nullable=False)
-    nomB = Column(Text(100), nullable=False)
+    nomB = Column(String(100), nullable=False)
     dateAchat = Column(Date, nullable=True)
     prix = Column(Float, nullable=True)
-    idProprio = Column(Integer, ForeignKey("PROPRIETAIRE.idProprio"), nullable=False )
+    # idProprio = Column(Integer, ForeignKey("PROPRIETAIRE.idProprio"), nullable=False )
     idPiece = Column(Integer, ForeignKey("PIECE.idPiece"), nullable=False)
     idType = Column(Integer, ForeignKey("TYPEBIEN.idType"), nullable=False)
     idCat = Column(Integer, ForeignKey("CATEGORIE.idCat"), nullable=False)
@@ -77,8 +78,8 @@ class Piece(Base):
     __tablename__ = "PIECE"
     
     idPiece = Column(Integer, primary_key = True, nullable=False)
-    nomPiece = Column(Text(20), nullable=False)
-    descriptionPiece = Column(Text(1000), nullable=True)
+    nomPiece = Column(String(20), nullable=False)
+    descriptionPiece = Column(String(1000), nullable=True)
     idLogement = Column(Integer, ForeignKey("LOGEMENT.idLogement"),  primary_key = True)
 
     def __repr__(self):
@@ -88,7 +89,7 @@ class TypeBien(Base):
     __tablename__ = "TYPEBIEN"
     
     idType = Column(Integer, primary_key = True, nullable=False)
-    nomType = Column(Text(20), nullable=False)
+    nomType = Column(String(20), nullable=False)
     def __repr__(self):
         return "<TypeBien (%d) %s >" % (self.idType, self.nomType)
     
@@ -96,7 +97,7 @@ class Categorie(Base):
     __tablename__ = "CATEGORIE"
     
     idCat = Column(Integer, primary_key = True, nullable=False)
-    nomCat = Column(Text(20), nullable=False)
+    nomCat = Column(String(20), nullable=False)
     def __repr__(self):
         return "<Categorie (%d) %s >" % (self.idCat, self.nomCat)
     
@@ -104,9 +105,9 @@ class Justificatif(Base):
     __tablename__ = "JUSTIFICATIF"
     
     idJustif = Column(Integer, primary_key = True)
-    nomJustif = Column(Text(30))
+    nomJustif = Column(String(30))
     dateAjout = Column(Date)
-    URL = Column(Text(200))
+    URL = Column(String(200))
     idBien = Column(Integer, ForeignKey("BIEN.idBien"), primary_key = True)
     def __repr__(self):
         return "<Justificatif (%d) %s %s %s %d>" % (self.idJustif, self.nomJustif, self.dateAjout, self.URL, self.idBien)
