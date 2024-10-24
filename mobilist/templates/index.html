@@ -8,6 +8,7 @@
     <link rel="stylesheet", href="{{ url_for('static',filename='index.css') }}">
     <title>MobiList</title>
     {% endblock %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
   <header>
@@ -18,26 +19,55 @@
       </a>
       <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbar-collapse">
-            <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                <li class="nav-item-accueil">
-                    <!-- <img src="{{ url_for('static',filename='img/accueil.png') }}" alt="icône accueil"/> -->
-                    <a class="nav-link active" aria-current="page" href="#">Accueil</a>
+            <ul class="navbar-nav-left">
+                <li class="nav-img" >
+                  <img src="{{ url_for('static',filename='img/accueil.png') }}" alt="icône accueil"/>
                 </li>
-                <li class="nav-item-services">
-                  <a class="nav-link active" aria-current="page" href="#">Nos services</a>
-                </li> 
-                <li class="nav-item-contact">
-                  <a class="nav-link active" aria-current="page" href="#">Contact</a>
-                </li> 
-                <li class="nav-item-avis">
-                  <a class="nav-link active" aria-current="page" href="#">Avis</a>
-                </li> 
+                <li class="nav-item-accueil">
+                  <a class="nav-link active" aria-current="page" href="#">Accueil</a>
+              </li>
 
-                
+              <li class="nav-img" >
+                <img src="{{ url_for('static',filename='img/services.png') }}" alt="icône nos services"/>
+              </li>
+              <li class="nav-item-services">
+                <a class="nav-link active" aria-current="page" href="#">Nos services</a>
+              </li> 
+
+              <li class="nav-img" >
+                <img src="{{ url_for('static',filename='img/contact.png') }}" alt="icône contact"/>
+              </li>
+              <li class="nav-item-contact">
+                <a class="nav-link active" aria-current="page" href="#">Contact</a>
+              </li> 
+
+              <li class="nav-img" >
+                <img src="{{ url_for('static',filename='img/avis.png') }}" alt="icône avis"/>
+              </li>
+              <li class="nav-item-avis">
+                <a class="nav-link active" aria-current="page" href="#">Avis</a>
+              </li> 
+              <li id="connexion">
+                <a href="{{ url_for('login') }}">
+                  <button class="connexion">Se connecter</button>
+                </a>
+              </li>
+              <li id="information">
+                <button class="information">À propos de nous</button>
+              </li>
+            </ul>           
   </header>
+  <main>{% block content %}{% endblock %}
+  </main>
 
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <footer class="footer mt-auto py-3 bg-light">
+    <div class="footer">
+      <img id="appstore" src="{{ url_for('static',filename='img/appstore.jpg') }}" alt="Dispo sur appstore"/>
+      <img id="googleplay" src="{{ url_for('static',filename='img/googleplay.png') }}" alt="Dispo sur Google play"/>
+      <p> © AKHTAR NAIMA - VALIN OPHÉLIE - BOCQUET CLÉMENCE - VILCOQ YOHANN - RANDRIANTSOA NATHAN </p>
+    </div>
+  </footer>
 </body>
+
 </html>
 

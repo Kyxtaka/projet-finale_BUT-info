@@ -5,6 +5,7 @@ from sqlalchemy.sql.schema import ForeignKey
 from datetime import date
 import yaml, os.path
 import time
+from flask_login import UserMixin
 from sqlalchemy.sql.expression import func
 import enum
 

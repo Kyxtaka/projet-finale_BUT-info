@@ -43,7 +43,7 @@ def login():
             next = f.next.data or url_for("home")
             return redirect(next)
     return render_template(
-    "login.html",
+    "connexion.html",
     form=f)
 
 from flask_login import logout_user
@@ -51,3 +51,9 @@ from flask_login import logout_user
 def logout():
     logout_user()
     return redirect(url_for('home'))
+
+
+
+@app.route("/inscription")
+def inscription():
+    return render_template("inscription.html")
