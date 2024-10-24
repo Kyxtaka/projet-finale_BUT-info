@@ -19,8 +19,8 @@ class LogementType(enum.Enum):
 class Avis(Base) :
     __tablename__ = "AVIS"
     
-    id_avis = Column(Integer, primary_key = True, nullable=False)
-    desc_avis = Column(String(1000), nullable=False) 
+    id_avis = Column(Integer, primary_key = True)
+    desc_avis = Column(String(1000)) 
     id_proprio = Column(Integer, ForeignKey("PROPRIETAIRE.id_proprio"), nullable=False)
     
     def __init__(self, id_avis, desc_avis, id_proprio):
@@ -34,9 +34,9 @@ class Avis(Base) :
 class Proprietaire(Base):
     __tablename__ = "PROPRIETAIRE"
     
-    id_proprio = Column(Integer, primary_key = True, nullable=False)
-    nom = Column(String(20), nullable=False)
-    prenom = Column(String(20), nullable=False)
+    id_proprio = Column(Integer, primary_key = True)
+    nom = Column(String(20))
+    prenom = Column(String(20))
     logements = relationship("Logement", secondary="AVOIR", back_populates="proprietaires")
     
     def __init__(self, id_proprio, nom_proprio, prenom_proprio):
@@ -50,7 +50,7 @@ class Proprietaire(Base):
 class Logement(Base):
     __tablename__ = "LOGEMENT"
     
-    id_logement = Column(Integer, primary_key = True, nullable=False)
+    id_logement = Column(Integer, primary_key = True)
     type_logement = Column(Enum(LogementType), nullable=False)
     adresse = Column(String(100), nullable=True)
     desc_logement = Column(String(1000), nullable=True)
@@ -81,20 +81,21 @@ class AVOIR(Base):
 class Bien(Base):
     __tablename__ = "BIEN"
     
-    id_bien = Column(Integer, primary_key = True, nullable=False)
+    id_bien = Column(Integer, primary_key = True)
     nom_bien = Column(String(100), nullable=False)
     date_achat = Column(Date, nullable=True)
     prix = Column(Float, nullable=True)
-    # idProprio = Column(Integer, ForeignKey("PROPRIETAIRE.idProprio"), nullable=False )
+    id_proprio = Column(Integer, ForeignKey("PROPRIETAIRE.id_proprio"), nullable=False )
     id_piece = Column(Integer, ForeignKey("PIECE.id_piece"), nullable=False)
     id_type = Column(Integer, ForeignKey("TYPEBIEN.id_type"), nullable=False)
     id_cat = Column(Integer, ForeignKey("CATEGORIE.id_cat"), nullable=False)
     
-    def __init__(self, id_bien, nom_bien, date_achat, prix, id_piece, id_type, id_cat):
+    def __init__(self, id_bien, nom_bien, id_proprio, date_achat, prix, id_piece, id_type, id_cat):
         self.id_bien = id_bien
         self.nom_bien = nom_bien
         self.date_achat = date_achat
         self.prix = prix
+        self.id_proprio = id_proprio
         self.id_piece = id_piece
         self.id_type = id_type
         self.id_cat = id_cat

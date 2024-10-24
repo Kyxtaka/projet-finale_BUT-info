@@ -2,7 +2,7 @@ from flask import Flask
 from flask_sqlalchemy  import SQLAlchemy
 from flask_bootstrap import Bootstrap5
 from .constante import *
-from .secure_constante import * 
+#from .secure_constante import * 
 import os
 
 

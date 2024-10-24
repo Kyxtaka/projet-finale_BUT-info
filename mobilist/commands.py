@@ -13,6 +13,7 @@ def syncdb():
 @app.cli.command()
 @click.argument('filename')
 def loaddb(filename):
+    db.drop_all
     db.create_all()
     data = yaml.load(open(filename), Loader=yaml.SafeLoader)
     session = db.session
@@ -61,7 +62,8 @@ def loaddb(filename):
                     prix = entity['PRIX'],
                     id_piece = entity['ID_PIECE'],
                     id_type = entity['ID_TYPE_BIEN'],
-                    id_cat = entity['ID_CATEGORIE'] 
+                    id_cat = entity['ID_CATEGORIE'],
+                    id_proprio = entity['ID_PROPRIETAIRE']
                 )
                 session.add(new_bien)
             case 'JUSTIFICATIF':

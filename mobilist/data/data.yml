@@ -93,6 +93,7 @@
   NOM_BIEN: 'Cuisine intégrée'
   DATE_ACHAT: '2021-08-15'
   PRIX: 12000
+  ID_PROPRIETAIRE: 5
   ID_CATEGORIE: 1  # Mobilier
   ID_TYPE_BIEN: 1
   ID_PIECE: 1  # Cuisine - arrière-cuisine
@@ -102,6 +103,7 @@
   NOM_BIEN: 'Réfrigérateur congélateur'
   DATE_ACHAT: '2020-11-10'
   PRIX: 800
+  ID_PROPRIETAIRE: 5
   ID_CATEGORIE: 2  # Gros électroménager
   ID_TYPE_BIEN: 2
   ID_PIECE: 1  # Cuisine - arrière-cuisine
@@ -111,6 +113,7 @@
   NOM_BIEN: 'Cafetière expresso'
   DATE_ACHAT: '2022-03-05'
   PRIX: 150
+  ID_PROPRIETAIRE: 5
   ID_CATEGORIE: 3  # Petit électroménager
   ID_TYPE_BIEN: 3
   ID_PIECE: 1  # Cuisine - arrière-cuisine
