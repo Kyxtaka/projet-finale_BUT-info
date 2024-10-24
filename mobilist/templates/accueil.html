@@ -32,17 +32,19 @@
         </div>
         <p>Nous sommes à votre écoute</p>
     </div>
-    <div class="telephone">
-        <img src="{{ url_for('static', filename='img/telephone.jpg') }}" alt="téléphone">
-        <p>Par téléphone</p>
-        <p>Nos conseillers vous répondent du lundi au<br>vendredi de 8h à 19h00.</br></p>
-        <button></button>
-    </div>
-    <div class="mail">
-        <img src="{{ url_for('static', filename='img/mail.jpg') }}" alt="mail">
-        <p>Par e-mail</p>
-        <p>Envoyez-nous un message. Un conseiller<br>prendra en charge votre demande.</br></p>
-        <button></button>
+    <div class="coord">
+        <div class="telephone">
+            <img src="{{ url_for('static', filename='img/telephone.jpg') }}" alt="téléphone">
+            <p>Par téléphone</p>
+            <p>Nos conseillers vous répondent du lundi au<br>vendredi de 8h à 19h00.</br></p>
+            <button class="appeler">APPELER UN CONSEILLER</button>
+        </div>
+        <div class="mail">
+            <img src="{{ url_for('static', filename='img/mail.jpg') }}" alt="mail">
+            <p>Par e-mail</p>
+            <p>Envoyez-nous un message. Un conseiller<br>prendra en charge votre demande.</br></p>
+            <button class="message">ENVOYER UN MESSAGE</button>
+        </div>
     </div>
 </div>
 {% endblock %}
