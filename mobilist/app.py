@@ -3,6 +3,7 @@ from flask_sqlalchemy  import SQLAlchemy
 from flask_bootstrap import Bootstrap5
 from .constante import *
 from flask_login import LoginManager
+# from .secure_constante import *
 import os
 
 

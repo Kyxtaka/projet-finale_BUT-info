@@ -62,7 +62,8 @@ def loaddb(filename):
                     prix = entity['PRIX'],
                     id_piece = entity['ID_PIECE'],
                     id_type = entity['ID_TYPE_BIEN'],
-                    id_cat = entity['ID_CATEGORIE'] 
+                    id_cat = entity['ID_CATEGORIE'],
+                    id_proprio = entity['ID_PROPRIETAIRE']
                 )
                 session.add(new_bien)
             case 'JUSTIFICATIF':

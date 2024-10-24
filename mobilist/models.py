@@ -20,8 +20,8 @@ class LogementType(enum.Enum):
 class Avis(Base) :
     __tablename__ = "AVIS"
     
-    id_avis = Column(Integer, primary_key = True, nullable=False)
-    desc_avis = Column(String(1000), nullable=False) 
+    id_avis = Column(Integer, primary_key = True)
+    desc_avis = Column(String(1000)) 
     id_proprio = Column(Integer, ForeignKey("PROPRIETAIRE.id_proprio"), nullable=False)
     
     def __init__(self, id_avis, desc_avis, id_proprio):
@@ -57,7 +57,7 @@ class Proprietaire(Base):
 class Logement(Base):
     __tablename__ = "LOGEMENT"
     
-    id_logement = Column(Integer, primary_key = True, nullable=False)
+    id_logement = Column(Integer, primary_key = True)
     type_logement = Column(Enum(LogementType), nullable=False)
     adresse = Column(String(100), nullable=True)
     desc_logement = Column(String(1000), nullable=True)
