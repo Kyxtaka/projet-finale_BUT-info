@@ -65,11 +65,9 @@ def loaddb(filename):
                 )
                 session.add(new_bien)
             case 'JUSTIFICATIF':
-                # datetime.datetime.now()
-                # entity['DATE_AJOUT']
                 date = datetime.strptime(entity['DATE_AJOUT'], date_format)
                 new_justificatif = Justificatif(
-                    id_justi= entity['ID_JUSTIFICATIF'],
+                    id_justi = entity['ID_JUSTIFICATIF'],
                     nom_justi = entity['NOM_JUSTIFICATIF'],
                     date_ajout = date,
                     URL = entity['URL'],
