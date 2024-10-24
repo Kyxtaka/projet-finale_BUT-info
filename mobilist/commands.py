@@ -100,6 +100,9 @@ def loaddb(filename):
 @click.argument('password')
 @click.argument('role')
 def newuser(mail, password, role):
+    create_user(mail, password, role)
+    
+def create_user(mail, password, role):
     from.models import User
     from hashlib import sha256
     m = sha256()
@@ -112,7 +115,7 @@ def newuser(mail, password, role):
     u = User(mail=mail, password=m.hexdigest(), role=role, id_user=id)
     db.session.add(u)
     db.session.commit()
-    
+     
 @app.cli.command()
 @click.argument('mail')
 @click.argument('password')
@@ -124,3 +127,4 @@ def passwd(mail, password):
     u = User.query.get(mail)
     u.password = m.hexdigest()
     db.session.commit()
+    

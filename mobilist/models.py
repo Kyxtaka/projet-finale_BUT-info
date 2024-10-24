@@ -145,3 +145,10 @@ def load_user(mail):
 
 def max_id():
     return db.session.query(func.max(Proprietaire.idProprio)).scalar()
+
+def modifier(mail, nom, prenom):
+    proprio = get_user(mail)
+    proprio.nom = nom
+    proprio.prenom = prenom
+    db.session.commit()
+    
