@@ -45,7 +45,7 @@ class Proprietaire(Base):
         self.prenom = prenomP
     
     def __repr__(self):
-        return "<Proprietaire (%d) %s %s>" % (self.idProprio, self.nomProprio, self.prenom)
+        return "<Proprietaire (%d) %s %s>" % (self.idProprio, self.nom, self.prenom)
 
 class Logement(Base):
     __tablename__ = "LOGEMENT"
