@@ -41,12 +41,7 @@ class Proprietaire(Base):
     logements = relationship("Logement", secondary="AVOIR", back_populates="proprietaires")
     user = relationship("User", back_populates="id")
     
-    def __init__(self, id_proprio, nom_proprio, prenom_proprio):
-        self.id_proprio = id_proprio
-        self.nom = nom_proprio
-        self.prenom = prenom_proprio
-    
-    def __init__(self, id_proprio, nom_proprio, prenom_proprio):
+    def __init__(self, id_proprio, nom_proprio=None, prenom_proprio=None):
         self.id_proprio = id_proprio
         self.nom = nom_proprio
         self.prenom = prenom_proprio
@@ -195,4 +190,4 @@ def load_user(mail):
     return User.query.get(mail)
 
 def max_id():
-    return db.session.query(func.max(Proprietaire.idProprio)).scalar()
+    return db.session.query(func.max(Proprietaire.id_proprio)).scalar()
