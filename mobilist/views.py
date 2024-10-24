@@ -9,9 +9,11 @@ from flask import request
 from flask_login import login_required
 from .commands import create_user
 from .models import *
+from .exception import *
 from flask_wtf import FlaskForm
 from wtforms import StringField, HiddenField
 from wtforms.validators import DataRequired
+
 
 @app.route("/")
 def home():
@@ -83,10 +85,13 @@ def inscription():
             login_user(user)
             next = f.next.data or url_for("home")
             return redirect(next)
-        create_user(f.mail.data, f.password.data, "proprio")
-        modifier(f.mail.data, f.nom.data, f.prenom.data)
+        try:
+            create_user(f.mail.data, f.password.data, "proprio")
+            modifier(f.mail.data, f.nom.data, f.prenom.data)
+            return render_template("index.html")
+        except:
+            return render_template(
+    "inscription.html", form=f, present=True)
     return render_template(
-    "inscription.html",
-    form=f)
+    "inscription.html", form=f, present=False)
 
-    
