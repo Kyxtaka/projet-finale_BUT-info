@@ -13,6 +13,7 @@ def syncdb():
 @app.cli.command()
 @click.argument('filename')
 def loaddb(filename):
+    db.drop_all()
     db.create_all()
     data = yaml.load(open(filename), Loader=yaml.SafeLoader)
     session = db.session
@@ -105,10 +106,10 @@ def newuser(mail, password, role):
     m.update(password.encode())
     id = None
     if role != "admin":
-        id = User.max_id()+1
         proprio = Proprietaire(idProprio=id)
+        id = int(max_id())+1
         db.session.add(proprio)
-    u = User(mail=mail, password=m.hexdigest(), role=role, id=id)
+    u = User(mail=mail, password=m.hexdigest(), role=role, id_user=id)
     db.session.add(u)
     db.session.commit()
     

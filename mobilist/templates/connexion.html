@@ -11,8 +11,8 @@
 <form class="form-horizontal" role="form" method ="POST" action ="{{ url_for('login') }}"> 
   {{ form.hidden_tag() }}
   <div class="form-control-static">
-    {{ form.username.label }}
-    {{ form.username(size=50, class_="form-control", placeholder ="Username") }}
+    {{ form.mail.label }}
+    {{ form.mail(size=50, class_="form-control", placeholder ="Username") }}
   </div>
 
   <div class="form-control-static">

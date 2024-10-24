@@ -16,6 +16,8 @@ from flask_bootstrap import Bootstrap5
 app = Flask( __name__ )
 # configuration avec bootstrap
 app.config['BOOTSTRAP_SERVE_LOCAL'] = True
+
+app.config['SECRET_KEY'] = "1f371826-9114-495d-bde8-0fd605e6356d"
 # app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://{USER}:{PASSWD}@{HOST}:{PORT}/{DB}'
 app.config['SQLALCHEMY_DATABASE_URI'] = ('sqlite:///'+mkpath('../DBMOBILIST.db')) #marche actuellement
 db = SQLAlchemy(app)

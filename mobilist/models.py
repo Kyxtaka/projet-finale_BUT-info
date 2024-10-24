@@ -21,7 +21,7 @@ class LogementType(enum.Enum):
 class Avis(Base) :
     __tablename__ = "AVIS"
     
-    idAvis = Column(Integer, primary_key = True, nullable=False)
+    idAvis = Column(Integer, primary_key = True)
     descriptionAvis = Column(String(1000), nullable=False) 
     idProprio = Column(Integer, ForeignKey("PROPRIETAIRE.idProprio"), nullable=False)
     def __repr__(self):
@@ -39,16 +39,14 @@ class Proprietaire(Base):
     def __repr__(self):
         return "<Proprietaire (%d) %s %s>" % (self.idProprio, self.nomProprio, self.prenom)
 
-    @staticmethod
-    def max_id(self):
-        return User.query(func.max(Proprietaire.id)).scalar()
+
     
 class Logement(Base):
     __tablename__ = "LOGEMENT"
     
     idLogement = Column(Integer, primary_key = True, nullable=False)
     typeL = Column(Enum(LogementType), nullable=False)
-    adresse = Column(String(100), nullable=True)
+    adresse = Column(String(100))
     descriptionLogement = Column(String(1000), nullable=True)
     proprietaires = relationship("Proprietaire", secondary="AVOIR", back_populates="logements")
     def __repr__(self):
@@ -70,9 +68,9 @@ class AVOIR(Base):
 class Bien(Base):
     __tablename__ = "BIEN"
     
-    idBien = Column(Integer, primary_key = True, nullable=False)
+    idBien = Column(Integer, primary_key = True)
     nomB = Column(String(100), nullable=False)
-    dateAchat = Column(Date, nullable=True)
+    dateAchat = Column(Date)
     prix = Column(Float, nullable=True)
     # idProprio = Column(Integer, ForeignKey("PROPRIETAIRE.idProprio"), nullable=False )
     idPiece = Column(Integer, ForeignKey("PIECE.idPiece"), nullable=False)
@@ -127,6 +125,7 @@ class User(Base, UserMixin):
     mail = Column(String(50), primary_key=True)
     password = Column(String(64))
     role = Column(String(10))
+    id_user = Column(Integer, ForeignKey("PROPRIETAIRE.idProprio"))
     id = relationship('Proprietaire', back_populates='user')
     
     def get_id(self):
@@ -143,3 +142,6 @@ from .app import login_manager
 @login_manager.user_loader
 def load_user(mail):
     return User.query.get(mail)
+
+def max_id():
+    return db.session.query(func.max(Proprietaire.idProprio)).scalar()
