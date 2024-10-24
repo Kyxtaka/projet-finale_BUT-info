@@ -1,15 +1,14 @@
 from sqlalchemy.orm import registry, relationship, Session
 from sqlalchemy import select, Column, Integer, String, Enum, Date, DECIMAL, Float, String, create_engine
-from .app import db
+from .app import db, login_manager
 from sqlalchemy.sql.schema import ForeignKey
 from datetime import date
-import yaml, os.path
-import time
 from flask_login import UserMixin
 from sqlalchemy.sql.expression import func
 import enum
+import yaml, os.path
+import time
 
-# mapper_registry = registry()
 Base = db.Model
 
 class LogementType(enum.Enum):
@@ -89,20 +88,21 @@ class AVOIR(Base):
 class Bien(Base):
     __tablename__ = "BIEN"
     
-    id_bien = Column(Integer, primary_key = True, nullable=False)
+    id_bien = Column(Integer, primary_key = True)
     nom_bien = Column(String(100), nullable=False)
     date_achat = Column(Date, nullable=True)
     prix = Column(Float, nullable=True)
-    # idProprio = Column(Integer, ForeignKey("PROPRIETAIRE.idProprio"), nullable=False )
+    id_proprio = Column(Integer, ForeignKey("PROPRIETAIRE.id_proprio"), nullable=False )
     id_piece = Column(Integer, ForeignKey("PIECE.id_piece"), nullable=False)
     id_type = Column(Integer, ForeignKey("TYPEBIEN.id_type"), nullable=False)
     id_cat = Column(Integer, ForeignKey("CATEGORIE.id_cat"), nullable=False)
     
-    def __init__(self, id_bien, nom_bien, date_achat, prix, id_piece, id_type, id_cat):
+    def __init__(self, id_bien, nom_bien, id_proprio, date_achat, prix, id_piece, id_type, id_cat):
         self.id_bien = id_bien
         self.nom_bien = nom_bien
         self.date_achat = date_achat
         self.prix = prix
+        self.id_proprio = id_proprio
         self.id_piece = id_piece
         self.id_type = id_type
         self.id_cat = id_cat
@@ -172,15 +172,13 @@ class Justificatif(Base):
     def __repr__(self):
         return "<Justificatif (%d) %s %s %s %d>" % (self.idJustif, self.nomJustif, self.dateAjout, self.URL, self.idBien)
     
-
-
 class User(Base, UserMixin):
     __tablename__="USER"
     
     mail = Column(String(50), primary_key=True)
     password = Column(String(64))
     role = Column(String(10))
-    id_user = Column(Integer, ForeignKey("PROPRIETAIRE.idProprio"))
+    id_user = Column(Integer, ForeignKey("PROPRIETAIRE.id_proprio"))
     id = relationship('Proprietaire', back_populates='user')
     
     def get_id(self):
@@ -192,8 +190,6 @@ def get_user(mail):
 def get_proprio(id):
     return Proprietaire.query.get_or_404(id)
     
-
-from .app import login_manager
 @login_manager.user_loader
 def load_user(mail):
     return User.query.get(mail)

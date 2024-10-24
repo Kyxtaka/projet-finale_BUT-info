@@ -1,8 +1,8 @@
-import click
 from .app import app, db
 from .models import *
 from datetime import *
 import yaml
+import click
 
 #Commande de creation de table
 @app.cli.command()
@@ -90,8 +90,6 @@ def loaddb(filename):
                 session.add(new_avoir)
         db.session.commit()
     print(f"loaded file: {filename}")
-
-   
 
 @app.cli.command()
 @click.argument('mail')
