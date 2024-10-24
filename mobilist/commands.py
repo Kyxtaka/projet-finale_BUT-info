@@ -103,7 +103,7 @@ def newuser(mail, password, role):
     m.update(password.encode())
     id = None
     if role != "admin":
-        proprio = Proprietaire(idProprio=id)
+        proprio = Proprietaire(id_proprio=id)
         id = int(max_id())+1
         db.session.add(proprio)
     u = User(mail=mail, password=m.hexdigest(), role=role, id_user=id)
