@@ -92,3 +92,34 @@ def loaddb(filename):
         db.session.commit()
     print(f"loaded file: {filename}")
 
+   
+
+@app.cli.command()
+@click.argument('mail')
+@click.argument('password')
+@click.argument('role')
+def newuser(mail, password, role):
+    from.models import User
+    from hashlib import sha256
+    m = sha256()
+    m.update(password.encode())
+    id = None
+    if role != "admin":
+        id = User.max_id()+1
+        proprio = Proprietaire(idProprio=id)
+        db.session.add(proprio)
+    u = User(mail=mail, password=m.hexdigest(), role=role, id=id)
+    db.session.add(u)
+    db.session.commit()
+    
+@app.cli.command()
+@click.argument('mail')
+@click.argument('password')
+def passwd(mail, password):
+    from.models import User
+    from hashlib import sha256
+    m = sha256()
+    m.update(password.encode())
+    u = User.query.get(mail)
+    u.password = m.hexdigest()
+    db.session.commit()

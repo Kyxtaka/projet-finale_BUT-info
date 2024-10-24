@@ -5,6 +5,7 @@ from sqlalchemy.sql.schema import ForeignKey
 from datetime import date
 import yaml, os.path
 import time
+from sqlalchemy.sql.expression import func
 import enum
 
 # mapper_registry = registry()
@@ -28,14 +29,19 @@ class Avis(Base) :
 class Proprietaire(Base):
     __tablename__ = "PROPRIETAIRE"
     
-    idProprio = Column(Integer, primary_key = True, nullable=False)
-    nom = Column(String(20), nullable=False)
-    prenom = Column(String(20), nullable=False)
+    idProprio = Column(Integer, primary_key = True)
+    nom = Column(String(20))
+    prenom = Column(String(20))
     logements = relationship("Logement", secondary="AVOIR", back_populates="proprietaires")
+    user = relationship("User", back_populates="id")
     
     def __repr__(self):
         return "<Proprietaire (%d) %s %s>" % (self.idProprio, self.nomProprio, self.prenom)
 
+    @staticmethod
+    def max_id(self):
+        return User.query(func.max(Proprietaire.id)).scalar()
+    
 class Logement(Base):
     __tablename__ = "LOGEMENT"
     
@@ -111,3 +117,28 @@ class Justificatif(Base):
     idBien = Column(Integer, ForeignKey("BIEN.idBien"), primary_key = True)
     def __repr__(self):
         return "<Justificatif (%d) %s %s %s %d>" % (self.idJustif, self.nomJustif, self.dateAjout, self.URL, self.idBien)
+    
+
+
+class User(Base, UserMixin):
+    __tablename__="USER"
+    
+    mail = Column(String(50), primary_key=True)
+    password = Column(String(64))
+    role = Column(String(10))
+    id = relationship('Proprietaire', back_populates='user')
+    
+    def get_id(self):
+        return self.mail
+    
+def get_user(mail):
+    return User.query.get_or_404(mail)
+
+def get_proprio(id):
+    return Proprietaire.query.get_or_404(id)
+    
+
+from .app import login_manager
+@login_manager.user_loader
+def load_user(mail):
+    return User.query.get(mail)

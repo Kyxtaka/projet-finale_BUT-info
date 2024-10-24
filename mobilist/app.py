@@ -2,8 +2,9 @@ from flask import Flask
 from flask_sqlalchemy  import SQLAlchemy
 from flask_bootstrap import Bootstrap5
 from .constante import *
-from .secure_constante import * 
+
 import os
+from flask_login import LoginManager
 
 
 def mkpath (p):
@@ -18,3 +19,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = ('sqlite:///'+mkpath('../DBMOBILIST.db')
 db = SQLAlchemy(app)
 if db: print('working on DBMOBILIS')
 Bootstrap = Bootstrap5(app)
+
+
+
+login_manager = LoginManager(app)
+login_manager.login_view = "login"
