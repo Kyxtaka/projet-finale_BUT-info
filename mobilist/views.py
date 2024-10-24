@@ -19,3 +19,8 @@ def inscription():
 @app.route("/information")
 def information():
     return render_template("information.html")
+
+
+@app.route("/services")
+def services():
+    return render_template("services.html")

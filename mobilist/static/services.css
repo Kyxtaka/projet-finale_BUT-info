@@ -1,0 +1,46 @@
+.nav-item-services a {
+    color: #5E5DF0;
+    font-weight: bold;
+}
+
+.content {
+    margin-top: 200px;
+    margin-bottom: 300px;
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+    background-color: #e9eaee ;
+    padding: 40px;
+}
+
+.contenu {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.contenu img:not(#info) {
+    margin-bottom: 20px;
+    height: 100px;
+}
+
+
+.img-info img{
+    height: 40px;
+    position: absolute;
+    left: 20px;
+}
+
+.info p {
+    font-weight: 300;
+}
+
+
+
+
+section {
+    width: 50%;
+    padding: 100px;
+    font-size: larger;
+}
