@@ -22,6 +22,12 @@ class Avis(Base) :
     idAvis = Column(Integer, primary_key = True, nullable=False)
     descriptionAvis = Column(String(1000), nullable=False) 
     idProprio = Column(Integer, ForeignKey("PROPRIETAIRE.idProprio"), nullable=False)
+    
+    def __init__(self, idA, desc, proprio):
+        self.idAvis = idA
+        self.descriptionAvis = desc
+        self.idProprio = proprio
+    
     def __repr__(self):
         return "<Avis (%d) %s>" % (self.idAvis, self.descriptionAvis)
     
@@ -32,6 +38,11 @@ class Proprietaire(Base):
     nom = Column(String(20), nullable=False)
     prenom = Column(String(20), nullable=False)
     logements = relationship("Logement", secondary="AVOIR", back_populates="proprietaires")
+    
+    def __init__(self, idP, nomP, prenomP):
+        self.idProprio = idP
+        self.nom = nomP
+        self.prenom = prenomP
     
     def __repr__(self):
         return "<Proprietaire (%d) %s %s>" % (self.idProprio, self.nomProprio, self.prenom)
@@ -44,6 +55,13 @@ class Logement(Base):
     adresse = Column(String(100), nullable=True)
     descriptionLogement = Column(String(1000), nullable=True)
     proprietaires = relationship("Proprietaire", secondary="AVOIR", back_populates="logements")
+    
+    def __init__(self, idL, typeL, adr, desc):
+        self.idLogement = idL
+        self.typeL = typeL
+        self.adresse = adr
+        self.descriptionLogement = desc
+        
     def __repr__(self):
         return "<Logement (%d) %s %s>" % (self.idLogement, self.typeL, self.adresse)
     
@@ -71,6 +89,15 @@ class Bien(Base):
     idPiece = Column(Integer, ForeignKey("PIECE.idPiece"), nullable=False)
     idType = Column(Integer, ForeignKey("TYPEBIEN.idType"), nullable=False)
     idCat = Column(Integer, ForeignKey("CATEGORIE.idCat"), nullable=False)
+    
+    def __init__(self, idB, date, prix, idP, idT, idC):
+        self.idBien = idB
+        self.dateAchat = date
+        self.prix = prix
+        self.idPiece = idP
+        self.idType = idT
+        self.idCat = idC
+    
     def __repr__(self):
         return "<Bien (%d) %s>" % (self.idBien, self.nomB)
     
@@ -81,7 +108,13 @@ class Piece(Base):
     nomPiece = Column(String(20), nullable=False)
     descriptionPiece = Column(String(1000), nullable=True)
     idLogement = Column(Integer, ForeignKey("LOGEMENT.idLogement"),  primary_key = True)
-
+    
+    def __init__(self, idP, nomP, desc, idL):
+        self.idPiece = idP
+        self.nomPiece = nomP
+        self.descriptionPiece = desc
+        self.idLogement = idL
+        
     def __repr__(self):
         return "<Piece (%d) %s >" % (self.idPiece, self.nomPiece)
     
@@ -90,6 +123,11 @@ class TypeBien(Base):
     
     idType = Column(Integer, primary_key = True, nullable=False)
     nomType = Column(String(20), nullable=False)
+    
+    def __init__(self, idT, nomT):
+        self.idType = idT
+        self.nomType = nomT
+    
     def __repr__(self):
         return "<TypeBien (%d) %s >" % (self.idType, self.nomType)
     
@@ -98,6 +136,11 @@ class Categorie(Base):
     
     idCat = Column(Integer, primary_key = True, nullable=False)
     nomCat = Column(String(20), nullable=False)
+    
+    def __init__(self, idC, nomC):
+        self.idCat = idC
+        self.nomCat = nomC
+    
     def __repr__(self):
         return "<Categorie (%d) %s >" % (self.idCat, self.nomCat)
     
@@ -109,5 +152,13 @@ class Justificatif(Base):
     dateAjout = Column(Date)
     URL = Column(String(200))
     idBien = Column(Integer, ForeignKey("BIEN.idBien"), primary_key = True)
+    
+    def __init__(self, idJ, nomJ, dateA, URL, idB):
+        self.idJustif = idJ
+        self.nomJustif = nomJ
+        self.dateAjout = dateA
+        self.URL = URL
+        self.idBien = idB
+    
     def __repr__(self):
         return "<Justificatif (%d) %s %s %s %d>" % (self.idJustif, self.nomJustif, self.dateAjout, self.URL, self.idBien)
