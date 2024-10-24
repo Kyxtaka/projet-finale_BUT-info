@@ -22,14 +22,14 @@ def loaddb(filename):
             case 'PROPRIETAIRE':
                 new_proprietaire = Proprietaire(
                     id_proprio = entity['ID_PROPRIETAIRE'], 
-                    nom = entity['NOM'],
-                    prenom = entity['PRENOM'])
+                    nom_proprio = entity['NOM'],
+                    prenom_proprio = entity['PRENOM'])
                 session.add(new_proprietaire)
             case 'LOGEMENT':
                 new_logement = Logement(
                     id_logement = entity['ID_LOGEMENT'],
                     type_logement = entity['TYPE_LOGEMENT'],
-                    adresse = entity['ADRESSE'],
+                    adresse_logement = entity['ADRESSE'],
                     desc_logement = entity['DESCRIPTION'])
                 session.add(new_logement)
             case 'PIECE':
@@ -67,8 +67,8 @@ def loaddb(filename):
             case 'JUSTIFICATIF':
                 date = datetime.strptime(entity['DATE_AJOUT'], date_format)
                 new_justificatif = Justificatif(
-                    id_justi = entity['ID_JUSTIFICATIF'],
-                    nom_justi = entity['NOM_JUSTIFICATIF'],
+                    id_justif = entity['ID_JUSTIFICATIF'],
+                    nom_justif = entity['NOM_JUSTIFICATIF'],
                     date_ajout = date,
                     URL = entity['URL'],
                     id_bien = entity['ID_BIEN']

@@ -23,10 +23,10 @@ class Avis(Base) :
     desc_avis = Column(String(1000), nullable=False) 
     id_proprio = Column(Integer, ForeignKey("PROPRIETAIRE.id_proprio"), nullable=False)
     
-    def __init__(self, id_avis, desc_avis, proprio):
+    def __init__(self, id_avis, desc_avis, id_proprio):
         self.id_avis = id_avis
         self.desc_avis = desc_avis
-        self.id_proprio = proprio
+        self.id_proprio = id_proprio
     
     def __repr__(self):
         return "<Avis (%d) %s>" % (self.id_avis, self.desc_avis)
@@ -56,10 +56,10 @@ class Logement(Base):
     desc_logement = Column(String(1000), nullable=True)
     proprietaires = relationship("Proprietaire", secondary="AVOIR", back_populates="logements")
     
-    def __init__(self, id_logement, type_logement, adr, desc_logement):
+    def __init__(self, id_logement, type_logement, adresse_logement, desc_logement):
         self.id_logement = id_logement
         self.type_logement = type_logement
-        self.adresse = adr
+        self.adresse = adresse_logement
         self.desc_logement = desc_logement
         
     def __repr__(self):
@@ -90,9 +90,10 @@ class Bien(Base):
     id_type = Column(Integer, ForeignKey("TYPEBIEN.id_type"), nullable=False)
     id_cat = Column(Integer, ForeignKey("CATEGORIE.id_cat"), nullable=False)
     
-    def __init__(self, id_bien, date, prix, id_piece, id_type, id_cat):
+    def __init__(self, id_bien, nom_bien, date_achat, prix, id_piece, id_type, id_cat):
         self.id_bien = id_bien
-        self.date_achat = date
+        self.nom_bien = nom_bien
+        self.date_achat = date_achat
         self.prix = prix
         self.id_piece = id_piece
         self.id_type = id_type
@@ -109,11 +110,11 @@ class Piece(Base):
     desc_piece = Column(String(1000), nullable=True)
     id_logement = Column(Integer, ForeignKey("LOGEMENT.id_logement"),  primary_key = True)
     
-    def __init__(self, idP, nomP, desc, idL):
-        self.id_piece = idP
-        self.nom_piece = nomP
-        self.desc_piece = desc
-        self.id_logement = idL
+    def __init__(self, id_piece, nom_piece, desc_piece, id_logement):
+        self.id_piece = id_piece
+        self.nom_piece = nom_piece
+        self.desc_piece = desc_piece
+        self.id_logement = id_logement
         
     def __repr__(self):
         return "<Piece (%d) %s >" % (self.id_piece, self.nom_piece)
@@ -137,9 +138,9 @@ class Categorie(Base):
     id_cat = Column(Integer, primary_key = True, nullable=False)
     nom_cat = Column(String(20), nullable=False)
     
-    def __init__(self, idC, nomC):
-        self.id_cat = idC
-        self.nom_cat = nomC
+    def __init__(self, id_cat, nom_cat):
+        self.id_cat = id_cat
+        self.nom_cat = nom_cat
     
     def __repr__(self):
         return "<Categorie (%d) %s >" % (self.id_cat, self.nom_cat)
@@ -153,10 +154,10 @@ class Justificatif(Base):
     URL = Column(String(200))
     id_bien = Column(Integer, ForeignKey("BIEN.id_bien"), primary_key = True)
     
-    def __init__(self, id_justif, nom_justif, date_achat, URL, id_bien):
+    def __init__(self, id_justif, nom_justif, date_ajout, URL, id_bien):
         self.id_justif = id_justif
         self.nom_justif = nom_justif
-        self.date_ajout = date_achat
+        self.date_ajout = date_ajout
         self.URL = URL
         self.id_bien = id_bien
     
