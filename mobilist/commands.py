@@ -106,7 +106,7 @@ def newuser(mail, password, role):
         proprio = Proprietaire(id_proprio=id)
         id = int(max_id())+1
         db.session.add(proprio)
-    u = User(mail=mail, password=m.hexdigest(), role=role, id_user=id)
+    u = User(mail = mail, password = m.hexdigest(), role = role, id_user =id)
     db.session.add(u)
     db.session.commit()
     
@@ -119,5 +119,5 @@ def passwd(mail, password):
     m = sha256()
     m.update(password.encode())
     u = User.query.get(mail)
-    u.password = m.hexdigest()
+    u.set_password(m.hexdigest())
     db.session.commit()
