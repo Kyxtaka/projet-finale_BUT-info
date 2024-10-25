@@ -56,13 +56,15 @@ class Proprietaire(Base):
     id_proprio = Column(Integer, primary_key=True, name="ID_PROPRIO")
     nom = Column(String(20), name="NOM")
     prenom = Column(String(20), name="PRENOM")
+    mail = Column(String(50), name="MAIL", unique=True, nullable=False)
     logements = relationship("Logement", secondary="AVOIR", back_populates="proprietaires")
-    user = relationship("User", back_populates="id")
+    user = relationship("User", back_populates="proprio", uselist=False)
     
-    def __init__(self, id_proprio, nom_proprio=None, prenom_proprio=None):
+    def __init__(self, id_proprio, mail , nom_proprio=None, prenom_proprio=None):
         self.id_proprio = id_proprio
         self.nom = nom_proprio
         self.prenom = prenom_proprio
+        self.mail = mail
     
     def __repr__(self):
         return "<Proprietaire (%d) %s %s>" % (self.id_proprio, self.nom, self.prenom)
@@ -84,6 +86,15 @@ class Proprietaire(Base):
     
     def set_prenom(self, prenom):
         self.prenom = prenom
+    
+    @staticmethod
+    def max_id():
+        return db.session.query(func.max(Proprietaire.id_proprio)).scalar()
+    
+    @staticmethod
+    def get_by_mail(mail):
+        return Proprietaire.query.filter_by(mail=mail).first()
+
     
 class Logement(Base):
     __tablename__ = "LOGEMENT"
@@ -372,7 +383,7 @@ class User(Base, UserMixin):
     password = Column(String(64), name="PASSWORD")
     role = Column(String(10), name="ROLE")
     id_user = Column(Integer, ForeignKey("PROPRIETAIRE.ID_PROPRIO"), name="ID_PROPRIO")
-    id = relationship('Proprietaire', back_populates='user', uselist=False)
+    proprio = relationship('Proprietaire', back_populates='user', uselist=False)
     
     def get_mail(self):
         return self.mail
@@ -397,29 +408,27 @@ class User(Base, UserMixin):
     
     def set_id_user(self, id_user):
         self.id_user = id_user
-    
-    def get_id(self):
-        return self.id
-    
-    def set_id(self, id):
-        self.id = id
-        
-def get_user(mail):
-    return User.query.get_or_404(mail)
 
-def get_proprio(id):
-    return Proprietaire.query.get_or_404(id)
+    @staticmethod
+    def modifier(mail, nom, prenom):
+        proprio = Proprietaire.query.get(mail)
+        proprio.set_nom(nom)
+        proprio.set_prenom(prenom)
+        db.session.commit()
+
+    @staticmethod
+    @login_manager.user_loader
+    def load_user(mail):
+        return User.query.get(mail)
     
-@login_manager.user_loader
-def load_user(mail):
-    return User.query.get(mail)
+    @staticmethod
+    def get_user(mail):
+        return User.query.get_or_404(mail)
+            
+# def get_proprio(id):
+#     return Proprietaire.query.get_or_404(id)
 
-def max_id():
-    return db.session.query(func.max(Proprietaire.id_proprio)).scalar()
 
-def modifier(mail, nom, prenom):
-    proprio = get_user(mail)
-    proprio.nom = nom
-    proprio.prenom = prenom
-    db.session.commit()
+
+
     

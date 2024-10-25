@@ -24,7 +24,9 @@ def loaddb(filename):
                 new_proprietaire = Proprietaire(
                     id_proprio = entity['ID_PROPRIETAIRE'], 
                     nom_proprio = entity['NOM'],
-                    prenom_proprio = entity['PRENOM'])
+                    prenom_proprio = entity['PRENOM'],
+                    mail = entity['MAIL']
+                )
                 session.add(new_proprietaire)
             case 'LOGEMENT':
                 new_logement = Logement(
@@ -106,10 +108,14 @@ def create_user(mail, password, role):
     m.update(password.encode())
     id = None
     if role != "admin":
-        proprio = Proprietaire(id_proprio=id)
-        id = int(max_id())+1
-        db.session.add(proprio)
-    u = User(mail = mail, password = m.hexdigest(), role = role, id_user =id)
+        proprio = Proprietaire.get_by_mail(mail)
+        if proprio is None:
+            id = int(Proprietaire.max_id())+1
+            proprio = Proprietaire(id_proprio=id, mail = mail)
+            db.session.add(proprio)
+        else: 
+            id = proprio.get_id_proprio()
+    u = User(mail = mail, password = m.hexdigest(), role = role, id_user = id)
     db.session.add(u)
     db.session.commit()
      

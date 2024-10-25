@@ -87,7 +87,7 @@ def inscription():
             return redirect(next)
         try:
             create_user(f.mail.data, f.password.data, "proprio")
-            modifier(f.mail.data, f.nom.data, f.prenom.data)
+            User.modifier(f.mail.data, f.nom.data, f.prenom.data)
             return render_template("index.html")
         except:
             return render_template(
