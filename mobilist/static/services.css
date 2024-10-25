@@ -3,9 +3,17 @@
     font-weight: bold;
 }
 
+.nav-img img {
+    position:absolute;
+    top : 36px;
+}
+
 .content {
     margin-top: 200px;
     margin-bottom: 300px;
+}
+
+.content:not(#info-bottom) {
     text-align: center;
 }
 
@@ -25,7 +33,6 @@ h1 {
     height: 100px;
 }
 
-
 .img-info img{
     height: 40px;
     position: absolute;
@@ -36,11 +43,15 @@ h1 {
     font-weight: 300;
 }
 
-
-
-
 section {
     width: 50%;
     padding: 100px;
     font-size: larger;
+}
+
+.para-info {
+    position: absolute;
+    left: 70px;
+    margin-right: 100px;
+    font-style: italic;
 }
