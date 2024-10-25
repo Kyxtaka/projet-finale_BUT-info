@@ -62,10 +62,11 @@ button {
     height: 10%;
 }
 .col {
-    border: thin;
-    border-width: 0.5%;
+    border: 1px solid;
+    flex-grow: 1;
 }
 .tableau-ajout {
+    display: flex;
     position: absolute;
     top: 400px;
     right:40%;
