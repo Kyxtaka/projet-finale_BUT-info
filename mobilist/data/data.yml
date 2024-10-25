@@ -103,6 +103,7 @@
   ID_CATEGORIE: 1  # Mobilier
   ID_TYPE_BIEN: 1
   ID_PIECE: 1  # Cuisine - arrière-cuisine
+  ID_LOGEMENT: 1
 
 - TYPE: BIEN
   ID_BIEN: 2
@@ -113,6 +114,7 @@
   ID_CATEGORIE: 2  # Gros électroménager
   ID_TYPE_BIEN: 2
   ID_PIECE: 1  # Cuisine - arrière-cuisine
+  ID_LOGEMENT: 1
 
 - TYPE: BIEN
   ID_BIEN: 3
@@ -123,6 +125,7 @@
   ID_CATEGORIE: 3  # Petit électroménager
   ID_TYPE_BIEN: 3
   ID_PIECE: 1  # Cuisine - arrière-cuisine
+  ID_LOGEMENT: 1
 
 # Table JUSTIFICATIF (for each item)
 - TYPE: JUSTIFICATIF

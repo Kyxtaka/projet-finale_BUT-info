@@ -171,16 +171,18 @@ class Bien(Base):
     prix = Column(Float, name="PRIX", nullable=True)
     id_proprio = Column(Integer, ForeignKey("PROPRIETAIRE.ID_PROPRIO"), nullable=False, name="ID_PROPRIO")
     id_piece = Column(Integer, ForeignKey("PIECE.ID_PIECE"), nullable=False, name="ID_PIECE")
+    id_logement = Column(Integer, ForeignKey("LOGEMENT.ID_LOGEMENT"), nullable=False, name="ID_LOGEMENT")
     id_type = Column(Integer, ForeignKey("TYPEBIEN.ID_TYPE_BIEN"), nullable=False, name="ID_TYPE_BIEN")
     id_cat = Column(Integer, ForeignKey("CATEGORIE.ID_CATEGORIE"), nullable=False, name="ID_CATEGORIE")
     
-    def __init__(self, id_bien, nom_bien, id_proprio, date_achat, prix, id_piece, id_type, id_cat):
+    def __init__(self, id_bien, nom_bien, id_proprio, date_achat, prix, id_piece, id_logement,  id_type, id_cat):
         self.id_bien = id_bien
         self.nom_bien = nom_bien
         self.date_achat = date_achat
         self.prix = prix
         self.id_proprio = id_proprio
         self.id_piece = id_piece
+        self.id_logement = id_logement
         self.id_type = id_type
         self.id_cat = id_cat
     
@@ -234,6 +236,12 @@ class Bien(Base):
     
     def set_id_cat(self, id_cat):
         self.id_cat = id_cat
+
+    def get_id_logement(self):
+        return self.id_logement
+
+    def set_id_logement(self, id_logement):
+        self.id_logement = id_logement
     
 class Piece(Base):
     __tablename__ = "PIECE"
