@@ -1,0 +1,2 @@
+FLASK_APP=mobilist
+FLASK_ENV=development

@@ -1,0 +1,41 @@
+
+{% block styles %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='connexion.css')}}">
+{% endblock %}
+{% block content %}
+<a href="{{ url_for('home') }}"> <img class="retour" src="{{ url_for('static',filename='img/retour.png') }}" alt="retour"></a>
+<section>
+  <a> <img src="{{ url_for('static',filename='img/logo_mobilist.jpg') }}" alt="retour"></a>
+  <h1>Inscription</h1> 
+  <form class="form-horizontal" role="form" method ="POST" action ="{{ url_for('inscription') }}"> 
+    {{ form.hidden_tag() }}
+    <div class="form-control-static">
+      {{ form.nom.label }}
+      {{ form.nom(size=50, class_="form-control", placeholder ="Votre nom") }}
+    </div> 
+
+    <div class="form-control-static">
+      {{ form.prenom.label }}
+      {{ form.prenom(size=50, class_="form-control", placeholder ="Votre prénom") }}
+    </div>
+  
+  <div class="form-control-static">
+    {{ form.mail.label }}
+    {{ form.mail(size=50, class_="form-control", placeholder ="email@exemple.com") }}
+    {% if present %}
+    <div role="tooltip" id="infobulle">deja present</div>
+    {% endif %}
+  </div>
+
+  <div class="form-control-static">
+    {{ form.password.label }}
+    {{ form.password(size=50, class_="form-control") }}
+  </div>  
+  
+  <span class="form-control-static">
+      <button type="submit" class="btn btn-primary mb-3">S'inscrire</button>
+  </span>
+</form>
+</section>
+{% endblock %}
