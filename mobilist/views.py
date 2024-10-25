@@ -24,3 +24,7 @@ def information():
 @app.route("/services")
 def services():
     return render_template("services.html")
+
+@app.route("/avis")
+def avis():
+    return render_template("avis.html")
