@@ -379,17 +379,17 @@ class Justificatif(Base):
 class User(Base, UserMixin):
     __tablename__ = "USER"
     
-    mail = Column(String(50), primary_key=True, name="MAIL")
+    id = Column(String(50), primary_key=True, name="MAIL")
     password = Column(String(64), name="PASSWORD")
     role = Column(String(10), name="ROLE")
     id_user = Column(Integer, ForeignKey("PROPRIETAIRE.ID_PROPRIO"), name="ID_PROPRIO")
     proprio = relationship('Proprietaire', back_populates='user', uselist=False)
     
     def get_mail(self):
-        return self.mail
+        return self.id
     
     def set_mail(self, mail):
-        self.mail = mail
+        self.id = mail
     
     def get_password(self):
         return self.password
@@ -417,17 +417,16 @@ class User(Base, UserMixin):
         db.session.commit()
 
     @staticmethod
-    @login_manager.user_loader
-    def load_user(mail):
-        return User.query.get(mail)
-    
-    @staticmethod
     def get_user(mail):
         return User.query.get_or_404(mail)
+    
+    @staticmethod
+    def get_by_mail(mail):
+        return User.query.filter_by(mail=mail).first()
             
-# def get_proprio(id):
-#     return Proprietaire.query.get_or_404(id)
-
+@login_manager.user_loader
+def load_user(mail):
+    return User.query.get(mail)
 
 
 
