@@ -128,5 +128,9 @@ def passwd(mail, password):
     m = sha256()
     m.update(password.encode())
     u = User.query.get(mail)
-    u.set_password(m.hexdigest())
+    if u != None:
+        u.set_password(m.hexdigest())
+        print(f"password changed for {mail}")
+    else: 
+        print(f"user {mail} not found)")
     db.session.commit()

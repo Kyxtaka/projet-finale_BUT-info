@@ -94,8 +94,7 @@ class Proprietaire(Base):
     @staticmethod
     def get_by_mail(mail):
         return Proprietaire.query.filter_by(mail=mail).first()
-
-    
+   
 class Logement(Base):
     __tablename__ = "LOGEMENT"
     
@@ -379,17 +378,17 @@ class Justificatif(Base):
 class User(Base, UserMixin):
     __tablename__ = "USER"
     
-    id = Column(String(50), primary_key=True, name="MAIL")
+    mail = Column(String(50), primary_key=True, name="MAIL")
     password = Column(String(64), name="PASSWORD")
     role = Column(String(10), name="ROLE")
     id_user = Column(Integer, ForeignKey("PROPRIETAIRE.ID_PROPRIO"), name="ID_PROPRIO")
     proprio = relationship('Proprietaire', back_populates='user', uselist=False)
     
-    def get_mail(self):
-        return self.id
+    def get_id(self):
+        return self.mail
     
-    def set_mail(self, mail):
-        self.id = mail
+    def set_id(self, mail):
+        self.mail = mail
     
     def get_password(self):
         return self.password
@@ -411,7 +410,7 @@ class User(Base, UserMixin):
 
     @staticmethod
     def modifier(mail, nom, prenom):
-        proprio = Proprietaire.query.get(mail)
+        proprio = Proprietaire.get_by_mail(mail)
         proprio.set_nom(nom)
         proprio.set_prenom(prenom)
         db.session.commit()
@@ -423,11 +422,9 @@ class User(Base, UserMixin):
     @staticmethod
     def get_by_mail(mail):
         return User.query.filter_by(mail=mail).first()
-            
-@login_manager.user_loader
-def load_user(mail):
-    return User.query.get(mail)
-
-
+    
+    @login_manager.user_loader
+    def load_user(mail):
+        return User.query.get(mail)
 
     
