@@ -49,7 +49,9 @@ class IncrisptionForm(FlaskForm):
         passwd = m.hexdigest()
         return user if passwd == user.password else None
     
-    
+@app.route("/accueil-connexion/")
+def accueil_connexion():
+    return render_template("accueil_2.html")
     
 @app.route("/login/", methods =("GET","POST" ,))
 def login():
@@ -60,7 +62,7 @@ def login():
         user = f.get_authenticated_user()
         if user:
             login_user(user)
-            next = f.next.data or url_for("home")
+            next = f.next.data or url_for("accueil_connexion")
             return redirect(next)
     return render_template(
     "connexion.html",
@@ -83,12 +85,12 @@ def inscription():
         user = f.get_authenticated_user()
         if user:
             login_user(user)
-            next = f.next.data or url_for("home")
+            next = f.next.data or url_for("accueil_connexion")
             return redirect(next)
         try:
             create_user(f.mail.data, f.password.data, "proprio")
             modifier(f.mail.data, f.nom.data, f.prenom.data)
-            return render_template("index.html")
+            return render_template("accueil_connexion.html")
         except:
             return render_template(
     "inscription.html", form=f, present=True)
