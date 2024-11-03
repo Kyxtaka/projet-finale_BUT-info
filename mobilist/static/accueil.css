@@ -46,7 +46,7 @@ h1 {
 }
 
 .texte{
-    margin-left: 105px;
+    margin-left: 77px;
 }
 
 .texte p {
@@ -57,7 +57,7 @@ h1 {
 }
 
 .texte p:first-child, p:last-child {
-    margin-left: 270px;
+    margin-left: 295px;
 }
 
 .inscription{
@@ -122,8 +122,8 @@ button {
     font-size: 15;
     font-family: sans-serif;
     margin : auto;
-    width: 14em;
     padding-top: 10px;
+    text-align: center;
 }
 
 .telephone img {
@@ -159,9 +159,9 @@ button {
 
  .coord {
     display: flex;
-    width: 695px;
     margin: auto;
     padding-top: 35px;
+    justify-content: center;
 }
 
 .coord button {
