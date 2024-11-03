@@ -1,54 +1,56 @@
 {% extends "index.html" %}
-
 {% block styles %}
-{{ super()}}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+{{ super() }}
 <link rel="stylesheet" href="{{ url_for('static', filename='accueil.css') }}">
 {% endblock %}
 {% block content %}
-<div class="mobilist">
-    <div class="img_maison">
-        <img src="{{ url_for('static', filename='img/insurance_accueuil.jpg') }}" alt="maison">
-    </div>
-    <div class="schema_titre">
-        <h1>MOBILIST,</h1>
-        <h1>VOTRE ALLIÉ EN CAS DE SINISTRE</h1> 
-        <div class="schema">
-            <div class="texte">
-                <p>Contactez votre assurance<br>en toute simplicité</br></p>
-                <P>Vos biens répertoriés</P>
-                <p>Inventaire dans votre poche</p>
+<div class="accueil">
+    <div class="mobilist">
+        <div class="img_maison">
+            <img src="{{ url_for('static', filename='img/insurance_accueuil.jpg') }}" alt="maison">
+        </div>
+        <div class="schema_titre">
+            <h1>MOBILIST,</h1>
+            <h1>VOTRE ALLIÉ EN CAS DE SINISTRE</h1> 
+            <div class="schema">
+                <div class="texte1">
+                    <P>Vos biens répertoriés</P>
+                </div>
+                <div class="bulle">
+                    <img src="{{ url_for('static', filename='img/bulle.png') }}" alt="schéma à bulle">
+                </div>
+                <div class="texte2">
+                    <p>Contactez votre assurance<br>en toute simplicité</br></p>
+                    <p>Inventaire dans votre poche</p>
+                </div>
             </div>
-            <div class="bulle">
-                <img src="{{ url_for('static', filename='img/bulle.png') }}" alt="schéma à bulle">
+        </div>
+    </div>
+    <div class="inscription">
+        <h2>TOUJOURS PRÊT ? ALLONS-Y !</h2>
+        <button class="inscrire">S'INSCRIRE</button>
+    </div>
+    <div class="contact">
+        <div class="texte_contact">
+            <div class="debut">
+                <p>Vous souhaitez</p>
+                <p>nous contacter ?</p>
             </div>
+            <p>Nous sommes à votre écoute</p>
         </div>
-    </div>
-</div>
-<div class="inscription">
-    <h2>TOUJOURS PRÊT ? ALLONS-Y !</h2>
-    <button class="inscrire">S'INSCRIRE</button>
-</div>
-<div class="contact">
-    <div class="texte_contact">
-        <div class="debut">
-            <p>Vous souhaitez</p>
-            <p>nous contacter ?</p>
-        </div>
-        <p>Nous sommes à votre écoute</p>
-    </div>
-    <div class="coord">
-        <div class="telephone">
-            <img src="{{ url_for('static', filename='img/telephone.jpg') }}" alt="téléphone">
-            <p>Par téléphone</p>
-            <p>Nos conseillers vous répondent du lundi au<br>vendredi de 8h à 19h00.</br></p>
-            <button class="appeler">APPELER UN CONSEILLER</button>
-        </div>
-        <div class="mail">
-            <img src="{{ url_for('static', filename='img/mail.jpg') }}" alt="mail">
-            <p>Par e-mail</p>
-            <p>Envoyez-nous un message. Un conseiller<br>prendra en charge votre demande.</br></p>
-            <button class="message">ENVOYER UN MESSAGE</button>
+        <div class="coord">
+            <div class="telephone">
+                <img src="{{ url_for('static', filename='img/telephone.jpg') }}" alt="téléphone">
+                <p>Par téléphone</p>
+                <p>Nos conseillers vous répondent du lundi au<br>vendredi de 8h à 19h00.</br></p>
+                <button class="appeler">APPELER UN CONSEILLER</button>
+            </div>
+            <div class="mail">
+                <img src="{{ url_for('static', filename='img/mail.jpg') }}" alt="mail">
+                <p>Par e-mail</p>
+                <p>Envoyez-nous un message. Un conseiller<br>prendra en charge votre demande.</br></p>
+                <button class="message">ENVOYER UN MESSAGE</button>
+            </div>
         </div>
     </div>
 </div>

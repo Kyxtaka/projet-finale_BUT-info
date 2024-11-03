@@ -19,6 +19,9 @@ from wtforms.validators import DataRequired
 def home():
     return render_template('accueil.html')
 
+@app.route("/accueil")
+def accueil():
+    return render_template('accueil.html')
    
 class LoginForm(FlaskForm):
     mail = StringField('Adresse e-mail')
