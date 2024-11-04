@@ -105,6 +105,10 @@ def information():
 def services():
     return render_template("services.html")
 
-@app.route("/afficheLogements")
+@app.route("/afficheLogements/")
 def affiche_logements():
-    return render_template("afficheLogements.html")
+    user = User.query.get(current_user.mail)
+    id=user.id_user
+    logements = get_logements(id)
+    print(logements)
+    return render_template("afficheLogements.html", logements=logements)

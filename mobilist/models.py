@@ -137,7 +137,10 @@ def get_user(mail):
 
 def get_proprio(id):
     return Proprietaire.query.get_or_404(id)
-    
+
+def get_logements(id):
+    proprio = Proprietaire.query.get_or_404(id)
+    return proprio.logements
 
 from .app import login_manager
 @login_manager.user_loader

@@ -34,8 +34,8 @@
   PRENOM: Christophe
 
 # Table LOGEMENT
-- NOM: logement
-  TYPE: LOGEMENT
+- TYPE: LOGEMENT
+  NOM: logement
   ID_LOGEMENT: 1
   TYPE_LOGEMENT: maison
   ADRESSE: '2 rue du pavillon, 71004 Paname'
@@ -160,7 +160,8 @@
   ID_LOGEMENT: 1
 
 # table user
-- MAIL: nathan@mail.com
-  PASSWORD: 123
+- TYPE: USER
+  MAIL: 'nathan@mail.com'
+  PASSWORD: '123'
   ROLE: "proprio"
   ID_USER: 5
