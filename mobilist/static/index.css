@@ -1,5 +1,5 @@
 img {
-    height: 82px;
+    height: 85px;
 }
 
 nav {
@@ -7,6 +7,10 @@ nav {
     
 }
 
+main{
+    margin-top: 6.1rem;
+    margin-bottom: 6rem;
+}
 
 #navbar-collapse  a {
     color: black;
@@ -89,7 +93,7 @@ footer {
     height: 45px;
 }
 
-p {
+.footer p {
     position: absolute;
     top: 32px;
     left : 540px;
