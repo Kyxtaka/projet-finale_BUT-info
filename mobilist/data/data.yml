@@ -158,3 +158,9 @@
 - TYPE: AVOIR
   ID_PROPRIETAIRE: 5
   ID_LOGEMENT: 1
+
+# table user
+- MAIL: nathan@mail.com
+  PASSWORD: 123
+  ROLE: "proprio"
+  ID_USER: 5
