@@ -86,7 +86,15 @@ button {
     color: lightgray;
     text-align: center;
 }
-
+.a_justifier {
+    padding: 6px;
+    border-top: 0.5mm solid;
+    border-color: lightgray;
+    position: absolute;
+    top: 60%;
+    width: 99%;
+    display:block;
+}
 .connexion {
     border-radius: 999px;
     background: #5E5DF0;
