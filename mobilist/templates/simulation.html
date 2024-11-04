@@ -1,0 +1,27 @@
+{% block content %}
+<div class="simulation">
+    <div class="bandeau">
+        <h1>Simuler un sinistre</h1>
+    </div>
+    <div class="annee">
+        <p>Année du sinistre :</p>
+        <p>🛈 L'année du sinistre impacte les dégâts possibles et la valeur de vos biens remboursables.</p>
+        <input type="number" class="form-control" data-date-end-date="0d" min="1900" max="2024" step="1" value="2024"/>
+    </div>
+    <div class="type">
+        <p>Type de sinistre :</p>
+        <select name="sinistre" id="sinistre-select">
+          <option value="">-- Choisissez un type --</option>
+          <option value="Inondation">Inondation</option>
+          <option value="Incendie">Incendie</option>
+          <option value="Glissement de terrain">Glissement de terrain</option>
+          <option value="Tempête">Tempête</option>
+          <option value="Cambriolage">Cambriolage</option>
+        </select>
+    </div>
+    <div class="logement">
+        <p>Logement concerné :</p>
+        
+    </div>
+</div>
+{% endblock %}
