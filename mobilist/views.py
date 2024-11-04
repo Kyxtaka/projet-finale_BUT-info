@@ -25,3 +25,6 @@ def information():
 def services():
     return render_template("services.html")
 
+@app.route("/afficheLogements")
+def affiche_logements():
+    return render_template("afficheLogements.html")
