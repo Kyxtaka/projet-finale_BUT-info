@@ -1,0 +1,36 @@
+{% extends "index.html" %}
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='services.css')}}">
+{% endblock %}
+{% block content %}
+<h1> Nos Services</h1>
+<div class="contenu">
+    <section class="enregistrer">
+        <img src="{{ url_for('static',filename='img/enregistrer.png') }}" alt="icône enregistrer"/>
+        <p>Enregistrer vos biens personnels en tout genre </p>
+    </section>
+    <section class="document">
+        <img src="{{ url_for('static',filename='img/doc.png') }}" alt="icône document"/>
+        <p>Télécharger instantanement votre inventaire</p>
+    </section>
+    <section class="position">
+        <img src="{{ url_for('static',filename='img/position.png') }}" alt="icône position"/>
+        <p>Cartographier son logement</p>
+    </section>
+    <section class="dossier">
+        <img src="{{ url_for('static',filename='img/dossier.png') }}" alt="icône dossier"/>
+        <p>Ajouter ses justificatifs pour une conscience tranquille</p>
+    </section>
+</div>
+<section class="info-bottom">
+    <div class="img-info">
+        <img id="info" src="{{ url_for('static',filename='img/info.png') }}" alt="icône info"/>
+    </div>
+    <div class="para-info">
+        <p>Les biens immobiliers, les espèces, billets de banque, titres et valeurs quelle qu’en soit la nature, 
+            pierreries non montées, ainsi que les lingots, les pièces de monnaie en or d’investissement et les pièces en argent frappées 
+            et les véhicules ne sont pas pris en compte.</p>
+    </div>
+</section>
+{% endblock %}

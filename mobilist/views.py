@@ -19,6 +19,9 @@ from wtforms.validators import DataRequired
 def home():
     return render_template('accueil.html')
 
+@app.route("/accueil")
+def accueil():
+    return render_template('accueil.html')
    
 class LoginForm(FlaskForm):
     mail = StringField('Adresse e-mail')
@@ -96,4 +99,14 @@ def inscription():
     "inscription.html", form=f, present=True)
     return render_template(
     "inscription.html", form=f, present=False)
+    return render_template("inscription.html")
 
+
+@app.route("/information")
+def information():
+    return render_template("information.html")
+
+
+@app.route("/services")
+def services():
+    return render_template("services.html")
