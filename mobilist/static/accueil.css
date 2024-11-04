@@ -94,6 +94,10 @@
     font-weight: bold;
 }
 
+.accueil .inscription a {
+    text-decoration: none;
+}
+
 .accueil button {
   border-radius: 999px;
   box-sizing: border-box;
