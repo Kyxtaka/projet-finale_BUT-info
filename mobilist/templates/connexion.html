@@ -8,16 +8,16 @@
 <section>
   <a> <img src="{{ url_for('static',filename='img/logo_mobilist.jpg') }}" alt="retour"></a>
   <h1>Connexion</h1> 
-<form>  
-  
+<form class="form-horizontal" role="form" method ="POST" action ="{{ url_for('login') }}"> 
+  {{ form.hidden_tag() }}
   <div class="form-control-static">
-    <label for="exampleFormControlInput1" class="form-label">Adresse e-mail</label>
-    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="nom@exemple.com">
+    {{ form.mail.label }}
+    {{ form.mail(size=50, class_="form-control", placeholder ="Username") }}
   </div>
 
   <div class="form-control-static">
-    <label for="inputPassword" class="col-sm-2 col-form-label">Mot de passe</label>
-      <input type="password" class="form-control" id="inputPassword">
+    {{ form.password.label }}
+    {{ form.password(size=50, class_="form-control", placeholder ="Password") }}
   </div>  
   
   <span class="form-control-static">
