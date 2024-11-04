@@ -8,29 +8,33 @@
 <section>
   <a> <img src="{{ url_for('static',filename='img/logo_mobilist.jpg') }}" alt="retour"></a>
   <h1>Inscription</h1> 
-<form>  
+  <form class="form-horizontal" role="form" method ="POST" action ="{{ url_for('inscription') }}"> 
+    {{ form.hidden_tag() }}
     <div class="form-control-static">
-        <label for="exampleFormControlInput1" class="form-label">Nom</label>
-        <input type="email" class="form-control" placeholder="Votre nom">
+      {{ form.nom.label }}
+      {{ form.nom(size=50, class_="form-control", placeholder ="Votre nom") }}
     </div> 
 
     <div class="form-control-static">
-        <label for="exampleFormControlInput1" class="form-label">Prénom</label>
-        <input type="email" class="form-control" placeholder="Votre prénom">
+      {{ form.prenom.label }}
+      {{ form.prenom(size=50, class_="form-control", placeholder ="Votre prénom") }}
     </div>
-
+  
   <div class="form-control-static">
-    <label for="exampleFormControlInput1" class="form-label">Adresse e-mail</label>
-    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="nom@exemple.com">
+    {{ form.mail.label }}
+    {{ form.mail(size=50, class_="form-control", placeholder ="email@exemple.com") }}
+    {% if present %}
+    <div role="tooltip" id="infobulle">deja present</div>
+    {% endif %}
   </div>
 
   <div class="form-control-static">
-    <label for="inputPassword" class="col-sm-2 col-form-label">Mot de passe</label>
-      <input type="password" class="form-control" id="inputPassword">
+    {{ form.password.label }}
+    {{ form.password(size=50, class_="form-control") }}
   </div>  
   
   <span class="form-control-static">
-    <button type="submit" class="btn btn-primary mb-3">S'inscrire</button>
+      <button type="submit" class="btn btn-primary mb-3">S'inscrire</button>
   </span>
 </form>
 </section>
