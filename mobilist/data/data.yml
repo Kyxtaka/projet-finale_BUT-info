@@ -31,10 +31,11 @@
 - TYPE: PROPRIETAIRE
   ID_PROPRIETAIRE: 6
   NOM: DALAIGRE
-  PRENOM: Chritophe
+  PRENOM: Christophe
 
 # Table LOGEMENT
-- TYPE: LOGEMENT
+- NOM: logement
+  TYPE: LOGEMENT
   ID_LOGEMENT: 1
   TYPE_LOGEMENT: maison
   ADRESSE: '2 rue du pavillon, 71004 Paname'
@@ -157,3 +158,9 @@
 - TYPE: AVOIR
   ID_PROPRIETAIRE: 5
   ID_LOGEMENT: 1
+
+# table user
+- MAIL: nathan@mail.com
+  PASSWORD: 123
+  ROLE: "proprio"
+  ID_USER: 5
