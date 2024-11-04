@@ -1,4 +1,4 @@
-{% extends "index.html" %}
+{% extends "accueil_2.html" %}
 {% block styles %}
 {{ super() }}
 <link rel="stylesheet" href="{{ url_for('static', filename='afficheLogements.css')}}">
@@ -10,6 +10,7 @@
     <section>
         <h1>Logement n°{{x.id_logement}}</h1>
         <article>
+            <h3>Nom: {{x.nom_logement}}</h3>
             <h3>Type:{{x.type_logement}}</h3>
             <h3>Adresse:{{x.adresse}}</h3>
             <h3>Pièces :</h3>
@@ -28,6 +29,8 @@
             </a>
         </li> 
     </div>
+    {% endfor %}
 
 </div>
+{% endblock %}
 

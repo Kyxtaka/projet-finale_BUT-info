@@ -1,4 +1,6 @@
-
+.nav-item-logement a {
+    font-weight: bold;
+}
 
 button {
     box-sizing: border-box;
@@ -32,3 +34,5 @@ button {
     color: #FFFFFF;
     border: 0;
 }
+
+

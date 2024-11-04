@@ -76,8 +76,7 @@ from flask_login import logout_user
 def logout():
     logout_user()
     return redirect(url_for('home'))
-
-
+    
 
 @app.route("/inscription/", methods=("GET", "POST",))
 def inscription():
@@ -88,18 +87,13 @@ def inscription():
         user = f.get_authenticated_user()
         if user:
             login_user(user)
-            next = f.next.data or url_for("accueil_connexion")
-            return redirect(next)
-        try:
-            create_user(f.mail.data, f.password.data, "proprio")
-            modifier(f.mail.data, f.nom.data, f.prenom.data)
-            return render_template("accueil_connexion.html")
-        except:
-            return render_template(
-    "inscription.html", form=f, present=True)
+            return render_template("inscription.html", form=f, present=True)
+        create_user(f.mail.data, f.password.data, "proprio")
+        modifier(f.mail.data, f.nom.data, f.prenom.data)
+        return render_template("accueil_2.html")
     return render_template(
     "inscription.html", form=f, present=False)
-    return render_template("inscription.html")
+  
 
 
 @app.route("/information")
