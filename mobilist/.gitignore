@@ -1,0 +1,4 @@
+*.db
+mobilist/*.db
+*.pyc
+mobilist/*.pyc

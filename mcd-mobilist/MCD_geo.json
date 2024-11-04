@@ -1,0 +1,48 @@
+{
+  "width": 495,
+  "height": 440,
+  "cx": [
+    [ "TYPEBIEN", 56 ],
+    [ "POSSEDER", 183 ],
+    [ "PROPRIETAIRE", 321 ],
+    [ "DONNER", 438 ],
+    [ "ETRE", 56 ],
+    [ "BIEN", 183 ],
+    [ "AVOIR", 321 ],
+    [ "AVIS", 438 ],
+    [ "CATEGORIE", 56 ],
+    [ "SE_TROUVER", 183 ],
+    [ "LOGEMENT", 321 ],
+    [ "JUSTIFICATIF", 56 ],
+    [ "PIECE", 183 ]
+  ],
+  "cy": [
+    [ "TYPEBIEN", 51 ],
+    [ "POSSEDER", 51 ],
+    [ "PROPRIETAIRE", 51 ],
+    [ "DONNER", 51 ],
+    [ "ETRE", 152 ],
+    [ "BIEN", 152 ],
+    [ "AVOIR", 152 ],
+    [ "AVIS", 152 ],
+    [ "CATEGORIE", 270 ],
+    [ "SE_TROUVER", 270 ],
+    [ "LOGEMENT", 270 ],
+    [ "JUSTIFICATIF", 380 ],
+    [ "PIECE", 380 ]
+  ],
+  "shift": [
+    [ "POSSEDER,BIEN,0", 0 ],
+    [ "POSSEDER,PROPRIETAIRE,0", 0 ],
+    [ "DONNER,PROPRIETAIRE,0", 0 ],
+    [ "DONNER,AVIS,0", 0 ],
+    [ "ETRE,BIEN,0", 0 ],
+    [ "ETRE,CATEGORIE,0", 0 ],
+    [ "ETRE,TYPEBIEN,0", 0 ],
+    [ "AVOIR,LOGEMENT,0", 0 ],
+    [ "AVOIR,PROPRIETAIRE,0", 0 ],
+    [ "SE_TROUVER,BIEN,0", 0 ],
+    [ "SE_TROUVER,PIECE,0", 0 ]
+  ],
+  "ratio": []
+}

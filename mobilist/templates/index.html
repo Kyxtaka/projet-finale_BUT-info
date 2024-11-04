@@ -25,7 +25,7 @@
                     <img src="{{ url_for('static',filename='img/accueil.png') }}" alt="icône accueil"/>
                   </li>
                   <li class="nav-item-accueil">
-                    <a class="nav-link active" aria-current="page" href="#">Accueil</a>
+                    <a class="nav-link active" aria-current="page" href="{{ url_for('accueil')}}">Accueil</a>
                 </li>
               <li class="nav-img" >
                 <img src="{{ url_for('static',filename='img/services.png') }}" alt="icône nos services"/>
@@ -37,7 +37,7 @@
                   <img src="{{ url_for('static',filename='img/contact.png') }}" alt="icône contact"/>
                 </li>
                 <li class="nav-item-contact">
-                  <a class="nav-link active" aria-current="page" href="#">Contact</a>
+                  <a class="nav-link active" aria-current="page" href="#coord">Contact</a>
                 </li> 
               <li class="nav-img" >
                 <img src="{{ url_for('static',filename='img/avis.png') }}" alt="icône avis"/>
@@ -46,7 +46,7 @@
                 <a class="nav-link active" aria-current="page" href="#">Avis</a>
               </li> 
               <li id="connexion">
-                <a href="{{ url_for('connexion') }}">
+                <a href="{{ url_for('login') }}">
                   <button class="connexion">Se connecter</button>
                 </a>
               </li>

@@ -133,7 +133,7 @@ class User(Base, UserMixin):
         return self.mail
     
 def get_user(mail):
-    return User.query.get_or_404(mail)
+    return User.query.get(mail)
 
 def get_proprio(id):
     return Proprietaire.query.get_or_404(id)
