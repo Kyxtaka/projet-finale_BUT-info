@@ -1,7 +1,59 @@
 .simulation {
-    margin-top: 50px;
+    margin-top: 99px;
+}
+
+.simulation .bandeau {
+    background-color:  #612bb7;
+    height: 130px;
 }
 
 .simulation p {
     position: relative;
+    left: 0px;
+    top: 0px;
+}
+
+.simulation hr{
+    margin-top: 25px;
+}
+
+.simulation .bandeau h1{
+    color: white;
+    text-align: center;
+    padding-top: 35px;
+}
+
+.simulation .annee {
+    align-items: center;
+    margin-top: 20px;
+}
+
+.simulation .annee p:first-child {
+    font-weight: bold;
+}
+
+.simulation .annee input{
+    width: 100px;
+    margin: auto;
+}
+
+.simulation .type {
+    padding-top: 10px;
+}
+
+.simulation .type p {
+    font-weight: bold;
+}
+
+.simulation .type select {
+    position: relative;
+    margin-left: 865px;
+}
+
+.simulation .logement {
+    margin-top: 30px;
+}
+
+.simulation .logement p {
+    font-weight: bold;
 }
