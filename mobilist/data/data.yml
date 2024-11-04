@@ -25,7 +25,7 @@
   ID_PROPRIETAIRE: 4
   NOM: RANDRIANTSOA
   PRENOM: Nathan
-  MAIL: random4@r.fr
+  MAIL: nathan@mail.com
 
 - TYPE: PROPRIETAIRE
   ID_PROPRIETAIRE: 5
@@ -41,6 +41,7 @@
 
 # Table LOGEMENT
 - TYPE: LOGEMENT
+  NOM_LOGEMENT: 'Maison principale'
   ID_LOGEMENT: 1
   TYPE_LOGEMENT: maison
   ADRESSE: '2 rue du pavillon, 71004 Paname'
@@ -169,3 +170,10 @@
 - TYPE: AVOIR
   ID_PROPRIETAIRE: 5
   ID_LOGEMENT: 1
+
+# Table User :
+- TYPE: USER
+  ID_USER: 4
+  MAIL: 'nathan@mail.com'
+  ROLE: "proprio"
+  PASSWORD: '1234'

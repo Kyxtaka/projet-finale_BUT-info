@@ -31,6 +31,7 @@ def loaddb(filename):
             case 'LOGEMENT':
                 new_logement = Logement(
                     id_logement = entity['ID_LOGEMENT'],
+                    nom_logement = entity['NOM_LOGEMENT'],
                     type_logement = entity['TYPE_LOGEMENT'],
                     adresse_logement = entity['ADRESSE'],
                     desc_logement = entity['DESCRIPTION'])
@@ -92,6 +93,14 @@ def loaddb(filename):
                     id_logement = entity['ID_LOGEMENT']
                 )
                 session.add(new_avoir)
+            case 'USER':
+                new_user = User(
+                    mail = entity['MAIL'],
+                    password = entity['PASSWORD'],
+                    role = entity['ROLE'],
+                    id_user = entity['ID_USER']
+                )
+                session.add(new_user)
         db.session.commit()
     print(f"loaded file: {filename}")
 
