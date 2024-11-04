@@ -1,72 +1,95 @@
-.mobilist{
+.accueil {
+    margin-top: 90px;
+    margin-bottom: 140px;
+}
+
+.nav-item-accueil {
+    font-weight: bold;
+}
+
+.accueil p {
+    position : relative;
+    left: 0px;
+    top: 0px;
+}
+
+.accueil .mobilist{
     display: flex;
 }
 
-.schema_titre{
-    margin-top: 30px;
+.accueil .schema_titre{
+    margin-top: 40px;
     margin-left: 300px;
 }
 
-.img_maison > img{
+.accueil .img_maison > img{
     width: 600px;
     height: 400px;
     margin-top: 100px;
 }
 
-.schema{
+.accueil .schema{
     display: flex;
     position: relative;
+    margin-top: 20px;
 }
 
-h1 {
-    font-size: 40;
+.accueil h1 {
+    font-size: 40px;
     font-family: sans-serif;
     font-weight: bold;
 }
 
-.schema_titre > h1:first-child{
+.accueil .schema_titre > h1:first-child{
     color : #612bb7;
 }
 
-.texte{
+.accueil .schema {
+    justify-content:center;
+}
+
+.accueil .bulle img{
+    position: relative;
+    width : 100px;
+    height: 300px;
+}
+
+.accueil .texte1, .texte2{
     z-index: 1;
     position: relative;
-    margin-top: 50px;
 }
 
-.bulle{
-    position: absolute;
-    margin-left: 265px;
-    margin-top: 30px;
+.accueil .texte1{
+    margin-top: 135px;
+    margin-right: 10px;
 }
 
-.bulle img{
-    width : 100;
-    height: 300;
+.accueil .texte2{
+    margin-top: 24px;
 }
 
-.texte{
-    margin-left: 105px;
+.accueil .texte2 p:first-child{
+    margin-bottom: 180px;
 }
 
-.texte p {
-    font-size: 15;
+.accueil .texte1 > p, .texte2 > p {
+    font-size: 15px;
     font-family: sans-serif;
     font-weight: bold;
     margin-bottom: 80px;
 }
 
-.texte p:first-child, p:last-child {
-    margin-left: 270px;
-}
 
-.inscription{
-    margin-top: 10px;
-    height: 135px;
+.accueil .inscription{
+    margin-top: 30px;
+    height: 155px;
     background-color: #e9eaee;
+    display: grid;
+    justify-items: center;
 }
 
-.inscription h2{
+
+.accueil .inscription h2{
     padding-top: 20px;
     padding-bottom: 10px;
     text-align: center;
@@ -75,7 +98,11 @@ h1 {
     font-weight: bold;
 }
 
-button {
+.accueil .inscription a {
+    text-decoration: none;
+}
+
+.accueil button {
   border-radius: 999px;
   box-sizing: border-box;
   cursor: pointer;
@@ -91,26 +118,28 @@ button {
   touch-action: manipulation;
   width: fit-content;
   word-break: break-word;
+  position: relative;
 }
 
-.inscription .inscrire {
+.accueil .inscription .inscrire {
     background: #5E5DF0;
     box-shadow: #5E5DF0 0 10px 20px -10px;
     color: #FFFFFF;
     display: block;
-    margin : auto;
+    margin: auto;
+    margin-top: -65px;
 }
 
-.debut {
+.accueil .debut {
     display: flex;
     justify-content: center;
 }
 
-.debut p:last-child {
+.accueil .debut p:last-child {
     color: #612bb7;
 }
 
-.debut p {
+.accueil .debut p {
     font-size: 20;
     font-family: sans-serif;
     font-weight: bold;
@@ -118,73 +147,56 @@ button {
     padding-top: 5px;
 }
 
-.texte_contact > p{
+.accueil .texte_contact > p{
     font-size: 15;
     font-family: sans-serif;
     margin : auto;
-    width: 14em;
     padding-top: 10px;
+    text-align: center;
 }
 
-.telephone img {
+.accueil .telephone img {
     width : 40px;
     height: 40px;
 }
 
-.telephone p:nth-child(2){
+.accueil .telephone p:nth-child(2){
     font-size: 15;
     font-family: sans-serif;
     font-weight: bold;
  }
 
- .telephone{
+ .accueil .telephone{
     text-align: center;
  }
 
- .mail img {
+.accueil .mail img {
     width : 40px;
     height: 40px;
 }
 
-.mail p:nth-child(2){
+.accueil .mail p:nth-child(2){
     font-size: 15;
     font-family: sans-serif;
     font-weight: bold;
  }
 
- .mail{
+ .accueil .mail{
     text-align: center;
     margin-left: 100px;
  }
 
- .coord {
+.accueil .coord {
     display: flex;
-    width: 695px;
-    margin: auto;
     padding-top: 35px;
+    justify-content: center;
 }
 
-.coord button {
-    box-sizing: border-box;
-    cursor: pointer;
-    font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 24px;
-    opacity: 1;
-    outline: 0 solid transparent;
-    padding: 8px 18px;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    width: fit-content;
-    word-break: break-word;
-}
 
-.coord button {
-    box-shadow: #612bb7 0 10px 20px -10px;
-    color: #FFFFFF;
+.accueil .coord button {
+    color: rgb(0, 0, 0);
+    border-color: rgb(0, 0, 0); 
     display: block;
     margin : auto;
+    position: relative;
 }
-  

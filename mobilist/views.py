@@ -19,6 +19,9 @@ from wtforms.validators import DataRequired
 def home():
     return render_template('accueil.html')
 
+@app.route("/accueil")
+def accueil():
+    return render_template('accueil.html')
    
 class LoginForm(FlaskForm):
     mail = StringField('Adresse e-mail')
@@ -49,7 +52,9 @@ class IncrisptionForm(FlaskForm):
         passwd = m.hexdigest()
         return user if passwd == user.password else None
     
-    
+@app.route("/accueil-connexion/")
+def accueil_connexion():
+    return render_template("accueil_2.html")
     
 @app.route("/login/", methods =("GET","POST" ,))
 def login():
@@ -60,7 +65,7 @@ def login():
         user = f.get_authenticated_user()
         if user:
             login_user(user)
-            next = f.next.data or url_for("home")
+            next = f.next.data or url_for("accueil_connexion")
             return redirect(next)
     return render_template(
     "connexion.html",
@@ -71,8 +76,7 @@ from flask_login import logout_user
 def logout():
     logout_user()
     return redirect(url_for('home'))
-
-
+    
 
 @app.route("/inscription/", methods=("GET", "POST",))
 def inscription():
@@ -94,4 +98,18 @@ def inscription():
     "inscription.html", form=f, present=True)
     return render_template(
     "inscription.html", form=f, present=False)
+  
 
+
+@app.route("/information")
+def information():
+    return render_template("information.html")
+
+
+@app.route("/services")
+def services():
+    return render_template("services.html")
+
+@app.route("/afficheLogements")
+def affiche_logements():
+    return render_template("afficheLogements.html")

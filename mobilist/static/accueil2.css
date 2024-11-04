@@ -1,24 +1,24 @@
- img {
+img {
     height: 82px;
 }
 
- nav {
-    border-bottom: 1px solid;
-    
+nav {
+    border-bottom: 1px solid; 
 }
+
 
 #navbar-collapse  a {
     color: black;
 }
 
- ul {
+ul {
     display: flex;
     flex-wrap: nowrap;
     margin-left: 30px;
     list-style: none;
 }
 
- li {
+li {
     margin-left: 30px;
     font-size: 20px;
     text-align: center;
@@ -29,10 +29,10 @@
 .nav-img img {
     height: 24px;
     position:absolute;
-    top : 36px;
+    top : 35px;
 }
 
- button {
+button {
   box-sizing: border-box;
   cursor: pointer;
   font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
@@ -50,29 +50,45 @@
   position: absolute;
   top: 28px;
 }
+.ajout {
+    border-radius: 20px;
+    background-color: rgb(206, 205, 209);
+    box-shadow: 2px 2px 15px 4px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 250px;
+    right:40%;
+    width:25%;
+    height: 10%;
+}
+.col {
+    border: thin;
+    border-width: 0.5%;
+}
+.tableau-ajout {
+    position: absolute;
+    top: 400px;
+    right:40%;
+    border: thin;
 
- .connexion {
+}
+.ajout-elem{
+    padding: 5%;
+    margin: 5%;
+    width: 10%;
+}
+
+.connexion {
     border-radius: 999px;
     background: #5E5DF0;
     box-shadow: #5E5DF0 0 10px 20px -10px;
     color: #FFFFFF;
     position: absolute;
-    right: 280px;
+    right: 50px;
     border: 0;
 }
 
- .information {
-    border-radius: 999px;
-    background: #FFFFFF;
-    box-shadow: #5E5DF0 0 10px 20px -10px;
-    color: #000000;
-    position: absolute;
-    right: 25px;
-    border: 1px solid;
-    border-color: #000000;
-}
 
- footer {
+footer {
     background-color: #FFFFFF;
     position: fixed;
     bottom: 0;
@@ -80,15 +96,15 @@
     border-top: 1px solid;
 }
 
- #appstore {
+#appstore {
     height: 50px;
 }
 
- #googleplay {
+#googleplay {
     height: 45px;
 }
 
-#groupe {
+p {
     position: absolute;
     top: 32px;
     left : 540px;
