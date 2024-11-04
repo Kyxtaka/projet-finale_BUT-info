@@ -45,9 +45,10 @@ class Logement(Base):
     __tablename__ = "LOGEMENT"
     
     idLogement = Column(Integer, primary_key = True, nullable=False)
+    nom_logement = Column(String(25))
     typeL = Column(Enum(LogementType), nullable=False)
     adresse = Column(String(100))
-    descriptionLogement = Column(String(1000), nullable=True)
+    descriptionLogement = Column(String(1000))
     proprietaires = relationship("Proprietaire", secondary="AVOIR", back_populates="logements")
     def __repr__(self):
         return "<Logement (%d) %s %s>" % (self.idLogement, self.typeL, self.adresse)

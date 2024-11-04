@@ -34,7 +34,8 @@
   PRENOM: Chritophe
 
 # Table LOGEMENT
-- TYPE: LOGEMENT
+- NOM: logement
+  TYPE: LOGEMENT
   ID_LOGEMENT: 1
   TYPE_LOGEMENT: maison
   ADRESSE: '2 rue du pavillon, 71004 Paname'
