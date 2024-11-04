@@ -61,11 +61,10 @@
         <a class="ajout-elem" href=""><span>Ajouter un logement</span></a>
       </article>
     </section>
-    <table>
-      <caption>
-        Derniers ajouts
-      </caption>
-      <thead class="tableau-ajout">
+    <section class="derniers_ajouts">
+      <h3>Récents ajouts </h3>
+    <table class="tableau-ajout">
+      <thead>
         <tr>
           <th scope="col" class="col">Type de bien</th>
           <th scope="col" class="col">Logement</th>
@@ -75,6 +74,24 @@
       </thead>
       <tbody>
       </table>
+      <p class="voir_plus"> voir plus</p>
+    </section>
+    <section class="a-justifier">
+      <h3>À justifier </h3>
+    <table class="tableau-justifier">
+      <thead>
+        <tr>
+          <th scope="col" class="col">Type de bien</th>
+          <th scope="col" class="col">Logement</th>
+          <th scope="col" class="col">Pièce</th>
+          <th scope="col" class="col">Date d'ajout</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+      </table>
+      <p class="voir_plus"> voir plus</p>
+    </section>
     {% endblock %}
   </main>
 

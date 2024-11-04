@@ -50,31 +50,41 @@ button {
   position: absolute;
   top: 28px;
 }
+
 .ajout {
     border-radius: 20px;
-    background-color: rgb(206, 205, 209);
+    background-color: lightgray;
     box-shadow: 2px 2px 15px 4px rgba(0, 0, 0, 0.1);
     position: absolute;
-    top: 250px;
+    top: 25%;
     right:40%;
     width:25%;
     height: 10%;
 }
-.col {
-    border: thin;
-    border-width: 0.5%;
-}
-.tableau-ajout {
-    position: absolute;
-    top: 400px;
-    right:40%;
-    border: thin;
 
+.derniers_ajouts {
+    padding: 6px;
+    border-top: 0.5mm solid;
+    border-color: lightgray;
+    position: absolute;
+    top: 40%;
+    width: 99%;
+    display:block;
 }
+
+.tableau-ajout {
+    border-color: black;
+    border:0.5mm solid;
+}
+
 .ajout-elem{
     padding: 5%;
     margin: 5%;
     width: 10%;
+}
+.voir_plus {
+    color: lightgray;
+    text-align: center;
 }
 
 .connexion {
