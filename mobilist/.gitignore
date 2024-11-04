@@ -1,1 +1,4 @@
-DBMOBILIST.db
+*.db
+mobilist/*.db
+*.pyc
+mobilist/*.pyc
