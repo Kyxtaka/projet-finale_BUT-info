@@ -55,6 +55,10 @@ class IncrisptionForm(FlaskForm):
 @app.route("/accueil-connexion/")
 def accueil_connexion():
     return render_template("accueil_2.html")
+
+@app.route("/simulation/")
+def simulation():
+    return render_template("simulation.html")
     
 @app.route("/login/", methods =("GET","POST" ,))
 def login():
