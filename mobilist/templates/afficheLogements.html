@@ -11,23 +11,14 @@
         <h1>Logement n°{{x.id_logement}}</h1>
         <article>
             <h3>Nom: {{x.nom_logement}}</h3>
-            <h3>Type:{{x.type_logement}}</h3>
+            <h3>Type:{{x.type_logement.get_type()}}</h3>
             <h3>Adresse:{{x.adresse}}</h3>
             <h3>Pièces :</h3>
             <h3>Description : {{x.desc_logement}}</h3>
         </article>
     </section>
     <div class="buttons">
-        <li id="supprimer">
-            <a href="{{ url_for('supprimer') }}">
-              <button class="supprimer">SUPPRIMER</button>
-            </a>
-        </li>
-        <li id="modifier">
-            <a href="{{ url_for('modifier') }}">
-              <button class="modifier">MODIFIER</button>
-            </a>
-        </li> 
+
     </div>
     {% endfor %}
 

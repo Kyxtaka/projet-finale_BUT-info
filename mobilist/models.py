@@ -17,6 +17,9 @@ class LogementType(enum.Enum):
     APPART = "appart"
     MAISON = "maison"
 
+    def get_type(self):
+        return self.name
+
 class Avis(Base):
     __tablename__ = "AVIS"
     
@@ -99,7 +102,7 @@ class Logement(Base):
     __tablename__ = "LOGEMENT"
     
     id_logement = Column(Integer, name="ID_LOGEMENT", primary_key=True)
-    nom_logemet = Column(String(20), name="NOM_LOGEMENT", nullable=True)
+    nom_logement = Column(String(20), name="NOM_LOGEMENT", nullable=True)
     type_logement = Column(Enum(LogementType), name="TYPE_LOGEMENT", nullable=False)
     adresse = Column(String(100), name="ADRESSE", nullable=True)
     desc_logement = Column(String(1000), name="DESC_LOGEMENT", nullable=True)
@@ -107,7 +110,7 @@ class Logement(Base):
     
     def __init__(self, id_logement, nom_logement,type_logement, adresse_logement, desc_logement):
         self.id_logement = id_logement
-        self.nom_logemet = nom_logement
+        self.nom_logement = nom_logement
         self.type_logement = type_logement
         self.adresse = adresse_logement
         self.desc_logement = desc_logement
