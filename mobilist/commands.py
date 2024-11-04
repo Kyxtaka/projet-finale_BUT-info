@@ -94,13 +94,14 @@ def loaddb(filename):
                 )
                 session.add(new_avoir)
             case 'USER':
-                new_user = User(
-                    mail = entity['MAIL'],
-                    password = entity['PASSWORD'],
-                    role = entity['ROLE'],
-                    id_user = entity['ID_USER']
-                )
-                session.add(new_user)
+                # new_user = User(
+                #     mail = entity['MAIL'],
+                #     password = entity['PASSWORD'],
+                #     role = entity['ROLE'],
+                #     id_user = entity['ID_USER']
+                # )
+                # session.add(new_user)
+                create_user(entity['MAIL'], entity['PASSWORD'], entity['ROLE'])
         db.session.commit()
     print(f"loaded file: {filename}")
 

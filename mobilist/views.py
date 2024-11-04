@@ -64,6 +64,7 @@ def login():
     elif f.validate_on_submit():
         user = f.get_authenticated_user()
         if user:
+            print("test2")
             login_user(user)
             next = f.next.data or url_for("accueil_connexion")
             return redirect(next)
@@ -112,4 +113,7 @@ def services():
 
 @app.route("/afficheLogements")
 def affiche_logements():
-    return render_template("afficheLogements.html")
+    proprio = Proprietaire.query.get(current_user.id_user)
+    logements = proprio.logements
+    print(logements)
+    return render_template("afficheLogements.html", logements=logements)

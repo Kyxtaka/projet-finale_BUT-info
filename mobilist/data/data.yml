@@ -43,7 +43,7 @@
 - TYPE: LOGEMENT
   NOM_LOGEMENT: 'Maison principale'
   ID_LOGEMENT: 1
-  TYPE_LOGEMENT: maison
+  TYPE_LOGEMENT: MAISON
   ADRESSE: '2 rue du pavillon, 71004 Paname'
   DESCRIPTION: 'maison principale située à Paname avec toutes mes voitures'
 
