@@ -1,3 +1,8 @@
+{% extends "accueil_2.html" %}
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='simulation.css')}}">
+{% endblock %}
 {% block content %}
 <div class="simulation">
     <div class="bandeau">
@@ -21,7 +26,6 @@
     </div>
     <div class="logement">
         <p>Logement concerné :</p>
-        
     </div>
 </div>
 {% endblock %}
