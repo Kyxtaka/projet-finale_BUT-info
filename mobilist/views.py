@@ -49,6 +49,15 @@ class IncrisptionForm(FlaskForm):
         passwd = m.hexdigest()
         return user if passwd == user.password else None
     
+class AjoutBienForm(FlaskForm):
+    nom_bien = StringField('Nom du bien', validators=[DataRequired()])
+    type_bien = StringField('Type de bien', validators=[DataRequired()])
+    categorie_bien = StringField('Catégorie', validators=[DataRequired()])
+    piece = StringField('Nombre de pièces', validators=[DataRequired()])
+    prix = StringField('Prix neuf', validators=[DataRequired()])
+    date = StringField("Date de l'achat", validators=[DataRequired()])
+    description = StringField('Description')
+    justificatif = StringField('Justificatif test nom')     
     
     
 @app.route("/login/", methods =("GET","POST" ,))
@@ -94,4 +103,26 @@ def inscription():
     "inscription.html", form=f, present=True)
     return render_template(
     "inscription.html", form=f, present=False)
+
+@login_required
+@app.route("/bien/ajout", methods=("GET", "POST",))
+def ajout_bien():
+    form = AjoutBienForm()
+    if form.validate_on_submit():
+        try:
+            nom_bien = form.nom_bien.data
+            type_bien = form.type_bien.data
+            categorie_bien = form.categorie_bien.data
+            piece = form.piece.data
+            prix = form.prix.data
+            date = form.date.data
+            description = form.description.data
+            justificatif = form.justificatif.data
+            id_proprio = form.id_proprio.data
+            nouveau_bien = (nom_bien, type_bien, categorie_bien, piece, prix, date, description, justificatif)
+            # Bien.ajouter(form.nom_bien.data, form.type_bien.data, form.categorie_bien.data, form.piece.data, form.prix.data, form.date.data, form.description.data, form.justificatif.data)
+            return render_template("index.html")
+        except:
+            return render_template("ajout_bien.html", present=True)
+    return render_template("ajout_bien.html")
 

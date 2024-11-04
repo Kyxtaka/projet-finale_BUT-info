@@ -2,11 +2,13 @@ img {
     height: 82px;
 }
 
-nav {
-    border-bottom: 1px solid;
-    
+main {
+    margin-top: 6.1rem;
 }
 
+nav {   
+    border-bottom: 1px solid;
+}
 
 #navbar-collapse  a {
     color: black;

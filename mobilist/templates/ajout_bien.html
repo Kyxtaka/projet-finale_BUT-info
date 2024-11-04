@@ -1,0 +1,28 @@
+{% extends "index.html" %}
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='accueil.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='ajout_bien.css') }}">
+{% endblock %}
+{% block scripts %}
+{{ super()}}
+{% endblock %}
+{{ super()}}
+{% block content %}
+<div class="ajout-logement">
+    <h1>Ajoutez un bien à votre logement</h1>
+    <form action="{{ url_for('ajout_bien') }}" method="post">
+        <!-- <input type="hidden" name="id_logement" value="{{id_logement}}"> //id du logement -->
+    
+        <label for="nom">Nom du bien</label>
+        <input type="text" name="nom" id="nom">
+
+        <label for="prix">prix neuf du bien</label>
+        <input type="number" name="valeur" id="valeur">
+
+        <label for="description">Description du bien</label>
+        <textarea name="description" id="description"></textarea>
+
+        <button class type="submit">Ajouter</button>
+    </form>
+</div>
+{% endblock %}
