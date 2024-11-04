@@ -10,39 +10,35 @@
     {% endblock %}
     <title>MobiList</title>
     {% endblock %}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
-<body>
-  <header>
-    <!-- Fixed navbar -->
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-white">
-      <a href="#">
-        <img src="{{ url_for('static',filename='img/logo_mobilist.jpg') }}" alt="logo du site"/>
-      </a>
-      <div class="container-fluid">
-        <div class="collapse navbar-collapse" id="navbar-collapse">
-            <ul class="navbar-nav-left">
-                <li class="nav-img" >
-                  <img src="{{ url_for('static',filename='img/accueil.png') }}" alt="icône accueil"/>
+    <div class="index">
+    <header>
+      <!-- Fixed navbar -->
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-white">
+        <a href="#">
+          <img src="{{ url_for('static',filename='img/logo_mobilist.jpg') }}" alt="logo du site"/>
+        </a>
+        <div class="container-fluid">
+          <div class="collapse navbar-collapse" id="navbar-collapse">
+              <ul class="navbar-nav-left">
+                  <li class="nav-img" >
+                    <img src="{{ url_for('static',filename='img/accueil.png') }}" alt="icône accueil"/>
+                  </li>
+                  <li class="nav-item-accueil">
+                    <a class="nav-link active" aria-current="page" href="#">Accueil</a>
                 </li>
-                <li class="nav-item-accueil">
-                  <a class="nav-link active" aria-current="page" href="#">Accueil</a>
-              </li>
-
               <li class="nav-img" >
                 <img src="{{ url_for('static',filename='img/services.png') }}" alt="icône nos services"/>
               </li>
               <li class="nav-item-services">
                 <a class="nav-link active" aria-current="page" href="{{ url_for('services') }}">Nos services</a>
               </li> 
-
-              <li class="nav-img" >
-                <img src="{{ url_for('static',filename='img/contact.png') }}" alt="icône contact"/>
-              </li>
-              <li class="nav-item-contact">
-                <a class="nav-link active" aria-current="page" href="#">Contact</a>
-              </li> 
-
+                <li class="nav-img" >
+                  <img src="{{ url_for('static',filename='img/contact.png') }}" alt="icône contact"/>
+                </li>
+                <li class="nav-item-contact">
+                  <a class="nav-link active" aria-current="page" href="#">Contact</a>
+                </li> 
               <li class="nav-img" >
                 <img src="{{ url_for('static',filename='img/avis.png') }}" alt="icône avis"/>
               </li>
