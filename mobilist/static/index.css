@@ -7,7 +7,7 @@
     
 }
 
- #navbar-collapse  a {
+#navbar-collapse  a {
     color: black;
 }
 
@@ -26,10 +26,10 @@
 }
 
 
- .nav-img img {
+.nav-img img {
     height: 24px;
     position:absolute;
-    top : 32px;
+    top : 36px;
 }
 
  button {
@@ -88,7 +88,7 @@
     height: 45px;
 }
 
- p {
+#groupe {
     position: absolute;
     top: 32px;
     left : 540px;

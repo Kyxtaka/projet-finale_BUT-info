@@ -27,51 +27,51 @@
                   <li class="nav-item-accueil">
                     <a class="nav-link active" aria-current="page" href="#">Accueil</a>
                 </li>
-
-                <li class="nav-img" >
-                  <img src="{{ url_for('static',filename='img/services.png') }}" alt="icône nos services"/>
-                </li>
-                <li class="nav-item-services">
-                  <a class="nav-link active" aria-current="page" href="#">Nos services</a>
-                </li> 
-
+              <li class="nav-img" >
+                <img src="{{ url_for('static',filename='img/services.png') }}" alt="icône nos services"/>
+              </li>
+              <li class="nav-item-services">
+                <a class="nav-link active" aria-current="page" href="{{ url_for('services') }}">Nos services</a>
+              </li> 
                 <li class="nav-img" >
                   <img src="{{ url_for('static',filename='img/contact.png') }}" alt="icône contact"/>
                 </li>
                 <li class="nav-item-contact">
                   <a class="nav-link active" aria-current="page" href="#">Contact</a>
                 </li> 
-
-                <li class="nav-img" >
-                  <img src="{{ url_for('static',filename='img/avis.png') }}" alt="icône avis"/>
-                </li>
-                <li class="nav-item-avis">
-                  <a class="nav-link active" aria-current="page" href="#">Avis</a>
-                </li> 
-                <li id="connexion">
-                  <a href="{{ url_for('login') }}">
-                    <button class="connexion">Se connecter</button>
-                  </a>
-                </li>
-                <li id="information">
+              <li class="nav-img" >
+                <img src="{{ url_for('static',filename='img/avis.png') }}" alt="icône avis"/>
+              </li>
+              <li class="nav-item-avis">
+                <a class="nav-link active" aria-current="page" href="#">Avis</a>
+              </li> 
+              <li id="connexion">
+                <a href="{{ url_for('connexion') }}">
+                  <button class="connexion">Se connecter</button>
+                </a>
+              </li>
+              <li id="information">
+                <a href="{{ url_for('information') }}">
                   <button class="information">À propos de nous</button>
-                </li>
-              </ul>           
-    </header>
-    <main>
-        <div class="content">
-          {% block content %}{% endblock %}
-        </div>
-    </main>
+                </a>
+              </li>
+            </ul>           
+  </header>
+  <main class="flex-shrink-0">
+    <div class="content">
+    {% block content %} 
+      
+    {% endblock %}
+    </div>
+  </main>
 
-    <footer class="footer mt-auto py-3 bg-light">
-      <div class="footer">
-        <img id="appstore" src="{{ url_for('static',filename='img/appstore.jpg') }}" alt="Dispo sur appstore"/>
-        <img id="googleplay" src="{{ url_for('static',filename='img/googleplay.png') }}" alt="Dispo sur Google play"/>
-        <p> © AKHTAR NAIMA - VALIN OPHÉLIE - BOCQUET CLÉMENCE - VILCOQ YOHANN - RANDRIANTSOA NATHAN </p>
-      </div>
-    </footer>
-  </div>
+  <footer class="footer mt-auto py-3 bg-light">
+    <div class="footer">
+      <img id="appstore" src="{{ url_for('static',filename='img/appstore.jpg') }}" alt="Dispo sur appstore"/>
+      <img id="googleplay" src="{{ url_for('static',filename='img/googleplay.png') }}" alt="Dispo sur Google play"/>
+      <p id="groupe"> © AKHTAR NAIMA - VALIN OPHÉLIE - BOCQUET CLÉMENCE - VILCOQ YOHANN - RANDRIANTSOA NATHAN </p>
+    </div>
+  </footer>
 </body>
 
 </html>

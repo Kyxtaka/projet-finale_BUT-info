@@ -1,0 +1,27 @@
+{% extends "index.html" %}
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='information.css')}}">
+{% endblock %}
+{% block content %}
+<section class="paragraphe1">
+    <h1>À propos de Mobilist</h1>
+    <p>Besoin de dresser un inventaire de vos biens et leurs valeurs ?
+        MobiList est fait pour vous !
+    </p>
+</section>
+<section class="paragraphe2">
+    <h1>MobiList face aux sinistres</h1>
+    <p id="para2.1"> Inondation, sécheresse, glissement de terrain, cyclone : certains événements marquent par leur
+        ampleur et laissent derrière eux de nombreux dégâts matériels. </p>
+    <p id="para2.2">Après un tel sinistre, il est important de dresser une liste des dommages subis à son assurance. 
+        Il faut regrouper les factures d’achat, de réparation, les certificats de garantie, des photos... ça fait beaucoup ! </p>
+    <p id="para2.3">Heureusement, MobiList est là ! Avec MobiList, vous pouvez facilement informatiser cet inventaire et automatiser sa mise à jour lors d’un nouvel achat d’un équipement.</p>
+</section>
+<section class="paragraphe3">
+    <h1>En cas de sinistre, ça se passe comment ?</h1>
+    <p>En cas de sinistre, vous pouvez facilement télécharger l'inventaire de vos pertes depuis votre espace personel. 
+        Il ne vous reste plus qu'à le transmettre à votre assurance !
+    </p>
+</section>
+{% endblock %}
