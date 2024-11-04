@@ -64,6 +64,7 @@ def login():
     elif f.validate_on_submit():
         user = f.get_authenticated_user()
         if user:
+            print("test2")
             login_user(user)
             next = f.next.data or url_for("accueil_connexion")
             return redirect(next)
@@ -87,10 +88,15 @@ def inscription():
         user = f.get_authenticated_user()
         if user:
             login_user(user)
-            return render_template("inscription.html", form=f, present=True)
-        create_user(f.mail.data, f.password.data, "proprio")
-        modifier(f.mail.data, f.nom.data, f.prenom.data)
-        return render_template("accueil_2.html")
+            next = f.next.data or url_for("home")
+            return redirect(next)
+        try:
+            create_user(f.mail.data, f.password.data, "proprio")
+            User.modifier(f.mail.data, f.nom.data, f.prenom.data)
+            return render_template("index.html")
+        except:
+            return render_template(
+    "inscription.html", form=f, present=True)
     return render_template(
     "inscription.html", form=f, present=False)
   
@@ -107,8 +113,7 @@ def services():
 
 @app.route("/afficheLogements/")
 def affiche_logements():
-    user = User.query.get(current_user.mail)
-    id=user.id_user
-    logements = get_logements(id)
+    proprio = Proprietaire.query.get(current_user.id_user)
+    logements = proprio.logements
     print(logements)
     return render_template("afficheLogements.html", logements=logements)

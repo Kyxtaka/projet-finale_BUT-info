@@ -10,6 +10,7 @@ instance/*
 ### Flask.Python Stack ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
+/mobilist/__pycache__/
 *.py[cod]
 *$py.class
 
@@ -274,5 +275,8 @@ pip-selfcheck.json
 # End of https://www.toptal.com/developers/gitignore/api/flask,venv,python
 
 mobilist/secure_constante.py
+mobilist/__pycache__/__init__.cpython-312.pyc
+mobilist/__pycache__/app.cpython-312.pyc
+mobilist/__pycache__/views.cpython-312.pyc
 mobilist/__pycache__/app.cpython-312.pyc
 mobilist/__pycache__/views.cpython-312.pyc
