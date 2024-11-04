@@ -45,6 +45,7 @@ class Logement(Base):
     __tablename__ = "LOGEMENT"
     
     idLogement = Column(Integer, primary_key = True, nullable=False)
+    nom_Logement = Column(String(25))
     typeL = Column(Enum(LogementType), nullable=False)
     adresse = Column(String(100))
     descriptionLogement = Column(String(1000), nullable=True)
@@ -152,3 +153,6 @@ def modifier(mail, nom, prenom):
     proprio.prenom = prenom
     db.session.commit()
     
+def getLogements(idProp):
+    logements = db.session.query(Logement).join(Logement.proprietaires).filter(Proprietaire.idProprio == idProp).all()
+    return logements

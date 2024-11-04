@@ -42,6 +42,7 @@
 
 # Table PIECE de LOGEMENT
 - TYPE: PIECE
+  NOM: Logement
   ID_PIECE: 1
   NOM_PIECE: Cuisine - arrière-cuisine
   DESCRIPTION: 'Espace pour préparer les repas et stocker les équipements de cuisine'
