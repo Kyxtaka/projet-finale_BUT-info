@@ -1,0 +1,159 @@
+####################################################################################################################
+# Fichier set data Test, une partie de ce fichier à été généré avec l'IA Chatgpt pour creer un set de données tests#
+####################################################################################################################
+# Attention verifier si le fichier est conforme a notre application (note aux devs)
+# Table PROPRIETAIRE
+- TYPE: PROPRIETAIRE
+  ID_PROPRIETAIRE: 1
+  NOM: BOCQUET
+  PRENOM: Clémence
+
+- TYPE: PROPRIETAIRE
+  ID_PROPRIETAIRE: 2
+  NOM: VALIN
+  PRENOM: Ophélie
+
+- TYPE: PROPRIETAIRE
+  ID_PROPRIETAIRE: 3
+  NOM: AKHTAR
+  PRENOM: Naima
+
+- TYPE: PROPRIETAIRE
+  ID_PROPRIETAIRE: 4
+  NOM: RANDRIANTSOA
+  PRENOM: Nathan
+
+- TYPE: PROPRIETAIRE
+  ID_PROPRIETAIRE: 5
+  NOM: VILCOQ
+  PRENOM: Yohann
+
+- TYPE: PROPRIETAIRE
+  ID_PROPRIETAIRE: 6
+  NOM: DALAIGRE
+  PRENOM: Chritophe
+
+# Table LOGEMENT
+- TYPE: LOGEMENT
+  ID_LOGEMENT: 1
+  TYPE_LOGEMENT: maison
+  ADRESSE: '2 rue du pavillon, 71004 Paname'
+  DESCRIPTION: 'maison principale située à Paname avec toutes mes voitures'
+
+# Table PIECE de LOGEMENT
+- TYPE: PIECE
+  ID_PIECE: 1
+  NOM_PIECE: Cuisine - arrière-cuisine
+  DESCRIPTION: 'Espace pour préparer les repas et stocker les équipements de cuisine'
+  ID_LOGEMENT: 1
+
+- TYPE: PIECE
+  ID_PIECE: 2
+  NOM_PIECE: Salon
+  DESCRIPTION: 'Espace principal de détente et de réception'
+  ID_LOGEMENT: 1
+
+# Table categorie de BIEN
+- TYPE: CATEGORIE_BIEN
+  ID_CATEGORIE: 1
+  NOM_CATEGORIE: Mobilier
+- TYPE: CATEGORIE_BIEN
+  ID_CATEGORIE: 2
+  NOM_CATEGORIE: Gros électroménager
+- TYPE: CATEGORIE_BIEN
+  ID_CATEGORIE: 3
+  NOM_CATEGORIE: Petit électroménager
+- TYPE: CATEGORIE_BIEN
+  ID_CATEGORIE: 4
+  NOM_CATEGORIE: Service de table
+- TYPE: CATEGORIE_BIEN
+  ID_CATEGORIE: 5
+  NOM_CATEGORIE: Divers
+
+# Table type de BIEN
+- TYPE: TYPE_BIEN
+  ID_TYPE: 1
+  NOM_TYPE: 'cuisine intégrée'
+
+- TYPE: TYPE_BIEN
+  ID_TYPE: 2
+  NOM_TYPE: 'réfrigérateur, congélateur, lave-vaisselle'
+
+- TYPE: TYPE_BIEN
+  ID_TYPE: 3
+  NOM_TYPE: 'cafetière, bouilloire'
+
+- TYPE: TYPE_BIEN
+  ID_TYPE: 4
+  NOM_TYPE: 'vaisselle (assiettes, verres, couverts, plats)'
+
+# Table BIEN (specific items and their details)
+- TYPE: BIEN
+  ID_BIEN: 1
+  NOM_BIEN: 'Cuisine intégrée'
+  DATE_ACHAT: '2021-08-15'
+  PRIX: 12000
+  ID_CATEGORIE: 1  # Mobilier
+  ID_TYPE_BIEN: 1
+  ID_PIECE: 1  # Cuisine - arrière-cuisine
+
+- TYPE: BIEN
+  ID_BIEN: 2
+  NOM_BIEN: 'Réfrigérateur congélateur'
+  DATE_ACHAT: '2020-11-10'
+  PRIX: 800
+  ID_CATEGORIE: 2  # Gros électroménager
+  ID_TYPE_BIEN: 2
+  ID_PIECE: 1  # Cuisine - arrière-cuisine
+
+- TYPE: BIEN
+  ID_BIEN: 3
+  NOM_BIEN: 'Cafetière expresso'
+  DATE_ACHAT: '2022-03-05'
+  PRIX: 150
+  ID_CATEGORIE: 3  # Petit électroménager
+  ID_TYPE_BIEN: 3
+  ID_PIECE: 1  # Cuisine - arrière-cuisine
+
+# Table JUSTIFICATIF (for each item)
+- TYPE: JUSTIFICATIF
+  ID_JUSTIFICATIF: 1
+  NOM_JUSTIFICATIF: 'Facture cuisine intégrée'
+  DATE_AJOUT: '2021-08-20'
+  URL: 'http://example.com/facture_cuisine.pdf'
+  ID_BIEN: 1  # Cuisine intégrée
+
+- TYPE: JUSTIFICATIF
+  ID_JUSTIFICATIF: 2
+  NOM_JUSTIFICATIF: 'Facture réfrigérateur'
+  DATE_AJOUT: '2020-11-15'
+  URL: 'http://example.com/facture_frigo.pdf'
+  ID_BIEN: 2  # Réfrigérateur congélateur
+
+- TYPE: JUSTIFICATIF
+  ID_JUSTIFICATIF: 3
+  NOM_JUSTIFICATIF: 'Facture cafetière'
+  DATE_AJOUT: '2022-03-07'
+  URL: 'http://example.com/facture_cafetiere.pdf'
+  ID_BIEN: 3  # Cafetière expresso
+
+# Table AVIS (feedback or comments)
+- TYPE: AVIS
+  ID_AVIS: 1
+  DESCRIPTION: "Grasse a Mobilist j'ai pu être entierement remboursé, Mobilist c'est la vie !!!!"
+  ID_PROPRIETAIRE: 2
+  
+- TYPE: AVIS
+  ID_AVIS: 2
+  DESCRIPTION: "Si j'avais connu mobilist avant, je n'aurais pas pas perdu 5000€ a cause d'une inondation il y a 5 ans"
+  ID_PROPRIETAIRE: 6
+
+
+# Table AVOIR : 
+- TYPE: AVOIR
+  ID_PROPRIETAIRE: 4
+  ID_LOGEMENT: 1
+
+- TYPE: AVOIR
+  ID_PROPRIETAIRE: 5
+  ID_LOGEMENT: 1
