@@ -56,9 +56,12 @@ class IncrisptionForm(FlaskForm):
 def accueil_connexion():
     return render_template("accueil_2.html")
 
-@app.route("/simulation/")
+@app.route("/simulation/", methods =("GET","POST" ,))
 def simulation():
-    return render_template("simulation.html")
+    f = LoginForm()
+    user = f.get_authenticated_user()
+    logements = getLogements(user)
+    return render_template("simulation.html",logements=logements)
     
 @app.route("/login/", methods =("GET","POST" ,))
 def login():

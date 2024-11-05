@@ -155,4 +155,6 @@ def modifier(mail, nom, prenom):
     
 def getLogements(idProp):
     logements = db.session.query(Logement).join(Logement.proprietaires).filter(Proprietaire.idProprio == idProp).all()
+    if logements is None:
+        return "Aucun logements pour l'instant."
     return logements

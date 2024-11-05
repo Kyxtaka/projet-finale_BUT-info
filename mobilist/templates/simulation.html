@@ -28,6 +28,10 @@
     </div>
     <div class="logement">
         <p>Logement concerné :</p>
+        {% for loge in logements %}
+            <p>{{ loge }}</p>
+        {% endfor %}
+        <p>fin des logements</p>
     </div>
 </div>
 {% endblock %}
