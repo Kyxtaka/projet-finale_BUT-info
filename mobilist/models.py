@@ -38,19 +38,19 @@ class Avis(Base):
     def get_id_avis(self):
         return self.id_avis
     
-    def set_id_avis(self, id_avis):
+    def set_id_avis(self, id_avis:int):
         self.id_avis = id_avis
     
     def get_desc_avis(self):
         return self.desc_avis
     
-    def set_desc_avis(self, desc_avis):
+    def set_desc_avis(self, desc_avis:str):
         self.desc_avis = desc_avis
     
     def get_id_proprio(self):
         return self.id_proprio
     
-    def set_id_proprio(self, id_proprio):
+    def set_id_proprio(self, id_proprio:int):
         self.id_proprio = id_proprio
 
 class Proprietaire(Base):
