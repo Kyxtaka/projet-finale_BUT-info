@@ -5,62 +5,67 @@
 {% endblock %}
 {% block scripts %}
 {{ super()}}
+<!-- utilisation de JS pour actualiser les choix de pieces en fonction du logement -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const logementSelect = document.getElementById("logement-select");
+        const pieceSelect = document.getElementById("piece-select");
+        console.log("doc loaded")
+        console.log("logementSelect",logementSelect); // logs de l id du logement
+        logementSelect.addEventListener("change", function() {
+            const logementId = this.value;
+            console.log("const logementId",logementId); // logs de l id du logement
+            fetch(`/get_pieces/${logementId}`)
+                .then(response => response.json())
+                .then(data => {
+                    pieceSelect.innerHTML = "";
+                    data.pieces.forEach(piece => {
+                        const option = document.createElement("option");
+                        option.value = piece.id;
+                        option.name = piece.name;
+                        pieceSelect.appendChild(option);
+                    });
+                })
+                .catch(error => console.error("Ereur lors de l'obtention des pieces:", error));
+        });
+    });
+</script>
 {% endblock %}
 {{ super()}}
 {% block content %}
-<div class="ajout-logement">
-    <!-- <script>
-        function isTriggerd() {
-            document.getElementById("test").addEventListener("click", function() {
-                window.alert("Bien ajouté avec succès");
-            });
-        }
-    </script> -->
+<div class="ajout-logement"> 
     <h1>Ajoutez un bien à votre logement</h1>
     <form  class="form-group" form='form' action="{{ url_for('ajout_bien') }}" method="POST">
-        <div class="box-container">
+        <div class="box-container" id="main-form">
             <div id="left-side">
-                <input type="hidden" name="id_logement" value="{{current_user.id_logement}}">
-                <input type="hidden" name="id_proprio" value="{{current_user.id_user}}"> 
-    
-                <label class="form-group-element" for="nom">Nom du bien</label>
-                <input class="form-group-element" type="text" name="nom" id="nom">
-        
                 <label class="form-group-element" for="logement">Le logement</label>
-                <select class="form-group-element" name="logement" method="POST" action="{{ url_for('ajout_bien') }}">
-                    <option value= "{{logements[0].get_id_logement()}}" SELECTED>{{ logements[0].get_nom_logement() }}</option>"
-                    {% for val in logements[1:] %}
-                      <option value="{{val.get_id_logement()}}">{{val.get_nom_logement()}}</option>
-                    {% endfor %}
-                </select>
+                {{ form.logement(class="form-group-element", id="logement-select") }}
+
+                <label class="form-group-element" for="nom">Nom du bien</label>
+                {{ form.nom_bien(class="form-group-element") }}
+
+                <label class="form-group-element" for="type">Type du bien</label>
+                {{ form.type_bien(class="form-group-element") }}
 
                 <label class="form-group-element" for="categorie">Categorie du bien</label>
-                <select class="form-group-element" name="categorie" method="POST" action="{{ url_for('ajout_bien') }}">
-                    <option value= "{{categories_bien[0].get_id_cat()}}" SELECTED>{{ categories_bien[0].get_nom_cat() }}</option>"
-                    {% for val in categories_bien[1:] %}
-                      <option value="{{val.get_id_cat()}}">{{val.get_nom_cat()}}</option>
-                    {% endfor %}
-                </select>
-        
-                <label class="form-group-element" for="type">Type du bien</label>
-                <select class="form-group-element" name="type" method="POST" action="{{ url_for('ajout_bien') }}">
-                    <option value= "{{types_bien[0].get_id_type()}}" SELECTED>{{ types_bien[0].get_nom_type() }}</option>"
-                    {% for val in types_bien[1:] %}
-                      <option value="{{val.get_id_type()}}">{{val.get_nom_type()}}</option>
-                    {% endfor %}
-                </select>
+                {{ form.categorie_bien(class="form-group-element") }}
 
-                <label class="form-group-element" for="price">prix neuf du bien</label>
-                <input class="form-group-element" type="number" name="price" id="price">
+                <label class="form-group-element" for="piece">Nombre de pièces</label>
+                {{ form.piece_bien(class="form-group-element", id="piece-select") }}
 
-                <label class="form-group-element" for="date">prix neuf du bien</label>
-                <input class="form-group-element" type="date" name="date" id="date">
-        
-                <label class="form-group-element" for="desc">Description du bien</label>
-                <textarea class="form-group-element" name="desc" id="desc"></textarea>
+                <label class="form-group-element" for="prix">Prix neuf</label>
+                {{ form.prix_bien(class="form-group-element") }}
+
+                <label class="form-group-element" for="date">Date de l'achat</label>
+                {{ form.date_bien(class="form-group-element") }}
+
+                <label class="form-group-element" for="description">Description</label>
+                {{ form.description_bien(class="form-group-element") }}
+                {{ form.id_proprio }}
             </div>
             <div id="right-side">
-
+                <label class="form-group-element" for="justificatif">Justificatif test nom</label>
+                {{ form.justificatif_bien(class="form-group-element") }}
             </div>
         </div>
         <button class="form-group-element" id="formsumbmit" type="submit">Ajouter</button> 

@@ -47,6 +47,13 @@
   ADRESSE: '2 rue du pavillon, 71004 Paname'
   DESCRIPTION: 'maison principale située à Paname avec toutes mes voitures'
 
+- TYPE: LOGEMENT
+  NOM_LOGEMENT: 'Maison secondaire'
+  ID_LOGEMENT: 2
+  TYPE_LOGEMENT: MAISON
+  ADRESSE: 'Isekai de truck, 666 Hell'
+  DESCRIPTION: 'maison secondaire située dans un monde parallèle'
+
 # Table PIECE de LOGEMENT
 - TYPE: PIECE
   ID_PIECE: 1
@@ -170,6 +177,10 @@
 - TYPE: AVOIR
   ID_PROPRIETAIRE: 5
   ID_LOGEMENT: 1
+
+- TYPE: AVOIR
+  ID_PROPRIETAIRE: 4
+  ID_LOGEMENT: 2
 
 # Table User :
 - TYPE: USER

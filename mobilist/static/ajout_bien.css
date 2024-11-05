@@ -19,6 +19,14 @@ main {
     width: 50%;
     margin-bottom: 10px;
 } */
+
+#main-form {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
 .box-container {
     display: flex;
     justify-content: center;

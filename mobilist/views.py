@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import jsonify, render_template
 from .app import app
 from flask import redirect, render_template, url_for
 from wtforms import PasswordField
@@ -11,7 +11,7 @@ from .commands import create_user
 from .models import *
 from .exception import *
 from flask_wtf import FlaskForm
-from wtforms import *
+from wtforms import * #import de tous les champs
 from wtforms.validators import DataRequired
 
 
@@ -66,7 +66,8 @@ class AjoutBienForm(FlaskForm):
 
     def __init__(self):
         super(AjoutBienForm, self).__init__()
-        self.logement.choices = [(l.get_id_logement(), l.get_nom_logement()) for l in Proprietaire.query.get(current_user.id_user).logements]
+        id_proprio = current_user.id_user
+        self.logement.choices = [(l.get_id_logement(), l.get_nom_logement()) for l in Proprietaire.query.get(id_proprio).logements]
         self.type_bien.choices = [(t.id_type, t.nom_type) for t in TypeBien.query.all()]
         self.categorie_bien.choices = [(c.get_id_cat(), c.get_nom_cat()) for c in Categorie.query.all()]
         self.piece_bien.choices = [(p.get_id_piece(), p.get_nom_piece()) for p in Piece.query.all()]
@@ -138,6 +139,15 @@ def affiche_logements():
     return render_template("afficheLogements.html", logements=logements)
 
 
+# Obtention des pièces d'un logement pour le form interactive ajout legement et retour data en json
+# permet une meilleur dynamique pour la gestion de la page avec javascript 
+@app.route("/get_pieces/<int:logement_id>")
+@login_required
+def get_pieces(logement_id):
+    pieces = Piece.query.filter_by(id_logement=logement_id).all()
+    pieces_data = [{"id": piece.get_id_piece(), "name": piece.get_nom_piece()} for piece in pieces]
+    return jsonify({"pieces": pieces_data})
+
 @app.route("/bien/ajout", methods=("GET", "POST",))
 @login_required
 def ajout_bien():
@@ -148,13 +158,5 @@ def ajout_bien():
             return render_template("index.html")
         except:
             print("error ajout bien")
-            return render_template("ajout_bien.html", 
-                                   categories_bien=Categorie.query.all(), 
-                                   types_bien=TypeBien.query.all(), 
-                                   logements=Proprietaire.query.get_or_404(current_user.id_user).logements, 
-                                   form=form)
-    return render_template("ajout_bien.html", 
-                           categories_bien=Categorie.query.all(), 
-                           types_bien=TypeBien.query.all(), 
-                           logements=Proprietaire.query.get_or_404(current_user.id_user).logements, 
-                           form=form)
+            return render_template("ajout_bien.html", form=form)
+    return render_template("ajout_bien.html", form=form)
