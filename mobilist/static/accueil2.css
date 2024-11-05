@@ -7,6 +7,8 @@ nav {
 }
 main {
     margin-top: 9rem;
+    margin-left:0.5%;
+    margin-right:0.5%;
     margin-bottom: 6.1rem;
 }
 
@@ -53,41 +55,51 @@ button {
   position: absolute;
   top: 28px;
 }
-
+/* apparence ajout */
 .ajout {
     border-radius: 20px;
     background-size:100%;
     background-image: url("img/img-ajout.png");
-    box-shadow: 2px 2px 15px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 2px 15px 4px rgba(0, 0, 0, 0.2);
     padding: 10%;
     margin:5%;
-    display: flex;
 }
-
 .box-ajout {
-        background-color: lightgray;
-        padding:2%;
-        box-shadow: 2px 2px 15px 4px rgba(0, 0, 0, 0.1);
-        border-radius: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    background-color: rgb(211 211 211 / .6);
+    padding-top:3%;
+    padding-bottom:3%;
 }
 
-.derniers_ajouts, .a_justifier {
-    padding: 6px;
-    border-top: 0.5mm solid;
-    border-color: lightgray;
-    width: 99%;
+.box-ajout>div  {
+    flex-wrap: nowrap;
+    background-color: black;
+    padding:2%;
+    box-shadow: 2px 2px 15px 4px rgba(0, 0, 0, 0.1);
+}
+
+.ajout-elem {
     display:block;
+    background-color: gray;
+    color: white;
+    padding:3px;
+}
+.ajout-elem:hover {
+    color:#5E5DF0;
+}
+
+
+/* apparence tableaux */
+.derniers_ajouts, .a_justifier {
+    padding: 5px;
+    border-top: 0.5mm solid;
     margin-bottom: 1%;
+    border-color: lightgray;
 }
 
 .tableau {
-    border-color: black;
     border:0.5mm solid;
-}
-
-.ajout-elem{
-    left:25%;
-    margin: 5%;
 }
 
 .voir_plus {
@@ -127,7 +139,7 @@ footer {
     height: 45px;
 }
 
-p {
+.p-footer {
     position: absolute;
     top: 32px;
     left : 540px;

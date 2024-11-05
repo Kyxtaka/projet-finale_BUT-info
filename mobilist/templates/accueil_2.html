@@ -57,13 +57,15 @@
   <main>{% block content %}
     <section class="ajout">
       <article class="box-ajout">
-      <div>
-        <a class="ajout-elem" href=""><span>Ajouter un bien</span></a>
-      </div>
-      <div>
-        <a class="ajout-elem" href=""><span>Ajouter un logement</span></a>
-      </div>
-    </article>
+        <div>
+          <a href=""><img class="add" src="{{ url_for('static',filename='img/add.png') }}" alt="add something"></a>
+          <a class="ajout-elem" href="">Ajouter un bien</a>
+        </div>
+        <div>
+          <a href=""><img class="add" src="{{ url_for('static',filename='img/add.png') }}" alt="add something"></a>
+          <a class="ajout-elem" href="">Ajouter un logement</a>
+        </div>
+      </article>
     </section>
     <section class="derniers_ajouts">
       <h3>Récents ajouts </h3>
@@ -103,7 +105,7 @@
     <div class="footer">
       <img id="appstore" src="{{ url_for('static',filename='img/appstore.jpg') }}" alt="Dispo sur appstore"/>
       <img id="googleplay" src="{{ url_for('static',filename='img/googleplay.png') }}" alt="Dispo sur Google play"/>
-      <p> © AKHTAR NAIMA - VALIN OPHÉLIE - BOCQUET CLÉMENCE - VILCOQ YOHANN - RANDRIANTSOA NATHAN </p>
+      <p class="p-footer"> © AKHTAR NAIMA - VALIN OPHÉLIE - BOCQUET CLÉMENCE - VILCOQ YOHANN - RANDRIANTSOA NATHAN </p>
     </div>
   </footer>
 </body>
