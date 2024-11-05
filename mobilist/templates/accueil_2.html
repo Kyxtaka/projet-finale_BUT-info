@@ -25,36 +25,36 @@
                   <img src="{{ url_for('static',filename='img/accueil.png') }}" alt="icône accueil"/>
                 </li>
                 <li class="nav-item-accueil">
-                  <a class="nav-link active" aria-current="page" href="#">Accueil</a>
+                  <a class="nav-link active" aria-current="page" href="{{ url_for('accueil_connexion')}}">Accueil</a>
               </li>
 
               <li class="nav-img" >
                 <img src="{{ url_for('static',filename='img/mes-biens.png') }}" alt="icône nos services"/>
               </li>
-              <li class="nav-item-services">
+              <li class="nav-item-bien">
                 <a class="nav-link active" aria-current="page" href="#">Mes biens</a>
               </li> 
 
               <li class="nav-img" >
                 <img src="{{ url_for('static',filename='img/mes-logements.png') }}" alt="icône contact"/>
               </li>
-              <li class="nav-item-contact">
-                <a class="nav-link active" aria-current="page" href="#">Mes logements</a>
+              <li class="nav-item-logement">
+                <a class="nav-link active" aria-current="page" href="{{ url_for('affiche_logements') }}">Mes logements</a>
               </li> 
-
               <li class="nav-img" >
                 <img src="{{ url_for('static',filename='img/simuler-sinistre.png') }}" alt="icône avis"/>
               </li>
-              <li class="nav-item-avis">
+              <li class="nav-item-sinistre">
                 <a class="nav-link active" aria-current="page" href="#">Simuler un sinistre</a>
               </li> 
               <li id="connexion">
-                <a href="{{ url_for('logout')}}">
+                <a href="{{ url_for('logout') }}">
                   <button class="connexion">Mon compte</button>
                 </a>
               </li>         
   </header>
-  <main>{% block content %}
+  <main>
+    {% block content %}
     <section class="ajout">
       <article class="box-ajout">
         <div>

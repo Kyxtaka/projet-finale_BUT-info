@@ -58,8 +58,10 @@ class IncrisptionForm(FlaskForm):
         m.update(self.password.data.encode())
         passwd = m.hexdigest()
         return user if passwd == user.password else None
-    
+
+ 
 @app.route("/accueil-connexion/")
+@login_required   
 def accueil_connexion():
     return render_template("accueil_2.html")
     
@@ -71,6 +73,7 @@ def login():
     elif f.validate_on_submit():
         user = f.get_authenticated_user()
         if user:
+            print("test2")
             login_user(user)
             next = f.next.data or url_for("accueil_connexion")
             return redirect(next)
@@ -80,7 +83,7 @@ def login():
 
 from flask_login import logout_user
 @app.route("/logout/")
-def logout():
+def logout():   
     logout_user()
     return redirect(url_for('home'))
     
@@ -102,12 +105,18 @@ def inscription():
     "inscription.html", form=f, present=False)
   
 
-
 @app.route("/information")
 def information():
     return render_template("information.html")
 
-
 @app.route("/services")
 def services():
     return render_template("services.html")
+
+@app.route("/afficheLogements")
+@login_required   
+def affiche_logements():
+    proprio = Proprietaire.query.get(current_user.id_user)
+    logements = proprio.logements
+    print(logements)
+    return render_template("afficheLogements.html", logements=logements)
