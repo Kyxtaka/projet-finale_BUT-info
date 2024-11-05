@@ -2,18 +2,18 @@
     height: 82px;
 }
 
-main {
+.accueil2 main {
     margin-top: 6.1rem;
     margin-bottom: 6.1rem;
 }
-nav {
+.accueil2 nav {
     border-bottom: 1px solid; 
 }
 
-.logements {
+.accueil2 .logements {
     margin: 10rem;
 }
-#navbar-collapse  a {
+.accueil2 #navbar-collapse  a {
     color: black;
 }
 
@@ -64,7 +64,7 @@ nav {
     padding: 10%;
     margin:5%;
 }
-.box-ajout {
+.accueil2 .box-ajout {
     display: flex;
     justify-content: space-evenly;
     background-color: rgb(211 211 211 / .6);
@@ -72,44 +72,44 @@ nav {
     padding-bottom:3%;
 }
 
-.box-ajout>div  {
+.accueil2 .box-ajout>div  {
     flex-wrap: nowrap;
     background-color: black;
     padding:2%;
     box-shadow: 2px 2px 15px 4px rgba(0, 0, 0, 0.1);
 }
 
-.ajout-elem {
+.accueil2 .ajout-elem {
     display:block;
     background-color: gray;
     color: white;
     padding:3px;
 }
-.ajout-elem:hover {
+.accueil2 .ajout-elem:hover {
     color:#5E5DF0;
 }
 
 
 /* apparence tableaux */
-.derniers_ajouts, .a_justifier {
+.accueil2 .derniers_ajouts, .a_justifier {
     padding: 5px;
     border-top: 0.5mm solid;
     margin-bottom: 1%;
     border-color: lightgray;
 }
 
-.tableau {
+.accueil2 .tableau {
     border:0.5mm solid;
 }
 
-.voir_plus {
+.accueil2 .voir_plus {
     color: gray;
     display: block;
     text-align:center;
     margin-top: 1%;
 
 }
-.voir_plus:hover {
+.accueil2 .voir_plus:hover {
     color:#5E5DF0;
 }
 
@@ -140,7 +140,7 @@ nav {
     height: 45px;
 }
 
-.p-footer {
+.accueil2 .p-footer {
     position: absolute;
     top: 32px;
     left : 540px;
