@@ -1,0 +1,22 @@
+{% extends "index.html" %}
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='avis.css')}}">
+{% endblock %}
+{% block content %}
+<div class="head">
+    <h1>CE QUI COMPTE AUSSI </h1>
+    <h1>C'EST VOTRE AVIS</h1>
+</div>
+<section class="liste-avis">
+{% for x in avis}
+{% endfor %}
+</section>
+
+<section class="footer">
+    <h2>Qui peut le mieux parler de nous ? Vous !</h2>
+    <p> Pour améliorer la qualité de nos services, nous recueillons chaque mois vos avis.</p>
+</section>
+
+
+{% endblock %}

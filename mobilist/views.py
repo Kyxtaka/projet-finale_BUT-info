@@ -1,3 +1,5 @@
+from .app import app
+from flask import redirect, render_template, url_for
 from flask import render_template
 from .app import app
 from flask import redirect, render_template, url_for
@@ -22,6 +24,12 @@ def home():
 @app.route("/accueil")
 def accueil():
     return render_template('accueil.html')
+
+@app.route("/avis")
+def avis():
+    avis = get_sample()
+    return render_template("avis.html", avis=avis)
+
    
 class LoginForm(FlaskForm):
     mail = StringField('Adresse e-mail')
@@ -36,7 +44,7 @@ class LoginForm(FlaskForm):
         m.update(self.password.data.encode())
         passwd = m.hexdigest()
         return user if passwd == user.password else None
-    
+
 class IncrisptionForm(FlaskForm):
     nom = StringField('Nom')
     prenom = StringField('Prénom')
