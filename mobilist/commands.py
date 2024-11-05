@@ -31,6 +31,7 @@ def loaddb(filename):
             case 'LOGEMENT':
                 new_logement = Logement(
                     id_logement = entity['ID_LOGEMENT'],
+                    nom_logement= entity['NOM'],
                     type_logement = entity['TYPE_LOGEMENT'],
                     adresse_logement = entity['ADRESSE'],
                     desc_logement = entity['DESCRIPTION'])
@@ -60,12 +61,13 @@ def loaddb(filename):
                 new_bien = Bien(
                     id_bien = entity['ID_BIEN'],
                     nom_bien = entity['NOM_BIEN'],
+                    id_proprio = entity['ID_PROPRIETAIRE'],
                     date_achat = date.date(),
                     prix = entity['PRIX'],
                     id_piece = entity['ID_PIECE'],
+                    id_logement=entity['ID_LOGEMENT'],
                     id_type = entity['ID_TYPE_BIEN'],
-                    id_cat = entity['ID_CATEGORIE'],
-                    id_proprio = entity['ID_PROPRIETAIRE']
+                    id_cat = entity['ID_CATEGORIE']
                 )
                 session.add(new_bien)
             case 'JUSTIFICATIF':

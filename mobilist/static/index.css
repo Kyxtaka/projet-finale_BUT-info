@@ -10,6 +10,10 @@
 #navbar-collapse  a {
     color: black;
 }
+main {
+    margin-top: 6.1rem;
+    margin-bottom: 6.1rem;
+}
 
  ul {
     display: flex;

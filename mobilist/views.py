@@ -27,8 +27,7 @@ def accueil():
 
 @app.route("/avis")
 def avis():
-    avis = get_sample()
-    return render_template("avis.html", avis=avis)
+    return render_template("avis.html")
 
    
 class LoginForm(FlaskForm):
@@ -97,7 +96,7 @@ def inscription():
             login_user(user)
             return render_template("inscription.html", form=f, present=True)
         create_user(f.mail.data, f.password.data, "proprio")
-        modifier(f.mail.data, f.nom.data, f.prenom.data)
+        User.modifier(f.mail.data, f.nom.data, f.prenom.data)
         return render_template("accueil_2.html")
     return render_template(
     "inscription.html", form=f, present=False)

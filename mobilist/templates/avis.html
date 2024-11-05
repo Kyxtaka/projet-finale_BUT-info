@@ -1,22 +1,29 @@
 {% extends "index.html" %}
+
 {% block styles %}
-{{ super() }}
-<link rel="stylesheet" href="{{ url_for('static', filename='avis.css')}}">
+{{ super()}}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="{{ url_for('static', filename='avis.css') }}">
 {% endblock %}
 {% block content %}
-<div class="head">
-    <h1>CE QUI COMPTE AUSSI </h1>
-    <h1>C'EST VOTRE AVIS</h1>
+<div class ="titre">
+    <h1 class="h1pt1">CE QUI COMPTE AUSSI</h1>
+    <h1 class="h1pt2">C'EST VOTRE AVIS</h1>
 </div>
-<section class="liste-avis">
-{% for x in avis}
-{% endfor %}
-</section>
-
-<section class="footer">
+<div class ="avis">
+    <section class="avis1">
+        <p class="nomAvis1">Clémence.B</p>
+        <img src="{{ url_for('static', filename='img/4_etoile.jpg') }}" alt="4 étoiles">
+        <p>Incroyable ! MobiList m'a littéralement facilité la vie lorsque ma maison a brulé !!</p>
+    </section>
+    <section class="avis2">
+        <p class="nomAvis2">Ophélie.V</p>
+        <img src="{{ url_for('static', filename='img/5_etoile.jpg') }}" alt="5 étoiles">
+        <p>Ma maison s'est envolée lors d'une tempête :( Heureusement mon amie Clémence m'a conseillé MobiList deux mois auparavant. Je vous recommande !</p>
+    </section>
+</div>
+<div class="bottom">
     <h2>Qui peut le mieux parler de nous ? Vous !</h2>
-    <p> Pour améliorer la qualité de nos services, nous recueillons chaque mois vos avis.</p>
-</section>
-
+    <h3>Pour améliorer la qualité de nos services, nous recueillons chaque mois vos avis.</h3>
 
 {% endblock %}

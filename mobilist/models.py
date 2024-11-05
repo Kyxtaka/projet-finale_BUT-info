@@ -3,7 +3,7 @@ from sqlalchemy import select, Column, Integer, String, Enum, Date, DECIMAL, Flo
 from .app import db, login_manager
 from sqlalchemy.sql.schema import ForeignKey
 from datetime import date
-from flask_login import UserMixin, current_user
+from flask_login import UserMixin
 from sqlalchemy.sql.expression import func
 import enum
 import yaml, os.path
@@ -16,6 +16,9 @@ class LogementType(enum.Enum):
     
     APPART = "appart"
     MAISON = "maison"
+
+    def get_type(self):
+        return self.name
 
 class Avis(Base):
     __tablename__ = "AVIS"
@@ -49,6 +52,9 @@ class Avis(Base):
     
     def set_id_proprio(self, id_proprio):
         self.id_proprio = id_proprio
+    
+    def get_sample():
+        return Avis.query.all()
 
 class Proprietaire(Base):
     __tablename__ = "PROPRIETAIRE"
@@ -94,20 +100,20 @@ class Proprietaire(Base):
     @staticmethod
     def get_by_mail(mail):
         return Proprietaire.query.filter_by(mail=mail).first()
-
-    
+   
 class Logement(Base):
     __tablename__ = "LOGEMENT"
     
-    idLogement = Column(Integer, primary_key = True, nullable=False)
-    nom_logement = Column(String(25))
-    typeL = Column(Enum(LogementType), nullable=False)
-    adresse = Column(String(100))
-    descriptionLogement = Column(String(1000))
+    id_logement = Column(Integer, name="ID_LOGEMENT", primary_key=True)
+    nom_logement = Column(String(20), name="NOM_LOGEMENT", nullable=True)
+    type_logement = Column(Enum(LogementType), name="TYPE_LOGEMENT", nullable=False)
+    adresse = Column(String(100), name="ADRESSE", nullable=True)
+    desc_logement = Column(String(1000), name="DESC_LOGEMENT", nullable=True)
     proprietaires = relationship("Proprietaire", secondary="AVOIR", back_populates="logements")
     
-    def __init__(self, id_logement, type_logement, adresse_logement, desc_logement):
+    def __init__(self, id_logement, nom_logement,type_logement, adresse_logement, desc_logement):
         self.id_logement = id_logement
+        self.nom_logement = nom_logement
         self.type_logement = type_logement
         self.adresse = adresse_logement
         self.desc_logement = desc_logement
@@ -173,16 +179,19 @@ class Bien(Base):
     prix = Column(Float, name="PRIX", nullable=True)
     id_proprio = Column(Integer, ForeignKey("PROPRIETAIRE.ID_PROPRIO"), nullable=False, name="ID_PROPRIO")
     id_piece = Column(Integer, ForeignKey("PIECE.ID_PIECE"), nullable=False, name="ID_PIECE")
+    id_logement = Column(Integer, ForeignKey("PIECE.ID_LOGEMENT"), nullable=False, name="ID_LOGEMENT")
     id_type = Column(Integer, ForeignKey("TYPEBIEN.ID_TYPE_BIEN"), nullable=False, name="ID_TYPE_BIEN")
     id_cat = Column(Integer, ForeignKey("CATEGORIE.ID_CATEGORIE"), nullable=False, name="ID_CATEGORIE")
     
-    def __init__(self, id_bien, nom_bien, id_proprio, date_achat, prix, id_piece, id_type, id_cat):
+    
+    def __init__(self, id_bien, nom_bien, id_proprio, date_achat, prix, id_piece, id_logement,  id_type, id_cat):
         self.id_bien = id_bien
         self.nom_bien = nom_bien
         self.date_achat = date_achat
         self.prix = prix
         self.id_proprio = id_proprio
         self.id_piece = id_piece
+        self.id_logement = id_logement
         self.id_type = id_type
         self.id_cat = id_cat
     
@@ -236,6 +245,12 @@ class Bien(Base):
     
     def set_id_cat(self, id_cat):
         self.id_cat = id_cat
+
+    def get_id_logement(self):
+        return self.id_logement
+
+    def set_id_logement(self, id_logement):
+        self.id_logement = id_logement
     
 class Piece(Base):
     __tablename__ = "PIECE"
@@ -380,17 +395,17 @@ class Justificatif(Base):
 class User(Base, UserMixin):
     __tablename__ = "USER"
     
-    id = Column(String(50), primary_key=True, name="MAIL")
+    mail = Column(String(50), primary_key=True, name="MAIL")
     password = Column(String(64), name="PASSWORD")
     role = Column(String(10), name="ROLE")
     id_user = Column(Integer, ForeignKey("PROPRIETAIRE.ID_PROPRIO"), name="ID_PROPRIO")
     proprio = relationship('Proprietaire', back_populates='user', uselist=False)
     
-    def get_mail(self):
-        return self.id
+    def get_id(self):
+        return self.mail
     
-    def set_mail(self, mail):
-        self.id = mail
+    def set_id(self, mail):
+        self.mail = mail
     
     def get_password(self):
         return self.password
@@ -412,23 +427,21 @@ class User(Base, UserMixin):
 
     @staticmethod
     def modifier(mail, nom, prenom):
-        proprio = Proprietaire.query.get(mail)
+        proprio = Proprietaire.get_by_mail(mail)
         proprio.set_nom(nom)
         proprio.set_prenom(prenom)
         db.session.commit()
 
     @staticmethod
     def get_user(mail):
-        return User.query.get(mail)
+        return User.query.get_or_404(mail)
     
     @staticmethod
     def get_by_mail(mail):
         return User.query.filter_by(mail=mail).first()
-            
+    
 @login_manager.user_loader
 def load_user(mail):
     return User.query.get(mail)
 
-def get_sample():
-    return Avis.query.all()
     

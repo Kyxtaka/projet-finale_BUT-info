@@ -56,14 +56,18 @@
   </header>
   <main>{% block content %}
     <section class="ajout">
-      <article>
+      <article class="box-ajout">
+      <div>
         <a class="ajout-elem" href=""><span>Ajouter un bien</span></a>
+      </div>
+      <div>
         <a class="ajout-elem" href=""><span>Ajouter un logement</span></a>
-      </article>
+      </div>
+    </article>
     </section>
     <section class="derniers_ajouts">
       <h3>Récents ajouts </h3>
-    <table class="tableau-ajout">
+    <table class="tableau">
       <thead>
         <tr>
           <th scope="col" class="col">Type de bien</th>
@@ -74,11 +78,11 @@
       </thead>
       <tbody>
       </table>
-      <p class="voir_plus"> voir plus</p>
+      <a href="" class="voir_plus"><u>Voir plus</u></a>
     </section>
     <section class="a_justifier">
       <h3>À justifier </h3>
-    <table class="tableau_justifier">
+    <table class="tableau">
       <thead>
         <tr>
           <th scope="col" class="col">Type de bien</th>
@@ -90,7 +94,7 @@
       <tbody>
       </tbody>
       </table>
-      <p class="voir_plus"> voir plus</p>
+      <a href="" class="voir_plus"><u>Voir plus</u></a>
     </section>
     {% endblock %}
   </main>
