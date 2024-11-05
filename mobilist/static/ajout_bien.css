@@ -1,0 +1,49 @@
+#formsumbmit {
+    position: relative;
+
+}
+main {
+    height: 100%;
+ }
+
+ .form-group {
+    display: block;
+}
+
+/* .form-group input,
+.form-group label,
+.form-group select,
+.form-group textarea,
+.form-group button {
+    display: block;
+    width: 50%;
+    margin-bottom: 10px;
+} */
+.box-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    border-style: thin; 
+}
+.form-group-element {
+    display: block;
+    width: 50%;
+    margin-bottom: 10px;
+    justify-content: center;
+    text-align: center;
+}
+
+#formsubmit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 25%;
+}
+
+#recent-ajout {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    height: 100%;
+}

@@ -1,4 +1,4 @@
-{% extends "index.html" %}
+{% extends "accueil_2.html" %}
 {% block styles %}
 <link rel="stylesheet" href="{{ url_for('static', filename='accueil.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='ajout_bien.css') }}">
@@ -9,20 +9,65 @@
 {{ super()}}
 {% block content %}
 <div class="ajout-logement">
+    <!-- <script>
+        function isTriggerd() {
+            document.getElementById("test").addEventListener("click", function() {
+                window.alert("Bien ajouté avec succès");
+            });
+        }
+    </script> -->
     <h1>Ajoutez un bien à votre logement</h1>
-    <form action="{{ url_for('ajout_bien') }}" method="post">
-        <!-- <input type="hidden" name="id_logement" value="{{id_logement}}"> //id du logement -->
+    <form  class="form-group" form='form' action="{{ url_for('ajout_bien') }}" method="POST">
+        <div class="box-container">
+            <div id="left-side">
+                <input type="hidden" name="id_logement" value="{{current_user.id_logement}}">
+                <input type="hidden" name="id_proprio" value="{{current_user.id_user}}"> 
     
-        <label for="nom">Nom du bien</label>
-        <input type="text" name="nom" id="nom">
+                <label class="form-group-element" for="nom">Nom du bien</label>
+                <input class="form-group-element" type="text" name="nom" id="nom">
+        
+                <label class="form-group-element" for="logement">Le logement</label>
+                <select class="form-group-element" name="logement" method="POST" action="{{ url_for('ajout_bien') }}">
+                    <option value= "{{logements[0].get_id_logement()}}" SELECTED>{{ logements[0].get_nom_logement() }}</option>"
+                    {% for val in logements[1:] %}
+                      <option value="{{val.get_id_logement()}}">{{val.get_nom_logement()}}</option>
+                    {% endfor %}
+                </select>
 
-        <label for="prix">prix neuf du bien</label>
-        <input type="number" name="valeur" id="valeur">
+                <label class="form-group-element" for="categorie">Categorie du bien</label>
+                <select class="form-group-element" name="categorie" method="POST" action="{{ url_for('ajout_bien') }}">
+                    <option value= "{{categories_bien[0].get_id_cat()}}" SELECTED>{{ categories_bien[0].get_nom_cat() }}</option>"
+                    {% for val in categories_bien[1:] %}
+                      <option value="{{val.get_id_cat()}}">{{val.get_nom_cat()}}</option>
+                    {% endfor %}
+                </select>
+        
+                <label class="form-group-element" for="type">Type du bien</label>
+                <select class="form-group-element" name="type" method="POST" action="{{ url_for('ajout_bien') }}">
+                    <option value= "{{types_bien[0].get_id_type()}}" SELECTED>{{ types_bien[0].get_nom_type() }}</option>"
+                    {% for val in types_bien[1:] %}
+                      <option value="{{val.get_id_type()}}">{{val.get_nom_type()}}</option>
+                    {% endfor %}
+                </select>
 
-        <label for="description">Description du bien</label>
-        <textarea name="description" id="description"></textarea>
+                <label class="form-group-element" for="price">prix neuf du bien</label>
+                <input class="form-group-element" type="number" name="price" id="price">
 
-        <button class type="submit">Ajouter</button>
+                <label class="form-group-element" for="date">prix neuf du bien</label>
+                <input class="form-group-element" type="date" name="date" id="date">
+        
+                <label class="form-group-element" for="desc">Description du bien</label>
+                <textarea class="form-group-element" name="desc" id="desc"></textarea>
+            </div>
+            <div id="right-side">
+
+            </div>
+        </div>
+        <button class="form-group-element" id="formsumbmit" type="submit">Ajouter</button> 
     </form>
+    <div class="box-container" id="recent-ajout">
+        <h1>Récents Ajouts</h1>
+        <p> for bien un bien de la bd (box encadré)</p>
+    </div>
 </div>
-{% endblock %}
+{% endblock %}  
