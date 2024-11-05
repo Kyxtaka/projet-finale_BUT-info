@@ -60,7 +60,9 @@ class AjoutBienForm(FlaskForm):
     prix = StringField('Prix neuf', validators=[DataRequired()])
     date = StringField("Date de l'achat", validators=[DataRequired()])
     description = StringField('Description')
-    justificatif = StringField('Justificatif test nom')     
+    justificatif = StringField('Justificatif test nom')
+    id_logement = HiddenField()
+    id_proprio = HiddenField()     
  
 @app.route("/accueil-connexion/")
 @login_required   
@@ -135,19 +137,17 @@ def ajout_bien():
     form = AjoutBienForm()
     if form.validate_on_submit():
         try:
-            nom_bien = form.nom_bien.data
-            type_bien = form.type_bien.data
-            categorie_bien = form.categorie_bien.data
-            piece = form.piece.data
-            prix = form.prix.data
-            date = form.date.data
-            description = form.description.data
-            justificatif = form.justificatif.data
-            id_proprio = form.id_proprio.data
-            nouveau_bien = (nom_bien, type_bien, categorie_bien, piece, prix, date, description, justificatif)
-            # Bien.ajouter(form.nom_bien.data, form.type_bien.data, form.categorie_bien.data, form.piece.data, form.prix.data, form.date.data, form.description.data, form.justificatif.data)
+            print('blabla')
             return render_template("index.html")
         except:
-            return render_template("ajout_bien.html", present=True)
-    return render_template("ajout_bien.html")
-
+            print("error ajout bien")
+            return render_template("ajout_bien.html", 
+                                   categories_bien=Categorie.query.all(), 
+                                   types_bien=TypeBien.query.all(), 
+                                   logements=Proprietaire.query.get_or_404(current_user.id_user).logements, 
+                                   form=form)
+    return render_template("ajout_bien.html", 
+                           categories_bien=Categorie.query.all(), 
+                           types_bien=TypeBien.query.all(), 
+                           logements=Proprietaire.query.get_or_404(current_user.id_user).logements, 
+                           form=form)
