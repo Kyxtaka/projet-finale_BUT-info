@@ -1,5 +1,6 @@
 .simulation {
     margin-top: 99px;
+    margin-bottom: 120px;
 }
 
 .simulation .bandeau {
@@ -63,24 +64,51 @@
     margin-top: 30px;
 }
 
-.styled-table {
+.simulation .info{
+    align-items: center;
+    margin-bottom: 2px;
+}
+
+.simulation .info p {
+    margin-top: 10px;
+}
+
+.simulation .styled-table {
     font-size: 1em;
     min-width: 400px;
     border-radius: 8px 8px 0 0;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    margin-left: 33%;
+    margin-top: 1%;
 }
 
-/* Style de l'en-tête */
-.styled-table thead tr {
+.simulation .styled-table thead tr {
     background-color: #612bb7;
     color: #ffffff;
     text-align: left;
 }
 
-/* Style des cellules */
-.styled-table th,
-.styled-table td {
+.simulation .styled-table th,td {
     padding: 12px 15px;
 }
 
+.simulation .telecharger p{
+    font-style: italic;
+    margin: 0px;
+}
 
+.simulation .telecharger button {
+    margin-top: 0px;
+}
+
+.simulation .telecharger .download-btn {
+    margin-left: 45%;
+    position: relative;
+    left: 0px;
+    top: 0px;
+    background-color: #000;
+    color: #fff;
+    padding: 13px 35px;
+    font-size: 16px;
+    font-weight: bold;
+}
