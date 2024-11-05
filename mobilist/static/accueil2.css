@@ -73,13 +73,15 @@ button {
 }
 
 .box-ajout>div  {
+    width:15%;
     flex-wrap: nowrap;
+    justify-content: center;
     background-color: black;
-    padding:2%;
     box-shadow: 2px 2px 15px 4px rgba(0, 0, 0, 0.1);
 }
 
 .ajout-elem {
+    width:100%;
     display:block;
     background-color: gray;
     color: white;
@@ -88,7 +90,6 @@ button {
 .ajout-elem:hover {
     color:#5E5DF0;
 }
-
 
 /* apparence tableaux */
 .derniers_ajouts, .a_justifier {
