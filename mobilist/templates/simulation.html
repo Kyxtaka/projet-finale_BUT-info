@@ -31,7 +31,7 @@
         <select name="logement" id="logement-select">
             <option value="">-- Choisissez un logement --</option>
             {% for loge in logements %}
-                <option value="{{ loge }}">{{ loge }}</option>
+                <option value="{{ loge }}">{{ loge.nom_logement }}</option>
             {% endfor %}
         </select>
     </div>
@@ -47,30 +47,14 @@
                 </tr>
             </thead>
             <tbody>
+                {% for loge in logements %}
                 <tr>
-                    <td>Jean Dupont</td>
-                    <td>32</td>
-                    <td>Ingénieur</td>
-                    <td>France</td>
+                    <td>{{ loge.nom_logement }}</td>
+                    <td>{{ loge.type_logement.get_type() }}</td>
+                    <td>{{ loge.adresse }}</td>
+                    <td>{{ loge.description }}</td>
                 </tr>
-                <tr>
-                    <td>Marie Dubois</td>
-                    <td>28</td>
-                    <td>Designer</td>
-                    <td>Canada</td>
-                </tr>
-                <tr>
-                    <td>Carlos Diaz</td>
-                    <td>45</td>
-                    <td>Chef de projet</td>
-                    <td>Espagne</td>
-                </tr>
-                <tr>
-                    <td>Anna Rossi</td>
-                    <td>35</td>
-                    <td>Développeuse</td>
-                    <td>Italie</td>
-                </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>

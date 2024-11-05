@@ -121,6 +121,6 @@ def simulation():
     proprio = Proprietaire.query.get(current_user.id_user)
     logements = []
     for logement in proprio.logements:
-        logements.append(logement.nom_logement)
+        logements.append(logement)
     return render_template("simulation.html",logements=logements)
 
