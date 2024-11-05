@@ -11,7 +11,7 @@ from .commands import create_user
 from .models import *
 from .exception import *
 from flask_wtf import FlaskForm
-from wtforms import StringField, HiddenField
+from wtforms import *
 from wtforms.validators import DataRequired
 
 
@@ -53,16 +53,23 @@ class IncrisptionForm(FlaskForm):
         return user if passwd == user.password else None
 
 class AjoutBienForm(FlaskForm):
+    logement  = SelectField('Logement', validators=[DataRequired()])
     nom_bien = StringField('Nom du bien', validators=[DataRequired()])
-    type_bien = StringField('Type de bien', validators=[DataRequired()])
-    categorie_bien = StringField('Catégorie', validators=[DataRequired()])
-    piece = StringField('Nombre de pièces', validators=[DataRequired()])
-    prix = StringField('Prix neuf', validators=[DataRequired()])
-    date = StringField("Date de l'achat", validators=[DataRequired()])
-    description = StringField('Description')
-    justificatif = StringField('Justificatif test nom')
-    id_logement = HiddenField()
+    type_bien = SelectField('Type de bien', validators=[DataRequired()])
+    categorie_bien = SelectField('Catégorie', validators=[DataRequired()])
+    piece_bien = SelectField('Nombre de pièces', validators=[DataRequired()])
+    prix_bien = StringField('Prix neuf', validators=[DataRequired()])
+    date_bien = DateTimeField("Date de l'achat", validators=[DataRequired()])
+    description_bien = TextAreaField('Description')
+    justificatif_bien = FileField('Justificatif test nom')
     id_proprio = HiddenField()     
+
+    def __init__(self):
+        super(AjoutBienForm, self).__init__()
+        self.logement.choices = [(l.get_id_logement(), l.get_nom_logement()) for l in Proprietaire.query.get(current_user.id_user).logements]
+        self.type_bien.choices = [(t.id_type, t.nom_type) for t in TypeBien.query.all()]
+        self.categorie_bien.choices = [(c.get_id_cat(), c.get_nom_cat()) for c in Categorie.query.all()]
+        self.piece_bien.choices = [(p.get_id_piece(), p.get_nom_piece()) for p in Piece.query.all()]
  
 @app.route("/accueil-connexion/")
 @login_required   
