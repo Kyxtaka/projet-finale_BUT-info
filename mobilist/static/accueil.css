@@ -50,6 +50,8 @@
     height: 300px;
 }
 
+
+
 .accueil .texte1, .texte2{
     z-index: 1;
     position: relative;
@@ -162,9 +164,9 @@
     font-weight: bold;
  }
 
- .accueil .telephone{
+.accueil .telephone{
     text-align: center;
- }
+}
 
 .accueil .mail img {
     width : 40px;

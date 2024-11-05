@@ -73,7 +73,7 @@ button {
 }
 
 .box-ajout>div  {
-    width:15%;
+    width:20%;
     flex-wrap: nowrap;
     justify-content: center;
     background-color: black;
