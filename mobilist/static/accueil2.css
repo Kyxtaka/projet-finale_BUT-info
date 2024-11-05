@@ -1,29 +1,30 @@
-img {
+.accueil2 img {
     height: 82px;
 }
 
+main {
+    margin-top: 6.1rem;
+    margin-bottom: 6.1rem;
+}
 nav {
     border-bottom: 1px solid; 
 }
-main {
-    margin-top: 9rem;
-    margin-left:0.5%;
-    margin-right:0.5%;
-    margin-bottom: 6.1rem;
-}
 
+.logements {
+    margin: 10rem;
+}
 #navbar-collapse  a {
     color: black;
 }
 
-ul {
+.accueil2 ul {
     display: flex;
     flex-wrap: nowrap;
     margin-left: 30px;
     list-style: none;
 }
 
-li {
+.accueil2 li {
     margin-left: 30px;
     font-size: 20px;
     text-align: center;
@@ -31,13 +32,13 @@ li {
 }
 
 
-.nav-img img {
+.accueil2 .nav-img img {
     height: 24px;
     position:absolute;
     top : 35px;
 }
 
-button {
+.accueil2 button {
   box-sizing: border-box;
   cursor: pointer;
   font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
@@ -55,8 +56,7 @@ button {
   position: absolute;
   top: 28px;
 }
-/* apparence ajout */
-.ajout {
+.accueil2 .ajout {
     border-radius: 20px;
     background-size:100%;
     background-image: url("img/img-ajout.png");
@@ -113,7 +113,7 @@ button {
     color:#5E5DF0;
 }
 
-.connexion {
+.accueil2 .connexion {
     border-radius: 999px;
     background: #5E5DF0;
     box-shadow: #5E5DF0 0 10px 20px -10px;
@@ -123,7 +123,8 @@ button {
     border: 0;
 }
 
-footer {
+
+.accueil2 footer {
     background-color: #FFFFFF;
     position: fixed;
     bottom: 0;
@@ -131,11 +132,11 @@ footer {
     border-top: 1px solid;
 }
 
-#appstore {
+.accueil2 #appstore {
     height: 50px;
 }
 
-#googleplay {
+.accueil2 #googleplay {
     height: 45px;
 }
 

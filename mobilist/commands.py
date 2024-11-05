@@ -31,7 +31,7 @@ def loaddb(filename):
             case 'LOGEMENT':
                 new_logement = Logement(
                     id_logement = entity['ID_LOGEMENT'],
-                    nom_logement= entity['NOM'],
+                    nom_logement = entity['NOM_LOGEMENT'],
                     type_logement = entity['TYPE_LOGEMENT'],
                     adresse_logement = entity['ADRESSE'],
                     desc_logement = entity['DESCRIPTION'])
@@ -67,7 +67,9 @@ def loaddb(filename):
                     id_piece = entity['ID_PIECE'],
                     id_logement=entity['ID_LOGEMENT'],
                     id_type = entity['ID_TYPE_BIEN'],
-                    id_cat = entity['ID_CATEGORIE']
+                    id_cat = entity['ID_CATEGORIE'],
+                    id_proprio = entity['ID_PROPRIETAIRE'],
+                    id_logement = entity['ID_LOGEMENT']
                 )
                 session.add(new_bien)
             case 'JUSTIFICATIF':
@@ -94,6 +96,13 @@ def loaddb(filename):
                 )
                 session.add(new_avoir)
             case 'USER':
+                # new_user = User(
+                #     mail = entity['MAIL'],
+                #     password = entity['PASSWORD'],
+                #     role = entity['ROLE'],
+                #     id_user = entity['ID_USER']
+                # )
+                # session.add(new_user)
                 create_user(entity['MAIL'], entity['PASSWORD'], entity['ROLE'])
         db.session.commit()
     print(f"loaded file: {filename}")
@@ -132,5 +141,9 @@ def passwd(mail, password):
     m = sha256()
     m.update(password.encode())
     u = User.query.get(mail)
-    u.set_password(m.hexdigest())
+    if u != None:
+        u.set_password(m.hexdigest())
+        print(f"password changed for {mail}")
+    else: 
+        print(f"user {mail} not found)")
     db.session.commit()

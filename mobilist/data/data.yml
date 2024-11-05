@@ -25,7 +25,7 @@
   ID_PROPRIETAIRE: 4
   NOM: RANDRIANTSOA
   PRENOM: Nathan
-  MAIL: random4@r.fr
+  MAIL: nathan@mail.com
 
 - TYPE: PROPRIETAIRE
   ID_PROPRIETAIRE: 5
@@ -41,9 +41,13 @@
 
 # Table LOGEMENT
 - TYPE: LOGEMENT
+<<<<<<< HEAD
   NOM: logement
+=======
+  NOM_LOGEMENT: 'Maison principale'
+>>>>>>> simulation
   ID_LOGEMENT: 1
-  TYPE_LOGEMENT: maison
+  TYPE_LOGEMENT: MAISON
   ADRESSE: '2 rue du pavillon, 71004 Paname'
   DESCRIPTION: 'maison principale située à Paname avec toutes mes voitures'
 
@@ -105,6 +109,7 @@
   ID_CATEGORIE: 1  # Mobilier
   ID_TYPE_BIEN: 1
   ID_PIECE: 1  # Cuisine - arrière-cuisine
+  ID_LOGEMENT: 1
 
 - TYPE: BIEN
   ID_BIEN: 2
@@ -116,6 +121,7 @@
   ID_CATEGORIE: 2  # Gros électroménager
   ID_TYPE_BIEN: 2
   ID_PIECE: 1  # Cuisine - arrière-cuisine
+  ID_LOGEMENT: 1
 
 - TYPE: BIEN
   ID_BIEN: 3
@@ -127,6 +133,7 @@
   ID_CATEGORIE: 3  # Petit électroménager
   ID_TYPE_BIEN: 3
   ID_PIECE: 1  # Cuisine - arrière-cuisine
+  ID_LOGEMENT: 1
 
 # Table JUSTIFICATIF (for each item)
 - TYPE: JUSTIFICATIF
@@ -171,9 +178,18 @@
   ID_PROPRIETAIRE: 5
   ID_LOGEMENT: 1
 
+<<<<<<< HEAD
 # table user
 - TYPE: USER
   MAIL: 'nathan@mail.com'
   PASSWORD: '123'
   ROLE: "proprio"
   ID_USER: 5
+=======
+# Table User :
+- TYPE: USER
+  ID_USER: 4
+  MAIL: 'nathan@mail.com'
+  ROLE: "proprio"
+  PASSWORD: '1234'
+>>>>>>> simulation
