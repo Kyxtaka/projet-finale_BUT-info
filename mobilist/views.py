@@ -19,6 +19,9 @@ from wtforms.validators import DataRequired
 def home():
     return render_template('accueil.html')
 
+@app.route("/accueil")
+def accueil():
+    return render_template('accueil.html')
    
 class LoginForm(FlaskForm):
     mail = StringField('Adresse e-mail')
@@ -48,7 +51,7 @@ class IncrisptionForm(FlaskForm):
         m.update(self.password.data.encode())
         passwd = m.hexdigest()
         return user if passwd == user.password else None
-    
+
 class AjoutBienForm(FlaskForm):
     nom_bien = StringField('Nom du bien', validators=[DataRequired()])
     type_bien = StringField('Type de bien', validators=[DataRequired()])
@@ -58,7 +61,11 @@ class AjoutBienForm(FlaskForm):
     date = StringField("Date de l'achat", validators=[DataRequired()])
     description = StringField('Description')
     justificatif = StringField('Justificatif test nom')     
-    
+ 
+@app.route("/accueil-connexion/")
+@login_required   
+def accueil_connexion():
+    return render_template("accueil_2.html")
     
 @app.route("/login/", methods =("GET","POST" ,))
 def login():
@@ -68,8 +75,9 @@ def login():
     elif f.validate_on_submit():
         user = f.get_authenticated_user()
         if user:
+            print("test2")
             login_user(user)
-            next = f.next.data or url_for("home")
+            next = f.next.data or url_for("accueil_connexion")
             return redirect(next)
     return render_template(
     "connexion.html",
@@ -77,11 +85,10 @@ def login():
 
 from flask_login import logout_user
 @app.route("/logout/")
-def logout():
+def logout():   
     logout_user()
     return redirect(url_for('home'))
-
-
+    
 
 @app.route("/inscription/", methods=("GET", "POST",))
 def inscription():
@@ -103,9 +110,27 @@ def inscription():
     "inscription.html", form=f, present=True)
     return render_template(
     "inscription.html", form=f, present=False)
+  
 
-@login_required
+@app.route("/information")
+def information():
+    return render_template("information.html")
+
+@app.route("/services")
+def services():
+    return render_template("services.html")
+
+@app.route("/afficheLogements")
+@login_required   
+def affiche_logements():
+    proprio = Proprietaire.query.get(current_user.id_user)
+    logements = proprio.logements
+    print(logements)
+    return render_template("afficheLogements.html", logements=logements)
+
+
 @app.route("/bien/ajout", methods=("GET", "POST",))
+@login_required
 def ajout_bien():
     form = AjoutBienForm()
     if form.validate_on_submit():
