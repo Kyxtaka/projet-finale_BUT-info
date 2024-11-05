@@ -7,6 +7,11 @@ nav {
 }
 
 
+main {
+    margin-top: 6.1rem;
+    margin-bottom: 30rem;
+}
+
 #navbar-collapse  a {
     color: black;
 }
@@ -29,7 +34,7 @@ li {
 .nav-img img {
     height: 24px;
     position:absolute;
-    top : 35px;
+    top : 38px;
 }
 
 button {
