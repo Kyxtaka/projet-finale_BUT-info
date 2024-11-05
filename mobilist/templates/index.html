@@ -22,10 +22,10 @@
           <div class="collapse navbar-collapse" id="navbar-collapse">
               <ul class="navbar-nav-left">
                   <li class="nav-img" >
-                    <img src="{{ url_for('static',filename='img/accueil.png') }}" alt="icône accueil"/>
+                    <a href="{{ url_for('accueil') }}"><img src="{{ url_for('static',filename='img/accueil.png') }}" alt="icône accueil"/></a>
                   </li>
                   <li class="nav-item-accueil">
-                    <a class="nav-link active" aria-current="page" href="{{ url_for('accueil')}}">Accueil</a>
+                    <a class="nav-link active" aria-current="page" href="{{ url_for('accueil') }}">Accueil</a>
                 </li>
               <li class="nav-img" >
                 <img src="{{ url_for('static',filename='img/services.png') }}" alt="icône nos services"/>
@@ -46,9 +46,9 @@
                 <a class="nav-link active" aria-current="page" href="#">Avis</a>
               </li> 
               <li id="connexion">
-                <a href="{{ url_for('login') }}">
-                  <button class="connexion">Se connecter</button>
-                </a>
+                  <a href="{{ url_for('login') }}">
+                    <button class="connexion">Se connecter</button>
+                  </a>
               </li>
               <li id="information">
                 <a href="{{ url_for('information') }}">

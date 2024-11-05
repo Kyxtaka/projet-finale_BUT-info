@@ -2,12 +2,18 @@
     height: 82px;
 }
 
-.accueil2 nav {
+main {
+    margin-top: 6.1rem;
+    margin-bottom: 6.1rem;
+}
+nav {
     border-bottom: 1px solid; 
 }
 
-
-.accueil2 #navbar-collapse  a {
+.logements {
+    margin: 10rem;
+}
+#navbar-collapse  a {
     color: black;
 }
 

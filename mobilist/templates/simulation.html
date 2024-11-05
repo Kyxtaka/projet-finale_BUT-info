@@ -28,10 +28,51 @@
     </div>
     <div class="logement">
         <p>Logement concerné :</p>
-        {% for loge in logements %}
-            <p>{{ loge }}</p>
-        {% endfor %}
-        <p>fin des logements</p>
+        <select name="logement" id="logement-select">
+            <option value="">-- Choisissez un logement --</option>
+            {% for loge in logements %}
+                <option value="{{ loge }}">{{ loge }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="info">
+        <p> 🛈 Pour rappel, voici vos logements :</p>
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Type</th>
+                    <th>Adresse</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Jean Dupont</td>
+                    <td>32</td>
+                    <td>Ingénieur</td>
+                    <td>France</td>
+                </tr>
+                <tr>
+                    <td>Marie Dubois</td>
+                    <td>28</td>
+                    <td>Designer</td>
+                    <td>Canada</td>
+                </tr>
+                <tr>
+                    <td>Carlos Diaz</td>
+                    <td>45</td>
+                    <td>Chef de projet</td>
+                    <td>Espagne</td>
+                </tr>
+                <tr>
+                    <td>Anna Rossi</td>
+                    <td>35</td>
+                    <td>Développeuse</td>
+                    <td>Italie</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 {% endblock %}

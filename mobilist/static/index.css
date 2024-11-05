@@ -2,6 +2,10 @@
     height: 82px;
 }
 
+main {
+    margin-top: 6.1rem;
+    margin-bottom: 6.1rem;
+}
  nav {
     border-bottom: 1px solid;
     

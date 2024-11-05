@@ -1,0 +1,27 @@
+{% extends "accueil_2.html" %}
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='afficheLogements.css')}}">
+{% endblock %}
+{% block content %}
+<h1> Mes logements </h1>
+<div class="logements">
+    {% for x in logements %}
+    <section>
+        <h1>Logement n°{{x.id_logement}}</h1>
+        <article>
+            <h3>Nom: {{x.nom_logement}}</h3>
+            <h3>Type:{{x.type_logement.get_type()}}</h3>
+            <h3>Adresse:{{x.adresse}}</h3>
+            <h3>Pièces :</h3>
+            <h3>Description : {{x.desc_logement}}</h3>
+        </article>
+    </section>
+    <div class="buttons">
+
+    </div>
+    {% endfor %}
+
+</div>
+{% endblock %}
+

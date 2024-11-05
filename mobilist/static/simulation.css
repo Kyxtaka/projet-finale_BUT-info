@@ -28,7 +28,7 @@
     margin-top: 20px;
 }
 
-.simulation .annee p:first-child {
+.simulation .annee p:first-child, .logement p:first-child, .type p{
     font-weight: bold;
 }
 
@@ -41,19 +41,46 @@
     padding-top: 10px;
 }
 
-.simulation .type p {
-    font-weight: bold;
+.simulation .type select, .logement select {
+    position: relative;
+    margin-left: 43%;
+    margin-bottom: 1%;
+    width: 14%;
+    padding: 10px;
+    border: 1px solid #ccd0d5;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    background-size: 16px;
 }
 
-.simulation .type select {
-    position: relative;
-    margin-left: 865px;
+.simulation .type select option, .logement select option {
+    padding: 10px;
+    background-color: #ffffff;
+    font-size: 16px;
 }
 
 .simulation .logement {
     margin-top: 30px;
 }
 
-.simulation .logement p {
-    font-weight: bold;
+.styled-table {
+    font-size: 1em;
+    min-width: 400px;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
+
+/* Style de l'en-tête */
+.styled-table thead tr {
+    background-color: #612bb7;
+    color: #ffffff;
+    text-align: left;
+}
+
+/* Style des cellules */
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+
+

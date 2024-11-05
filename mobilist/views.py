@@ -55,13 +55,6 @@ class IncrisptionForm(FlaskForm):
 @app.route("/accueil-connexion/")
 def accueil_connexion():
     return render_template("accueil_2.html")
-
-@app.route("/simulation/", methods =("GET","POST" ,))
-def simulation():
-    f = LoginForm()
-    user = f.get_authenticated_user()
-    logements = getLogements(user)
-    return render_template("simulation.html",logements=logements)
     
 @app.route("/login/", methods =("GET","POST" ,))
 def login():
@@ -71,6 +64,7 @@ def login():
     elif f.validate_on_submit():
         user = f.get_authenticated_user()
         if user:
+            print("test2")
             login_user(user)
             next = f.next.data or url_for("accueil_connexion")
             return redirect(next)
@@ -94,15 +88,18 @@ def inscription():
         user = f.get_authenticated_user()
         if user:
             login_user(user)
-            return render_template("inscription.html", form=f, present=True)
-        create_user(f.mail.data, f.password.data, "proprio")
-        modifier(f.mail.data, f.nom.data, f.prenom.data)
-        return render_template("accueil_2.html")
+            next = f.next.data or url_for("home")
+            return redirect(next)
+        try:
+            create_user(f.mail.data, f.password.data, "proprio")
+            User.modifier(f.mail.data, f.nom.data, f.prenom.data)
+            return render_template("index.html")
+        except:
+            return render_template(
+    "inscription.html", form=f, present=True)
     return render_template(
     "inscription.html", form=f, present=False)
   
-
-
 @app.route("/information")
 def information():
     return render_template("information.html")
@@ -111,3 +108,19 @@ def information():
 @app.route("/services")
 def services():
     return render_template("services.html")
+
+@app.route("/afficheLogements")
+def affiche_logements():
+    proprio = Proprietaire.query.get(current_user.id_user)
+    logements = proprio.logements
+    print(logements)
+    return render_template("afficheLogements.html", logements=logements)
+
+@app.route("/simulation/", methods =("GET","POST" ,))
+def simulation():
+    proprio = Proprietaire.query.get(current_user.id_user)
+    logements = []
+    for logement in proprio.logements:
+        logements.append(logement.nom_logement)
+    return render_template("simulation.html",logements=logements)
+

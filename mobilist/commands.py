@@ -1,8 +1,8 @@
-import click
 from .app import app, db
 from .models import *
 from datetime import *
 import yaml
+import click
 
 #Commande de creation de table
 @app.cli.command()
@@ -22,78 +22,88 @@ def loaddb(filename):
         match entity['TYPE']:
             case 'PROPRIETAIRE':
                 new_proprietaire = Proprietaire(
-                    idProprio=entity['ID_PROPRIETAIRE'], 
-                    nom = entity['NOM'],
-                    prenom = entity['PRENOM'])
+                    id_proprio = entity['ID_PROPRIETAIRE'], 
+                    nom_proprio = entity['NOM'],
+                    prenom_proprio = entity['PRENOM'],
+                    mail = entity['MAIL']
+                )
                 session.add(new_proprietaire)
             case 'LOGEMENT':
                 new_logement = Logement(
-                    idLogement=entity['ID_LOGEMENT'],
-                    typeL = entity['TYPE_LOGEMENT'],
-                    adresse = entity['ADRESSE'],
-                    descriptionLogement = entity['DESCRIPTION'])
+                    id_logement = entity['ID_LOGEMENT'],
+                    nom_logement = entity['NOM_LOGEMENT'],
+                    type_logement = entity['TYPE_LOGEMENT'],
+                    adresse_logement = entity['ADRESSE'],
+                    desc_logement = entity['DESCRIPTION'])
                 session.add(new_logement)
             case 'PIECE':
                 new_piece = Piece(
-                    idPiece = entity['ID_PIECE'],
-                    nomPiece = entity['NOM_PIECE'],
-                    descriptionPiece = entity['DESCRIPTION'],
-                    idLogement = entity['ID_LOGEMENT']
+                    id_piece = entity['ID_PIECE'],
+                    nom_piece = entity['NOM_PIECE'],
+                    desc_piece = entity['DESCRIPTION'],
+                    id_logement = entity['ID_LOGEMENT']
                 )
                 session.add(new_piece)
             case 'CATEGORIE_BIEN':
                 new_categorie = Categorie(
-                    idCat = entity['ID_CATEGORIE'],
-                    nomCat = entity['NOM_CATEGORIE']
+                    id_cat = entity['ID_CATEGORIE'],
+                    nom_cat = entity['NOM_CATEGORIE']
                 )
                 session.add(new_categorie)
             case 'TYPE_BIEN':
                 new_typeB = TypeBien(
-                    idType = entity['ID_TYPE'],
-                    nomType = entity['NOM_TYPE']
+                    id_type = entity['ID_TYPE'],
+                    nom_type = entity['NOM_TYPE']
                 )
                 session.add(new_typeB)
             case 'BIEN':
                 date = datetime.strptime(entity['DATE_ACHAT'], date_format)
                 new_bien = Bien(
-                    idBien = entity['ID_BIEN'],
-                    nomB = entity['NOM_BIEN'],
-                    dateAchat = date.date(),
+                    id_bien = entity['ID_BIEN'],
+                    nom_bien = entity['NOM_BIEN'],
+                    date_achat = date.date(),
                     prix = entity['PRIX'],
-                    idPiece = entity['ID_PIECE'],
-                    idType = entity['ID_TYPE_BIEN'],
-                    idCat = entity['ID_CATEGORIE'] 
+                    id_piece = entity['ID_PIECE'],
+                    id_type = entity['ID_TYPE_BIEN'],
+                    id_cat = entity['ID_CATEGORIE'],
+                    id_proprio = entity['ID_PROPRIETAIRE'],
+                    id_logement = entity['ID_LOGEMENT']
                 )
                 session.add(new_bien)
             case 'JUSTIFICATIF':
-                # datetime.datetime.now()
-                # entity['DATE_AJOUT']
                 date = datetime.strptime(entity['DATE_AJOUT'], date_format)
                 new_justificatif = Justificatif(
-                    idJustif = entity['ID_JUSTIFICATIF'],
-                    nomJustif = entity['NOM_JUSTIFICATIF'],
-                    dateAjout = date,
+                    id_justif = entity['ID_JUSTIFICATIF'],
+                    nom_justif = entity['NOM_JUSTIFICATIF'],
+                    date_ajout = date,
                     URL = entity['URL'],
-                    idBien = entity['ID_BIEN']
+                    id_bien = entity['ID_BIEN']
                 )
                 session.add(new_justificatif)
             case 'AVIS':
                 new_avis = Avis(
-                    idAvis = entity['ID_AVIS'],
-                    descriptionAvis = entity['DESCRIPTION'],
-                    idProprio = entity['ID_PROPRIETAIRE']
+                    id_avis = entity['ID_AVIS'],
+                    desc_avis = entity['DESCRIPTION'],
+                    id_proprio = entity['ID_PROPRIETAIRE']
                 )
                 session.add(new_avis)
             case 'AVOIR':
                 new_avoir = AVOIR(
-                    idP = entity['ID_PROPRIETAIRE'],
-                    idL = entity['ID_LOGEMENT']
+                    id_proprio = entity['ID_PROPRIETAIRE'],
+                    id_logement = entity['ID_LOGEMENT']
                 )
                 session.add(new_avoir)
+            case 'USER':
+                # new_user = User(
+                #     mail = entity['MAIL'],
+                #     password = entity['PASSWORD'],
+                #     role = entity['ROLE'],
+                #     id_user = entity['ID_USER']
+                # )
+                # session.add(new_user)
+                create_user(entity['MAIL'], entity['PASSWORD'], entity['ROLE'])
         db.session.commit()
     print(f"loaded file: {filename}")
-
-   
 
 @app.cli.command()
 @click.argument('mail')
@@ -109,10 +119,14 @@ def create_user(mail, password, role):
     m.update(password.encode())
     id = None
     if role != "admin":
-        proprio = Proprietaire(idProprio=id)
-        id = int(max_id())+1
-        db.session.add(proprio)
-    u = User(mail=mail, password=m.hexdigest(), role=role, id_user=id)
+        proprio = Proprietaire.get_by_mail(mail)
+        if proprio is None:
+            id = int(Proprietaire.max_id())+1
+            proprio = Proprietaire(id_proprio=id, mail = mail)
+            db.session.add(proprio)
+        else: 
+            id = proprio.get_id_proprio()
+    u = User(mail = mail, password = m.hexdigest(), role = role, id_user = id)
     db.session.add(u)
     db.session.commit()
      
@@ -125,6 +139,9 @@ def passwd(mail, password):
     m = sha256()
     m.update(password.encode())
     u = User.query.get(mail)
-    u.password = m.hexdigest()
+    if u != None:
+        u.set_password(m.hexdigest())
+        print(f"password changed for {mail}")
+    else: 
+        print(f"user {mail} not found)")
     db.session.commit()
-    
