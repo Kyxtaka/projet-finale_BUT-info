@@ -7,36 +7,43 @@
   ID_PROPRIETAIRE: 1
   NOM: BOCQUET
   PRENOM: Clémence
+  MAIL: random1@r.fr
 
 - TYPE: PROPRIETAIRE
   ID_PROPRIETAIRE: 2
   NOM: VALIN
   PRENOM: Ophélie
+  MAIL: random2@r1.fr
 
 - TYPE: PROPRIETAIRE
   ID_PROPRIETAIRE: 3
   NOM: AKHTAR
   PRENOM: Naima
+  MAIL: random3@r.fr
 
 - TYPE: PROPRIETAIRE
   ID_PROPRIETAIRE: 4
   NOM: RANDRIANTSOA
   PRENOM: Nathan
+  MAIL: nathan@mail.com
 
 - TYPE: PROPRIETAIRE
   ID_PROPRIETAIRE: 5
   NOM: VILCOQ
   PRENOM: Yohann
+  MAIL: random5@r.fr
 
 - TYPE: PROPRIETAIRE
   ID_PROPRIETAIRE: 6
   NOM: DALAIGRE
   PRENOM: Chritophe
+  MAIL: random6@r.fr
 
 # Table LOGEMENT
 - TYPE: LOGEMENT
+  NOM_LOGEMENT: 'Maison principale'
   ID_LOGEMENT: 1
-  TYPE_LOGEMENT: maison
+  TYPE_LOGEMENT: MAISON
   ADRESSE: '2 rue du pavillon, 71004 Paname'
   DESCRIPTION: 'maison principale située à Paname avec toutes mes voitures'
 
@@ -97,6 +104,7 @@
   ID_CATEGORIE: 1  # Mobilier
   ID_TYPE_BIEN: 1
   ID_PIECE: 1  # Cuisine - arrière-cuisine
+  ID_LOGEMENT: 1
 
 - TYPE: BIEN
   ID_BIEN: 2
@@ -107,6 +115,7 @@
   ID_CATEGORIE: 2  # Gros électroménager
   ID_TYPE_BIEN: 2
   ID_PIECE: 1  # Cuisine - arrière-cuisine
+  ID_LOGEMENT: 1
 
 - TYPE: BIEN
   ID_BIEN: 3
@@ -117,6 +126,7 @@
   ID_CATEGORIE: 3  # Petit électroménager
   ID_TYPE_BIEN: 3
   ID_PIECE: 1  # Cuisine - arrière-cuisine
+  ID_LOGEMENT: 1
 
 # Table JUSTIFICATIF (for each item)
 - TYPE: JUSTIFICATIF
@@ -160,3 +170,10 @@
 - TYPE: AVOIR
   ID_PROPRIETAIRE: 5
   ID_LOGEMENT: 1
+
+# Table User :
+- TYPE: USER
+  ID_USER: 4
+  MAIL: 'nathan@mail.com'
+  ROLE: "proprio"
+  PASSWORD: '1234'

@@ -24,11 +24,14 @@ def loaddb(filename):
                 new_proprietaire = Proprietaire(
                     id_proprio = entity['ID_PROPRIETAIRE'], 
                     nom_proprio = entity['NOM'],
-                    prenom_proprio = entity['PRENOM'])
+                    prenom_proprio = entity['PRENOM'],
+                    mail = entity['MAIL']
+                )
                 session.add(new_proprietaire)
             case 'LOGEMENT':
                 new_logement = Logement(
                     id_logement = entity['ID_LOGEMENT'],
+                    nom_logement = entity['NOM_LOGEMENT'],
                     type_logement = entity['TYPE_LOGEMENT'],
                     adresse_logement = entity['ADRESSE'],
                     desc_logement = entity['DESCRIPTION'])
@@ -63,7 +66,8 @@ def loaddb(filename):
                     id_piece = entity['ID_PIECE'],
                     id_type = entity['ID_TYPE_BIEN'],
                     id_cat = entity['ID_CATEGORIE'],
-                    id_proprio = entity['ID_PROPRIETAIRE']
+                    id_proprio = entity['ID_PROPRIETAIRE'],
+                    id_logement = entity['ID_LOGEMENT']
                 )
                 session.add(new_bien)
             case 'JUSTIFICATIF':
@@ -89,6 +93,15 @@ def loaddb(filename):
                     id_logement = entity['ID_LOGEMENT']
                 )
                 session.add(new_avoir)
+            case 'USER':
+                # new_user = User(
+                #     mail = entity['MAIL'],
+                #     password = entity['PASSWORD'],
+                #     role = entity['ROLE'],
+                #     id_user = entity['ID_USER']
+                # )
+                # session.add(new_user)
+                create_user(entity['MAIL'], entity['PASSWORD'], entity['ROLE'])
         db.session.commit()
     print(f"loaded file: {filename}")
 
@@ -97,19 +110,26 @@ def loaddb(filename):
 @click.argument('password')
 @click.argument('role')
 def newuser(mail, password, role):
+    create_user(mail, password, role)
+    
+def create_user(mail, password, role):
     from.models import User
     from hashlib import sha256
     m = sha256()
     m.update(password.encode())
     id = None
     if role != "admin":
-        proprio = Proprietaire(id_proprio=id)
-        id = int(max_id())+1
-        db.session.add(proprio)
-    u = User(mail = mail, password = m.hexdigest(), role = role, id_user =id)
+        proprio = Proprietaire.get_by_mail(mail)
+        if proprio is None:
+            id = int(Proprietaire.max_id())+1
+            proprio = Proprietaire(id_proprio=id, mail = mail)
+            db.session.add(proprio)
+        else: 
+            id = proprio.get_id_proprio()
+    u = User(mail = mail, password = m.hexdigest(), role = role, id_user = id)
     db.session.add(u)
     db.session.commit()
-    
+     
 @app.cli.command()
 @click.argument('mail')
 @click.argument('password')
@@ -119,5 +139,9 @@ def passwd(mail, password):
     m = sha256()
     m.update(password.encode())
     u = User.query.get(mail)
-    u.set_password(m.hexdigest())
+    if u != None:
+        u.set_password(m.hexdigest())
+        print(f"password changed for {mail}")
+    else: 
+        print(f"user {mail} not found)")
     db.session.commit()

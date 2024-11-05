@@ -17,6 +17,9 @@ class LogementType(enum.Enum):
     APPART = "appart"
     MAISON = "maison"
 
+    def get_type(self):
+        return self.name
+
 class Avis(Base):
     __tablename__ = "AVIS"
     
@@ -99,8 +102,9 @@ class Proprietaire(Base):
     id_proprio = Column(Integer, primary_key=True, name="ID_PROPRIO")
     nom = Column(String(20), name="NOM")
     prenom = Column(String(20), name="PRENOM")
+    mail = Column(String(50), name="MAIL", unique=True, nullable=False)
     logements = relationship("Logement", secondary="AVOIR", back_populates="proprietaires")
-    user = relationship("User", back_populates="id")
+    user = relationship("User", back_populates="proprio", uselist=False)
     
     def __init__(self, id_proprio, nom_proprio=None, prenom_proprio=None):
         """Init d'un propriétaire
@@ -113,6 +117,7 @@ class Proprietaire(Base):
         self.id_proprio = id_proprio
         self.nom = nom_proprio
         self.prenom = prenom_proprio
+        self.mail = mail
     
     def __repr__(self):
         """Représentation d'un propriétaire
@@ -165,10 +170,19 @@ class Proprietaire(Base):
     def set_prenom(self, prenom):
         self.prenom = prenom
     
+    @staticmethod
+    def max_id():
+        return db.session.query(func.max(Proprietaire.id_proprio)).scalar()
+    
+    @staticmethod
+    def get_by_mail(mail):
+        return Proprietaire.query.filter_by(mail=mail).first()
+   
 class Logement(Base):
     __tablename__ = "LOGEMENT"
     
     id_logement = Column(Integer, name="ID_LOGEMENT", primary_key=True)
+    nom_logement = Column(String(20), name="NOM_LOGEMENT", nullable=True)
     type_logement = Column(Enum(LogementType), name="TYPE_LOGEMENT", nullable=False)
     adresse = Column(String(100), name="ADRESSE", nullable=True)
     desc_logement = Column(String(1000), name="DESC_LOGEMENT", nullable=True)
@@ -185,6 +199,7 @@ class Logement(Base):
             desc_logement (str): Description du logement 
         """
         self.id_logement = id_logement
+        self.nom_logement = nom_logement
         self.type_logement = type_logement
         self.adresse = adresse_logement
         self.desc_logement = desc_logement
@@ -326,6 +341,7 @@ class Bien(Base):
     prix = Column(Float, name="PRIX", nullable=True)
     id_proprio = Column(Integer, ForeignKey("PROPRIETAIRE.ID_PROPRIO"), nullable=False, name="ID_PROPRIO")
     id_piece = Column(Integer, ForeignKey("PIECE.ID_PIECE"), nullable=False, name="ID_PIECE")
+    id_logement = Column(Integer, ForeignKey("LOGEMENT.ID_LOGEMENT"), nullable=False, name="ID_LOGEMENT")
     id_type = Column(Integer, ForeignKey("TYPEBIEN.ID_TYPE_BIEN"), nullable=False, name="ID_TYPE_BIEN")
     id_cat = Column(Integer, ForeignKey("CATEGORIE.ID_CATEGORIE"), nullable=False, name="ID_CATEGORIE")
     
@@ -348,6 +364,7 @@ class Bien(Base):
         self.prix = prix
         self.id_proprio = id_proprio
         self.id_piece = id_piece
+        self.id_logement = id_logement
         self.id_type = id_type
         self.id_cat = id_cat
     
@@ -401,6 +418,12 @@ class Bien(Base):
     
     def set_id_cat(self, id_cat):
         self.id_cat = id_cat
+
+    def get_id_logement(self):
+        return self.id_logement
+
+    def set_id_logement(self, id_logement):
+        self.id_logement = id_logement
     
 class Piece(Base):
     __tablename__ = "PIECE"
@@ -728,7 +751,7 @@ class User(Base, UserMixin):
     password = Column(String(64), name="PASSWORD")
     role = Column(String(10), name="ROLE")
     id_user = Column(Integer, ForeignKey("PROPRIETAIRE.ID_PROPRIO"), name="ID_PROPRIO")
-    id = relationship('Proprietaire', back_populates='user', uselist=False)
+    proprio = relationship('Proprietaire', back_populates='user', uselist=False)
     
     def get_mail(self):
         """getter du mail
