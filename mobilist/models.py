@@ -124,6 +124,12 @@ class Logement(Base):
     def get_type_logement(self):
         return self.type_logement
     
+    def get_nom_logement(self):
+        return self.nom_logement
+    
+    def set_nom_logement(self, nom_logement):
+        self.nom_logement = nom_logement
+    
     def get_adresse(self):
         return self.adresse
     
@@ -141,6 +147,9 @@ class Logement(Base):
     
     def set_desc_logement(self, desc_logement):
         self.desc_logement = desc_logement
+
+    def get_pieces_list(self):
+        return Piece.query.filter_by(id_logement=self.id_logement).all()
     
 class AVOIR(Base):
     __tablename__ = "AVOIR"
@@ -176,7 +185,7 @@ class Bien(Base):
     prix = Column(Float, name="PRIX", nullable=True)
     id_proprio = Column(Integer, ForeignKey("PROPRIETAIRE.ID_PROPRIO"), nullable=False, name="ID_PROPRIO")
     id_piece = Column(Integer, ForeignKey("PIECE.ID_PIECE"), nullable=False, name="ID_PIECE")
-    id_logement = Column(Integer, ForeignKey("LOGEMENT.ID_LOGEMENT"), nullable=False, name="ID_LOGEMENT")
+    id_logement = Column(Integer, ForeignKey("PIECE.ID_LOGEMENT"), nullable=False, name="ID_LOGEMENT")
     id_type = Column(Integer, ForeignKey("TYPEBIEN.ID_TYPE_BIEN"), nullable=False, name="ID_TYPE_BIEN")
     id_cat = Column(Integer, ForeignKey("CATEGORIE.ID_CATEGORIE"), nullable=False, name="ID_CATEGORIE")
     
@@ -209,8 +218,9 @@ class Bien(Base):
     def get_date_achat(self):
         return self.date_achat
     
-    def set_date_achat(self, date_achat):
-        self.date_achat = date_achat
+    def set_date_achat(self, date_achat:str):
+        date_format = '%Y-%m-%d'
+        self.date = time.strptime(date_achat, date_format)
     
     def get_prix(self):
         return self.prix
