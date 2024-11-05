@@ -53,6 +53,10 @@ class Avis(Base):
     def set_id_proprio(self, id_proprio: int) -> None:
         self.id_proprio = id_proprio
 
+    @staticmethod
+    def get_sample() -> list["Avis"]:
+        return Avis.query.all()
+
 class Proprietaire(Base):
     __tablename__ = "PROPRIETAIRE"
     
