@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask import jsonify, render_template
 from .app import app
 from flask import redirect, render_template, url_for
@@ -123,7 +124,7 @@ class AjoutBienForm(FlaskForm):
         self.categorie_bien.choices = [(c.get_id_cat(), c.get_nom_cat()) for c in Categorie.query.all()]
         self.piece_bien.choices = [(p.get_id_piece(), p.get_nom_piece()) for p in Piece.query.all()]
 
-    def create_justificatif_bien(self):
+    def create_justificatif_bien(self) -> str:
         try:
             file = self.file.data
             if not os.path.exists(os.path.join(UPLOAD_FOLDER_JUSTIFICATIF, str(current_user.id_user))): # creation du dossier de l'utilisateur si inexistant
@@ -131,6 +132,7 @@ class AjoutBienForm(FlaskForm):
             CUSTOM_UPLOAD_FOLDER_JUSTIFICATIF = os.path.join(UPLOAD_FOLDER_JUSTIFICATIF, str(current_user.id_user))
             file.save(os.path.join(CUSTOM_UPLOAD_FOLDER_JUSTIFICATIF, secure_filename(file.filename)))
             print("file saved")
+            return os.path.join(CUSTOM_UPLOAD_FOLDER_JUSTIFICATIF, file.filename) # retourne le chemin du fichier, pour l'enregistrement en BD
         except Exception as e:
             print("erreur:", e)
         
@@ -201,8 +203,10 @@ def affiche_logements():
     return render_template("afficheLogements.html", logements=logements)
 
 
-# Obtention des pièces d'un logement pour le form interactive ajout legement et retour data en json
-# permet une meilleur dynamique pour la gestion de la page avec javascript 
+# Endpoint pour la page d'ajout de logement
+# utilise la methode POST pour l'envoi de formulaire
+# utilisation du json pour la reponse (standard pour les API)
+# Permet de recuperer les pieces d'un logement
 @app.route("/get_pieces/<int:logement_id>")
 @login_required
 def get_pieces(logement_id):
@@ -232,8 +236,7 @@ def ajout_bien():
 def handle_form_bien(form_bien: AjoutBienForm):
     try:
         session = db.session
-        if form_bien.file.data:
-            file = form_bien.create_justificatif_bien()
+        
         id_bien = Bien.get_max_id()+1
         nom_bien = form_bien.nom_bien.data
         date_achat = form_bien.date_bien.data
@@ -255,13 +258,44 @@ def handle_form_bien(form_bien: AjoutBienForm):
             id_cat=id_cat)
         session.add(nouv_bien)
         session.commit()
+        if form_bien.file.data:
+            file_path = form_bien.create_justificatif_bien()
+            print("file path:", file_path)
+            process = link_justification_bien(form_bien, file_path, id_bien)
+            if not process:
+                raise Exception("Erreur lors de l'ajout du justificatif")
+            else:
+                print("Justificatif ajouté")
     except Exception as e:
         session.rollback() # afin d eviter les erreurs de commit si une erreur est survenue
-        print("is form submitted:",form_bien.is_submitted())
-        print("is submit valid:",form_bien.validate_on_submit())
-        print("if not valid:",form_bien.errors)
-        print("error ajout bien")
-        print("Exception:", str(e))  # Log details
+        print("Logs:", form_logs(form_bien)) # affichage des logs
+        print("Exception:", e)
+
+def link_justification_bien(form: AjoutBienForm, file_path: str, id_bien: int) -> bool:
+    session = db.session
+    file = form.file.data
+    id_justificatif = session.query(func.max(Justificatif.id_justif)).scalar() + 1
+    nom_justificatif = file.filename
+    date_ajout = date.today()
+    url = file_path
+    id_bien = id_bien
+    try:
+        new_justificatif = Justificatif(
+            id_justif=id_justificatif,
+            nom_justif=nom_justificatif,
+            date_ajout=date_ajout,
+            URL=url,
+            id_bien=id_bien
+        )
+        session.add(new_justificatif)
+        session.commit()
+    except Exception as e:
+        session.rollback()
+        print("Erreur lors de l'ajout du justificatif")
+        print("Exception:", e)
+        return False
+    return True
+
 
 def form_logs(form: FlaskForm):
     print("form sumbited:",form.is_submitted())
