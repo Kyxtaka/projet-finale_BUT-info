@@ -10,49 +10,64 @@
     <div class="bandeau">
         <h2>Vos biens répertoriés par pièces</h2>
         <form method="GET" action="{{ url_for('mesBiens') }}">
-
-        <div class="choix_logement">
-            <label for="logement-select">Choisissez un logement :</label>
-            <select name="logement" id="logement-select">
-                <option value=""> Choisissez un logement </option>
-                {% for loge in logements %}
-                    <option value="{{ loge }}">{{ loge.nom_logement }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <!-- code récuperé sur : http://memo-web.fr/categorie-javascript-132/ -->
-        <script>
-            var selectElmt = document.getElementById("logement-select");
-            var valeurselectionnee = selectElmt.options[selectElmt.selectedIndex].value;
-            var textselectionne = selectElmt.options[selectElmt.selectedIndex].text;
-        </script>
-        <p></p>
+            <div class="choix_logement">
+                <select name="logement" id="logement-select" onchange="this.form.submit()">
+                    <option value=""> Choisissez un logement </option>
+                    {% for loge in logements %}
+                        <option value="{{ loge.id_logement }}" 
+                            {% if loge.id_logement == logement_actuel %}
+                                selected
+                            {% endif %}>
+                            {{ loge.nom_logement }}</option>                    
+                    {% endfor %}
+                </select>
+            </div>
+        </form>
     </div>
     <div class="plan">
-        {% for piece in lesBiens.keys() %}
-            <div class="{{ piece }}">
-                <span class="text-primary" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#exampleModal">{{ piece }}</span>
-            </div>
-        {% endfor %}
-        <!-- code récupéré sur : https://getbootstrap.com/docs/5.3/components/modal/ -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p> ... </p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+        {% if pieces %}
+            <p> Cliquez sur une pièce pour voir les biens contenu dans celle-ci.</p>
+            <table class="table">
+                <tr>
+                    {% for piece in pieces %}
+                        <td>
+                            <span class="text-primary" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#modal{{ loop.index }}">
+                                {{ piece.nom_piece }}
+                            </span>
+                        </td>
+                        {% if loop.index % 3 == 0 %} 
+                            </tr><tr> 
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            </table>
+            <!-- code récupéré sur : https://getbootstrap.com/docs/5.3/components/modal/ -->
+            {% for piece in pieces %}
+                <div class="modal fade" id="modal{{ loop.index }}" tabindex="-1" aria-labelledby="modalLabel{{ loop.index }}" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="modal{{ loop.index }}">{{ piece.nom_piece }}</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Liste des biens pour la pièce {{ piece.nom_piece }} :</p>
+                                    <ul>
+                                        {% for bien in piece.get_list_biens() %}
+                                            <li>{{ bien.nom_bien }} - {{ bien.prix }} €</li>
+                                        {% endfor %}
+                                    </ul>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            {% endfor %}
+        {% else %}
+            <p>Aucun logement sélectionné ou aucune pièce trouvée pour ce logement.</p>
+        {% endif %}
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 {% endblock %}
