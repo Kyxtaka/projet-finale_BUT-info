@@ -3,6 +3,10 @@
     margin-bottom: 140px;
 }
 
+.nav-item-accueil {
+    font-weight: bold;
+}
+
 .accueil p {
     position : relative;
     left: 0px;
