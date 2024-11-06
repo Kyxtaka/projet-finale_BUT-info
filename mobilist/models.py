@@ -97,7 +97,7 @@ class Proprietaire(Base):
     @staticmethod
     def get_by_mail(mail):
         return Proprietaire.query.filter_by(mail=mail).first()
-   
+  
 class Logement(Base):
     __tablename__ = "LOGEMENT"
     
@@ -394,7 +394,7 @@ class User(Base, UserMixin):
     mail = Column(String(50), primary_key=True, name="MAIL")
     password = Column(String(64), name="PASSWORD")
     role = Column(String(10), name="ROLE")
-    id_user = Column(Integer, ForeignKey("PROPRIETAIRE.ID_PROPRIO"), name="ID_PROPRIO")
+    id_user = Column(Integer, ForeignKey("PROPRIETAIRE.ID_PROPRIO"))
     proprio = relationship('Proprietaire', back_populates='user', uselist=False)
     
     def get_id(self):
@@ -439,5 +439,3 @@ class User(Base, UserMixin):
     @login_manager.user_loader
     def load_user(mail):
         return User.query.get(mail)
-
-    
