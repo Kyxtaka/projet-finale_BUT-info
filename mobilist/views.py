@@ -213,53 +213,65 @@ def get_pieces(logement_id):
 @app.route("/bien/ajout", methods=("GET", "POST",))
 @login_required
 def ajout_bien():
-    session = db.session
     form_bien = AjoutBienForm()
-
     if form_bien.validate_on_submit():
         try:
-            if form_bien.file.data:
-                file = form_bien.create_justificatif_bien()
-            
-            id_bien = Bien.get_max_id()+1
-            nom_bien = form_bien.nom_bien.data
-            date_achat = form_bien.date_bien.data
-            id_proprio =  form_bien.id_proprio
-            prix = form_bien.prix_bien.data
-            id_piece = form_bien.piece_bien.data
-            id_logement = form_bien.logement.data
-            id_type = form_bien.type_bien.data
-            id_cat = form_bien.categorie_bien.data
-            nouv_bien = Bien(
-                id_bien=id_bien, 
-                nom_bien=nom_bien, 
-                date_achat=date_achat, 
-                prix=prix, 
-                id_proprio=id_proprio, 
-                id_piece=id_piece, 
-                id_logement=id_logement, 
-                id_type=id_type, 
-                id_cat=id_cat)
-            session.add(nouv_bien)
-            session.commit()
+            print("Logs:", form_logs(form_bien))
+            handle_form_bien(form_bien)
             return redirect(url_for("accueil_connexion"))
         except Exception as e:
-            session.rollback() # afin d eviter les erreurs de commit si une erreur est survenue
-            print("is form submitted:",form_bien.is_submitted())
-            print("is submit valid:",form_bien.validate_on_submit())
-            print("if not valid:",form_bien.errors)
             print("error ajout bien")
-            print("Exception:", str(e))  # Log details
-
-    print("is form submitted:",form_bien.is_submitted())
-    print("is submit valid:",form_bien.validate_on_submit())
-    print("if not valid:",form_bien.errors)
-    if  form_bien.is_submitted() and not form_bien.validate_on_submit():
-        print("error ajout bien")
-        return render_template("ajout_bien.html", 
+            print("Logs:", form_logs(form_bien))
+            return render_template("ajout_bien.html", 
                                form=form_bien,     
                                error=True)
-    else:
-        return render_template("ajout_bien.html", 
-                               form=form_bien, 
-                               error=False)
+    return render_template("ajout_bien.html", 
+                            form=form_bien, 
+                            error=False)
+
+def handle_form_bien(form_bien: AjoutBienForm):
+    try:
+        session = db.session
+        if form_bien.file.data:
+            file = form_bien.create_justificatif_bien()
+        id_bien = Bien.get_max_id()+1
+        nom_bien = form_bien.nom_bien.data
+        date_achat = form_bien.date_bien.data
+        id_proprio =  form_bien.id_proprio
+        prix = form_bien.prix_bien.data
+        id_piece = form_bien.piece_bien.data
+        id_logement = form_bien.logement.data
+        id_type = form_bien.type_bien.data
+        id_cat = form_bien.categorie_bien.data
+        nouv_bien = Bien(
+            id_bien=id_bien, 
+            nom_bien=nom_bien, 
+            date_achat=date_achat, 
+            prix=prix, 
+            id_proprio=id_proprio, 
+            id_piece=id_piece, 
+            id_logement=id_logement, 
+            id_type=id_type, 
+            id_cat=id_cat)
+        session.add(nouv_bien)
+        session.commit()
+    except Exception as e:
+        session.rollback() # afin d eviter les erreurs de commit si une erreur est survenue
+        print("is form submitted:",form_bien.is_submitted())
+        print("is submit valid:",form_bien.validate_on_submit())
+        print("if not valid:",form_bien.errors)
+        print("error ajout bien")
+        print("Exception:", str(e))  # Log details
+
+def form_logs(form: FlaskForm):
+    print("form sumbited:",form.is_submitted())
+    print("form value valid:",form.validate_on_submit())
+    if isinstance(form, AjoutBienForm):
+        print("Ajout bien form detected")
+        if form.file.data:
+            print("file name:", form.file.data.filename)
+            print("file data:", form.file.data)
+        else:
+            print("file data is empty")
+    print("form errors:",form.errors)
+    print("form data:", form.data)
