@@ -36,16 +36,30 @@
 - TYPE: PROPRIETAIRE
   ID_PROPRIETAIRE: 6
   NOM: DALAIGRE
-  PRENOM: Chritophe
+  PRENOM: Christophe
   MAIL: random6@r.fr
 
 # Table LOGEMENT
 - TYPE: LOGEMENT
-  NOM: logement
+  NOM_LOGEMENT: 'Maison principale'
   ID_LOGEMENT: 1
   TYPE_LOGEMENT: MAISON
-  ADRESSE: '2 rue du pavillon, 71004 Paname'
-  DESCRIPTION: 'maison principale située à Paname avec toutes mes voitures'
+  ADRESSE: '2 rue du pavillon, 71004 Paris'
+  DESCRIPTION: 'maison principale située à Paris avec toutes mes voitures'
+
+- TYPE: LOGEMENT
+  NOM_LOGEMENT: 'Résidence étudiante Aristote'
+  ID_LOGEMENT: 2
+  TYPE_LOGEMENT: APPART
+  ADRESSE: "1-5-7, Esplanade de l'Université, 45100 Orléans"
+  DESCRIPTION: 'Appartement étudiant située à Orléans pour mes études de BUT Info'
+
+- TYPE: LOGEMENT
+  NOM_LOGEMENT: "Palais de l'Elysée"
+  ID_LOGEMENT: 3
+  TYPE_LOGEMENT: APPART
+  ADRESSE: "Palais de l'Elysée, rue Faubourg-Saint-Honoré"
+  DESCRIPTION: 'Chambre du futur président de France'
 
 # Table PIECE de LOGEMENT
 - TYPE: PIECE
@@ -171,6 +185,14 @@
   ID_LOGEMENT: 1
 
 - TYPE: AVOIR
+  ID_PROPRIETAIRE: 4
+  ID_LOGEMENT: 2
+
+- TYPE: AVOIR
+  ID_PROPRIETAIRE: 4
+  ID_LOGEMENT: 3
+
+- TYPE: AVOIR
   ID_PROPRIETAIRE: 5
   ID_LOGEMENT: 1
 
@@ -180,10 +202,3 @@
   MAIL: 'nathan@mail.com'
   ROLE: "proprio"
   PASSWORD: '1234'
-
-# table user
-- TYPE: USER
-  MAIL: 'nathan@mail.com'
-  PASSWORD: '123'
-  ROLE: "proprio"
-  ID_USER: 5

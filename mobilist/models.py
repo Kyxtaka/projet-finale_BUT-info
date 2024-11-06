@@ -100,7 +100,7 @@ class Proprietaire(Base):
     @staticmethod
     def get_by_mail(mail):
         return Proprietaire.query.filter_by(mail=mail).first()
-   
+  
 class Logement(Base):
     __tablename__ = "LOGEMENT"
     

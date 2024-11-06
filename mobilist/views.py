@@ -111,7 +111,7 @@ def information():
 def services():
     return render_template("services.html")
 
-@app.route("/afficheLogements")
+@app.route("/afficheLogements/")
 def affiche_logements():
     proprio = Proprietaire.query.get(current_user.id_user)
     logements = proprio.logements

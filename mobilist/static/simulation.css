@@ -1,4 +1,6 @@
-
+.nav-item-sinistre a {
+    font-weight: bold;
+}
 
 .simulation {
     margin-top: 99px;
@@ -15,6 +17,7 @@
     position: relative;
     left: 0px;
     top: 0px;
+    text-align: center;
 }
 
 .simulation hr{
@@ -73,6 +76,10 @@
 
 .simulation .info p {
     margin-top: 10px;
+}
+
+.simulation .info table {
+    margin-left: 750px;
 }
 
 .simulation .styled-table {
