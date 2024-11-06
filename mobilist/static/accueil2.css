@@ -5,6 +5,12 @@ img {
 nav {
     border-bottom: 1px solid; 
 }
+
+
+.logements {
+    margin: 10rem;
+}
+
 main {
     margin-top: 6.1rem;
     margin-bottom: 30rem;
@@ -14,14 +20,14 @@ main {
     color: black;
 }
 
-header ul {
+.accueil2 ul {
     display: flex;
     flex-wrap: nowrap;
     margin-left: 30px;
     list-style: none;
 }
 
-header li {
+.accueil2 li {
     margin-left: 30px;
     font-size: 20px;
     text-align: center;
@@ -53,8 +59,8 @@ button {
   position: absolute;
   top: 28px;
 }
-/* apparence ajout */
-.ajout {
+
+.accueil2 .ajout {
     border-radius: 20px;
     background-size:100%;
     background-image: url("img/img-ajout.png");
@@ -76,8 +82,23 @@ button {
     text-align: center;
     background-color: black;
     box-shadow: 2px 2px 15px 4px rgba(0, 0, 0, 0.1);
-    font-weight: bold;
+}
 
+.accueil2 .col {
+    border: thin;
+    border-width: 0.5%;
+}
+.accueil2 .tableau-ajout {
+    position: absolute;
+    top: 400px;
+    right:40%;
+    border: thin;
+
+}
+.accueil2 .ajout-elem{
+    padding: 5%;
+    margin: 5%;
+    width: 10%;
 }
 
 .ajout-elem {
@@ -113,7 +134,8 @@ button {
 .voir_plus:hover {
     color:#5E5DF0;
 }
-.connexion {
+
+.accueil2 .connexion {
     border-radius: 999px;
     background: #5E5DF0;
     box-shadow: #5E5DF0 0 10px 20px -10px;
@@ -123,7 +145,8 @@ button {
     border: 0;
 }
 
-footer {
+.accueil2 footer {
+
     background-color: #FFFFFF;
     position: fixed;
     bottom: 0;
@@ -138,6 +161,7 @@ footer {
 #googleplay {
     height: 45px;
 }
+
 .p-footer {
     position: absolute;
     top: 32px;
