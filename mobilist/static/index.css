@@ -97,7 +97,6 @@ main {
  footer {
     height: 65px;
     background-color: #FFFFFF;
-    position: fixed;
     bottom: 0;
     width: 100%;
     border-top: 1px solid;
@@ -112,8 +111,6 @@ main {
 }
 
 #groupe {
-    position: absolute;
-    bottom: 3px;
-    left : 575px;
+    margin-top:-32px;
     text-align: center;
 }
