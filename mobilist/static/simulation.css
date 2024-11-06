@@ -1,6 +1,9 @@
+
+
 .simulation {
     margin-top: 99px;
     margin-bottom: 120px;
+    text-align: center;
 }
 
 .simulation .bandeau {
@@ -44,7 +47,6 @@
 
 .simulation .type select, .logement select {
     position: relative;
-    margin-left: 43%;
     margin-bottom: 1%;
     width: 14%;
     padding: 10px;
@@ -78,7 +80,7 @@
     min-width: 400px;
     border-radius: 8px 8px 0 0;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    margin-left: 33%;
+    margin-left: 40%;
     margin-top: 1%;
 }
 
@@ -102,7 +104,6 @@
 }
 
 .simulation .telecharger .download-btn {
-    margin-left: 45%;
     position: relative;
     left: 0px;
     top: 0px;

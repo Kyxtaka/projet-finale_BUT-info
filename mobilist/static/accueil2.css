@@ -1,11 +1,7 @@
-.accueil2 img {
+img {
     height: 82px;
 }
 
-main {
-    margin-top: 6.1rem;
-    margin-bottom: 6.1rem;
-}
 nav {
     border-bottom: 1px solid; 
 }
@@ -20,14 +16,14 @@ main {
     color: black;
 }
 
-.accueil2 ul {
+header ul {
     display: flex;
     flex-wrap: nowrap;
     margin-left: 30px;
     list-style: none;
 }
 
-.accueil2 li {
+header li {
     margin-left: 30px;
     font-size: 20px;
     text-align: center;
@@ -35,13 +31,13 @@ main {
 }
 
 
-.accueil2 .nav-img img {
+.nav-img img {
     height: 24px;
     position:absolute;
     top : 35px;
 }
 
-.accueil2 button {
+button {
   box-sizing: border-box;
   cursor: pointer;
   font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
@@ -59,6 +55,7 @@ main {
   position: absolute;
   top: 28px;
 }
+/* apparence ajout */
 .ajout {
     border-radius: 20px;
     background-size:100%;
@@ -90,24 +87,33 @@ main {
     color: white;
     padding:3px;
 }
-.col {
-    border: thin;
-    border-width: 0.5%;
-}
-.tableau-ajout {
-    position: absolute;
-    top: 400px;
-    right:40%;
-    border: thin;
-
-}
-.ajout-elem{
-    padding: 5%;
-    margin: 5%;
-    width: 10%;
+.ajout-elem:hover {
+    color:#5E5DF0;
 }
 
-.accueil2 .connexion {
+/* apparence tableaux */
+.derniers_ajouts, .a_justifier {
+    padding: 5px;
+    border-top: 0.5mm solid;
+    margin-bottom: 1%;
+    border-color: lightgray;
+}
+
+.tableau {
+    border:0.5mm solid;
+}
+
+.voir_plus {
+    color: gray;
+    display: block;
+    text-align:center;
+    margin-top: 1%;
+
+}
+.voir_plus:hover {
+    color:#5E5DF0;
+}
+.connexion {
     border-radius: 999px;
     background: #5E5DF0;
     box-shadow: #5E5DF0 0 10px 20px -10px;
@@ -117,7 +123,7 @@ main {
     border: 0;
 }
 
-.accueil2 footer {
+footer {
     background-color: #FFFFFF;
     position: fixed;
     bottom: 0;
@@ -125,15 +131,15 @@ main {
     border-top: 1px solid;
 }
 
-.accueil2 #appstore {
+#appstore {
     height: 50px;
 }
 
-.accueil2 #googleplay {
+#googleplay {
     height: 45px;
 }
 
-p {
+.p-footer {
     position: absolute;
     top: 32px;
     left : 540px;
