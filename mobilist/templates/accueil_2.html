@@ -51,11 +51,9 @@
                 <a id="bouton-compte" href="{{ url_for('accueil_connexion') }}">
                   <button class="connexion">Mon compte
                     <div class="mon-compte">
-                      <ul class="liste-acces">
-                        <li class="liste-acces"><a href="">Mon compte</a></li>
-                        <li  class="liste-acces"><a href="">Aide</a></li>
-                        <li  class="liste-acces"><a href="{{ url_for('logout') }}">Déconnexion</a></li>
-                      </ul>
+                        <a class="liste-acces" href="">Mon compte</a>
+                        <a class="liste-acces" href="">Aide</a>
+                        <a class="liste-acces" href="{{ url_for('logout') }}">Déconnexion</a>
                     </div> 
                   </button>
                 </a>

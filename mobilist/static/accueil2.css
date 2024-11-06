@@ -10,7 +10,7 @@ main {
     margin-bottom: 30rem;
 }
 
-#navbar-collapse>ul>li>a {
+#navbar-collapse>ul>li>a, .mon-compte a {
     color: black;
 }
 #bouton-compte {
@@ -19,19 +19,18 @@ main {
 .mon-compte {
     opacity: 0;
     position: absolute;
-    top:40px;
-    right:25%;
-
+    top:45px;
+    right:30%;
 }
-.mon-compte>ul {
+
+.mon-compte {
     background-color: #FFFFFF;
-    display:flex;
     border: 0.5mm solid;
 }
 .liste-acces {
-    flex-wrap:wrap;
-    list-style: none;
+    margin:15%;
     color: black;
+
 }
 
 .accueil2>header>nav ul {
@@ -48,9 +47,7 @@ main {
     margin-top: 2%;
 }
 
-#connexion>a{
-    color:white;
-}
+
 .nav-img img {
     height: 24px;
     position:absolute;
@@ -58,19 +55,12 @@ main {
 }
 
 button {
-  box-sizing: border-box;
-  cursor: pointer;
   font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 600;
   opacity: 1;
   outline: 0 solid transparent;
-  padding: 7px 16px;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  width: fit-content;
-  word-break: break-word;
+  padding: 7px 20px;
   position: absolute;
   top: 28px;
 }
