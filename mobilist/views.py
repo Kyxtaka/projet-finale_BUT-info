@@ -126,8 +126,9 @@ def simulation():
         logements.append(logement)
     return render_template("simulation.html",logements=logements)
 
-@app.route("/mesBiens/", methods =("GET","POST" ,))
+@app.route("/mesBiens/", methods =["GET"])
 def mesBiens():
+    logement_selection = request.args.get("logement")
     proprio = Proprietaire.query.get(current_user.id_user)
     logements = []
     lesPieces = []
@@ -139,4 +140,4 @@ def mesBiens():
     for pie in lesPieces:
         for bien in pie.get_list_biens():
             lesBiens[pie.nom_piece] = bien.nom_bien
-    return render_template("mesBiens.html",logements=logements,lesBiens=lesBiens)
+    return render_template("mesBiens.html",logements=logements,lesBiens=lesBiens,logement_selection=logement_selection)

@@ -9,10 +9,10 @@
 <div class="mesBiens">
     <div class="bandeau">
         <h2>Vos biens répertoriés par pièces</h2>
-        <form method="POST" action="{{ url_for('mesBiens') }}">
-
+        <form method="GET" action="{{ url_for('mesBiens') }}">
 
         <div class="choix_logement">
+            <label for="logement-select">Choisissez un logement :</label>
             <select name="logement" id="logement-select">
                 <option value=""> Choisissez un logement </option>
                 {% for loge in logements %}
@@ -26,6 +26,7 @@
             var valeurselectionnee = selectElmt.options[selectElmt.selectedIndex].value;
             var textselectionne = selectElmt.options[selectElmt.selectedIndex].text;
         </script>
+        <p></p>
     </div>
     <div class="plan">
         {% for piece in lesBiens.keys() %}
