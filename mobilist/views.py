@@ -58,16 +58,16 @@ class AjoutBienForm(FlaskForm):
     type_bien = SelectField('Type de bien', validators=[DataRequired()])
     categorie_bien = SelectField('Catégorie', validators=[DataRequired()])
     piece_bien = SelectField('Nombre de pièces', validators=[DataRequired()])
-    prix_bien = StringField('Prix neuf', validators=[DataRequired()])
-    date_bien = DateTimeField("Date de l'achat", validators=[DataRequired()])
+    prix_bien = FloatField('Prix neuf', validators=[DataRequired()])
+    date_bien = DateField("Date de l'achat", validators=[DataRequired()])
     description_bien = TextAreaField('Description')
     justificatif_bien = FileField('Justificatif test nom')
-    id_proprio = HiddenField()     
+    id_proprio = HiddenField("id_proprio")     
 
     def __init__(self):
         super(AjoutBienForm, self).__init__()
-        id_proprio = current_user.id_user
-        self.logement.choices = [(l.get_id_logement(), l.get_nom_logement()) for l in Proprietaire.query.get(id_proprio).logements]
+        self.id_proprio = current_user.id_user
+        self.logement.choices = [(l.get_id_logement(), l.get_nom_logement()) for l in Proprietaire.query.get(current_user.id_user).logements]
         self.type_bien.choices = [(t.id_type, t.nom_type) for t in TypeBien.query.all()]
         self.categorie_bien.choices = [(c.get_id_cat(), c.get_nom_cat()) for c in Categorie.query.all()]
         self.piece_bien.choices = [(p.get_id_piece(), p.get_nom_piece()) for p in Piece.query.all()]
@@ -151,12 +151,62 @@ def get_pieces(logement_id):
 @app.route("/bien/ajout", methods=("GET", "POST",))
 @login_required
 def ajout_bien():
+    session = db.session
     form = AjoutBienForm()
     if form.validate_on_submit():
         try:
-            print('blabla')
-            return render_template("index.html")
-        except:
+            print('entering try')
+            print("is form submitted:",form.is_submitted())
+            print("is submit valid:",form.validate_on_submit())
+            print("if not valid:",form.errors)
+            print("date_bien data:", form.date_bien.data)
+            # print("id proprio from form:", form.id_proprio.data)
+            # print("id proprio from current_user:", current_user.id_user)
+            id_bien = Bien.get_max_id()+1
+            nom_bien = form.nom_bien.data
+            date_achat = form.date_bien.data
+            id_proprio =  int(form.id_proprio.data)
+            print("type de date achat:",type(date_achat))
+            prix = form.prix_bien.data
+            id_piece = form.piece_bien.data
+            id_logement = form.logement.data
+            id_type = form.type_bien.data
+            id_cat = form.categorie_bien.data
+            # Justificatif.ajouter_justificatif(form.justificatif_bien.data, id_bien) pas encore implementé
+            print("data retrieved from form")
+            nouv_bien = Bien(
+                id_bien=id_bien, 
+                nom_bien=nom_bien, 
+                date_achat=date_achat, 
+                prix=prix, 
+                id_proprio=id_proprio, 
+                id_piece=id_piece, 
+                id_logement=id_logement, 
+                id_type=id_type, 
+                id_cat=id_cat)
+            print("nouv bien:",nouv_bien)
+            session.add(nouv_bien)
+            print("add bien to session")
+            session.commit()
+            print("success commit, check db")
+            return redirect(url_for("accueil_connexion"))
+        except Exception as e:
+            session.rollback() # afin d eviter les erreurs de commit si une erreur est survenue
+            print("is form submitted:",form.is_submitted())
+            print("is submit valid:",form.validate_on_submit())
+            print("if not valid:",form.errors)
             print("error ajout bien")
-            return render_template("ajout_bien.html", form=form)
-    return render_template("ajout_bien.html", form=form)
+            print("Exception:", str(e))  # Log the exception details
+            return render_template("ajout_bien.html", form=form, error=True)
+    print("is form submitted:",form.is_submitted())
+    print("is submit valid:",form.validate_on_submit())
+    print("if not valid:",form.errors)
+    if  form.is_submitted() and not form.validate_on_submit():
+        print("error ajout bien")
+        return render_template("ajout_bien.html", form=form, error=True)
+    else:
+        # print("ajout bien")
+        # proprio = Proprietaire.query.get(current_user.id_user)
+        # proprio.ajouter_bien(form.nom_bien.data, form.type_bien.data, form.categorie_bien.data, form.piece_bien.data, form.prix_bien.data, form.date_bien.data, form.description_bien.data, form.justificatif_bien.data)
+        # return redirect(url_for("accueil_connexion"))
+        return render_template("ajout_bien.html", form=form, error=False)
