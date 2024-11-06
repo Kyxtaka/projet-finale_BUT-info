@@ -42,9 +42,12 @@ section:hover {
     border-color: #5E5DF0;
 }
 
-.buttons-log {
-    margin-top: 60px;
+#list-buttons {
     list-style-type: none;
+}
+
+.div-buttons {
+    
     display: block;
     position: relative;
     

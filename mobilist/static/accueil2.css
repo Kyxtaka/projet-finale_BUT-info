@@ -7,10 +7,6 @@ nav {
 }
 
 
-.logements {
-    margin: 10rem;
-}
-
 main {
     margin-top: 6.1rem;
     margin-bottom: 30rem;
@@ -146,7 +142,6 @@ button {
 }
 
 .accueil2 footer {
-
     background-color: #FFFFFF;
     position: fixed;
     bottom: 0;
