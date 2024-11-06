@@ -9,7 +9,7 @@ nav {
 
 main {
     margin-top: 6.1rem;
-    margin-bottom: 30rem;
+    margin-bottom: 6.1rem;
 }
 
 #navbar-collapse>ul>li>a {
@@ -59,7 +59,7 @@ main {
     top : 38px;
 }
 
-button {
+.connexion {
   box-sizing: border-box;
   cursor: pointer;
   font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
@@ -174,4 +174,5 @@ footer {
 
 .p-footer {
     text-align: center;
+    margin-top: 10px;
 }
