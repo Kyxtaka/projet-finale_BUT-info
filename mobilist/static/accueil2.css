@@ -5,36 +5,53 @@ img {
 nav {
     border-bottom: 1px solid; 
 }
-<<<<<<<<< Temporary merge branch 1
 
-.logements {
-    margin: 10rem;
-}
-=========
 main {
     margin-top: 6.1rem;
     margin-bottom: 30rem;
 }
 
-#navbar-collapse  a {
+#navbar-collapse>ul>li>a {
+    color: black;
+}
+#bouton-compte {
+    color: white;
+}
+.mon-compte {
+    opacity: 0;
+    position: absolute;
+    top:40px;
+    right:25%;
+
+}
+.mon-compte>ul {
+    background-color: #FFFFFF;
+    display:flex;
+    border: 0.5mm solid;
+}
+.liste-acces {
+    flex-wrap:wrap;
+    list-style: none;
     color: black;
 }
 
-.accueil2 ul {
+.accueil2>header>nav ul {
     display: flex;
     flex-wrap: nowrap;
     margin-left: 30px;
     list-style: none;
 }
 
-.accueil2 li {
+.accueil2 >header>nav li {
     margin-left: 30px;
     font-size: 20px;
     text-align: center;
     margin-top: 2%;
 }
 
-
+#connexion>a{
+    color:white;
+}
 .nav-img img {
     height: 24px;
     position:absolute;
@@ -47,7 +64,6 @@ button {
   font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
   font-size: 14px;
   font-weight: 600;
-  line-height: 22px;
   opacity: 1;
   outline: 0 solid transparent;
   padding: 7px 16px;
@@ -59,9 +75,9 @@ button {
   position: absolute;
   top: 28px;
 }
-<<<<<<<<< Temporary merge branch 1
-.accueil2 .ajout {
-=========
+button:hover  .mon-compte {
+    opacity:1;
+}
 /* apparence ajout */
 .ajout {
     border-radius: 20px;
@@ -86,11 +102,7 @@ button {
     background-color: black;
     box-shadow: 2px 2px 15px 4px rgba(0, 0, 0, 0.1);
 }
-<<<<<<<<< Temporary merge branch 1
-.accueil2 .col {
-    border: thin;
-    border-width: 0.5%;
-}
+
 .accueil2 .tableau-ajout {
     position: absolute;
     top: 400px;
@@ -98,12 +110,6 @@ button {
     border: thin;
 
 }
-.accueil2 .ajout-elem{
-    padding: 5%;
-    margin: 5%;
-    width: 10%;
-=========
-
 .ajout-elem {
     width:100%;
     display:block;
@@ -148,32 +154,23 @@ button {
     border: 0;
 }
 
-<<<<<<<<< Temporary merge branch 1
-
-.accueil2 footer {
-=========
 footer {
     background-color: #FFFFFF;
-    position: fixed;
     bottom: 0;
     width: 100%;
     border-top: 1px solid;
 }
 
 #appstore {
+    float:left;
     height: 50px;
 }
 
 #googleplay {
+    float:left;
     height: 45px;
 }
 
-<<<<<<<<< Temporary merge branch 1
-.accueil2 p {
-=========
 .p-footer {
-    position: absolute;
-    top: 32px;
-    left : 540px;
     text-align: center;
 }

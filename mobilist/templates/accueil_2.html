@@ -48,10 +48,19 @@
                 <a class="nav-link active" aria-current="page" href="{{ url_for('simulation') }}">Simuler un sinistre</a>
               </li> 
               <li id="connexion">
-                <a href="{{ url_for('logout') }}">
-                  <button class="connexion">Mon compte</button>
+                <a id="bouton-compte" href="{{ url_for('accueil_connexion') }}">
+                  <button class="connexion">Mon compte
+                    <div class="mon-compte">
+                      <ul class="liste-acces">
+                        <li class="liste-acces"><a href="">Mon compte</a></li>
+                        <li  class="liste-acces"><a href="">Aide</a></li>
+                        <li  class="liste-acces"><a href="{{ url_for('logout') }}">Déconnexion</a></li>
+                      </ul>
+                    </div> 
+                  </button>
                 </a>
-              </li>         
+              </li>       
+        </nav> 
   </header>
   <main>
     {% block content %}
