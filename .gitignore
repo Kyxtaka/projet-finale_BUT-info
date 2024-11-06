@@ -275,14 +275,13 @@ pip-selfcheck.json
 # End of https://www.toptal.com/developers/gitignore/api/flask,venv,python
 
 mobilist/secure_constante.py
-<<<<<<< HEAD
-mobilist/__pycache__/views.cpython-312.pyc
-mobilist/__pycache__/__init__.cpython-312.pyc
-mobilist/__pycache__/app.cpython-312.pyc
-=======
 mobilist/__pycache__/__init__.cpython-312.pyc
 mobilist/__pycache__/app.cpython-312.pyc
 mobilist/__pycache__/views.cpython-312.pyc
 mobilist/__pycache__/app.cpython-312.pyc
 mobilist/__pycache__/views.cpython-312.pyc
->>>>>>> simulation
+
+mobilist/__pycache__/views.cpython-312.pyc
+mobilist/__pycache__/__init__.cpython-312.pyc
+mobilist/__pycache__/app.cpython-312.pyc
+

@@ -2,15 +2,9 @@ img {
     height: 82px;
 }
 
-main {
-    margin-top: 6.1rem;
-    margin-bottom: 6.1rem;
-}
 nav {
     border-bottom: 1px solid; 
 }
-
-
 main {
     margin-top: 6.1rem;
     margin-bottom: 30rem;
@@ -20,14 +14,14 @@ main {
     color: black;
 }
 
-ul {
+header ul {
     display: flex;
     flex-wrap: nowrap;
     margin-left: 30px;
     list-style: none;
 }
 
-li {
+header li {
     margin-left: 30px;
     font-size: 20px;
     text-align: center;
@@ -59,6 +53,7 @@ button {
   position: absolute;
   top: 28px;
 }
+/* apparence ajout */
 .ajout {
     border-radius: 20px;
     background-size:100%;
@@ -76,13 +71,17 @@ button {
 }
 
 .box-ajout>div  {
+    width:20%;
     flex-wrap: nowrap;
+    text-align: center;
     background-color: black;
-    padding:2%;
     box-shadow: 2px 2px 15px 4px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+
 }
 
 .ajout-elem {
+    width:100%;
     display:block;
     background-color: gray;
     color: white;
@@ -91,7 +90,6 @@ button {
 .ajout-elem:hover {
     color:#5E5DF0;
 }
-
 
 /* apparence tableaux */
 .derniers_ajouts, .a_justifier {
@@ -115,7 +113,6 @@ button {
 .voir_plus:hover {
     color:#5E5DF0;
 }
-
 .connexion {
     border-radius: 999px;
     background: #5E5DF0;
@@ -125,7 +122,6 @@ button {
     right: 50px;
     border: 0;
 }
-
 
 footer {
     background-color: #FFFFFF;
