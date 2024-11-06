@@ -126,3 +126,6 @@ def simulation():
         logements.append(logement)
     return render_template("simulation.html",logements=logements)
 
+@app.route("/mesBiens/")
+def mesBiens():
+    return render_template("mesBiens.html")
