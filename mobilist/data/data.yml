@@ -202,3 +202,9 @@
   MAIL: 'nathan@mail.com'
   ROLE: "proprio"
   PASSWORD: '1234'
+# table user
+- TYPE: USER
+  MAIL: 'nathan@mail.com'
+  PASSWORD: '123'
+  ROLE: "proprio"
+  ID_USER: 5
