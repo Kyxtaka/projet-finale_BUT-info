@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    {% block head %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block styles %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet", href="{{ url_for('static',filename='index.css') }}">
+    {% endblock %}
+    <title>MobiList</title>
+    {% endblock %}
+</head>
+    <div class="index">
+    <header>
+      <!-- Fixed navbar -->
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-white">
+        <div class="logo">
+          <a href="#">
+            <img src="{{ url_for('static',filename='img/logo_mobilist.png') }}" alt="logo du site"/>
+          </a>
+        </div>
+        <div class="container-fluid">
+          <div class="collapse navbar-collapse" id="navbar-collapse">
+              <ul class="navbar-nav-left">
+                  <li class="nav-img" >
+                    <div class=BAccueil>
+                      <a href="{{ url_for('accueil') }}"><img src="{{ url_for('static',filename='img/accueil.png') }}" alt="icône accueil"/></a>
+                      <a class="nav-link active" aria-current="page" href="{{ url_for('accueil') }}">Accueil</a>
+                    </div>
+                  </li>
+                  <li class="nav-img" >
+                    <div class="BBiens">
+                        <img src="{{ url_for('static',filename='img/mes-biens.png') }}" alt="icône mes biens"/>
+                        <a class="nav-link active" aria-current="page" href="#">Mes biens</a>
+                    </div>
+                  </li>
+                    <li class="nav-img" >
+                        <div class="BLogements">
+                            <img src="{{ url_for('static',filename='img/mes-logements.png') }}" alt="icône mes logements"/>
+                            <a class="nav-link active" aria-current="page" href="{{ url_for('affiche_logements') }}">Mes logements</a>
+                        </div>
+                    </li>
+                  <li class="nav-img" >
+                    <div class="BSinistres">
+                        <img src="{{ url_for('static',filename='img/simuler-sinistre.png') }}" alt="icône simuler un sinistre"/>
+                        <a class="nav-link active" aria-current="page" href="#">Simuler un sinistre</a>
+                    </div>
+                  </li>
+                  <li id="MonCompte">
+                    <a href="{{ url_for('logout') }}">
+                        <button class="mon_compte">Mon compte</button>
+                    </a>
+                  </li>   
+                </ul>           
+  </header>
+  <main class="flex-shrink-0">
+    <div class="content">
+    {% block content %} 
+      
+    {% endblock %}
+    </div>
+  </main>
+
+  <footer class="footer mt-auto py-3 bg-light">
+    <div class="footer">
+      <img id="appstore" src="{{ url_for('static',filename='img/appstore.jpg') }}" alt="Dispo sur appstore"/>
+      <img id="googleplay" src="{{ url_for('static',filename='img/googleplay.png') }}" alt="Dispo sur Google play"/>
+      <p id="groupe"> © AKHTAR NAIMA - VALIN OPHÉLIE - BOCQUET CLÉMENCE - VILCOQ YOHANN - RANDRIANTSOA NATHAN </p>
+    </div>
+  </footer>
+</body>
+
+</html>
+

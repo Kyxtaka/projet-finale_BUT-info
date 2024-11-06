@@ -1,7 +1,8 @@
-{% extends "accueil_2.html" %}
+{% extends "index2.html" %}
 {% block styles %}
-<link rel="stylesheet" href="{{ url_for('static', filename='accueil.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='ajout_bien.css') }}">
+{{ super()}}
 {% endblock %}
 {% block scripts %}
 {{ super()}}
@@ -34,69 +35,58 @@
                 .catch(error => console.error("Ereur lors de l'obtention des pieces:", error));
         });
     });
-
-    function formSubmit(){
-        console.log("form submit")
-        document.getElementById("form_bien").submit();
-        document.getElementById("form_upload").submit();
-    }
-
 </script>
 {% endblock %}
 {{ super()}}
 {% block content %}
 <div class="ajout-logement"> 
     <h1>Ajoutez un bien à votre logement</h1>
-    <div class="box-container" id="main-form">
-        <div id="left-side">
-            <form  class="form-group" id='form_bien' action="{{ url_for('ajout_bien') }}" method="POST">
-                {{ form_bien.csrf_token }}
-                {{ form_bien.hidden_tag() }}
-                <label class="form-group-element" for="logement">Le logement</label>
-                {{ form_bien.logement(class="form-group-element", id="logement-select") }}
+    <form  class="form-group" form='form' id="form" action="{{ url_for('ajout_bien') }}" method="POST" enctype="multipart/form-data">
+        <div class="box-container" id="main-form">
+            <div id="left-side">
+                {{ form.csrf_token }}
+                {{ form.hidden_tag() }}
+                <label class="form-group-element" for="logement" id="form_logement">Le logement</label>
+                {{ form.logement(class="form-group-element", id="logement-select") }}
 
-                <label class="form-group-element" for="nom">Nom du bien</label>
-                {{ form_bien.nom_bien(class="form-group-element") }}
+                <label class="form-group-element" for="nom" id="form_nom">Nom du bien</label>
+                {{ form.nom_bien(class="form-group-element") }}
 
-                <label class="form-group-element" for="categorie">Categorie du bien</label>
-                {{ form_bien.categorie_bien(class="form-group-element") }}
+                <label class="form-group-element" for="categorie" id="form_cat">Categorie du bien</label>
+                {{ form.categorie_bien(class="form-group-element") }}
 
-                <label class="form-group-element" for="type">Type du bien</label>
-                {{ form_bien.type_bien(class="form-group-element") }}
+                <label class="form-group-element" for="type" id="form_type">Type du bien</label>
+                {{ form.type_bien(class="form-group-element") }}
 
-                <label class="form-group-element" for="piece">Piece</label>
-                {{ form_bien.piece_bien(class="form-group-element", id="piece-select") }}
+                <label class="form-group-element" for="piece" id="form_piece">Piece</label>
+                {{ form.piece_bien(class="form-group-element", id="piece-select") }}
 
-                <label class="form-group-element" for="prix">Prix neuf</label>
-                {{ form_bien.prix_bien(class="form-group-element") }}
+                <label class="form-group-element" for="prix" id="form_prix">Prix neuf</label>
+                {{ form.prix_bien(class="form-group-element") }}
 
-                <label class="form-group-element" for="date">Date de l'achat</label>
-                {{ form_bien.date_bien(class="form-group-element") }}
+                <label class="form-group-element" for="date" id="form_date">Date de l'achat</label>
+                {{ form.date_bien(class="form-group-element") }}
 
-                <label class="form-group-element" for="description">Description</label>
-                {{ form_bien.description_bien(class="form-group-element") }}
-
-                {% if error == True %}
-                <script>
-                    window.alert("Erreur lors de l'ajout du bien: {{form_bien.errors}}")
-                    console.log("Erreur lors de l'ajout du bien: {{form_bien.errors}}")
-                    console.log("affichage du formulaire {{form_bien.data}}")
-                </script>
-                {% endif %}
-            </form>
+                <label class="form-group-element" for="description" id="form_desc">Description</label>
+                {{ form.description_bien(class="form-group-element") }}
+            </div>
+            <div id="right-side">
+                <label class="form-group-element" for="justificatif" id="form_justif">Justificatif</label>
+                {{ form.file(class="form-group-element")}}
+            </div>
         </div>
-        <div id="right-side">
-            <form  id="form_upload" method="POST" enctype="multipart/form-data">
-                <label class="form-group-element" for="justificatif">Justificatif</label>
-                {{ form_upload.hidden_tag() }}
-                {{ form_upload.file(class="form-group-element")}}
-            </form>
-        </div>
-        <button class="btn btn-primary mb-3" id="formsumbmit" type="submit" onclick="formSubmit()">Ajouter</button> 
-    </div>
+        {% if error == True %}
+            <script>
+                window.alert("Erreur lors de l'ajout du bien: {{form.errors}}")
+                console.log("Erreur lors de l'ajout du bien: {{form.errors}}")
+                console.log("affichage du formulaire {{form.data}}")
+            </script>
+        {% endif %}
+        <button class="btn btn-primary mb-3" id="formsumbmit" type="submit">Ajouter</button> 
+    </form>
     <div class="box-container" id="recent-ajout">
-        <h1>Récents Ajouts</h1>
+        <h2>Récents Ajouts</h2>
         <p> for bien un bien de la bd (box encadré)</p>
     </div>
 </div>
-{% endblock %}  
+{% endblock %} 

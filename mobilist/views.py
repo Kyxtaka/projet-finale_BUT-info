@@ -14,6 +14,7 @@ from flask_wtf import FlaskForm
 from wtforms import * #import de tous les champs
 from wtforms.validators import DataRequired
 from werkzeug.utils import secure_filename
+from werkzeug.datastructures import MultiDict
 
 #constante : chemin d'acces au dossier de telechargement des justificatifs
 UPLOAD_FOLDER_JUSTIFICATIF = os.path.join(
@@ -62,8 +63,8 @@ class IncrisptionForm(FlaskForm):
 class UploadFileForm(FlaskForm):
     file = FileField('File', validators=[DataRequired()])
 
-    def __init__(self):
-        super(UploadFileForm, self).__init__()
+    def __init__(self,*args, **kwargs):
+        super(UploadFileForm, self).__init__(*args, **kwargs)
         #########################################################
         # print(f"**********************************\n {self.file.validators} \n**********************************")
         # if self.validate_file_format not in self.file.validators:
@@ -111,16 +112,27 @@ class AjoutBienForm(FlaskForm):
     prix_bien = FloatField('Prix neuf', validators=[DataRequired()])
     date_bien = DateField("Date de l'achat", validators=[DataRequired()])
     description_bien = TextAreaField('Description')
-    justificatif_bien = FileField('Justificatif test nom')
+    file = FileField('File')
     id_proprio = HiddenField("id_proprio") 
 
-    def __init__(self):
-        super(AjoutBienForm, self).__init__()
+    def __init__(self,*args, **kwargs):
+        super(AjoutBienForm, self).__init__(*args, **kwargs)
         self.id_proprio = current_user.id_user
         self.logement.choices = [(l.get_id_logement(), l.get_nom_logement()) for l in Proprietaire.query.get(current_user.id_user).logements]
         self.type_bien.choices = [(t.id_type, t.nom_type) for t in TypeBien.query.all()]
         self.categorie_bien.choices = [(c.get_id_cat(), c.get_nom_cat()) for c in Categorie.query.all()]
         self.piece_bien.choices = [(p.get_id_piece(), p.get_nom_piece()) for p in Piece.query.all()]
+
+    def create_justificatif_bien(self):
+        try:
+            file = self.file.data
+            if not os.path.exists(os.path.join(UPLOAD_FOLDER_JUSTIFICATIF, str(current_user.id_user))): # creation du dossier de l'utilisateur si inexistant
+                os.makedirs(os.path.join(UPLOAD_FOLDER_JUSTIFICATIF, str(current_user.id_user)))
+            CUSTOM_UPLOAD_FOLDER_JUSTIFICATIF = os.path.join(UPLOAD_FOLDER_JUSTIFICATIF, str(current_user.id_user))
+            file.save(os.path.join(CUSTOM_UPLOAD_FOLDER_JUSTIFICATIF, secure_filename(file.filename)))
+            print("file saved")
+        except Exception as e:
+            print("erreur:", e)
         
 @app.route("/accueil-connexion/")
 @login_required   
@@ -203,33 +215,21 @@ def get_pieces(logement_id):
 def ajout_bien():
     session = db.session
     form_bien = AjoutBienForm()
-    form_upload = UploadFileForm()
-    if form_upload.validate_on_submit():
-        print("-----------------------------------------------------------form_upload is submitted-----------------------------------------------------------")
-        try:
-            form_upload.create_justificatif_bien()
-        except Exception as e:
-            print("erreur:", e) 
+
     if form_bien.validate_on_submit():
         try:
-            print('entering try')
-            print("is form submitted:",form_bien.is_submitted())
-            print("is submit valid:",form_bien.validate_on_submit())
-            print("if not valid:",form_bien.errors)
-            print("date_bien data:", form_bien.date_bien)
-            # print("id proprio from form:", form.id_proprio.data)
-            # print("id proprio from current_user:", current_user.id_user)
+            if form_bien.file.data:
+                file = form_bien.create_justificatif_bien()
+            
             id_bien = Bien.get_max_id()+1
             nom_bien = form_bien.nom_bien.data
             date_achat = form_bien.date_bien.data
             id_proprio =  form_bien.id_proprio
-            print("type de date achat:",type(date_achat))
             prix = form_bien.prix_bien.data
             id_piece = form_bien.piece_bien.data
             id_logement = form_bien.logement.data
             id_type = form_bien.type_bien.data
             id_cat = form_bien.categorie_bien.data
-            print("data retrieved from form")
             nouv_bien = Bien(
                 id_bien=id_bien, 
                 nom_bien=nom_bien, 
@@ -240,11 +240,8 @@ def ajout_bien():
                 id_logement=id_logement, 
                 id_type=id_type, 
                 id_cat=id_cat)
-            print("nouv bien:",nouv_bien)
             session.add(nouv_bien)
-            print("add bien to session")
             session.commit()
-            print("success commit, check db")
             return redirect(url_for("accueil_connexion"))
         except Exception as e:
             session.rollback() # afin d eviter les erreurs de commit si une erreur est survenue
@@ -252,19 +249,17 @@ def ajout_bien():
             print("is submit valid:",form_bien.validate_on_submit())
             print("if not valid:",form_bien.errors)
             print("error ajout bien")
-            print("Exception:", str(e))  # Log the exception details
-            return render_template("ajout_bien.html", form=form_bien, error=True)
+            print("Exception:", str(e))  # Log details
+
     print("is form submitted:",form_bien.is_submitted())
     print("is submit valid:",form_bien.validate_on_submit())
     print("if not valid:",form_bien.errors)
     if  form_bien.is_submitted() and not form_bien.validate_on_submit():
         print("error ajout bien")
         return render_template("ajout_bien.html", 
-                               form_bien=form_bien, 
-                               form_upload=form_upload, 
+                               form=form_bien,     
                                error=True)
     else:
         return render_template("ajout_bien.html", 
-                               form_bien=form_bien, 
-                               form_upload=form_upload, 
+                               form=form_bien, 
                                error=False)
