@@ -30,33 +30,28 @@
                     </div>
                   </li>
                   <li class="nav-img" >
-                    <div class="BServices">
-                        <img src="{{ url_for('static',filename='img/services.png') }}" alt="icône nos services"/>
-                        <a class="nav-link active" aria-current="page" href="{{ url_for('services') }}">Nos services</a>
+                    <div class="BBiens">
+                        <img src="{{ url_for('static',filename='img/mes-biens.png') }}" alt="icône mes biens"/>
+                        <a class="nav-link active" aria-current="page" href="#">Mes biens</a>
                     </div>
                   </li>
                     <li class="nav-img" >
-                        <div class="BContact">
-                            <img src="{{ url_for('static',filename='img/contact.png') }}" alt="icône contact"/>
-                            <a class="nav-link active" aria-current="page" href="#coord">Contact</a>
+                        <div class="BLogements">
+                            <img src="{{ url_for('static',filename='img/mes-logements.png') }}" alt="icône mes logements"/>
+                            <a class="nav-link active" aria-current="page" href="{{ url_for('affiche_logements') }}">Mes logements</a>
                         </div>
                     </li>
                   <li class="nav-img" >
-                    <div class="BAvis">
-                        <img src="{{ url_for('static',filename='img/avis.png') }}" alt="icône avis"/>
-                        <a class="nav-link active" aria-current="page" href="#">Avis</a>
+                    <div class="BSinistres">
+                        <img src="{{ url_for('static',filename='img/simuler-sinistre.png') }}" alt="icône simuler un sinistre"/>
+                        <a class="nav-link active" aria-current="page" href="#">Simuler un sinistre</a>
                     </div>
                   </li>
-                  <li id="connexion">
-                    <a href="{{ url_for('login') }}">
-                      <button class="connexion">Se connecter</button>
+                  <li id="MonCompte">
+                    <a href="{{ url_for('logout') }}">
+                        <button class="mon_compte">Mon compte</button>
                     </a>
-                  </li>
-                  <li id="information">
-                    <a href="{{ url_for('information') }}">
-                      <button class="information">À propos de nous</button>
-                    </a>
-                  </li>
+                  </li>   
                 </ul>           
   </header>
   <main class="flex-shrink-0">

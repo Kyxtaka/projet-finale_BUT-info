@@ -1,9 +1,9 @@
-.nav-item-services a {
+main .nav-item-services a {
     color: #5E5DF0;
     font-weight: bold;
 }
 
-.nav-img img {
+main .nav-img img {
     position:absolute;
     top : 36px;
 }
@@ -17,7 +17,7 @@
     text-align: center;
 }
 
-h1 {
+main h1 {
     text-align: center;
     background-color: #e9eaee ;
     padding: 40px;
@@ -43,7 +43,7 @@ h1 {
     font-weight: 300;
 }
 
-section {
+main section {
     width: 50%;
     padding: 100px;
     font-size: larger;
