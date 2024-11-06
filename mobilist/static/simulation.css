@@ -1,3 +1,7 @@
+.nav-item-sinistre a {
+    font-weight: bold;
+}
+
 .simulation {
     margin-top: 99px;
     margin-bottom: 120px;
