@@ -1,9 +1,9 @@
-.nav-img img {
+main .nav-img img {
     position:absolute;
     top : 36px;
 }
 
-.paragraphe1 {
+main .paragraphe1 {
     background-color: lightgray;
     position: absolute;
     top: 200px;
@@ -16,7 +16,7 @@
     
 }
 
-.paragraphe2 {
+main .paragraphe2 {
     position: absolute;
     top: 380px;
     display: block;
@@ -27,7 +27,7 @@
     font-size: larger;
 }
 
-.paragraphe3 {
+main .paragraphe3 {
     background-color: lightgray;
     position: absolute;
     top: 650px;
