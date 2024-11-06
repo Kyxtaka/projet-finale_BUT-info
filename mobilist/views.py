@@ -71,6 +71,7 @@ def login():
     elif f.validate_on_submit():
         user = f.get_authenticated_user()
         if user:
+            print("test2")
             login_user(user)
             next = f.next.data or url_for("accueil_connexion")
             return redirect(next)
@@ -101,8 +102,6 @@ def inscription():
     return render_template(
     "inscription.html", form=f, present=False)
   
-
-
 @app.route("/information")
 def information():
     return render_template("information.html")
@@ -111,3 +110,19 @@ def information():
 @app.route("/services")
 def services():
     return render_template("services.html")
+
+@app.route("/afficheLogements")
+def affiche_logements():
+    proprio = Proprietaire.query.get(current_user.id_user)
+    logements = proprio.logements
+    print(logements)
+    return render_template("afficheLogements.html", logements=logements)
+
+@app.route("/simulation/", methods =("GET","POST" ,))
+def simulation():
+    proprio = Proprietaire.query.get(current_user.id_user)
+    logements = []
+    for logement in proprio.logements:
+        logements.append(logement)
+    return render_template("simulation.html",logements=logements)
+

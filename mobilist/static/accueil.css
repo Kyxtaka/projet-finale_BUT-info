@@ -3,6 +3,10 @@
     margin-bottom: 140px;
 }
 
+.nav-item-accueil {
+    font-weight: bold;
+}
+
 .accueil p {
     position : relative;
     left: 0px;
@@ -49,6 +53,8 @@
     width : 100px;
     height: 300px;
 }
+
+
 
 .accueil .texte1, .texte2{
     z-index: 1;
@@ -162,9 +168,9 @@
     font-weight: bold;
  }
 
- .accueil .telephone{
+.accueil .telephone{
     text-align: center;
- }
+}
 
 .accueil .mail img {
     width : 40px;
