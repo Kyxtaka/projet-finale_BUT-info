@@ -31,7 +31,6 @@ def loaddb(filename):
             case 'LOGEMENT':
                 new_logement = Logement(
                     id_logement = entity['ID_LOGEMENT'],
-                    nom_logement = entity['NOM_LOGEMENT'],
                     type_logement = entity['TYPE_LOGEMENT'],
                     adresse_logement = entity['ADRESSE'],
                     desc_logement = entity['DESCRIPTION'])
@@ -61,13 +60,13 @@ def loaddb(filename):
                 new_bien = Bien(
                     id_bien = entity['ID_BIEN'],
                     nom_bien = entity['NOM_BIEN'],
+                    id_proprio = entity['ID_PROPRIETAIRE'],
                     date_achat = date.date(),
                     prix = entity['PRIX'],
                     id_piece = entity['ID_PIECE'],
+                    id_logement=entity['ID_LOGEMENT'],
                     id_type = entity['ID_TYPE_BIEN'],
                     id_cat = entity['ID_CATEGORIE'],
-                    id_proprio = entity['ID_PROPRIETAIRE'],
-                    id_logement = entity['ID_LOGEMENT']
                 )
                 session.add(new_bien)
             case 'JUSTIFICATIF':
@@ -93,15 +92,6 @@ def loaddb(filename):
                     id_logement = entity['ID_LOGEMENT']
                 )
                 session.add(new_avoir)
-            case 'USER':
-                # new_user = User(
-                #     mail = entity['MAIL'],
-                #     password = entity['PASSWORD'],
-                #     role = entity['ROLE'],
-                #     id_user = entity['ID_USER']
-                # )
-                # session.add(new_user)
-                create_user(entity['MAIL'], entity['PASSWORD'], entity['ROLE'])
         db.session.commit()
     print(f"loaded file: {filename}")
 

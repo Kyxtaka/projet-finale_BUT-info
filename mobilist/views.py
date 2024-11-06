@@ -1,3 +1,5 @@
+from .app import app
+from flask import redirect, render_template, url_for
 from flask import render_template
 from .app import app
 from flask import redirect, render_template, url_for
@@ -22,6 +24,11 @@ def home():
 @app.route("/accueil")
 def accueil():
     return render_template('accueil.html')
+
+@app.route("/avis")
+def avis():
+    return render_template("avis.html")
+
    
 class LoginForm(FlaskForm):
     mail = StringField('Adresse e-mail')
@@ -36,7 +43,7 @@ class LoginForm(FlaskForm):
         m.update(self.password.data.encode())
         passwd = m.hexdigest()
         return user if passwd == user.password else None
-    
+
 class IncrisptionForm(FlaskForm):
     nom = StringField('Nom')
     prenom = StringField('Prénom')
@@ -90,15 +97,10 @@ def inscription():
         user = f.get_authenticated_user()
         if user:
             login_user(user)
-            next = f.next.data or url_for("home")
-            return redirect(next)
-        try:
-            create_user(f.mail.data, f.password.data, "proprio")
-            User.modifier(f.mail.data, f.nom.data, f.prenom.data)
-            return render_template("index.html")
-        except:
-            return render_template(
-    "inscription.html", form=f, present=True)
+            return render_template("inscription.html", form=f, present=True)
+        create_user(f.mail.data, f.password.data, "proprio")
+        User.modifier(f.mail.data, f.nom.data, f.prenom.data)
+        return render_template("accueil_2.html")
     return render_template(
     "inscription.html", form=f, present=False)
   

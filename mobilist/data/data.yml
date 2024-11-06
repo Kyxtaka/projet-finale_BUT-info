@@ -41,7 +41,6 @@
 
 # Table LOGEMENT
 - TYPE: LOGEMENT
-  NOM_LOGEMENT: 'Maison principale'
   ID_LOGEMENT: 1
   TYPE_LOGEMENT: MAISON
   ADRESSE: '2 rue du pavillon, 71004 Paname'
@@ -101,6 +100,7 @@
   DATE_ACHAT: '2021-08-15'
   PRIX: 12000
   ID_PROPRIETAIRE: 5
+  ID_LOGEMENT: 1
   ID_CATEGORIE: 1  # Mobilier
   ID_TYPE_BIEN: 1
   ID_PIECE: 1  # Cuisine - arrière-cuisine
@@ -111,6 +111,7 @@
   NOM_BIEN: 'Réfrigérateur congélateur'
   DATE_ACHAT: '2020-11-10'
   PRIX: 800
+  ID_LOGEMENT: 1
   ID_PROPRIETAIRE: 5
   ID_CATEGORIE: 2  # Gros électroménager
   ID_TYPE_BIEN: 2
@@ -122,6 +123,7 @@
   NOM_BIEN: 'Cafetière expresso'
   DATE_ACHAT: '2022-03-05'
   PRIX: 150
+  ID_LOGEMENT: 1
   ID_PROPRIETAIRE: 5
   ID_CATEGORIE: 3  # Petit électroménager
   ID_TYPE_BIEN: 3
@@ -153,12 +155,12 @@
 # Table AVIS (feedback or comments)
 - TYPE: AVIS
   ID_AVIS: 1
-  DESCRIPTION: "Grasse a Mobilist j'ai pu être entierement remboursé, Mobilist c'est la vie !!!!"
+  DESCRIPTION: "Grâce à Mobilist j'ai pu être entierement remboursé, Mobilist c'est la vie !!!!"
   ID_PROPRIETAIRE: 2
   
 - TYPE: AVIS
   ID_AVIS: 2
-  DESCRIPTION: "Si j'avais connu mobilist avant, je n'aurais pas pas perdu 5000€ a cause d'une inondation il y a 5 ans"
+  DESCRIPTION: "Si j'avais connu mobilist avant, je n'aurais pas pas perdu 5000€ à cause d'une inondation il y a 5 ans"
   ID_PROPRIETAIRE: 6
 
 
@@ -170,10 +172,3 @@
 - TYPE: AVOIR
   ID_PROPRIETAIRE: 5
   ID_LOGEMENT: 1
-
-# Table User :
-- TYPE: USER
-  ID_USER: 4
-  MAIL: 'nathan@mail.com'
-  ROLE: "proprio"
-  PASSWORD: '1234'
