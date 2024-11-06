@@ -251,6 +251,10 @@ class Bien(Base):
 
     def set_id_logement(self, id_logement):
         self.id_logement = id_logement
+
+    @staticmethod
+    def get_max_id() -> int:
+        return db.session.query(func.max(Bien.id_bien)).scalar()
     
 class Piece(Base):
     __tablename__ = "PIECE"

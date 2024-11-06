@@ -5,12 +5,15 @@
 
 main {
     margin-top: 6.1rem;
+}
+
+main {
+    margin-top: 6.1rem;
     margin-bottom: 6.1rem;
 }
 .navbar {
     height: 70px;
     border-bottom: 1px solid;
-    
 }
 
 #navbar-collapse  a {
