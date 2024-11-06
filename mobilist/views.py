@@ -13,7 +13,14 @@ from .exception import *
 from flask_wtf import FlaskForm
 from wtforms import * #import de tous les champs
 from wtforms.validators import DataRequired
+from werkzeug.utils import secure_filename
 
+#constante : chemin d'acces au dossier de telechargement des justificatifs
+UPLOAD_FOLDER_JUSTIFICATIF = os.path.join(
+    os.path.abspath(os.path.dirname(__file__)), 
+    app.config['UPLOAD_FOLDER'], 
+    'justificatifs'
+)
 
 @app.route("/")
 def home():
@@ -51,6 +58,49 @@ class IncrisptionForm(FlaskForm):
         m.update(self.password.data.encode())
         passwd = m.hexdigest()
         return user if passwd == user.password else None
+    
+class UploadFileForm(FlaskForm):
+    file = FileField('File', validators=[DataRequired()])
+
+    def __init__(self):
+        super(UploadFileForm, self).__init__()
+        #########################################################
+        # print(f"**********************************\n {self.file.validators} \n**********************************")
+        # if self.validate_file_format not in self.file.validators:
+        #     self.file.validators = (self.validate_file_format,) +  tuple(self.file.validators)
+        # print(f"**********************************\n {self.file.validators} \n**********************************")
+        #########################################################
+
+    def validate_file_format(self, form, field):
+            filename = field.data
+            print("form:", form)
+            print("field:", field)
+            print("field.data:", field.data)
+            
+            if filename:
+                print("filname:", filename)
+                if not (filename.endswith(".pdf") or filename.endswith(".png") or filename.endswith(".jpg") or filename.endswith(".jpeg")):
+                    raise ValidationError("Le fichier doit être de type PDF, PNG, JPG ou JPEG")
+                elif len(filename) > 50:
+                    raise ValidationError("Le nom du fichier est trop long")
+            else:
+                raise ValidationError("Le fichier est vide")
+
+    def validate_file_size(self, form, field):
+        file = field.data
+        if file:
+            if len(file.read()) > 1000000:
+                raise ValidationError("Le fichier est trop volumineux")
+        else:
+            raise ValidationError("Le fichier est vide")  
+        
+    def create_justificatif_bien(self):
+        try:
+            file = self.file.data
+            file.save(os.path.join(UPLOAD_FOLDER_JUSTIFICATIF, secure_filename(file.filename)))
+            print("file saved")
+        except Exception as e:
+            print("erreur:", e)
 
 class AjoutBienForm(FlaskForm):
     logement  = SelectField('Logement', validators=[DataRequired()])
@@ -62,7 +112,7 @@ class AjoutBienForm(FlaskForm):
     date_bien = DateField("Date de l'achat", validators=[DataRequired()])
     description_bien = TextAreaField('Description')
     justificatif_bien = FileField('Justificatif test nom')
-    id_proprio = HiddenField("id_proprio")     
+    id_proprio = HiddenField("id_proprio") 
 
     def __init__(self):
         super(AjoutBienForm, self).__init__()
@@ -71,7 +121,7 @@ class AjoutBienForm(FlaskForm):
         self.type_bien.choices = [(t.id_type, t.nom_type) for t in TypeBien.query.all()]
         self.categorie_bien.choices = [(c.get_id_cat(), c.get_nom_cat()) for c in Categorie.query.all()]
         self.piece_bien.choices = [(p.get_id_piece(), p.get_nom_piece()) for p in Piece.query.all()]
- 
+        
 @app.route("/accueil-connexion/")
 @login_required   
 def accueil_connexion():
@@ -152,27 +202,33 @@ def get_pieces(logement_id):
 @login_required
 def ajout_bien():
     session = db.session
-    form = AjoutBienForm()
-    if form.validate_on_submit():
+    form_bien = AjoutBienForm()
+    form_upload = UploadFileForm()
+    if form_upload.validate_on_submit():
+        print("-----------------------------------------------------------form_upload is submitted-----------------------------------------------------------")
+        try:
+            form_upload.create_justificatif_bien()
+        except Exception as e:
+            print("erreur:", e) 
+    if form_bien.validate_on_submit():
         try:
             print('entering try')
-            print("is form submitted:",form.is_submitted())
-            print("is submit valid:",form.validate_on_submit())
-            print("if not valid:",form.errors)
-            print("date_bien data:", form.date_bien)
+            print("is form submitted:",form_bien.is_submitted())
+            print("is submit valid:",form_bien.validate_on_submit())
+            print("if not valid:",form_bien.errors)
+            print("date_bien data:", form_bien.date_bien)
             # print("id proprio from form:", form.id_proprio.data)
             # print("id proprio from current_user:", current_user.id_user)
             id_bien = Bien.get_max_id()+1
-            nom_bien = form.nom_bien.data
-            date_achat = form.date_bien.data
-            id_proprio =  form.id_proprio
+            nom_bien = form_bien.nom_bien.data
+            date_achat = form_bien.date_bien.data
+            id_proprio =  form_bien.id_proprio
             print("type de date achat:",type(date_achat))
-            prix = form.prix_bien.data
-            id_piece = form.piece_bien.data
-            id_logement = form.logement.data
-            id_type = form.type_bien.data
-            id_cat = form.categorie_bien.data
-            # Justificatif.ajouter_justificatif(form.justificatif_bien.data, id_bien) pas encore implementé
+            prix = form_bien.prix_bien.data
+            id_piece = form_bien.piece_bien.data
+            id_logement = form_bien.logement.data
+            id_type = form_bien.type_bien.data
+            id_cat = form_bien.categorie_bien.data
             print("data retrieved from form")
             nouv_bien = Bien(
                 id_bien=id_bien, 
@@ -192,21 +248,23 @@ def ajout_bien():
             return redirect(url_for("accueil_connexion"))
         except Exception as e:
             session.rollback() # afin d eviter les erreurs de commit si une erreur est survenue
-            print("is form submitted:",form.is_submitted())
-            print("is submit valid:",form.validate_on_submit())
-            print("if not valid:",form.errors)
+            print("is form submitted:",form_bien.is_submitted())
+            print("is submit valid:",form_bien.validate_on_submit())
+            print("if not valid:",form_bien.errors)
             print("error ajout bien")
             print("Exception:", str(e))  # Log the exception details
-            return render_template("ajout_bien.html", form=form, error=True)
-    print("is form submitted:",form.is_submitted())
-    print("is submit valid:",form.validate_on_submit())
-    print("if not valid:",form.errors)
-    if  form.is_submitted() and not form.validate_on_submit():
+            return render_template("ajout_bien.html", form=form_bien, error=True)
+    print("is form submitted:",form_bien.is_submitted())
+    print("is submit valid:",form_bien.validate_on_submit())
+    print("if not valid:",form_bien.errors)
+    if  form_bien.is_submitted() and not form_bien.validate_on_submit():
         print("error ajout bien")
-        return render_template("ajout_bien.html", form=form, error=True)
+        return render_template("ajout_bien.html", 
+                               form_bien=form_bien, 
+                               form_upload=form_upload, 
+                               error=True)
     else:
-        # print("ajout bien")
-        # proprio = Proprietaire.query.get(current_user.id_user)
-        # proprio.ajouter_bien(form.nom_bien.data, form.type_bien.data, form.categorie_bien.data, form.piece_bien.data, form.prix_bien.data, form.date_bien.data, form.description_bien.data, form.justificatif_bien.data)
-        # return redirect(url_for("accueil_connexion"))
-        return render_template("ajout_bien.html", form=form, error=False)
+        return render_template("ajout_bien.html", 
+                               form_bien=form_bien, 
+                               form_upload=form_upload, 
+                               error=False)
