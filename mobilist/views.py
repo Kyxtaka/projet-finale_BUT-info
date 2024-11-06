@@ -126,6 +126,17 @@ def simulation():
         logements.append(logement)
     return render_template("simulation.html",logements=logements)
 
-@app.route("/mesBiens/")
+@app.route("/mesBiens/", methods =("GET","POST" ,))
 def mesBiens():
-    return render_template("mesBiens.html")
+    proprio = Proprietaire.query.get(current_user.id_user)
+    logements = []
+    lesPieces = []
+    for logement in proprio.logements:
+        logements.append(logement)
+        for piece in logement.get_pieces_list():
+            lesPieces.append(piece)
+    lesBiens = dict() # dictionnaire du style : {"cuisine" : ["four", "machine à café"], "salon": ["TV", "canapé"]}
+    for pie in lesPieces:
+        for bien in pie.get_list_biens():
+            lesBiens[pie.nom_piece] = bien.nom_bien
+    return render_template("mesBiens.html",logements=logements,lesBiens=lesBiens)

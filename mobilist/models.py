@@ -144,6 +144,10 @@ class Logement(Base):
     
     def set_desc_logement(self, desc_logement):
         self.desc_logement = desc_logement
+
+    def get_pieces_list(self) -> list:
+            return Piece.query.filter_by(id_logement=self.id_logement).all()
+
     
 class AVOIR(Base):
     __tablename__ = "AVOIR"
@@ -292,6 +296,10 @@ class Piece(Base):
     
     def set_id_logement(self, id_logement):
         self.id_logement = id_logement
+
+    def get_list_biens(self):
+        return Bien.query.filter_by(id_logement=self.id_logement,id_piece=self.id_piece).all()
+        
 
 class TypeBien(Base):
     __tablename__ = "TYPEBIEN"
