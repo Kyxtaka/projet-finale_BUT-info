@@ -12,8 +12,6 @@
     
 }
 
-
-
 .list-logements {
     margin-top: 10rem;
     text-align: center;
@@ -44,7 +42,7 @@ section:hover {
     border-color: #5E5DF0;
 }
 
-.buttons {
+.buttons-log {
     margin-top: 60px;
     list-style-type: none;
     display: block;

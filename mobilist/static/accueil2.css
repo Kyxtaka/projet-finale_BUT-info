@@ -1,12 +1,12 @@
-.accueil2 img {
+img {
     height: 82px;
 }
 
-.accueil2 main {
+main {
     margin-top: 6.1rem;
     margin-bottom: 6.1rem;
 }
-.accueil2 nav {
+nav {
     border-bottom: 1px solid; 
 }
 
@@ -20,14 +20,14 @@ main {
     color: black;
 }
 
-.accueil2 ul {
+ul {
     display: flex;
     flex-wrap: nowrap;
     margin-left: 30px;
     list-style: none;
 }
 
-.accueil2 li {
+li {
     margin-left: 30px;
     font-size: 20px;
     text-align: center;
@@ -35,13 +35,13 @@ main {
 }
 
 
-.accueil2 .nav-img img {
+.nav-img img {
     height: 24px;
     position:absolute;
     top : 38px;
 }
 
-.accueil2 button {
+button {
   box-sizing: border-box;
   cursor: pointer;
   font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
@@ -59,7 +59,7 @@ main {
   position: absolute;
   top: 28px;
 }
-.accueil2 .ajout {
+.ajout {
     border-radius: 20px;
     background-size:100%;
     background-image: url("img/img-ajout.png");
@@ -67,7 +67,7 @@ main {
     padding: 10%;
     margin:5%;
 }
-.accueil2 .box-ajout {
+.box-ajout {
     display: flex;
     justify-content: space-evenly;
     background-color: rgb(211 211 211 / .6);
@@ -75,48 +75,48 @@ main {
     padding-bottom:3%;
 }
 
-.accueil2 .box-ajout>div  {
+.box-ajout>div  {
     flex-wrap: nowrap;
     background-color: black;
     padding:2%;
     box-shadow: 2px 2px 15px 4px rgba(0, 0, 0, 0.1);
 }
 
-.accueil2 .ajout-elem {
+.ajout-elem {
     display:block;
     background-color: gray;
     color: white;
     padding:3px;
 }
-.accueil2 .ajout-elem:hover {
+.ajout-elem:hover {
     color:#5E5DF0;
 }
 
 
 /* apparence tableaux */
-.accueil2 .derniers_ajouts, .a_justifier {
+.derniers_ajouts, .a_justifier {
     padding: 5px;
     border-top: 0.5mm solid;
     margin-bottom: 1%;
     border-color: lightgray;
 }
 
-.accueil2 .tableau {
+.tableau {
     border:0.5mm solid;
 }
 
-.accueil2 .voir_plus {
+.voir_plus {
     color: gray;
     display: block;
     text-align:center;
     margin-top: 1%;
 
 }
-.accueil2 .voir_plus:hover {
+.voir_plus:hover {
     color:#5E5DF0;
 }
 
-.accueil2 .connexion {
+.connexion {
     border-radius: 999px;
     background: #5E5DF0;
     box-shadow: #5E5DF0 0 10px 20px -10px;
@@ -127,7 +127,7 @@ main {
 }
 
 
-.accueil2 footer {
+footer {
     background-color: #FFFFFF;
     position: fixed;
     bottom: 0;
@@ -135,15 +135,14 @@ main {
     border-top: 1px solid;
 }
 
-.accueil2 #appstore {
+#appstore {
     height: 50px;
 }
 
-.accueil2 #googleplay {
+#googleplay {
     height: 45px;
 }
-
-.accueil2 .p-footer {
+.p-footer {
     position: absolute;
     top: 32px;
     left : 540px;
