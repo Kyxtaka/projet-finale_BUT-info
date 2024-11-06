@@ -10,10 +10,13 @@
     border-bottom: 1px solid; 
 }
 
-.accueil2 .logements {
-    margin: 10rem;
+
+main {
+    margin-top: 6.1rem;
+    margin-bottom: 30rem;
 }
-.accueil2 #navbar-collapse  a {
+
+#navbar-collapse  a {
     color: black;
 }
 
@@ -35,7 +38,7 @@
 .accueil2 .nav-img img {
     height: 24px;
     position:absolute;
-    top : 35px;
+    top : 38px;
 }
 
 .accueil2 button {
