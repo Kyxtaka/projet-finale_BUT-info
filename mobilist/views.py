@@ -159,13 +159,13 @@ def ajout_bien():
             print("is form submitted:",form.is_submitted())
             print("is submit valid:",form.validate_on_submit())
             print("if not valid:",form.errors)
-            print("date_bien data:", form.date_bien.data)
+            print("date_bien data:", form.date_bien)
             # print("id proprio from form:", form.id_proprio.data)
             # print("id proprio from current_user:", current_user.id_user)
             id_bien = Bien.get_max_id()+1
             nom_bien = form.nom_bien.data
             date_achat = form.date_bien.data
-            id_proprio =  int(form.id_proprio.data)
+            id_proprio =  form.id_proprio
             print("type de date achat:",type(date_achat))
             prix = form.prix_bien.data
             id_piece = form.piece_bien.data

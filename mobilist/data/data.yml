@@ -71,23 +71,31 @@
 - TYPE: CATEGORIE_BIEN
   ID_CATEGORIE: 1
   NOM_CATEGORIE: Mobilier
+
 - TYPE: CATEGORIE_BIEN
   ID_CATEGORIE: 2
   NOM_CATEGORIE: Gros électroménager
+
 - TYPE: CATEGORIE_BIEN
   ID_CATEGORIE: 3
   NOM_CATEGORIE: Petit électroménager
+
 - TYPE: CATEGORIE_BIEN
   ID_CATEGORIE: 4
   NOM_CATEGORIE: Service de table
+
 - TYPE: CATEGORIE_BIEN
   ID_CATEGORIE: 5
   NOM_CATEGORIE: Divers
 
+- TYPE: CATEGORIE_BIEN
+  ID_CATEGORIE: 6
+  NOM_CATEGORIE: Electronique
+
 # Table type de BIEN
 - TYPE: TYPE_BIEN
   ID_TYPE: 1
-  NOM_TYPE: 'cuisine intégrée'
+  NOM_TYPE: 'cuisine'
 
 - TYPE: TYPE_BIEN
   ID_TYPE: 2
@@ -101,10 +109,31 @@
   ID_TYPE: 4
   NOM_TYPE: 'vaisselle (assiettes, verres, couverts, plats)'
 
+- TYPE: TYPE_BIEN
+  ID_TYPE: 5
+  NOM_TYPE: 'ecran, tv, hifi'
+
+- TYPE: TYPE_BIEN
+  ID_TYPE: 6
+  NOM_TYPE: 'canapé, table, chaise, bureau'
+
+- TYPE: TYPE_BIEN
+  ID_TYPE: 7
+  NOM_TYPE: 'lit, armoire, commode'
+
+- TYPE: TYPE_BIEN
+  ID_TYPE: 8
+  NOM_TYPE: 'lave-linge, sèche-linge'
+
+- TYPE: TYPE_BIEN
+  ID_TYPE: 9
+  NOM_TYPE: 'machine d entretien (aspirateur, fer à repasser)'
+
+
 # Table BIEN (specific items and their details)
 - TYPE: BIEN
   ID_BIEN: 1
-  NOM_BIEN: 'Cuisine intégrée'
+  NOM_BIEN: 'Cuisine intégrée blanc laqué'
   DATE_ACHAT: '2021-08-15'
   PRIX: 12000
   ID_PROPRIETAIRE: 5
@@ -133,6 +162,28 @@
   ID_CATEGORIE: 3  # Petit électroménager
   ID_TYPE_BIEN: 3
   ID_PIECE: 1  # Cuisine - arrière-cuisine
+  ID_LOGEMENT: 1
+
+- TYPE: BIEN
+  ID_BIEN: 4
+  NOM_BIEN: 'Service de table porcelaine'
+  DATE_ACHAT: '2021-12-20'
+  PRIX: 200
+  ID_PROPRIETAIRE: 5
+  ID_CATEGORIE: 4  # Service de table
+  ID_TYPE_BIEN: 4
+  ID_PIECE: 2  # Salon
+  ID_LOGEMENT: 1
+
+- TYPE: BIEN
+  ID_BIEN: 5
+  NOM_BIEN: 'Télévision écran plat'
+  DATE_ACHAT: '2021-01-10'
+  PRIX: 500
+  ID_PROPRIETAIRE: 5
+  ID_CATEGORIE: 6  # Electronique
+  ID_TYPE_BIEN: 5
+  ID_PIECE: 2  # Salon
   ID_LOGEMENT: 1
 
 # Table JUSTIFICATIF (for each item)
