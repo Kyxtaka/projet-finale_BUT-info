@@ -2,6 +2,7 @@
 {% block styles %}
 {{ super() }}
 <link rel="stylesheet" href="{{ url_for('static', filename='affichageLogements.css')}}">
+
 {% endblock %}
 {% block scripts %}
 {{ super() }}
@@ -28,7 +29,14 @@
         </section>
         <script>
             // declaration variable var (let n autorise pas la déclaration dans une boucle for)
-            var logment_object = new Logement("log-{{x.id_logement}}","{{x.id_logement}}", "{{x.nom_logement}}");
+            var logment_object = new Logement(
+                                            "log-{{x.id_logement}}",
+                                            "{{x.id_logement}}", 
+                                            "{{x.nom_logement}}",
+                                            "{{x.type_logement.get_type()}}",
+                                            "{{x.adresse}}",
+                                            "{{x.desc_logement}}"
+                                        );
             var log = document.getElementById("log-{{x.id_logement}}");
             console.log(log);
             addLogementToArray(array_logement_obj,logment_object);
@@ -40,12 +48,77 @@
 <div class="buttons">
     <ul>
         <li id="buttons">
-            <a href="#">
-                <button class="supprimer" >SUPPRIMER</button>
-                <button class="modifier">MODIFIER</button>
-            </a>
+            <button class="action-btn" id="supprimer" onclick="toggleFromPopup('delete-popup-form')">SUPPRIMER</button>
+            <button class="action-btn" id='modifier' onclick="toggleFromPopup('edit-popup-form')">MODIFIER</button>
         </li>
     </ul>
+</div> 
+
+<!-- For de modification -->
+<div id="edit-popup-form" class="overlay-container">
+    <div class="popup-box">
+        <h2 style="color: green;">Modification Nom Logement</h2>
+        <form class="form-container">
+            <input type="hidden" id="type-form" name="type-form" value="EDIT_LOGEMENT" required>
+            <input type="hidden" id="edit-id-input" name="id" required>
+
+            <label class="form-label" for="name">Nom :</label>
+            <input class="form-input" type="text" placeholder="Entrez le nom du logemen"  id="edit-name-input" name="name" required>
+
+            <!-- A completer -->
+            <label class="form-label" for="type">Type logement:</label>
+            <select name="Type" id="form-input">
+                <option value="1">Type 1</option>
+                <option value="2">Type 2</option>
+                <option value="3">Type 3</option>
+                <option value="4">Type 4</option>
+            </select>
+
+            <label class="form-label" for="address">Adresse logement:</label>
+            <input class="form-input" type="text" placeholder="Adresse du logement" id="edit-adress-input" name="address" >
+
+            <label class="form-label" for="description">Description logement:</label>
+            <input class="form-input form-textarea" type="text" placeholder="Description du logement" id="edit-description-input" name="description">
+
+            <div class="form-btn-container">
+                <button type="button" class="btn-close-popup" onclick="toggleFromPopup('edit-popup-form')">Annuler</button>
+                <button type="submit" class="btn-submit" >Confirmer</button>
+            </div>
+        </form>
+    </div>
 </div>
+<!-- Form de suppression -->
+<div id="delete-popup-form" class="overlay-container">
+    <div class="popup-box">
+        <h2 style="color: red;"> Confirmation Suppression</h2>
+        <h3 style="color: blue;"> Nom Logement</h3>
+        <form class="form-container">
+            <input type="hidden" id="type-form" name="type-form" value="DELETE_LOGEMENT" required>
+            <input type="hidden" id="delete-id-input" name="id" required>
+
+            <label class="form-label" for="name">Nom :</label>
+            <input class="form-input" type="text" placeholder="Entrez le nom du logement" value="Le nom du logement concerne" id="delete-name-input" name="name" required disabled>
+
+            <div class="form-btn-container">
+                <button  type="button"  class="btn-close-popup" onclick="toggleFromPopup('delete-popup-form')">Annuler</button>
+                <button type="submit" class="btn-submit" >Supprimer</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Popup erreur selection de logement -->
+<div id="unselected-logement-popup", class="overlay-container">
+    <div class="popup-box">
+        <h2 style="color: red;"> Aucun logement selectionné</h2>
+        <h3 style="color: blue;"> Veuillez selectionner un logement</h3>
+        <div class="form-btn-container">
+            <button  type="button"  class="btn-submit" onclick="toggleFromPopup('unselected-logement-popup')">Continuer</button>
+        </div>
+    </div>
+</div>
+
+
+
 {% endblock %}
 
