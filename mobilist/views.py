@@ -113,7 +113,42 @@ def services():
 
 @app.route("/afficheLogements/")
 def affiche_logements():
+    session = db.session
     proprio = Proprietaire.query.get(current_user.id_user)
     logements = proprio.logements
     print(logements)
+    if request.method == "GET": #utilisation de request car pas envie d'utiliser les méthodes de flask, car j utilise JS
+        print("recerption de la requete")
+        form_type = request.args.get("type-form")
+        match form_type:
+            case "DELETE_LOGEMENT":
+                print("DELETE_LOGEMENT")
+                id_logement = request.args.get("id")
+                logement = Logement.query.get(id_logement)
+                print("logement recupere",logement)
+                try :
+                    session.delete(logement)
+                    session.commit()
+                except Exception as e:
+                    session.rollback()
+                    print("Erreur lors de la suppression du logement")
+                    print(e)
+            case "UPDATE_LOGEMENT":
+                print("UPDATE_LOGEMENT")
+                id_logement = request.args.get("id")
+                logement = Logement.query.get(id_logement)
+                print("logement recupere",logement)
+                name = request.args.get("name")
+                address = request.args.get("address")
+                description = request.args.get("description")
+                print("values",name,address,description)
+                logement.set_nom_logement(name)
+                logement.set_adresse_logement(address)
+                logement.set_desc_logement(description)
+                print("logement apres modif",logement)
+                session.commit()
+                # return render_template("updateLogement.html", logement=logement)
+        proprio = Proprietaire.query.get(current_user.id_user)
+        logements = proprio.logements
+        return render_template("afficheLogements.html", logements=logements)
     return render_template("afficheLogements.html", logements=logements)

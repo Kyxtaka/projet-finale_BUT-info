@@ -130,17 +130,24 @@ class Logement(Base):
     def get_desc_logement(self):
         return self.desc_logement
     
+    def get_nom_logement(self):
+        return self.nom_logement
+    
+    
     def set_id_logement(self, id_logement):
         self.id_logement = id_logement
     
     def set_type_logement(self, type_logement):
         self.type_logement = type_logement
     
-    def set_adresse(self, adresse):
+    def set_adresse_logement(self, adresse):
         self.adresse = adresse
     
     def set_desc_logement(self, desc_logement):
         self.desc_logement = desc_logement
+
+    def set_nom_logement(self, nom_logement):
+        self.nom_logement = nom_logement
     
 class AVOIR(Base):
     __tablename__ = "AVOIR"
