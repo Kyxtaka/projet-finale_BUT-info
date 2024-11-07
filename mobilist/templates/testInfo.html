@@ -1,0 +1,44 @@
+{% extends "index.html" %}
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='testInfo.css')}}">
+{% endblock %}
+{% block content %}
+<h1 class="apropos">À propos de Mobilist</h1>
+<section class="paragraphe1">
+    <p>Besoin de dresser un inventaire de vos biens et leurs valeurs ?
+        MobiList est fait pour vous !
+    </p>
+</section>
+<section class="section section-md bg-white">
+    <div class="shell">
+        <div class="range range-50 range-sm-center range-md-left range-md-middle range-md-reverse">
+            <div class="cell-sm-6 wow fadeInRightSmall" style="visibility: visible; animation-name: fadeInRightSmall;">
+                ::before
+                <div class="thumb-line">
+                    ::before
+                    <img src="{{ url_for('static',filename='img/book.jpg') }}" alt="" width="531" height="640">
+                    ::after
+                </div>
+            </div>
+            <div class="cell-sm-6">
+                <p class="heading-1 wow fadeInLeftSmall" style="visibility: visible; animation-name: fadeInLeftSmall;">MobiList face aux sinistre</p>
+                <article class="quote-big wow fadeInLeftSmall" data-wow-delay=".1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInLeftSmall;">
+                    <p class="q1">
+                        Inondation, sécheresse, glissement de terrain, cyclone : certains événements marquent par leur
+                    ampleur et laissent derrière eux de nombreux dégâts matériels.
+                    </p>
+                    <p class="q2">
+                        Après un tel sinistre, il est important de dresser une liste des dommages subis à son assurance. 
+                    Il faut regrouper les factures d’achat, de réparation, les certificats de garantie, des photos... ça fait beaucoup !
+                    </p>
+                    <p class="q3">
+                        Heureusement, MobiList est là ! Avec MobiList, vous pouvez facilement informatiser cet inventaire et automatiser sa mise à jour lors d’un nouvel achat d’un équipement.
+                    </p>
+                </article>
+                <div class="divider wow fadeInLeftSmall" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInLeftSmall;"></div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

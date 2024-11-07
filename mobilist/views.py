@@ -104,7 +104,7 @@ def inscription():
   
 @app.route("/information")
 def information():
-    return render_template("information.html")
+    return render_template("testInfo.html")
 
 
 @app.route("/services")

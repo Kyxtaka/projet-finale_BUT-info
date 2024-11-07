@@ -18,7 +18,11 @@
     <p id="para2.2">Après un tel sinistre, il est important de dresser une liste des dommages subis à son assurance. 
         Il faut regrouper les factures d’achat, de réparation, les certificats de garantie, des photos... ça fait beaucoup ! </p>
     <p id="para2.3">Heureusement, MobiList est là ! Avec MobiList, vous pouvez facilement informatiser cet inventaire et automatiser sa mise à jour lors d’un nouvel achat d’un équipement.</p>
+    <div class="img-book">
+        <img id="img-log" src="{{ url_for('static',filename='img/book.jpg') }}" alt="fini le papier "/>
+    </div>
 </section>
+
 <section class="paragraphe3">
     <hr/>
     <h1>En cas de sinistre, ça se passe comment ?</h1>
@@ -27,7 +31,6 @@
     </p>
 </section>
 <section class="inscrire">
-    <hr/>
     <h1>Qu'attendez-vous ?</h1>
     <p> <a class="creer_compte" href="{{ url_for('inscription')}}"> Créer votre compte </a> dès maintenant et profitez de nos services.
     </p>

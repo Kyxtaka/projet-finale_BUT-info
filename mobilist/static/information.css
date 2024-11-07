@@ -8,15 +8,19 @@
     font-size: 50px;  
     color: white;
 }
+
 .paragraphe1 {
     display: block;
     width:100%;
     text-align: center;
     padding: 20px;
+    font-size: 1.2rem;
+    font-weight: 500;
 }
-.paragraphe2, .inscrire {
+
+.paragraphe2  {
     display: block;
-    width:50%;
+    width:60%;
     text-align: left;
     padding: 2%;
 }
@@ -26,6 +30,11 @@
     text-align: right;
     padding: 2%;
 }
+
+.paragraphe3 > hr {
+    width: 50rem;
+}
+
 p {
     font-size: larger;
 }
