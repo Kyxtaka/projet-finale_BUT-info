@@ -18,17 +18,13 @@ main {
 #bouton-compte {
     color: white;
 }
-.mon-compte p {
-    margin-left:5%;
-    padding-right:10%;
 
-}
-.mon-compte {
+#section-compte {
     opacity: 0;
     position: absolute;
-    top:45px;
+    top:95px;
     display: block;
-    right:30%;
+    right:2%;
     background-color: #FFFFFF;
     border: 0.5mm solid;
 }
@@ -71,9 +67,7 @@ main {
   position: absolute;
   top: 28px;
 }
-.connexion:hover  .mon-compte {
-    opacity:1;
-}
+
 /* apparence ajout */
 .ajout {
     border-radius: 20px;

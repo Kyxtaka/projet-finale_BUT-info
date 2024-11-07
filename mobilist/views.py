@@ -58,7 +58,12 @@ class IncrisptionForm(FlaskForm):
         m.update(self.password.data.encode())
         passwd = m.hexdigest()
         return user if passwd == user.password else None
+
+class ModificationForm(FlaskForm):
+    nom = StringField('Votre nom')
+    prenom = StringField('Votre Prénom')
     
+      
 @app.route("/accueil-connexion/")
 def accueil_connexion():
     return render_template("accueil_2.html")
@@ -127,3 +132,7 @@ def simulation():
         logements.append(logement)
     return render_template("simulation.html",logements=logements)
 
+@app.route("/mon-compte/", methods =("POST" ,"GET",))
+def mon_compte():
+    form=ModificationForm()
+    return render_template("mon-compte.html", form=form)
