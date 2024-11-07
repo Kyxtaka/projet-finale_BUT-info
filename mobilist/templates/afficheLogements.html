@@ -3,6 +3,11 @@
 {{ super() }}
 <link rel="stylesheet" href="{{ url_for('static', filename='affichageLogements.css')}}">
 {% endblock %}
+{% block scripts %}
+{{ super() }}
+<!-- import JS -->
+<script src="{{ url_for('static', filename='js/affichage_logements.js') }}"></script> 
+{% endblock %}  
 {% block content %}
 <div class="img-logement">
     <img id="img-log" src="{{ url_for('static',filename='img/logement.png') }}" alt="page affichage logements"/>
@@ -21,6 +26,14 @@
                 <h3>Description : {{x.desc_logement}}</h3>
             </article>
         </section>
+        <script>
+            // declaration variable var (let n autorise pas la déclaration dans une boucle for)
+            var logment_object = new Logement("log-{{x.id_logement}}","{{x.id_logement}}", "{{x.nom_logement}}");
+            var log = document.getElementById("log-{{x.id_logement}}");
+            console.log(log);
+            addLogementToArray(array_logement_obj,logment_object);
+            addLogementToArray(array_logement,log);
+        </script>
     </div>
     {% endfor %}
 </div>
