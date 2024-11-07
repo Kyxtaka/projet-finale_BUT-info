@@ -136,6 +136,7 @@ class AjoutBienForm(FlaskForm):
         except Exception as e:
             print("erreur:", e)
         
+
 @app.route("/accueil-connexion/")
 @login_required   
 def accueil_connexion():
@@ -295,7 +296,6 @@ def link_justification_bien(form: AjoutBienForm, file_path: str, id_bien: int) -
         print("Exception:", e)
         return False
     return True
-
 
 def form_logs(form: FlaskForm):
     print("form sumbited:",form.is_submitted())
