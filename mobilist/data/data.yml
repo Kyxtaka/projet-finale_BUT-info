@@ -47,6 +47,20 @@
   ADRESSE: '2 rue du pavillon, 71004 Paname'
   DESCRIPTION: 'maison principale située à Paname avec toutes mes voitures'
 
+- TYPE: LOGEMENT
+  NOM_LOGEMENT: 'Maison secondaire'
+  ID_LOGEMENT: 2
+  TYPE_LOGEMENT: MAISON
+  ADRESSE: '102 rue du flask, 10450 YFZEVL'
+  DESCRIPTION: 'maison secondaire avec piscine'
+
+- TYPE: LOGEMENT
+  NOM_LOGEMENT: 'Appartement étudiant'
+  ID_LOGEMENT: 3
+  TYPE_LOGEMENT: MAISON
+  ADRESSE: '45 rue dbsdk fjbh, 10450 AILUDHB'
+  DESCRIPTION: 'appart étu'
+
 # Table PIECE de LOGEMENT
 - TYPE: PIECE
   ID_PIECE: 1
@@ -59,6 +73,49 @@
   NOM_PIECE: Salon
   DESCRIPTION: 'Espace principal de détente et de réception'
   ID_LOGEMENT: 1
+
+- TYPE: PIECE
+  ID_PIECE: 3
+  NOM_PIECE: Salon
+  DESCRIPTION: 'Espace principal de détente et de réception'
+  ID_LOGEMENT: 2
+
+- TYPE: PIECE
+  ID_PIECE: 4
+  NOM_PIECE: Cuisine - arrière-cuisine
+  DESCRIPTION: 'Espace pour préparer les repas et stocker les équipements de cuisine'
+  ID_LOGEMENT: 2
+
+- TYPE: PIECE
+  ID_PIECE: 5
+  NOM_PIECE: Chambre1
+  DESCRIPTION: 'Chambre des parents'
+  ID_LOGEMENT: 2
+
+- TYPE: PIECE
+  ID_PIECE: 6
+  NOM_PIECE: Chambre2
+  DESCRIPTION: 'Chambre du bébé'
+  ID_LOGEMENT: 2
+
+- TYPE: PIECE
+  ID_PIECE: 7
+  NOM_PIECE: Salon
+  DESCRIPTION: 'Espace principal de détente et de réception'
+  ID_LOGEMENT: 3
+
+- TYPE: PIECE
+  ID_PIECE: 8
+  NOM_PIECE: Cuisine - arrière-cuisine
+  DESCRIPTION: 'Espace pour préparer les repas et stocker les équipements de cuisine'
+  ID_LOGEMENT: 3
+
+- TYPE: PIECE
+  ID_PIECE: 9
+  NOM_PIECE: Chambre1
+  DESCRIPTION: 'Chambre des parents'
+  ID_LOGEMENT: 3
+
 
 # Table categorie de BIEN
 - TYPE: CATEGORIE_BIEN
@@ -131,6 +188,92 @@
   ID_PIECE: 1  # Cuisine - arrière-cuisine
   ID_LOGEMENT: 1
 
+- TYPE: BIEN
+  ID_BIEN: 4
+  NOM_BIEN: 'Cuisine intégrée'
+  DATE_ACHAT: '2021-08-15'
+  PRIX: 12000
+  ID_PROPRIETAIRE: 5
+  ID_LOGEMENT: 2
+  ID_CATEGORIE: 1  # Mobilier
+  ID_TYPE_BIEN: 1
+  ID_PIECE: 4  # Cuisine - arrière-cuisine
+  ID_LOGEMENT: 2
+
+- TYPE: BIEN
+  ID_BIEN: 5
+  NOM_BIEN: 'Réfrigérateur congélateur'
+  DATE_ACHAT: '2020-11-10'
+  PRIX: 800
+  ID_LOGEMENT: 2
+  ID_PROPRIETAIRE: 5
+  ID_CATEGORIE: 2  # Gros électroménager
+  ID_TYPE_BIEN: 2
+  ID_PIECE: 4  # Cuisine - arrière-cuisine
+  ID_LOGEMENT: 2
+
+- TYPE: BIEN
+  ID_BIEN: 6
+  NOM_BIEN: 'Cafetière expresso'
+  DATE_ACHAT: '2022-03-05'
+  PRIX: 150
+  ID_LOGEMENT: 2
+  ID_PROPRIETAIRE: 5
+  ID_CATEGORIE: 3  # Petit électroménager
+  ID_TYPE_BIEN: 3
+  ID_PIECE: 4  # Cuisine - arrière-cuisine
+  ID_LOGEMENT: 2
+
+- TYPE: BIEN
+  ID_BIEN: 7
+  NOM_BIEN: 'Cuisine intégrée'
+  DATE_ACHAT: '2021-08-15'
+  PRIX: 12000
+  ID_PROPRIETAIRE: 5
+  ID_LOGEMENT: 2
+  ID_CATEGORIE: 1  # Mobilier
+  ID_TYPE_BIEN: 1
+  ID_PIECE: 4  # Cuisine - arrière-cuisine
+  ID_LOGEMENT: 2
+
+- TYPE: BIEN
+  ID_BIEN: 8
+  NOM_BIEN: 'Réfrigérateur congélateur'
+  DATE_ACHAT: '2020-11-10'
+  PRIX: 800
+  ID_LOGEMENT: 3
+  ID_PROPRIETAIRE: 5
+  ID_CATEGORIE: 2  # Gros électroménager
+  ID_TYPE_BIEN: 2
+  ID_PIECE: 6  # Cuisine - arrière-cuisine
+  ID_LOGEMENT: 3
+
+- TYPE: BIEN
+  ID_BIEN: 9
+  NOM_BIEN: 'Cafetière expresso'
+  DATE_ACHAT: '2022-03-05'
+  PRIX: 150
+  ID_LOGEMENT: 3
+  ID_PROPRIETAIRE: 5
+  ID_CATEGORIE: 3  # Petit électroménager
+  ID_TYPE_BIEN: 3
+  ID_PIECE: 6  # Cuisine - arrière-cuisine
+  ID_LOGEMENT: 3
+
+- TYPE: BIEN
+  ID_BIEN: 10
+  NOM_BIEN: 'Cuisine intégrée'
+  DATE_ACHAT: '2021-08-15'
+  PRIX: 12000
+  ID_PROPRIETAIRE: 5
+  ID_LOGEMENT: 3
+  ID_CATEGORIE: 1  # Mobilier
+  ID_TYPE_BIEN: 1
+  ID_PIECE: 6  # Cuisine - arrière-cuisine
+  ID_LOGEMENT: 3
+
+
+
 # Table JUSTIFICATIF (for each item)
 - TYPE: JUSTIFICATIF
   ID_JUSTIFICATIF: 1
@@ -169,6 +312,14 @@
 - TYPE: AVOIR
   ID_PROPRIETAIRE: 4
   ID_LOGEMENT: 1
+
+- TYPE: AVOIR
+  ID_PROPRIETAIRE: 4
+  ID_LOGEMENT: 2
+
+- TYPE: AVOIR
+  ID_PROPRIETAIRE: 4
+  ID_LOGEMENT: 3
 
 - TYPE: AVOIR
   ID_PROPRIETAIRE: 5
