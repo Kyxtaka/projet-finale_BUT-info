@@ -2,13 +2,13 @@
 <html lang="fr">
   <head>
     {% block head %}
+    <title>MobiList</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% block styles %}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet", href="{{ url_for('static',filename='accueil2.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='accueil2.css') }}">
     {% endblock %}
-    <title>MobiList</title>
     {% endblock %}
   </head>
 <body>
@@ -51,11 +51,9 @@
                 <a id="bouton-compte" href="{{ url_for('accueil_connexion') }}">
                   <button class="connexion">Mon compte
                     <div class="mon-compte">
-                      <ul class="liste-acces">
-                        <li class="liste-acces"><a href="">Mon compte</a></li>
-                        <li  class="liste-acces"><a href="">Aide</a></li>
-                        <li  class="liste-acces"><a href="{{ url_for('logout') }}">Déconnexion</a></li>
-                      </ul>
+                        <p><a class="liste-acces" href="">Mon compte</a></p>
+                        <p><a class="liste-acces" href="">Aide</a></p>
+                        <p><a class="liste-acces" href="{{ url_for('logout') }}">Déconnexion</a></p>
                     </div> 
                   </button>
                 </a>
