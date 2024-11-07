@@ -1,13 +1,27 @@
-#formsumbmit {
-    position: relative;
-
+main #formsumbmit {
+    margin-left: 41%;
+    margin-top: 30px;
+    width: 20%;
+    height: 60px;
+    background: #5E5DF0;
+    box-shadow: #5E5DF0 0 10px 20px -10px;
 }
 main {
     height: 100%;
  }
 
- .form-group {
+main h1{
+    padding-top: 30px;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+
+main .form-group {
     display: block;
+    width: 85%;
+    margin: auto;
 }
 
 /* .form-group input,
@@ -23,35 +37,74 @@ main {
 #main-form {
     display: flex;
     flex-wrap: nowrap;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
 }
-.box-container {
+main .box-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    border-style: thin; 
+    flex-direction: row;
+    border-radius: 20px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
-.form-group-element {
+main .form-group-element {
+    align-content: center;
     display: block;
-    width: 50%;
+    width: 70%;
     margin-bottom: 10px;
-    justify-content: center;
     text-align: center;
+    border-radius: 5px;
+    background-color: white;
 }
 
-#formsubmit {
+#left-side{
+    padding: 30px;
+    flex-basis: 50%;
+}
+
+#left-side * {
+    margin: auto;
+}
+
+#left-side #form_logement, #form_nom, #form_cat, #form_type, #form_piece, #form_prix, #form_date, #form_desc{
+    text-align: left;
+    font-weight: bold;
+}
+
+#right-side{
+    align-content: center;
+    flex-basis: 20%;
+    flex-grow: 1;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 20px;
+}
+
+#right-side * {
+    margin: auto;
+}
+
+main #recent-ajout {
+    flex-wrap: wrap;
+    width: 80%;
+    margin: auto;
+    margin-top: 40px;
     display: flex;
+    height: 400px;
+}
+
+#titre-box{
+    height: 15%;
+    display: flex;
+    align-items: center;
+    width: 20%;
     justify-content: center;
-    align-items: center;
-    height: 25%;
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
-#recent-ajout {
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    height: 100%;
+#recent-ajout h2{
+    text-align: center;
+    font-weight: bold;
+}
+
+#recent-ajout #historique{
+    flex-basis: 100%;
 }

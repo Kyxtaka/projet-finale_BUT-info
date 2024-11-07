@@ -5,15 +5,11 @@
 
 main {
     margin-top: 6.1rem;
-}
-
-main {
-    margin-top: 6.1rem;
     margin-bottom: 6.1rem;
 }
 .navbar {
     height: 70px;
-    border-bottom: 1px solid;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 #navbar-collapse  a {
@@ -68,7 +64,6 @@ main {
   touch-action: manipulation;
   width: fit-content;
   word-break: break-word;
-  position: absolute;
   top: 18px;
 }
 
@@ -102,7 +97,7 @@ main {
     background-color: #FFFFFF;
     bottom: 0;
     width: 100%;
-    border-top: 1px solid;
+    box-shadow: rgba(100, 100, 111, 0.2) 29px 29px 29px 29px;
 }
 
  #appstore {
