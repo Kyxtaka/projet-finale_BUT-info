@@ -33,7 +33,7 @@
                 <tr>
                     {% for piece in pieces %}
                         <td>
-                            <a href="#modal{{ loop.index }}" data-bs-toggle="modal" data-bs-target="#modal{{ loop.index }}">{{ piece.nom_piece }}</a>
+                            <p><a href="#modal{{ loop.index }}" data-bs-toggle="modal" data-bs-target="#modal{{ loop.index }}">{{ piece.nom_piece }}</a></p>
                         </td>
                         {% if loop.index % 3 == 0 %} 
                             </tr><tr> 
@@ -48,7 +48,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h1 class="modal-title fs-5" id="modal{{ loop.index }}">{{ piece.nom_piece }}</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
                             </div>
                             <div class="modal-body">
                                 {% if piece.get_list_biens() %}   

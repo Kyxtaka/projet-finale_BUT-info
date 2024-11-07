@@ -40,12 +40,7 @@
     font-size: 16px;
 }
 
-.mesBiens p:last-child {
-    text-align: center;
-    padding-top: 5em;
-}
-
-.mesBiens .plan p {
+.mesBiens .plan p:first-of-type, p:last-of-type {
     text-align: center;
     padding: 2em;
     font-style: italic;
@@ -63,7 +58,7 @@
     height: 9em;
 }
 
-.mesBiens .plan .table tr td a{
+.mesBiens .plan table tr td p a {
     text-decoration: none;
     font-style: bold;
     font-size: 15;
