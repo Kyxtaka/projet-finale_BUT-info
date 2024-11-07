@@ -7,7 +7,7 @@ nav {
 }
 main {
     margin-top: 6.1rem;
-    margin-bottom: 30rem;
+    margin-bottom: 6rem;
 }
 
 #navbar-collapse>ul>li>a, .mon-compte a {
@@ -16,20 +16,25 @@ main {
 #bouton-compte {
     color: white;
 }
+.mon-compte p {
+    margin-left:5%;
+    padding-right:10%;
+
+}
 .mon-compte {
     opacity: 0;
     position: absolute;
     top:45px;
+    display: block;
     right:30%;
-}
-
-.mon-compte {
     background-color: #FFFFFF;
     border: 0.5mm solid;
 }
+
 .liste-acces {
-    margin:15%;
+    padding:4%;
     color: black;
+    border-top: 0.5mm solid;
 
 }
 
@@ -54,7 +59,7 @@ main {
     top : 38px;
 }
 
-button {
+.connexion {
   font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
   font-size: 18px;
   font-weight: 600;
@@ -64,7 +69,7 @@ button {
   position: absolute;
   top: 28px;
 }
-button:hover  .mon-compte {
+.connexion:hover  .mon-compte {
     opacity:1;
 }
 /* apparence ajout */
