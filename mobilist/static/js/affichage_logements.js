@@ -62,7 +62,7 @@ function updateAllElementStyle() {
 }
 
 // Fonction pour afficher un form cacher de part son id 
-function toggleFromPopup(overlay_id) {
+function toggleFormPopup(overlay_id) {
     console.log("overlay_id form", overlay_id);
     if (selected_logement_dbID !== undefined) {
         const overlay = document.getElementById(overlay_id);

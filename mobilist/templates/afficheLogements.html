@@ -48,8 +48,8 @@
 <div class="buttons">
     <ul>
         <li id="buttons">
-            <button class="action-btn" id="supprimer" onclick="toggleFromPopup('delete-popup-form')">SUPPRIMER</button>
-            <button class="action-btn" id='modifier' onclick="toggleFromPopup('edit-popup-form')">MODIFIER</button>
+            <button class="action-btn" id="supprimer" onclick="toggleFormPopup('delete-popup-form')">SUPPRIMER</button>
+            <button class="action-btn" id='modifier' onclick="toggleFormPopup('edit-popup-form')">MODIFIER</button>
         </li>
     </ul>
 </div> 
@@ -58,7 +58,7 @@
 <div id="edit-popup-form" class="overlay-container">
     <div class="popup-box">
         <h2 style="color: green;">Modification Nom Logement</h2>
-        <form class="form-container">
+        <form class="form-container" method="POST">
             <input type="hidden" id="type-form" name="type-form" value="UPDATE_LOGEMENT" required>
             <input type="hidden" id="edit-id-input" name="id" required>
 
@@ -79,7 +79,7 @@
             <input class="form-input form-textarea" type="text" placeholder="Description du logement" id="edit-description-input" name="description">
 
             <div class="form-btn-container">
-                <button type="button" class="btn-close-popup" onclick="toggleFromPopup('edit-popup-form')">Annuler</button>
+                <button type="button" class="btn-close-popup" onclick="toggleFormPopup('edit-popup-form')">Annuler</button>
                 <button type="submit" class="btn-submit" >Confirmer</button>
             </div>
         </form>
@@ -90,7 +90,7 @@
     <div class="popup-box">
         <h2 style="color: red;"> Confirmation Suppression</h2>
         <h3 style="color: blue;"> Nom Logement</h3>
-        <form class="form-container">
+        <form class="form-container" method="POST">
             <input type="hidden" id="type-form" name="type-form" value="DELETE_LOGEMENT" required>
             <input type="hidden" id="delete-id-input" name="id" required>
 
@@ -98,7 +98,7 @@
             <input class="form-input" type="text" placeholder="Entrez le nom du logement" value="Le nom du logement concerne" id="delete-name-input" name="name" required disabled>
 
             <div class="form-btn-container">
-                <button  type="button"  class="btn-close-popup" onclick="toggleFromPopup('delete-popup-form')">Annuler</button>
+                <button  type="button"  class="btn-close-popup" onclick="toggleFormPopup('delete-popup-form')">Annuler</button>
                 <button type="submit" class="btn-submit" >Supprimer</button>
             </div>
         </form>
@@ -111,7 +111,7 @@
         <h2 style="color: red;"> Aucun logement selectionné</h2>
         <h3 style="color: blue;"> Veuillez selectionner un logement</h3>
         <div class="form-btn-container">
-            <button  type="button"  class="btn-submit" onclick="toggleFromPopup('unselected-logement-popup')">Continuer</button>
+            <button  type="button"  class="btn-submit" onclick="toggleFormPopup('unselected-logement-popup')">Continuer</button>
         </div>
     </div>
 </div>
