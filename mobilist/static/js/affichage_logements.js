@@ -111,4 +111,6 @@ function preFillDeleteForm() {
     console.log("logement trouvé",logement);
     document.getElementById('delete-id-input').value = logement.id_logement;
     document.getElementById('delete-name-input').value = logement.nom_logement;
+    document.getElementById('delete-type-input').value = logement.type_logement;
+    document.getElementById('delete-address-input').value = logement.adresse_logement;
 }

@@ -136,7 +136,7 @@ section:hover {
     padding: 24px;
     border-radius: 12px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
-    width: 320px;
+    width: auto;
     text-align: center;
     opacity: 0;
     transform: scale(0.8);
@@ -216,6 +216,7 @@ section:hover {
     display: flex;
     justify-content: space-between;
 }
+
 
 /* body {
         margin: 0;

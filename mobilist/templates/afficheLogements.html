@@ -42,8 +42,8 @@
             addLogementToArray(array_logement_obj,logment_object);
             addLogementToArray(array_logement,log);
         </script>
-    </div>
-    {% endfor %}
+        {% endfor %}
+    </div>  
 </div>
 <div class="buttons">
     <ul>
@@ -57,7 +57,7 @@
 <!-- For de modification -->
 <div id="edit-popup-form" class="overlay-container">
     <div class="popup-box">
-        <h2 style="color: green;">Modification Nom Logement</h2>
+        <h2 style="color: green;">Modification infos logement</h2>
         <form class="form-container" method="POST">
             <input type="hidden" id="type-form" name="type-form" value="UPDATE_LOGEMENT" required>
             <input type="hidden" id="edit-id-input" name="id" required>
@@ -85,21 +85,27 @@
         </form>
     </div>
 </div>
+
 <!-- Form de suppression -->
 <div id="delete-popup-form" class="overlay-container">
     <div class="popup-box">
-        <h2 style="color: red;"> Confirmation Suppression</h2>
-        <h3 style="color: blue;"> Nom Logement</h3>
+        <h2 style="color: red;"> CONFIRMATION SUPPRESION LOGEMENT</h2>
         <form class="form-container" method="POST">
             <input type="hidden" id="type-form" name="type-form" value="DELETE_LOGEMENT" required>
             <input type="hidden" id="delete-id-input" name="id" required>
 
-            <label class="form-label" for="name">Nom :</label>
-            <input class="form-input" type="text" placeholder="Entrez le nom du logement" value="Le nom du logement concerne" id="delete-name-input" name="name" required disabled>
+            <label class="form-label" for="name">NOM :</label>
+            <input class="form-input" type="text" placeholder="Nom" value="Le nom du logement concerne" id="delete-name-input" name="name" required disabled>
+
+            <label class="form-label" for="type">TYPE :</label>
+            <input class="form-input" type="text" placeholder="Type" value="Le type du logement concerne" id="delete-type-input" name="type"  disabled>
+
+            <label class="form-label" for="address">ADRESSE :</label>
+            <input class="form-input" type="text" placeholder="adresse" value="L' adresse du logement concerne" id="delete-address-input" name="address"  disabled>
 
             <div class="form-btn-container">
-                <button  type="button"  class="btn-close-popup" onclick="toggleFormPopup('delete-popup-form')">Annuler</button>
-                <button type="submit" class="btn-submit" >Supprimer</button>
+                <button  type="button"  class="btn-submit" onclick="toggleFormPopup('delete-popup-form')">Annuler</button>
+                <button type="submit" class="btn-close-popup" >SUPPRIMER</button>
             </div>
         </form>
     </div>
