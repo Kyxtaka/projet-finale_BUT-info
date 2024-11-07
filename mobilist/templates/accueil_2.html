@@ -14,7 +14,7 @@
 <body>
   <div class="accueil2"> 
     <header>
-      <section id="section-compte">
+      <section id="section-compte" class="">
           <a class="liste-acces" href=''>Mon compte</a>
           <a class="liste-acces" href=''>Aide</a>
           <a class="liste-acces" href="{{ url_for('logout')}}">Déconnexion</a>
@@ -117,15 +117,53 @@
   </footer>
 
   <script>
+    var styles = `
+      #section-compte {
+        position: absolute;
+        top:80px;
+        display: block;
+        right:4%;
+        background-color: #FFFFFF;
+        border: 0.5mm solid;
+        display: grid;
+        opacity:0;
+        z-index: 10000;
+      }`
+
+    var styleSheet = document.createElement("style")
+    styleSheet.textContent = styles
+
+    var styleshover = `
+      #section-compte {
+        position: absolute;
+        top:80px;
+        display: block;
+        right:4%;
+        background-color: #FFFFFF;
+        border: 0.5mm solid;
+        display: grid;
+        opacity:1;
+        z-index: 10000;
+      }`
+
+    var styleSheethover = document.createElement("style")
+    styleSheethover.textContent = styleshover
+
+    // la suite a été produit à l'aide de chatgpt
     const btn = document.getElementById('bouton-compte');
     const menu = document.getElementById('section-compte');
-    
+  
+  
     btn.addEventListener('mouseover', function() {
-      menu.style.display = 'grid';
+      document.head.appendChild(styleSheethover);
     });
-    
+
+    menu.addEventListener('mouseover', function() {
+      document.head.appendChild(styleSheethover);
+    });
+  
     btn.addEventListener('mouseout', function() {
-      menu.style.display = 'none';
+      document.head.appendChild(styleSheet);
     });
   </script>
 </body>

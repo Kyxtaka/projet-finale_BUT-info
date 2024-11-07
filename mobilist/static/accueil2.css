@@ -6,7 +6,6 @@ nav {
     border-bottom: 1px solid; 
 }
 
-
 main {
     margin-top: 6.1rem;
     margin-bottom: 6.1rem;
@@ -17,16 +16,6 @@ main {
 }
 #bouton-compte {
     color: white;
-}
-
-#section-compte {
-    opacity: 0;
-    position: absolute;
-    top:95px;
-    display: block;
-    right:2%;
-    background-color: #FFFFFF;
-    border: 0.5mm solid;
 }
 
 .liste-acces {
