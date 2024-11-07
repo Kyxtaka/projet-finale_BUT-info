@@ -10,6 +10,7 @@
 <div class="list-logements">
     <h1> Mes logements </h1>
     <div class="log">
+      {% if contenu %}
         {% for x in logements %}
         <section id="log-{{x.id_logement}}">
             <h1>Logement n°{{x.id_logement}}</h1>
@@ -22,15 +23,19 @@
             </article>
         </section>
     </div>
-    {% endfor %}
-    <div class="log-buttons">
-        <ul id="list-buttons">
-            <li id="buttons">
-                <button class="supprimer" >SUPPRIMER</button>
-                <button class="modifier">MODIFIER</button>
-            </li>
-        </ul>
-    </div>
+        {% endfor %}
+        <div class="log-buttons">
+            <ul id="list-buttons">
+                <li id="buttons">
+                    <button class="supprimer" >SUPPRIMER</button>
+                    <button class="modifier">MODIFIER</button>
+                </li>
+            </ul>
+        </div>
+        {% endif %}
+        {% if not (contenu) %}
+            <p class="no-content"> Vous n'avez pas ajouté de logements </p>
+        {% endif %}
 </div>
 
 {% endblock %}

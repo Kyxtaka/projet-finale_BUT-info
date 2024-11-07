@@ -115,8 +115,9 @@ def services():
 def affiche_logements():
     proprio = Proprietaire.query.get(current_user.id_user)
     logements = proprio.logements
-    print(logements)
-    return render_template("afficheLogements.html", logements=logements)
+    if len(logements) > 0 :
+        return render_template("afficheLogements.html", logements=logements, contenu=True)
+    return  render_template("afficheLogements.html", logements=logements, contenu=False)
 
 @app.route("/simulation/", methods =("GET","POST" ,))
 def simulation():
