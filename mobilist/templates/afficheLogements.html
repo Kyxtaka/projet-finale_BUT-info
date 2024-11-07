@@ -65,13 +65,11 @@
             <label class="form-label" for="name">Nom :</label>
             <input class="form-input" type="text" placeholder="Entrez le nom du logemen"  id="edit-name-input" name="name" required>
 
-            <!-- A completer -->
             <label class="form-label" for="type">Type logement:</label>
-            <select name="Type" id="form-input">
-                <option value="1">Type 1</option>
-                <option value="2">Type 2</option>
-                <option value="3">Type 3</option>
-                <option value="4">Type 4</option>
+            <select class="form-input" name="type" id="edit-type-input">
+                {% for val in type_logement %}
+                  <option value="{{val.get_type()}}">{{val.get_type()}}</option>
+                {% endfor %}
             </select>
 
             <label class="form-label" for="address">Adresse logement:</label>

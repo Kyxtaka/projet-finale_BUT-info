@@ -92,17 +92,19 @@ function messagePopup(overlay_id) {
     overlay.classList.toggle('show');
 }
 
+// Fonction pour pré-remplir le formulaire d'édition
 function preFillEditForm() {
     console.log("selected logement dbID",selected_logement_dbID);
     const logement = array_logement_obj.find(logement => logement.id_logement === String(selected_logement_dbID));
     console.log("logement trouvé",logement);
     document.getElementById('edit-id-input').value = logement.id_logement;
     document.getElementById('edit-name-input').value = logement.nom_logement;
-    // document.getElementById('edit-type-logement').value = logement.type_logement;
+    document.getElementById('edit-type-input').value = logement.type_logement;
     document.getElementById('edit-adress-input').value = logement.adresse_logement;
     document.getElementById('edit-description-input').value = logement.description_logement;
 }
 
+// Fonction pour préremplir le formulaire de suppression
 function preFillDeleteForm() {
     console.log("selected logement dbID",selected_logement_dbID);
     const logement = array_logement_obj.find(logement => logement.id_logement === String(selected_logement_dbID));

@@ -116,6 +116,8 @@ def affiche_logements():
     session = db.session
     proprio = Proprietaire.query.get(current_user.id_user)
     logements = proprio.logements
+    type_logement = [type for type in LogementType]
+    print
     print(logements)
     if request.method == "GET": #utilisation de request car pas envie d'utiliser les méthodes de flask, car j utilise JS
         print("recerption de la requete")
@@ -141,14 +143,17 @@ def affiche_logements():
                 name = request.args.get("name")
                 address = request.args.get("address")
                 description = request.args.get("description")
-                print("values",name,address,description)
+                type = request.args.get("type")
+                enum_type = LogementType[type]
+                print("values",name,address,description, type, enum_type)
                 logement.set_nom_logement(name)
                 logement.set_adresse_logement(address)
                 logement.set_desc_logement(description)
+                logement.set_type_logement(enum_type)
                 print("logement apres modif",logement)
                 session.commit()
                 # return render_template("updateLogement.html", logement=logement)
         proprio = Proprietaire.query.get(current_user.id_user)
         logements = proprio.logements
-        return render_template("afficheLogements.html", logements=logements)
-    return render_template("afficheLogements.html", logements=logements)
+        return render_template("afficheLogements.html", logements=logements, type_logement=type_logement)
+    return render_template("afficheLogements.html", logements=logements, type_logement=type_logement)
