@@ -10,8 +10,9 @@
 }
 
 .mesBiens .bandeau {
+    padding-top: 1em;
     background-color: #e2e6eb;
-    height: 11em;
+    height: 13em;
 }
 
 .mesBiens .bandeau h2 {
@@ -20,7 +21,7 @@
 }
 
 .mesBiens .bandeau .choix_logement {
-    padding-top: 1%;
+    padding-top: 2%;
 }
 .mesBiens .bandeau .choix_logement select {
     position: relative;
@@ -40,10 +41,9 @@
     font-size: 16px;
 }
 
-.mesBiens .plan p:first-of-type, p:last-of-type {
+.mesBiens p {
     text-align: center;
     padding: 2em;
-    font-style: italic;
 }
 
 .mesBiens .plan .table {
@@ -60,6 +60,21 @@
 
 .mesBiens .plan table tr td p a {
     text-decoration: none;
-    font-style: bold;
-    font-size: 15;
+    font-weight: bold;
+    color: black;
+    font-size: 20;
+}
+
+.mesBiens ul {
+    padding: 0px;
+    margin: 0px;
+    text-align: left;
+    display: block;
+}
+
+.mesBiens li{
+    padding: 0px;
+    margin: 0px;
+    text-align: left;
+    display: block;
 }

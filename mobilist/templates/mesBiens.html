@@ -28,7 +28,7 @@
     </div>
     <div class="plan">
         {% if pieces %}
-            <p> Cliquez sur une pièce pour voir les biens contenu dans celle-ci.</p>
+            <p><em>Cliquez sur une pièce pour voir les biens contenu dans celle-ci.</em></p>
             <table class="table">
                 <tr>
                     {% for piece in pieces %}
@@ -52,25 +52,25 @@
                             </div>
                             <div class="modal-body">
                                 {% if piece.get_list_biens() %}   
-                                    <p>Liste des biens pour la pièce {{ piece.nom_piece }} :</p> 
+                                    <p><em>Liste des biens pour la pièce {{ piece.nom_piece }} :</em></p> 
                                     <ul>
                                         {% for bien in piece.get_list_biens() %}
-                                            <li>{{ bien.nom_bien }} : {{ bien.prix }} €</li>
+                                            <li> • {{ bien.nom_bien }} : {{ bien.prix }} € </li>
                                         {% endfor %}
                                     </ul>
                                 {% else %}
-                                    <p> Aucun biens ajoutés pour cette pièce pour le moment.</p>
+                                    <p><em>Aucun biens ajoutés pour cette pièce pour le moment.</em></p>
                                 {% endif %}
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
                             </div>
                         </div>
                     </div>
                 </div>
             {% endfor %}
         {% else %}
-            <p>Aucun logement sélectionné ou aucune pièce trouvée pour ce logement.</p>
+            <p><em>Aucun logement sélectionné ou aucune pièce trouvée pour ce logement.</em></p>
         {% endif %}
     </div>
 </div>
