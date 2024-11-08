@@ -140,28 +140,6 @@ main {
     border: 0;
 }
 
-footer {
-    background-color: #FFFFFF;
-    bottom: 0;
-    width: 100%;
-    border-top: 1px solid;
-}
-
-#appstore {
-    float:left;
-    height: 50px;
-}
-
-#googleplay {
-    float:left;
-    height: 45px;
-}
-
-.p-footer {
-    text-align: center;
-    margin-top: 10px;
-} */
-
 
 .box-ajout {
     display: flex;
@@ -219,4 +197,3 @@ footer {
 .voir_plus:hover {
     color:#5E5DF0;
 }
-

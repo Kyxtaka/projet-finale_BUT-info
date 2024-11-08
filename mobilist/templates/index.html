@@ -38,13 +38,13 @@
                     <li class="nav-img" >
                         <div class="BContact">
                             <img src="{{ url_for('static',filename='img/contact.png') }}" alt="icône contact"/>
-                            <a class="nav-link active" aria-current="page" href="#coord">Contact</a>
+                            <a class="nav-link active" aria-current="page" href="{{ url_for('accueil') + '#coord'}}">Contact</a>
                         </div>
                     </li>
                   <li class="nav-img" >
                     <div class="BAvis">
                         <img src="{{ url_for('static',filename='img/avis.png') }}" alt="icône avis"/>
-                        <a class="nav-link active" aria-current="page" href="#">Avis</a>
+                        <a class="nav-link active" aria-current="page" href=" {{ url_for('avis')}}">Avis</a>
                     </div>
                   </li>
                   <li id="connexion">

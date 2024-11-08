@@ -1,12 +1,15 @@
+header {
+    height: 70px;
+    background-color: #FFFFFF;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+
 .index img {
     height: 65px;
     margin-top:-4px;
 }
 
-main {
-    margin-top: 6.1rem;
-    margin-bottom: 6.1rem;
-}
 .navbar {
     height: 70px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -15,15 +18,11 @@ main {
 #navbar-collapse  a {
     color: black;
 }
-main {
-    margin-top: 6.1rem;
-    margin-bottom: 6.1rem;
-}
 
 .index ul {
     display: flex;
     flex-wrap: nowrap;
-    list-style: none;
+    list-style: none;   
     margin-left:-15px;
 }
 
@@ -45,9 +44,6 @@ main {
     width: auto;
     height: 27px;
 }
-
-
-
 
 .index button {
   box-sizing: border-box;
