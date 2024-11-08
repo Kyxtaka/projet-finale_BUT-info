@@ -218,23 +218,23 @@ class Logement(Base):
         """
         return "<Logement (%d) %s %s>" % (self.id_logement, self.type_logement, self.adresse)
     
-    def get_id_logement(self):
+    def get_id_logement(self) -> int:
         """Getter de l'ID du logement
 
         Returns:
             int: ID du logement
         """
         return self.id_logement
-    
-    def get_type_logement(self):
+
+    def get_type_logement(self) -> LogementType:
         """Getter du type du logement
 
         Returns:
             str: Type du logement 
         """
         return self.type_logement
-    
-    def get_adresse(self):
+
+    def get_adresse_logement(self):
         """Getter de l'adresse
 
         Returns:
@@ -250,18 +250,25 @@ class Logement(Base):
         """
         return self.desc_logement
     
-    def get_nom_logement(self):
+    def get_nom_logement(self) -> str:
         return self.nom_logement
-    
-    
+
     def set_id_logement(self, id_logement):
         """Changer l'id du logement 
 
         Args:
             id_logement (int): Nouvel id (unique)
         """
-        self.id_logement = id_logement
-    
+        self.id_logement = id_logement  
+
+    def set_nom_logement(self, nom_logement: str) -> None:
+        """Changer le nom du logement
+
+        Args:
+            nom_logement (str): Nouveau nom du logement
+        """
+        self.nom_logement = nom_logement
+
     def set_type_logement(self, type_logement):
         """Changer le type du logement 
 
@@ -270,7 +277,7 @@ class Logement(Base):
         """
         self.type_logement = type_logement
     
-    def set_adresse(self, adresse):
+    def set_adresse_logement(self, adresse):
         """Changer l'adresse du logement 
 
         Args:
@@ -286,11 +293,8 @@ class Logement(Base):
         """
         self.desc_logement = desc_logement
 
-    def set_nom_logement(self, nom_logement):
-        self.nom_logement = nom_logement
     def get_pieces_list(self) -> list:
             return Piece.query.filter_by(id_logement=self.id_logement).all()
-
     
 class AVOIR(Base):
     __tablename__ = "AVOIR"
@@ -543,7 +547,6 @@ class Piece(Base):
     def get_list_biens(self):
         return Bien.query.filter_by(id_logement=self.id_logement,id_piece=self.id_piece).all()
         
-
 class TypeBien(Base):
     __tablename__ = "TYPEBIEN"
     
