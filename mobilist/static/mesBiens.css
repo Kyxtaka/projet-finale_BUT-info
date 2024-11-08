@@ -1,0 +1,80 @@
+.mesBiens {
+    margin-top: 99px;
+    margin-bottom: 120px;
+}
+
+.mesBiens p, .mesBiens button {
+    position: relative;
+    left: 0px;
+    top: 0px;
+}
+
+.mesBiens .bandeau {
+    padding-top: 1em;
+    background-color: #e2e6eb;
+    height: 13em;
+}
+
+.mesBiens .bandeau h2 {
+    text-align: center;
+    padding-top: 1%;
+}
+
+.mesBiens .bandeau .choix_logement {
+    padding-top: 2%;
+}
+.mesBiens .bandeau .choix_logement select {
+    position: relative;
+    margin-left: 43%;
+    margin-bottom: 1%;
+    width: 14%;
+    padding: 10px;
+    border: 1px solid #ccd0d5;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    background-size: 16px;
+}
+
+.mesBiens .bandeau .choix_logement select option {
+    padding: 10px;
+    background-color: #ffffff;
+    font-size: 16px;
+}
+
+.mesBiens p {
+    text-align: center;
+    padding: 2em;
+}
+
+.mesBiens .plan .table {
+    margin: auto;
+    width: 40%;
+}
+
+.mesBiens .plan .table tr td {
+    text-align: center;
+    border: solid;
+    width: 6em;
+    height: 9em;
+}
+
+.mesBiens .plan table tr td p a {
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+    font-size: 20;
+}
+
+.mesBiens ul {
+    padding: 0px;
+    margin: 0px;
+    text-align: left;
+    display: block;
+}
+
+.mesBiens li{
+    padding: 0px;
+    margin: 0px;
+    text-align: left;
+    display: block;
+}

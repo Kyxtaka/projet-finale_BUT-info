@@ -184,3 +184,19 @@ def simulation():
 def mon_compte():
     form=ModificationForm()
     return render_template("mon-compte.html", form=form)
+
+@app.route("/mesBiens/", methods =["GET"])
+def mesBiens():
+    logement_id = request.args.get("logement")
+    proprio = Proprietaire.query.get(current_user.id_user)
+    logements = []
+    for logement in proprio.logements:
+        logements.append(logement)
+    if logement_id:
+        logement_actuel = int(logement_id)
+        pieces = Piece.query.filter_by(id_logement=logement_actuel).all()
+    else:
+        logement_actuel = None
+        pieces = []
+    return render_template("mesBiens.html",logements=logements,logement_id=logement_id,pieces=pieces,logement_actuel=logement_actuel)
+
