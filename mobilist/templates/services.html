@@ -4,33 +4,46 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='services.css')}}">
 {% endblock %}
 {% block content %}
-<h1> Nos Services</h1>
-<div class="contenu">
-    <section class="enregistrer">
-        <img src="{{ url_for('static',filename='img/enregistrer.png') }}" alt="icône enregistrer"/>
-        <p>Enregistrer vos biens personnels en tout genre </p>
-    </section>
-    <section class="document">
-        <img src="{{ url_for('static',filename='img/doc.png') }}" alt="icône document"/>
-        <p>Télécharger instantanement votre inventaire</p>
-    </section>
-    <section class="position">
-        <img src="{{ url_for('static',filename='img/position.png') }}" alt="icône position"/>
-        <p>Cartographier son logement</p>
-    </section>
-    <section class="dossier">
-        <img src="{{ url_for('static',filename='img/dossier.png') }}" alt="icône dossier"/>
-        <p>Ajouter ses justificatifs pour une conscience tranquille</p>
-    </section>
-</div>
-<section class="info-bottom">
-    <div class="img-info">
-        <img id="info" src="{{ url_for('static',filename='img/info.png') }}" alt="icône info"/>
+<div id="header">
+    <h1>Nos services</h1>
+      </div>
+    <div class="container">
+    <div class="card">
+      <div class="card-image">
+        <img src="{{ url_for('static', filename="img/enregistrer.png")}}" alt="icone enregistrer">
+      </div>
+      <div class="card-text">
+        <h2 class="card-title">Enregistrer</h2>
+        <p class="card-body">Enregistrer vos biens personnels en tout genre </p>
+      </div>
     </div>
-    <div class="para-info">
-        <p>Les biens immobiliers, les espèces, billets de banque, titres et valeurs quelle qu’en soit la nature, 
-            pierreries non montées, ainsi que les lingots, les pièces de monnaie en or d’investissement et les pièces en argent frappées 
-            et les véhicules ne sont pas pris en compte.</p>
+      <div class="card">
+      <div class="card-image">
+        <img src="{{ url_for('static', filename="img/doc.png")}}" alt="icone documents">
+      </div>
+      <div class="card-text">
+        <h2 class="card-title">Inventaire</h2>
+        <p class="card-body">Télécharger instantanement votre inventaire</p>
+      </div>
     </div>
-</section>
+      <div class="card">
+      <div class="card-image">
+        <img src="{{ url_for('static', filename="img/dossier.png")}}" alt="icone dossier">
+      </div>
+      <div class="card-text">
+        <h2 class="card-title">Justificatifs</h2>
+        <p class="card-body">Ajouter ses justificatifs pour une conscience tranquille</p>
+      </div>
+    </div>
+      <div class="card">
+      <div class="card-image">
+        <img src="{{ url_for('static', filename="img/position.png")}}" alt="icone position">
+      </div>
+      <div class="card-text">
+        <h2 class="card-title">Cartographier</h2>
+        <p class="card-body">Cartographier son logement</p>
+      </div>
+    </div>
+    
+    </div>
 {% endblock %}

@@ -3,6 +3,71 @@
 {{ super() }}
 <link rel="stylesheet" href="{{ url_for('static', filename='accueil2.css') }}">
 {% endblock %}
+<!doctype html>
+<html lang="fr">
+  <head>
+    {% block head %}
+    <title>MobiList</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block styles %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static',filename='accueil2.css') }}">
+    {% endblock %}
+    {% endblock %}
+    {% block scripts %}
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>  
+    {% endblock %}
+  </head>
+<body>
+  <div class="accueil2"> 
+    <header>
+      <section id="section-compte" class="">
+          <a class="liste-acces" href=''>Mon compte</a>
+          <a class="liste-acces" href=''>Aide</a>
+          <a class="liste-acces" href="{{ url_for('logout')}}">Déconnexion</a>
+      </section>
+      <!-- Fixed navbar -->
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-white">
+        <a href="{{ url_for('accueil_connexion') }}">
+          <img src="{{ url_for('static',filename='img/logo_mobilist.jpg') }}" alt="logo du site"/>
+        </a>
+        <div class="container-fluid">
+          <div class="collapse navbar-collapse" id="navbar-collapse">
+              <ul class="navbar-nav-left">
+                  <li class="nav-img" >
+                    <img src="{{ url_for('static',filename='img/accueil.png') }}" alt="icône accueil"/>
+                  </li>
+                  <li class="nav-item-accueil">
+                    <a class="nav-link active" aria-current="page" href="{{ url_for('accueil_connexion') }}">Accueil</a>
+                </li>
+              <li class="nav-img" >
+                <img src="{{ url_for('static',filename='img/mes-biens.png') }}" alt="icône nos services"/>
+              </li>
+              <li class="nav-item-bien">
+                <a class="nav-link active" aria-current="page" href="{{ url_for('mesBiens')}}">Mes biens</a>
+              </li> 
+              <li class="nav-img" >
+                <img src="{{ url_for('static',filename='img/mes-logements.png') }}" alt="icône contact"/>
+              </li>
+              <li class="nav-item-logement">
+                <a class="nav-link active" aria-current="page" href="{{ url_for('affiche_logements') }}">Mes logements</a>
+              </li> 
+              <li class="nav-img" >
+                <img src="{{ url_for('static',filename='img/simuler-sinistre.png') }}" alt="icône avis"/>
+              </li>
+              <li class="nav-item-sinistre">
+                <a class="nav-link active" aria-current="page" href="{{ url_for('simulation') }}">Simuler un sinistre</a>
+              </li> 
+              <li id="connexion">
+                <a id="bouton-compte" href="{{ url_for('accueil_connexion') }}">
+                  <button class="connexion" id="bouton-compte">Mon compte
+                  </button>
+                </a>
+              </li>       
+        </nav> 
+  </header>
+  <main>
     {% block content %}
     <section class="ajout">
       <article class="box-ajout">
@@ -57,6 +122,61 @@
       <p id="groupe"> © AKHTAR NAIMA - VALIN OPHÉLIE - BOCQUET CLÉMENCE - VILCOQ YOHANN - RANDRIANTSOA NATHAN </p>
     </div>
   </footer>
+
+  <script>
+    var styles = `
+      #section-compte {
+        position: absolute;
+        top:80px;
+        display: block;
+        right:4%;
+        background-color: #FFFFFF;
+        border: 0.5mm solid;
+        display: grid;
+        opacity:0;
+        z-index: 10000;
+      }`
+
+    var styleSheet = document.createElement("style")
+    styleSheet.textContent = styles
+
+    var styleshover = `
+      #section-compte {
+        position: absolute;
+        top:80px;
+        display: block;
+        right:4%;
+        background-color: #FFFFFF;
+        border: 0.5mm solid;
+        display: grid;
+        opacity:1;
+        z-index: 10000;
+      }`
+
+    var styleSheethover = document.createElement("style")
+    styleSheethover.textContent = styleshover
+
+    // la suite a été produit à l'aide de chatgpt
+    const btn = document.getElementById('bouton-compte');
+    const menu = document.getElementById('section-compte');
+  
+  
+    btn.addEventListener('mouseover', function() {
+      document.head.appendChild(styleSheethover);
+    });
+
+    menu.addEventListener('mouseover', function() {
+      document.head.appendChild(styleSheethover);
+    });
+  
+    menu.addEventListener('mouseout', function() {
+      document.head.appendChild(styleSheet);
+    });
+
+    btn.addEventListener('mouseout', function() {
+      document.head.appendChild(styleSheet);
+    });
+  </script>
 </body>
 </html>
 

@@ -31,6 +31,7 @@ def loaddb(filename):
             case 'LOGEMENT':
                 new_logement = Logement(
                     id_logement = entity['ID_LOGEMENT'],
+                    nom_logement = entity['NOM_LOGEMENT'],
                     type_logement = entity['TYPE_LOGEMENT'],
                     adresse_logement = entity['ADRESSE'],
                     desc_logement = entity['DESCRIPTION'])

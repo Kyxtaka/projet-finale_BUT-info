@@ -186,6 +186,7 @@ class Proprietaire(Base):
   
 class Logement(Base):
     __tablename__ = "LOGEMENT"
+    
     id_logement = Column(Integer, name="ID_LOGEMENT", primary_key=True)
     nom_logement = Column(String(20), name="NOM_LOGEMENT", nullable=True)
     nom_logement = Column(String(20), name="NOM_LOGEMENT", nullable=True)
@@ -289,6 +290,9 @@ class Logement(Base):
 
     def set_nom_logement(self, nom_logement):
         self.nom_logement = nom_logement
+    def get_pieces_list(self) -> list:
+            return Piece.query.filter_by(id_logement=self.id_logement).all()
+
     
 class AVOIR(Base):
     __tablename__ = "AVOIR"
@@ -537,6 +541,10 @@ class Piece(Base):
             id_logement (int): nouvell id du logement
         """
         self.id_logement = id_logement
+
+    def get_list_biens(self):
+        return Bien.query.filter_by(id_logement=self.id_logement,id_piece=self.id_piece).all()
+        
 
 class TypeBien(Base):
     __tablename__ = "TYPEBIEN"

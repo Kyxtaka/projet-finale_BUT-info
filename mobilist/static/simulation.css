@@ -1,6 +1,11 @@
+.nav-item-sinistre a {
+    font-weight: bold;
+}
+
 .simulation {
     margin-top: 99px;
     margin-bottom: 120px;
+    text-align: center;
 }
 
 .simulation .bandeau {
@@ -12,6 +17,7 @@
     position: relative;
     left: 0px;
     top: 0px;
+    text-align: center;
 }
 
 .simulation hr{
@@ -44,7 +50,6 @@
 
 .simulation .type select, .logement select {
     position: relative;
-    margin-left: 43%;
     margin-bottom: 1%;
     width: 14%;
     padding: 10px;
@@ -73,12 +78,16 @@
     margin-top: 10px;
 }
 
+.simulation .info table {
+    margin-left: 580px;
+}
+
 .simulation .styled-table {
     font-size: 1em;
     min-width: 400px;
     border-radius: 8px 8px 0 0;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    margin-left: 33%;
+    margin-left: 40%;
     margin-top: 1%;
 }
 
@@ -102,7 +111,6 @@
 }
 
 .simulation .telecharger .download-btn {
-    margin-left: 45%;
     position: relative;
     left: 0px;
     top: 0px;

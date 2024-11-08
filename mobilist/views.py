@@ -65,6 +65,10 @@ class IncrisptionForm(FlaskForm):
         m.update(self.password.data.encode())
         passwd = m.hexdigest()
         return user if passwd == user.password else None
+
+class ModificationForm(FlaskForm):
+    nom = StringField('Votre nom')
+    prenom = StringField('Votre Prénom')
     
 class UploadFileForm(FlaskForm):
     file = FileField('File', validators=[DataRequired()])
@@ -254,3 +258,33 @@ def affiche_logements():
         logements = proprio.logements
         return render_template("afficheLogements.html", logements=logements, type_logement=type_logement)
     return render_template("afficheLogements.html", logements=logements, type_logement=type_logement)
+
+
+@app.route("/simulation/", methods =("GET","POST" ,))
+def simulation():
+    proprio = Proprietaire.query.get(current_user.id_user)
+    logements = []
+    for logement in proprio.logements:
+        logements.append(logement)
+    return render_template("simulation.html",logements=logements)
+
+@app.route("/mon-compte/", methods =("POST" ,"GET",))
+def mon_compte():
+    form=ModificationForm()
+    return render_template("mon-compte.html", form=form)
+
+@app.route("/mesBiens/", methods =["GET"])
+def mesBiens():
+    logement_id = request.args.get("logement")
+    proprio = Proprietaire.query.get(current_user.id_user)
+    logements = []
+    for logement in proprio.logements:
+        logements.append(logement)
+    if logement_id:
+        logement_actuel = int(logement_id)
+        pieces = Piece.query.filter_by(id_logement=logement_actuel).all()
+    else:
+        logement_actuel = None
+        pieces = []
+    return render_template("mesBiens.html",logements=logements,logement_id=logement_id,pieces=pieces,logement_actuel=logement_actuel)
+
