@@ -1,18 +1,6 @@
-/* .logements {
-    margin: 10rem;
-}
 
-
-main button {
-  box-sizing: border-box;
-  cursor: pointer;
-}
 img {
     height: 82px;
-}
-
-nav {
-    border-bottom: 1px solid; 
 }
 
 main {
@@ -20,51 +8,10 @@ main {
     margin-bottom: 6.1rem;
 }
 
-#navbar-collapse>ul>li>a, .mon-compte a {
-    color: black;
-}
 #bouton-compte {
     color: white;
 }
 
-.liste-acces {
-    padding:4%;
-    color: black;
-    border-top: 0.5mm solid;
-
-}
-
-.accueil2>header>nav ul {
-    display: flex;
-    flex-wrap: nowrap;
-    margin-left: 30px;
-    list-style: none;
-}
-
-.accueil2 >header>nav li {
-    margin-left: 30px;
-    font-size: 20px;
-    text-align: center;
-    margin-top: 2%;
-}
-
-
-.nav-img img {
-    height: 24px;
-    position:absolute;
-    top : 38px;
-}
-
-.connexion {
-  font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
-  font-size: 18px;
-  font-weight: 600;
-  opacity: 1;
-  outline: 0 solid transparent;
-  padding: 7px 20px;
-  position: absolute;
-  top: 28px;
-}
 .accueil2 .ajout {
     border-radius: 20px;
     background-size:100%;
@@ -73,6 +20,7 @@ main {
     padding: 10%;
     margin:5%;
 }
+
 .box-ajout {
     display: flex;
     justify-content: space-evenly;
@@ -96,6 +44,7 @@ main {
     border: thin;
 
 }
+
 .ajout-elem {
     width:100%;
     display:block;
@@ -103,10 +52,10 @@ main {
     color: white;
     padding:3px;
 }
+
 .ajout-elem:hover {
     color:#5E5DF0;
 }
-
 
 .derniers_ajouts, .a_justifier {
     padding: 5px;
@@ -119,70 +68,11 @@ main {
     border:0.5mm solid;
 }
 
-.voir_plus {
-    color: gray;
-    display: block;
-    text-align:center;
-    margin-top: 1%;
-
-}
 .voir_plus:hover {
     color:#5E5DF0;
 }
 
-.accueil2 .connexion {
-    border-radius: 999px;
-    background: #5E5DF0;
-    box-shadow: #5E5DF0 0 10px 20px -10px;
-    color: #FFFFFF;
-    position: absolute;
-    right: 50px;
-    border: 0;
-}
-
-
-.box-ajout {
-    display: flex;
-    justify-content: space-evenly;
-    background-color: rgb(211 211 211 / .6);
-    padding-top:3%;
-    padding-bottom:3%;
-}
-
-.box-ajout>div  {
-    width:20%;
-    flex-wrap: nowrap;
-    text-align: center;
-    background-color: black;
-    box-shadow: 2px 2px 15px 4px rgba(0, 0, 0, 0.1);
-}
-
-.accueil2 .tableau-ajout {
-    position: absolute;
-    top: 400px;
-    right:40%;
-    border: thin;
-
-}
-.ajout-elem {
-    width:100%;
-    display:block;
-    background-color: gray;
-    color: white;
-    padding:3px;
-}
-.ajout-elem:hover {
-    color:#5E5DF0;
-}
-
 /* apparence tableaux */
-.derniers_ajouts, .a_justifier {
-    padding: 5px;
-    border-top: 0.5mm solid;
-    margin-bottom: 1%;
-    border-color: lightgray;
-}
-
 .tableau {
     border:0.5mm solid;
 }
