@@ -20,6 +20,7 @@ main {
     margin-bottom: 6.1rem;
 }
 
+
 .index ul {
     display: flex;
     flex-wrap: nowrap;
@@ -50,20 +51,15 @@ main {
 
 
 .index button {
-  box-sizing: border-box;
-  cursor: pointer;
+
   font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
   font-size: 18px;
   font-weight: 600;
   line-height: 22px;
   opacity: 1;
   outline: 0 solid transparent;
-  padding: 7px 16px;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
+  padding: 7px 18px;
   width: fit-content;
-  word-break: break-word;
   top: 18px;
 }
 
@@ -92,6 +88,7 @@ main {
     border-color: gray;
 }
 
+/* footer */
  footer {
     height: 65px;
     background-color: #FFFFFF;
@@ -99,7 +96,12 @@ main {
     width: 100%;
     box-shadow: rgba(100, 100, 111, 0.2) 29px 29px 29px 29px;
 }
+.liste-acces {
+    padding:4%;
+    color: black;
+    border-top: 0.5mm solid;
 
+}
  #appstore {
     height: 40px;
 }

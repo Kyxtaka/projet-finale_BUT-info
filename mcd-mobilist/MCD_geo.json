@@ -22,7 +22,11 @@
     [ "BIEN", 183 ],
     [ "AVOIR", 312 ],
     [ "AVIS", 419 ],
+<<<<<<< HEAD
 >>>>>>> 091340b37278a238f4bd57ef23ccc58fd4cb2dfc
+=======
+>>>>>>> origin/develop
+>>>>>>> origin/css-ajout-bien
     [ "CATEGORIE", 56 ],
     [ "SE_TROUVER", 183 ],
     [ "LOGEMENT", 321 ],
@@ -57,7 +61,11 @@
     [ "LOGEMENT", 296 ],
     [ "JUSTIFICATIF", 406 ],
     [ "PIECE", 406 ]
+<<<<<<< HEAD
 >>>>>>> 091340b37278a238f4bd57ef23ccc58fd4cb2dfc
+=======
+>>>>>>> origin/develop
+>>>>>>> origin/css-ajout-bien
   ],
   "shift": [
     [ "POSSEDER,BIEN,0", 0 ],

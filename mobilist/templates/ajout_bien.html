@@ -97,7 +97,7 @@
             </div>
             <div id="right-side">
                 <label class="form-group-element" for="justificatif" id="form_justif">Justificatif</label>
-                {{ form.file(class="form-group-element")}}
+                {{ form.justificatif_bien(class="form-group-element", disabled="disabled") }}
             </div>
         </div>
         {% if error == True %}
@@ -110,8 +110,17 @@
         <button class="btn btn-primary mb-3" id="formsumbmit" type="submit">Ajouter</button> 
     </form>
     <div class="box-container" id="recent-ajout">
-        <h2>Récents Ajouts</h2>
-        <p> for bien un bien de la bd (box encadré)</p>
+        <div id="titre-box">
+            <h2>Récents Ajouts</h2>
+        </div>
+        <div id="historique">
+            {% for x in bien %}
+            <article>
+                <p> {{x.id_type.get_nom_type}} </p>
+                <p> {{x.id_logement.get_nom}} </p>
+            </article>
+            {% endfor %}
+        </div>
     </div>
 </div>
 {% endblock %} 

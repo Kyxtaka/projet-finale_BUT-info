@@ -15,47 +15,49 @@
     <header>
       <!-- Fixed navbar -->
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-white">
-        <a href="#">
-          <img src="{{ url_for('static',filename='img/logo_mobilist.jpg') }}" alt="logo du site"/>
-        </a>
+        <div class="logo">
+          <a href="#">
+            <img src="{{ url_for('static',filename='img/logo_mobilist.png') }}" alt="logo du site"/>
+          </a>
+        </div>
         <div class="container-fluid">
           <div class="collapse navbar-collapse" id="navbar-collapse">
               <ul class="navbar-nav-left">
                   <li class="nav-img" >
-                    <a href="{{ url_for('accueil') }}"><img src="{{ url_for('static',filename='img/accueil.png') }}" alt="icône accueil"/></a>
+                    <div class=BAccueil>
+                      <a href="{{ url_for('accueil') }}"><img src="{{ url_for('static',filename='img/accueil.png') }}" alt="icône accueil"/></a>
+                      <a class="nav-link active" aria-current="page" href="{{ url_for('accueil') }}">Accueil</a>
+                    </div>
                   </li>
-                  <li class="nav-item-accueil">
-                    <a class="nav-link active" aria-current="page" href="{{ url_for('accueil') }}">Accueil</a>
-                </li>
-              <li class="nav-img" >
-                <img src="{{ url_for('static',filename='img/services.png') }}" alt="icône nos services"/>
-              </li>
-              <li class="nav-item-services">
-                <a class="nav-link active" aria-current="page" href="{{ url_for('services') }}">Nos services</a>
-              </li> 
-                <li class="nav-img" >
-                  <img src="{{ url_for('static',filename='img/contact.png') }}" alt="icône contact"/>
-                </li>
-                <li class="nav-item-contact">
-                  <a class="nav-link active" aria-current="page" href="#coord">Contact</a>
-                </li> 
-              <li class="nav-img" >
-                <img src="{{ url_for('static',filename='img/avis.png') }}" alt="icône avis"/>
-              </li>
-              <li class="nav-item-avis">
-                <a class="nav-link active" aria-current="page" href="{{ url_for('avis') }}">Avis</a>
-              </li> 
-              <li id="connexion">
-                  <a href="{{ url_for('login') }}">
-                    <button class="connexion">Se connecter</button>
-                  </a>
-              </li>
-              <li id="information">
-                <a href="{{ url_for('information') }}">
-                  <button class="information">À propos de nous</button>
-                </a>
-              </li>
-            </ul>           
+                  <li class="nav-img" >
+                    <div class="BServices">
+                        <img src="{{ url_for('static',filename='img/services.png') }}" alt="icône nos services"/>
+                        <a class="nav-link active" aria-current="page" href="{{ url_for('services') }}">Nos services</a>
+                    </div>
+                  </li>
+                    <li class="nav-img" >
+                        <div class="BContact">
+                            <img src="{{ url_for('static',filename='img/contact.png') }}" alt="icône contact"/>
+                            <a class="nav-link active" aria-current="page" href="#coord">Contact</a>
+                        </div>
+                    </li>
+                  <li class="nav-img" >
+                    <div class="BAvis">
+                        <img src="{{ url_for('static',filename='img/avis.png') }}" alt="icône avis"/>
+                        <a class="nav-link active" aria-current="page" href="#">Avis</a>
+                    </div>
+                  </li>
+                  <li id="connexion">
+                    <a href="{{ url_for('login') }}">
+                      <button class="connexion">Se connecter</button>
+                    </a>
+                  </li>
+                  <li id="information">
+                    <a href="{{ url_for('information') }}">
+                      <button class="information">À propos de nous</button>
+                    </a>
+                  </li>
+                </ul>           
   </header>
   <main class="flex-shrink-0">
     <div class="content">
@@ -67,7 +69,7 @@
 
   <footer class="footer mt-auto py-3 bg-light">
     <div class="footer">
-      <a href="https://apps.apple.com/fr/app/apple-store/"><img id="appstore" src="{{ url_for('static',filename='img/appstore.jpg') }}" alt="Dispo sur appstore"/></a>
+      <a href="https://apps.apple.com/fr/app/apple-store/"><img id="appstore" src="{{ url_for('static',filename='img/appstore.png') }}" alt="Dispo sur appstore"/></a>
       <a href="https://play.google.com/store/apps"><img id="googleplay" src="{{ url_for('static',filename='img/googleplay.png') }}" alt="Dispo sur Google play"/></a>
       <p id="groupe"> © AKHTAR NAIMA - VALIN OPHÉLIE - BOCQUET CLÉMENCE - VILCOQ YOHANN - RANDRIANTSOA NATHAN </p>
     </div>

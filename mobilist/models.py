@@ -17,7 +17,7 @@ class LogementType(enum.Enum):
     APPART = "appart"
     MAISON = "maison"
 
-    def get_type(self) -> str:
+    def get_type(self):
         return self.name
 
 class Avis(Base):
@@ -27,30 +27,30 @@ class Avis(Base):
     desc_avis = Column(String(1000), name="DESCRIPTION", nullable=True)
     id_proprio = Column(Integer, ForeignKey("PROPRIETAIRE.ID_PROPRIO"), nullable=False, name="ID_PROPRIO")
     
-    def __init__(self, id_avis: int, desc_avis: str, id_proprio: int) -> None:
+    def __init__(self, id_avis, desc_avis, id_proprio):
         self.id_avis = id_avis
         self.desc_avis = desc_avis
         self.id_proprio = id_proprio
     
-    def __repr__(self) -> str:
+    def __repr__(self):
         return "<Avis (%d) %s>" % (self.id_avis, self.desc_avis)
     
-    def get_id_avis(self) -> int:
+    def get_id_avis(self):
         return self.id_avis
     
-    def set_id_avis(self, id_avis: int) -> None:
+    def set_id_avis(self, id_avis):
         self.id_avis = id_avis
     
-    def get_desc_avis(self) -> str:
+    def get_desc_avis(self):
         return self.desc_avis
     
-    def set_desc_avis(self, desc_avis: str) -> None:
+    def set_desc_avis(self, desc_avis):
         self.desc_avis = desc_avis
     
-    def get_id_proprio(self) -> int:
+    def get_id_proprio(self):
         return self.id_proprio
     
-    def set_id_proprio(self, id_proprio: int) -> None:
+    def set_id_proprio(self, id_proprio):
         self.id_proprio = id_proprio
     
     def get_sample():
@@ -70,39 +70,39 @@ class Proprietaire(Base):
     logements = relationship("Logement", secondary="AVOIR", back_populates="proprietaires")
     user = relationship("User", back_populates="proprio", uselist=False)
     
-    def __init__(self, id_proprio: int, mail: str, nom_proprio: str = None, prenom_proprio: str = None) -> None:
+    def __init__(self, id_proprio, mail , nom_proprio=None, prenom_proprio=None):
         self.id_proprio = id_proprio
         self.nom = nom_proprio
         self.prenom = prenom_proprio
         self.mail = mail
     
-    def __repr__(self) -> str:
+    def __repr__(self):
         return "<Proprietaire (%d) %s %s>" % (self.id_proprio, self.nom, self.prenom)
     
-    def get_id_proprio(self) -> int:
+    def get_id_proprio(self):
         return self.id_proprio
     
-    def set_id_proprio(self, id_proprio: int) -> None:
+    def set_id_proprio(self, id_proprio):
         self.id_proprio = id_proprio
     
-    def get_nom(self) -> str:
+    def get_nom(self):
         return self.nom
     
-    def set_nom(self, nom: str) -> None:
+    def set_nom(self, nom):
         self.nom = nom
     
-    def get_prenom(self) -> str:
+    def get_prenom(self):
         return self.prenom
     
-    def set_prenom(self, prenom: str) -> None:
+    def set_prenom(self, prenom):
         self.prenom = prenom
     
     @staticmethod
-    def max_id() -> int:
+    def max_id():
         return db.session.query(func.max(Proprietaire.id_proprio)).scalar()
     
     @staticmethod
-    def get_by_mail(mail: str) -> "Proprietaire":
+    def get_by_mail(mail):
         return Proprietaire.query.filter_by(mail=mail).first()
   
 class Logement(Base):
@@ -115,32 +115,26 @@ class Logement(Base):
     desc_logement = Column(String(1000), name="DESC_LOGEMENT", nullable=True)
     proprietaires = relationship("Proprietaire", secondary="AVOIR", back_populates="logements")
     
-    def __init__(self, id_logement: int, nom_logement: str, type_logement: LogementType, adresse_logement: str, desc_logement: str) -> None:
+    def __init__(self, id_logement, nom_logement,type_logement, adresse_logement, desc_logement):
         self.id_logement = id_logement
         self.nom_logement = nom_logement
         self.type_logement = type_logement
         self.adresse = adresse_logement
         self.desc_logement = desc_logement
         
-    def __repr__(self) -> str:
+    def __repr__(self):
         return "<Logement (%d) %s %s>" % (self.id_logement, self.type_logement, self.adresse)
     
-    def get_id_logement(self) -> int:
+    def get_id_logement(self):
         return self.id_logement
     
-    def get_type_logement(self) -> LogementType:
+    def get_type_logement(self):
         return self.type_logement
     
-    def get_nom_logement(self) -> str:
-        return self.nom_logement
-    
-    def set_nom_logement(self, nom_logement: str) -> None:
-        self.nom_logement = nom_logement
-    
-    def get_adresse(self) -> str:
+    def get_adresse(self):
         return self.adresse
     
-    def get_desc_logement(self) -> str:
+    def get_desc_logement(self):
         return self.desc_logement
     
     def get_nom_logement(self):
@@ -149,13 +143,13 @@ class Logement(Base):
     def set_id_logement(self, id_logement: str) -> None:
         self.id_logement = id_logement
     
-    def set_type_logement(self, type_logement: LogementType) -> None:
+    def set_type_logement(self, type_logement):
         self.type_logement = type_logement
     
-    def set_adresse(self, adresse: str) -> None:
+    def set_adresse(self, adresse):
         self.adresse = adresse
     
-    def set_desc_logement(self, desc_logement: str) -> None:
+    def set_desc_logement(self, desc_logement):
         self.desc_logement = desc_logement
 
     def set_nom_logement(self, nom_logement):
@@ -165,35 +159,29 @@ class Logement(Base):
         return Piece.query.filter_by(id_logement=self.id_logement).all()
 
     
-from sqlalchemy.orm import relationship
-from sqlalchemy import Column, Integer, String, Date, Float, ForeignKey
-from datetime import date
-from flask_login import UserMixin
-import time
-
 class AVOIR(Base):
     __tablename__ = "AVOIR"
 
     id_proprio = Column(Integer, ForeignKey("PROPRIETAIRE.ID_PROPRIO"), name="ID_PROPRIO", primary_key=True)
     id_logement = Column(Integer, ForeignKey("LOGEMENT.ID_LOGEMENT"), name="ID_LOGEMENT", primary_key=True)
 
-    def __init__(self, id_proprio: int, id_logement: int) -> None:
+    def __init__(self, id_proprio, id_logement):
         self.id_proprio = id_proprio
         self.id_logement = id_logement
 
-    def __repr__(self) -> str:
+    def __repr__(self):
         return "Avoir %d %d" % (self.id_proprio, self.id_logement)
     
-    def get_id_proprio(self) -> int:
+    def get_id_proprio(self):
         return self.id_proprio
     
-    def set_id_proprio(self, id_proprio: int) -> None:
+    def set_id_proprio(self, id_proprio):
         self.id_proprio = id_proprio
     
-    def get_id_logement(self) -> int:
+    def get_id_logement(self):
         return self.id_logement
     
-    def set_id_logement(self, id_logement: int) -> None:
+    def set_id_logement(self, id_logement):
         self.id_logement = id_logement
 
 class Bien(Base):
@@ -209,8 +197,8 @@ class Bien(Base):
     id_type = Column(Integer, ForeignKey("TYPEBIEN.ID_TYPE_BIEN"), nullable=False, name="ID_TYPE_BIEN")
     id_cat = Column(Integer, ForeignKey("CATEGORIE.ID_CATEGORIE"), nullable=False, name="ID_CATEGORIE")
     
-    def __init__(self, id_bien: int, nom_bien: str, id_proprio: int, date_achat: date, prix: float,
-                 id_piece: int, id_logement: int, id_type: int, id_cat: int) -> None:
+    
+    def __init__(self, id_bien, nom_bien, id_proprio, date_achat, prix, id_piece, id_logement,  id_type, id_cat):
         self.id_bien = id_bien
         self.nom_bien = nom_bien
         self.date_achat = date_achat
@@ -221,62 +209,61 @@ class Bien(Base):
         self.id_type = id_type
         self.id_cat = id_cat
     
-    def __repr__(self) -> str:
+    def __repr__(self):
         return "<Bien (%d) %s>" % (self.id_bien, self.nom_bien)
     
-    def get_id_bien(self) -> int:
+    def get_id_bien(self):
         return self.id_bien
     
-    def set_id_bien(self, id_bien: int) -> None:
+    def set_id_bien(self, id_bien):
         self.id_bien = id_bien
     
-    def get_nom_bien(self) -> str:
+    def get_nom_bien(self):
         return self.nom_bien
     
-    def set_nom_bien(self, nom_bien: str) -> None:
+    def set_nom_bien(self, nom_bien):
         self.nom_bien = nom_bien
     
-    def get_date_achat(self) -> date:
+    def get_date_achat(self):
         return self.date_achat
     
-    def set_date_achat(self, date_achat: str) -> None:
-        date_format = '%Y-%m-%d'
-        self.date_achat = time.strptime(date_achat, date_format)
+    def set_date_achat(self, date_achat):
+        self.date_achat = date_achat
     
-    def get_prix(self) -> float:
+    def get_prix(self):
         return self.prix
     
-    def set_prix(self, prix: float) -> None:
+    def set_prix(self, prix):
         self.prix = prix
     
-    def get_id_proprio(self) -> int:
+    def get_id_proprio(self):
         return self.id_proprio
     
-    def set_id_proprio(self, id_proprio: int) -> None:
+    def set_id_proprio(self, id_proprio):
         self.id_proprio = id_proprio
     
-    def get_id_piece(self) -> int:
+    def get_id_piece(self):
         return self.id_piece
     
-    def set_id_piece(self, id_piece: int) -> None:
+    def set_id_piece(self, id_piece):
         self.id_piece = id_piece
     
-    def get_id_type(self) -> int:
+    def get_id_type(self):
         return self.id_type
     
-    def set_id_type(self, id_type: int) -> None:
+    def set_id_type(self, id_type):
         self.id_type = id_type
     
-    def get_id_cat(self) -> int:
+    def get_id_cat(self):
         return self.id_cat
     
-    def set_id_cat(self, id_cat: int) -> None:
+    def set_id_cat(self, id_cat):
         self.id_cat = id_cat
 
-    def get_id_logement(self) -> int:
+    def get_id_logement(self):
         return self.id_logement
 
-    def set_id_logement(self, id_logement: int) -> None:
+    def set_id_logement(self, id_logement):
         self.id_logement = id_logement
 
     @staticmethod
@@ -291,37 +278,37 @@ class Piece(Base):
     desc_piece = Column(String(1000), nullable=True, name="DESCRIPTION")
     id_logement = Column(Integer, ForeignKey("LOGEMENT.ID_LOGEMENT"), primary_key=True, nullable=False, name="ID_LOGEMENT")
     
-    def __init__(self, id_piece: int, nom_piece: str, desc_piece: str, id_logement: int) -> None:
+    def __init__(self, id_piece, nom_piece, desc_piece, id_logement):
         self.id_piece = id_piece
         self.nom_piece = nom_piece
         self.desc_piece = desc_piece
         self.id_logement = id_logement
         
-    def __repr__(self) -> str:
+    def __repr__(self):
         return "<Piece (%d) %s >" % (self.id_piece, self.nom_piece)
     
-    def get_id_piece(self) -> int:
+    def get_id_piece(self):
         return self.id_piece
     
-    def set_id_piece(self, id_piece: int) -> None:
+    def set_id_piece(self, id_piece):
         self.id_piece = id_piece
     
-    def get_nom_piece(self) -> str:
+    def get_nom_piece(self):
         return self.nom_piece
     
-    def set_nom_piece(self, nom_piece: str) -> None:
+    def set_nom_piece(self, nom_piece):
         self.nom_piece = nom_piece
     
-    def get_desc_piece(self) -> str:
+    def get_desc_piece(self):
         return self.desc_piece
     
-    def set_desc_piece(self, desc_piece: str) -> None:
+    def set_desc_piece(self, desc_piece):
         self.desc_piece = desc_piece
     
-    def get_id_logement(self) -> int:
+    def get_id_logement(self):
         return self.id_logement
     
-    def set_id_logement(self, id_logement: int) -> None:
+    def set_id_logement(self, id_logement):
         self.id_logement = id_logement
 
     def get_list_biens(self):
@@ -334,23 +321,23 @@ class TypeBien(Base):
     id_type = Column(Integer, primary_key=True, nullable=False, name="ID_TYPE_BIEN")
     nom_type = Column(String(20), nullable=False, name="NOM_TYPE")
     
-    def __init__(self, id_type: int, nom_type: str) -> None:
+    def __init__(self, id_type, nom_type):
         self.id_type = id_type
         self.nom_type = nom_type
     
-    def __repr__(self) -> str:
+    def __repr__(self):
         return "<TypeBien (%d) %s >" % (self.id_type, self.nom_type)
     
-    def get_id_type(self) -> int:
+    def get_id_type(self):
         return self.id_type
     
-    def set_id_type(self, id_type: int) -> None:
+    def set_id_type(self, id_type):
         self.id_type = id_type
     
-    def get_nom_type(self) -> str:
+    def get_nom_type(self):
         return self.nom_type
     
-    def set_nom_type(self, nom_type: str) -> None:
+    def set_nom_type(self, nom_type):
         self.nom_type = nom_type
 
 class Categorie(Base):
@@ -359,23 +346,23 @@ class Categorie(Base):
     id_cat = Column(Integer, primary_key=True, nullable=False, name="ID_CATEGORIE")
     nom_cat = Column(String(20), nullable=False, name="NOM_CATEGORIE")
     
-    def __init__(self, id_cat: int, nom_cat: str) -> None:
+    def __init__(self, id_cat, nom_cat):
         self.id_cat = id_cat
         self.nom_cat = nom_cat
     
-    def __repr__(self) -> str:
+    def __repr__(self):
         return "<Categorie (%d) %s >" % (self.id_cat, self.nom_cat)
     
-    def get_id_cat(self) -> int:
+    def get_id_cat(self):
         return self.id_cat
     
-    def set_id_cat(self, id_cat: int) -> None:
+    def set_id_cat(self, id_cat):
         self.id_cat = id_cat
     
-    def get_nom_cat(self) -> str:
+    def get_nom_cat(self):
         return self.nom_cat
     
-    def set_nom_cat(self, nom_cat: str) -> None:
+    def set_nom_cat(self, nom_cat):
         self.nom_cat = nom_cat
 
 class Justificatif(Base):
@@ -387,44 +374,44 @@ class Justificatif(Base):
     URL = Column(String(200), name="URL")
     id_bien = Column(Integer, ForeignKey("BIEN.ID_BIEN"), primary_key=True, name="ID_BIEN")
     
-    def __init__(self, id_justif: int, nom_justif: str, date_ajout: date, URL: str, id_bien: int) -> None:
+    def __init__(self, id_justif, nom_justif, date_ajout, URL, id_bien):
         self.id_justif = id_justif
         self.nom_justif = nom_justif
         self.date_ajout = date_ajout
         self.URL = URL
         self.id_bien = id_bien
     
-    def __repr__(self) -> str:
+    def __repr__(self):
         return "<Justificatif (%d) %s %s %s %d>" % (self.id_justif, self.nom_justif, self.date_ajout, self.URL, self.id_bien)
     
-    def get_id_justif(self) -> int:
+    def get_id_justif(self):
         return self.id_justif
     
-    def set_id_justif(self, id_justif: int) -> None:
+    def set_id_justif(self, id_justif):
         self.id_justif = id_justif
     
-    def get_nom_justif(self) -> str:
+    def get_nom_justif(self):
         return self.nom_justif
     
-    def set_nom_justif(self, nom_justif: str) -> None:
+    def set_nom_justif(self, nom_justif):
         self.nom_justif = nom_justif
     
-    def get_date_ajout(self) -> date:
+    def get_date_ajout(self):
         return self.date_ajout
     
-    def set_date_ajout(self, date_ajout: date) -> None:
+    def set_date_ajout(self, date_ajout):
         self.date_ajout = date_ajout
     
-    def get_URL(self) -> str:
+    def get_URL(self):
         return self.URL
     
-    def set_URL(self, URL: str) -> None:
+    def set_URL(self, URL):
         self.URL = URL
     
-    def get_id_bien(self) -> int:
+    def get_id_bien(self):
         return self.id_bien
     
-    def set_id_bien(self, id_bien: int) -> None:
+    def set_id_bien(self, id_bien):
         self.id_bien = id_bien
 
 class User(Base, UserMixin):
@@ -436,43 +423,43 @@ class User(Base, UserMixin):
     id_user = Column(Integer, ForeignKey("PROPRIETAIRE.ID_PROPRIO"), name="ID_PROPRIO")    
     proprio = relationship('Proprietaire', back_populates='user', uselist=False)
     
-    def get_id(self) -> str:
+    def get_id(self):
         return self.mail
     
-    def set_id(self, mail: str) -> None:
+    def set_id(self, mail):
         self.mail = mail
     
-    def get_password(self) -> str:
+    def get_password(self):
         return self.password
     
-    def set_password(self, password: str) -> None:
+    def set_password(self, password):
         self.password = password
     
-    def get_role(self) -> str:
+    def get_role(self):
         return self.role
     
-    def set_role(self, role: str) -> None:
+    def set_role(self, role):
         self.role = role
     
-    def get_id_user(self) -> int:
+    def get_id_user(self):
         return self.id_user
     
-    def set_id_user(self, id_user: int) -> None:
+    def set_id_user(self, id_user):
         self.id_user = id_user
 
     @staticmethod
-    def modifier(mail: str, nom: str, prenom: str) -> None:
+    def modifier(mail, nom, prenom):
         proprio = Proprietaire.get_by_mail(mail)
         proprio.set_nom(nom)
         proprio.set_prenom(prenom)
         db.session.commit()
 
     @staticmethod
-    def get_user(mail: str) -> "User":
+    def get_user(mail):
         return User.query.get_or_404(mail)
     
     @staticmethod
-    def get_by_mail(mail: str) -> "User":
+    def get_by_mail(mail):
         return User.query.filter_by(mail=mail).first()
     
     @login_manager.user_loader

@@ -1,9 +1,9 @@
-.nav-item-services a {
+main .nav-item-services a {
     color: #5E5DF0;
     font-weight: bold;
 }
 
-.nav-img img {
+main .nav-img img {
     position:absolute;
     top : 36px;
 }
@@ -60,12 +60,41 @@ h1{
   box-shadow:0 15px 20px 0 rgba(0,0,0,0.5);
 }
 
-.card-title{
-  font-size:2.2rem;
-  margin-bottom:20px;
-  margin-top:5px;
-}
-.card-body{
-  font-size:1.25rem;
+main h1 {
+    text-align: center;
+    background-color: #e9eaee ;
+    padding: 40px;
 }
 
+.contenu {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.contenu img:not(#info) {
+    margin-bottom: 20px;
+    height: 100px;
+}
+
+.img-info img{
+    height: 40px;
+    position: absolute;
+    left: 20px;
+}
+
+.info p {
+    font-weight: 300;
+}
+
+main section {
+    width: 50%;
+    padding: 100px;
+    font-size: larger;
+}
+
+.para-info {
+    position: absolute;
+    left: 70px;
+    margin-right: 100px;
+    font-style: italic;
+}

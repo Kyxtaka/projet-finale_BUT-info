@@ -299,8 +299,11 @@ def get_pieces(logement_id):
 @app.route("/bien/ajout", methods=("GET", "POST",))
 @login_required
 def ajout_bien():
-    form_bien = AjoutBienForm()
-    if form_bien.validate_on_submit():
+    session = db.session
+    form = AjoutBienForm()
+    proprio = Proprietaire.query.get(current_user.id_user)
+    bien = proprio.bien
+    if form.validate_on_submit():
         try:
             print("Logs:", form_logs(form_bien))
             handle_form_bien(form_bien)

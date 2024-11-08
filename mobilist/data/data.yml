@@ -41,7 +41,7 @@
 
 # Table LOGEMENT
 - TYPE: LOGEMENT
-  NOM_LOGEMENT: 'Maison principale'
+  NOM_LOGEMENT: "log1"
   ID_LOGEMENT: 1
   TYPE_LOGEMENT: MAISON
   ADRESSE: '2 rue du pavillon, 71004 Paris'
@@ -63,21 +63,21 @@
 
 - TYPE: LOGEMENT
   NOM_LOGEMENT: 'Maison secondaire'
-  ID_LOGEMENT: 2
+  ID_LOGEMENT: 4
   TYPE_LOGEMENT: MAISON
   ADRESSE: '102 rue du flask, 10450 YFZEVL'
   DESCRIPTION: 'maison secondaire avec piscine'
 
 - TYPE: LOGEMENT
   NOM_LOGEMENT: 'Appartement étudiant'
-  ID_LOGEMENT: 3
+  ID_LOGEMENT: 5
   TYPE_LOGEMENT: MAISON
   ADRESSE: '45 rue dbsdk fjbh, 10450 AILUDHB'
   DESCRIPTION: 'appart étu'
 
 - TYPE: LOGEMENT
   NOM_LOGEMENT: 'Maison secondaire'
-  ID_LOGEMENT: 2
+  ID_LOGEMENT: 6
   TYPE_LOGEMENT: MAISON
   ADRESSE: 'Isekai de truck, 666 Hell'
   DESCRIPTION: 'maison secondaire située dans un monde parallèle'
@@ -323,17 +323,8 @@
   ID_LOGEMENT: 3
 
 
-  NOM_BIEN: 'Service de table porcelaine'
-  DATE_ACHAT: '2021-12-20'
-  PRIX: 200
-  ID_PROPRIETAIRE: 5
-  ID_CATEGORIE: 4  # Service de table
-  ID_TYPE_BIEN: 4
-  ID_PIECE: 2  # Salon
-  ID_LOGEMENT: 1
-
 - TYPE: BIEN
-  ID_BIEN: 5
+  ID_BIEN: 11
   NOM_BIEN: 'Télévision écran plat'
   DATE_ACHAT: '2021-01-10'
   PRIX: 500
@@ -394,13 +385,3 @@
   ID_PROPRIETAIRE: 5
   ID_LOGEMENT: 1
 
-- TYPE: AVOIR
-  ID_PROPRIETAIRE: 4
-  ID_LOGEMENT: 2
-
-# Table User :
-- TYPE: USER
-  ID_USER: 4
-  MAIL: 'nathan@mail.com'
-  ROLE: "proprio"
-  PASSWORD: '1234'

@@ -1,27 +1,31 @@
-
-.apropos {
-    background-color: #612bb7;
-    display: block;
-    width:100%;
-    text-align: center;
-    padding: 2%;
-    font-size: 50px;  
-    color: white;
+main .nav-img img {
+    position:absolute;
+    top : 36px;
 }
-.paragraphe1 {
+
+main .paragraphe1 {
+    background-color: lightgray;
+    position: absolute;
+    top: 200px;
     display: block;
     width:100%;
     text-align: center;
     padding: 20px;
 }
-.paragraphe2, .inscrire {
+
+main .paragraphe2 {
+    position: absolute;
+    top: 380px;
     display: block;
     width:50%;
     text-align: left;
     padding: 2%;
 }
 
-.paragraphe3 {
+main .paragraphe3 {
+    background-color: lightgray;
+    position: absolute;
+    top: 650px;
     display: block;
     text-align: right;
     padding: 2%;
