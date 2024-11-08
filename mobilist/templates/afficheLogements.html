@@ -13,12 +13,13 @@
 <div class="img-logement">
     <img id="img-log" src="{{ url_for('static',filename='img/logement.png') }}" alt="page affichage logements"/>
 </div> 
+
 <div class="list-logements">
     <h1> Mes logements </h1>
     <div class="log">
       {% if contenu %}
         {% for x in logements %}
-        <section id="log-{{x.id_logement}}">
+        <section class="logement" id="{{ x.id_logement }}">
             <h1>Logement n°{{x.id_logement}}</h1>
             <article>
                 <h3>Nom : {{x.nom_logement}}</h3>
@@ -29,7 +30,6 @@
             </article>
         </section>
     </div>
-        {% endfor %}
         <div class="log-buttons">
             <ul id="list-buttons">
                 <li id="buttons">
@@ -38,10 +38,6 @@
                 </li>
             </ul>
         </div>
-        {% endif %}
-        {% if not (contenu) %}
-            <p class="no-content"> Vous n'avez pas ajouté de logements </p>
-        {% endif %}
         <script>
             // declaration variable var (let n autorise pas la déclaration dans une boucle for)
             var logment_object = new Logement(
@@ -58,7 +54,10 @@
             addLogementToArray(array_logement,log);
         </script>
         {% endfor %}
-    </div>  
+        {% endif %}
+        {% if not (contenu) %}
+          <p class="no-content"> Vous n'avez pas ajouté de logements </p>
+        {% endif %}  
 </div>
 <div class="buttons">
     <ul>

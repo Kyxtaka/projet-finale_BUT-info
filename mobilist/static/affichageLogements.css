@@ -32,7 +32,7 @@ section h1 {
     background-color: rgb(240, 240, 240);
 }
 
-section {
+.logement {
     text-align: left;
     margin-top: 3rem;
     margin-left: 30rem;
@@ -42,7 +42,7 @@ section {
     padding: 20px;
 }
 
-section:hover {
+.logement:hover {
     border: 1px solid;
     border-color: #5E5DF0;
 }
