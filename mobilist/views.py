@@ -116,13 +116,61 @@ def information():
 def services():
     return render_template("services.html")
 
-@app.route("/afficheLogements/")
+@app.route("/afficheLogements/", methods=("GET", "POST",))
 def affiche_logements():
+    session = db.session
     proprio = Proprietaire.query.get(current_user.id_user)
     logements = proprio.logements
-    if len(logements) > 0 :
-        return render_template("afficheLogements.html", logements=logements, contenu=True)
-    return  render_template("afficheLogements.html", logements=logements, contenu=False)
+    type_logement = [type for type in LogementType]
+    print
+    print(logements)
+    if request.method == "POST": #utilisation de request car pas envie d'utiliser les méthodes de flask, car j utilise JS
+        print("recerption de la requete")
+        form_type = request.form.get("type-form")
+        print("form_type",form_type)
+        match form_type:
+            case "DELETE_LOGEMENT":
+                try :
+                    print("DELETE_LOGEMENT")
+                    id_logement = request.form.get("id")
+                    logement = Logement.query.get(id_logement)
+                    print("logement recupere",logement)
+                    session.delete(logement)
+                    session.commit()
+                    print("Logement supprimé")
+                except Exception as e:
+                    session.rollback()
+                    print("Erreur lors de la suppression du logement")
+                    print(e)
+            case "UPDATE_LOGEMENT":
+                try:
+                    print("UPDATE_LOGEMENT")
+                    id_logement = request.form.get("id")
+                    logement = Logement.query.get(id_logement)
+                    print("logement recupere",logement)
+                    name = request.form.get("name")
+                    address = request.form.get("address")
+                    description = request.form.get("description")
+                    type = request.form.get("type")
+                    enum_type = LogementType[type]
+                    print("values",name,address,description, type, enum_type)
+                    logement.set_nom_logement(name)
+                    logement.set_adresse_logement(address)
+                    logement.set_desc_logement(description)
+                    logement.set_type_logement(enum_type)
+                    print("logement apres modif",logement)
+                    session.commit()
+                    print("Logement modifié")
+                except Exception as e:
+                    session.rollback()
+                    print("Erreur lors de la modification du logement")
+                    print(e)
+                # return render_template("updateLogement.html", logement=logement)
+        proprio = Proprietaire.query.get(current_user.id_user)
+        logements = proprio.logements
+        return render_template("afficheLogements.html", logements=logements, type_logement=type_logement)
+    return render_template("afficheLogements.html", logements=logements, type_logement=type_logement)
+
 
 @app.route("/simulation/", methods =("GET","POST" ,))
 def simulation():
