@@ -11,6 +11,10 @@ import time
 
 Base = db.Model
 
+def set_base(db):
+    global Base
+    Base=db.Model
+
 class LogementType(enum.Enum):
     __tablename__ = "LOGEMENTTYPE"
     
@@ -399,6 +403,13 @@ class User(Base, UserMixin):
     id_user = Column(Integer, ForeignKey("PROPRIETAIRE.ID_PROPRIO"), name="ID_PROPRIO")
     proprio = relationship('Proprietaire', back_populates='user', uselist=False)
     
+    def __init__(self, mail,pwd, role, id):
+        self.mail = mail
+        self.pwd = pwd
+        self.role = role
+        self.id = id
+        
+        
     def get_id(self):
         return self.mail
     
@@ -425,9 +436,9 @@ class User(Base, UserMixin):
 
     @staticmethod
     def modifier(mail, nom, prenom):
-        proprio = Proprietaire.get_by_mail(mail)
-        proprio.set_nom(nom)
-        proprio.set_prenom(prenom)
+        proprio = User.query.filter_by(mail=mail).first()
+        proprio.proprio.set_nom(nom)
+        proprio.proprio.set_prenom(prenom)
         db.session.commit()
 
     @staticmethod
