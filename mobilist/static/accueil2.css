@@ -3,11 +3,6 @@ img {
     height: 82px;
 }
 
-main {
-    margin-top: 6.1rem;
-    margin-bottom: 6.1rem;
-}
-
 #bouton-compte {
     color: white;
 }
@@ -72,7 +67,6 @@ main {
     color:#5E5DF0;
 }
 
-/* apparence tableaux */
 .tableau {
     border:0.5mm solid;
 }
