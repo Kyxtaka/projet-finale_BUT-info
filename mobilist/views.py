@@ -184,9 +184,7 @@ def inscription():
     if not f.is_submitted():
         f.next.data = request.args.get("next")
     elif f.validate_on_submit():
-        user = f.get_authenticated_user()
-        if user:
-            login_user(user)
+        if User.query.get(f.mail.data):
             return render_template("inscription.html", form=f, present=True)
         create_user(f.mail.data, f.password.data, "proprio")
         User.modifier(f.mail.data, f.nom.data, f.prenom.data)
