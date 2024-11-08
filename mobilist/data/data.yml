@@ -230,8 +230,6 @@
 - TYPE: AVOIR
   ID_PROPRIETAIRE: 5
   ID_LOGEMENT: 1
-<<<<<<< HEAD
-=======
 
 - TYPE: AVOIR
   ID_PROPRIETAIRE: 4
@@ -243,4 +241,4 @@
   MAIL: 'nathan@mail.com'
   ROLE: "proprio"
   PASSWORD: '1234'
->>>>>>> 8e2e4bd38202ff0b786e2c06d96f8bfb4768359f
+

@@ -21,7 +21,7 @@ main button {
   position: absolute;
   top: 28px;
 }
-.ajout {
+.accueil2 .ajout {
     border-radius: 20px;
     background-size:100%;
     background-image: url("img/img-ajout.png");

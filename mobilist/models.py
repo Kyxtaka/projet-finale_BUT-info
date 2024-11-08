@@ -183,7 +183,6 @@ class Proprietaire(Base):
    
 class Logement(Base):
     __tablename__ = "LOGEMENT"
-    
     id_logement = Column(Integer, name="ID_LOGEMENT", primary_key=True)
     nom_logement = Column(String(20), name="NOM_LOGEMENT", nullable=True)
     type_logement = Column(Enum(LogementType), name="TYPE_LOGEMENT", nullable=False)

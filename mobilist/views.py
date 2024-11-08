@@ -190,7 +190,6 @@ def inscription():
     return render_template(
     "inscription.html", form=f, present=False)
   
-
 @app.route("/information")
 def information():
     return render_template("information.html")
@@ -313,3 +312,12 @@ def form_logs(form: FlaskForm):
             print("file data is empty")
     print("form errors:",form.errors)
     print("form data:", form.data)
+    
+@app.route("/simulation/", methods =("GET","POST" ,))
+def simulation():
+    proprio = Proprietaire.query.get(current_user.id_user)
+    logements = []
+    for logement in proprio.logements:
+        logements.append(logement)
+    return render_template("simulation.html",logements=logements)
+
