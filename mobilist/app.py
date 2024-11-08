@@ -20,6 +20,7 @@ app.config['SECRET_KEY'] = "1f371826-9114-495d-bde8-0fd605e6356d"
 app.config['SQLALCHEMY_DATABASE_URI'] = ('sqlite:///'+mkpath('../DBMOBILIST.db')) #Fichier DB actuelle (solution fonctionnelle)
 db = SQLAlchemy(app)
 if db: print('working on DBMOBILIS') #
+app.config['UPLOAD_FOLDER'] = mkpath('./static/upload')
 Bootstrap = Bootstrap5(app)
 
 login_manager = LoginManager(app)

@@ -12,11 +12,6 @@ main {
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
-main{
-    margin-top: 6.1rem;
-    margin-bottom: 6rem;
-}
-
 #navbar-collapse  a {
     color: black;
 }
