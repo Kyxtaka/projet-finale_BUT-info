@@ -112,7 +112,7 @@ class Proprietaire(Base):
     logements = relationship("Logement", secondary="AVOIR", back_populates="proprietaires")
     user = relationship("User", back_populates="proprio", uselist=False)
     
-    def __init__(self, id_proprio, nom_proprio=None, prenom_proprio=None):
+    def __init__(self, id_proprio, mail, nom_proprio=None, prenom_proprio=None):
         """Init d'un propriétaire
 
         Args:
@@ -189,14 +189,13 @@ class Logement(Base):
     
     id_logement = Column(Integer, name="ID_LOGEMENT", primary_key=True)
     nom_logement = Column(String(20), name="NOM_LOGEMENT", nullable=True)
-    nom_logement = Column(String(20), name="NOM_LOGEMENT", nullable=True)
     type_logement = Column(Enum(LogementType), name="TYPE_LOGEMENT", nullable=False)
     adresse = Column(String(100), name="ADRESSE", nullable=True)
     desc_logement = Column(String(1000), name="DESC_LOGEMENT", nullable=True)
     pieces = relationship("Piece")
     proprietaires = relationship("Proprietaire", secondary="AVOIR", back_populates="logements")
     
-    def __init__(self, id_logement, type_logement, adresse_logement, desc_logement):
+    def __init__(self, id_logement, nom_logement,type_logement, adresse_logement, desc_logement):
         """Init d'un logement
 
         Args:
@@ -206,7 +205,6 @@ class Logement(Base):
             desc_logement (str): Description du logement 
         """
         self.id_logement = id_logement
-        self.nom_logement = nom_logement
         self.nom_logement = nom_logement
         self.type_logement = type_logement
         self.adresse = adresse_logement

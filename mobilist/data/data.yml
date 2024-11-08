@@ -36,15 +36,8 @@
 - TYPE: PROPRIETAIRE
   ID_PROPRIETAIRE: 6
   NOM: DALAIGRE
-<<<<<<<<< Temporary merge branch 1
   PRENOM: Christophe
-
-# Table LOGEMENT
-- NOM: logement
-  TYPE: LOGEMENT
-=========
-  PRENOM: Chritophe
-  MAIL: random6@r.fr
+  MAIL: c.dalaingre@test.com
 
 # Table LOGEMENT
 - TYPE: LOGEMENT
@@ -53,13 +46,6 @@
   TYPE_LOGEMENT: MAISON
   ADRESSE: '2 rue du pavillon, 71004 Paris'
   DESCRIPTION: 'maison principale située à Paris avec toutes mes voitures'
-
-- TYPE: LOGEMENT
-  NOM_LOGEMENT: 'Résidence étudiante Aristote'
-  ID_LOGEMENT: 2
-  TYPE_LOGEMENT: APPART
-  ADRESSE: "1-5-7, Esplanade de l'Université, 45100 Orléans"
-  DESCRIPTION: 'Appartement étudiant située à Orléans pour mes études de BUT Info'
 
 - TYPE: LOGEMENT
   NOM_LOGEMENT: "Palais de l'Elysée"

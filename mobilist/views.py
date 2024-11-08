@@ -166,10 +166,6 @@ def login():
     return render_template(
     "connexion.html",
     form=f)
-    
-@app.route("/avis")
-def avis():
-    return render_template("avis.html")
 
 from flask_login import logout_user
 @app.route("/logout/")
