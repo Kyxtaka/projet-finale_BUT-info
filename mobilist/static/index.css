@@ -1,15 +1,14 @@
-.index img {
-    height: 65px;
-    margin-top:-4px;
+img {
+    height: 82px;
 }
 
 main {
     margin-top: 6.1rem;
     margin-bottom: 6.1rem;
 }
-.navbar {
-    height: 70px;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+ nav {
+    border-bottom: 1px solid;
+    
 }
 
 #navbar-collapse  a {
@@ -20,97 +19,86 @@ main {
     margin-bottom: 6.1rem;
 }
 
-
-.index ul {
+ ul {
     display: flex;
     flex-wrap: nowrap;
+    margin-left: 30px;
     list-style: none;
-    margin-left:-15px;
 }
 
-.index li {
-    margin-left: 35px;
-    font-size: 17px;
+ li {
+    margin-left: 30px;
+    font-size: 20px;
     text-align: center;
     margin-top: 2%;
 }
 
-.index li div{
-    display: flex;
-    flex-wrap: nowrap;
+
+.nav-img img {
+    height: 24px;
+    position:absolute;
+    top : 36px;
 }
 
-.index li div img{
-    margin-left: -20px;
-    margin-top: 9px;
-    width: auto;
-    height: 27px;
-}
-
-
-
-
-.index button {
-
+ button {
+  box-sizing: border-box;
+  cursor: pointer;
   font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
   font-size: 18px;
   font-weight: 600;
   line-height: 22px;
   opacity: 1;
   outline: 0 solid transparent;
-  padding: 7px 18px;
+  padding: 7px 16px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
   width: fit-content;
-  top: 18px;
+  word-break: break-word;
+  position: absolute;
+  top: 28px;
 }
 
-.connexion, .mon_compte {
+ .connexion {
     border-radius: 999px;
     background: #5E5DF0;
     box-shadow: #5E5DF0 0 10px 20px -10px;
     color: #FFFFFF;
     position: absolute;
-    right: 200px;
+    right: 280px;
     border: 0;
-}
-
-.mon_compte{
-    right:25px;
 }
 
  .information {
     border-radius: 999px;
     background: #FFFFFF;
-    box-shadow: #5E5DF0 0 3px 20px -10px;
+    box-shadow: #5E5DF0 0 10px 20px -10px;
     color: #000000;
     position: absolute;
     right: 25px;
     border: 1px solid;
-    border-color: gray;
+    border-color: #000000;
 }
 
-/* footer */
  footer {
-    height: 65px;
     background-color: #FFFFFF;
+    position: fixed;
     bottom: 0;
     width: 100%;
-    box-shadow: rgba(100, 100, 111, 0.2) 29px 29px 29px 29px;
+    border-top: 1px solid;
 }
-.liste-acces {
-    padding:4%;
-    color: black;
-    border-top: 0.5mm solid;
 
-}
  #appstore {
-    height: 40px;
+    height: 50px;
 }
 
  #googleplay {
-    height: 35px;
+    height: 45px;
 }
 
 #groupe {
-    margin-top:-32px;
+    position: absolute;
+    top: 32px;
+    left : 540px;
     text-align: center;
 }
