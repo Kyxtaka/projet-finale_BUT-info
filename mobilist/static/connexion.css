@@ -28,6 +28,14 @@ div {
     font-family: Verdana, sans-serif;
     text-align: center;
 }
+
+.form-control-static{
+    text-align: right;
+}
+.erreur {
+    color: red;
+    font-size: 20px;
+}
 .signin{
     padding: 5px;
     font-size: 18px;

@@ -152,7 +152,7 @@ def accueil_connexion():
     return render_template("accueil_2.html")
     
 @app.route("/login/", methods =("GET","POST" ,))
-def login():
+def login() -> str:
     f = LoginForm()
     if not f.is_submitted():
         f.next.data = request.args.get("next")
@@ -163,9 +163,12 @@ def login():
             login_user(user)
             next = f.next.data or url_for("accueil_connexion")
             return redirect(next)
+        return render_template(
+        "connexion.html",
+        form=f,mdp=False)
     return render_template(
     "connexion.html",
-    form=f)
+    form=f,mdp=True)
 
 from flask_login import logout_user
 @app.route("/logout/")
