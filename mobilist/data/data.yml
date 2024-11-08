@@ -41,11 +41,7 @@
 
 # Table LOGEMENT
 - TYPE: LOGEMENT
-<<<<<<< HEAD
-  NOM: logement
-=======
   NOM_LOGEMENT: 'Maison principale'
->>>>>>> simulation
   ID_LOGEMENT: 1
   TYPE_LOGEMENT: MAISON
   ADRESSE: '2 rue du pavillon, 71004 Paname'
@@ -178,18 +174,9 @@
   ID_PROPRIETAIRE: 5
   ID_LOGEMENT: 1
 
-<<<<<<< HEAD
-# table user
-- TYPE: USER
-  MAIL: 'nathan@mail.com'
-  PASSWORD: '123'
-  ROLE: "proprio"
-  ID_USER: 5
-=======
 # Table User :
 - TYPE: USER
   ID_USER: 4
   MAIL: 'nathan@mail.com'
   ROLE: "proprio"
   PASSWORD: '1234'
->>>>>>> simulation
