@@ -39,4 +39,32 @@
         </div>
     </div>
 </section>
+<hr />
+<section id="para2" class="section section-md bg-white">
+    <div class="shell">
+        <div class="range range-50 range-sm-center range-md-left range-md-middle">
+            <div class="cell-sm-6 wow fadeInRightSmall" style="visibility: visible; animation-name: fadeInRightSmall;">
+                <div class="thumb-line">
+                    <img id="img-telecharger" src="{{ url_for('static',filename='img/telecharger.jpg') }}" alt="" width="531" height="640">
+                </div>
+            </div>
+            <div class="cell-sm-6">
+                <p class="heading-1 wow fadeInLeftSmall" style="visibility: visible; animation-name: fadeInLeftSmall;">En cas de sinistre, ça se passe comment ?</p>
+                <article class="quote-big wow fadeInLeftSmall" data-wow-delay=".1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInLeftSmall;">
+                    <p class="q4">
+                        En cas de sinistre, vous pouvez facilement télécharger l'inventaire de vos pertes depuis votre espace personel. 
+                        Il ne vous reste plus qu'à le transmettre à votre assurance !
+                    </p>
+                </article>
+                <div class="divider wow fadeInLeftSmall" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInLeftSmall;"></div>
+            </div>
+        </div>
+    </div>
+</section>
+<hr />
+<section class="inscrire">
+    <h1>Qu'attendez-vous ?</h1>
+    <p> <a class="creer_compte" href="{{ url_for('inscription')}}"> Créer votre compte </a> dès maintenant et profitez de nos services.
+    </p>
+</section>
 {% endblock %}
