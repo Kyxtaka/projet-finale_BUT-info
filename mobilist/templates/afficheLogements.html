@@ -19,7 +19,7 @@
     <div class="log">
       {% if contenu %}
         {% for x in logements %}
-        <section class="logement" id="{{ x.id_logement }}">
+        <section class="logement" id="log-{{ x.id_logement }}">
             <h1>Logement n°{{x.id_logement}}</h1>
             <article>
                 <h3>Nom : {{x.nom_logement}}</h3>
@@ -30,34 +30,26 @@
             </article>
         </section>
     </div>
-        <div class="log-buttons">
-            <ul id="list-buttons">
-                <li id="buttons">
-                    <button class="supprimer" >SUPPRIMER</button>
-                    <button class="modifier">MODIFIER</button>
-                </li>
-            </ul>
-        </div>
-        <script>
-            // declaration variable var (let n autorise pas la déclaration dans une boucle for)
-            var logment_object = new Logement(
-                                            "log-{{x.id_logement}}",
-                                            "{{x.id_logement}}", 
-                                            "{{x.nom_logement}}",
-                                            "{{x.type_logement.get_type()}}",
-                                            "{{x.adresse}}",
-                                            "{{x.desc_logement}}"
-                                        );
-            var log = document.getElementById("log-{{x.id_logement}}");
-            console.log(log);
-            addLogementToArray(array_logement_obj,logment_object);
-            addLogementToArray(array_logement,log);
-        </script>
-        {% endfor %}
-        {% endif %}
-        {% if not (contenu) %}
-          <p class="no-content"> Vous n'avez pas ajouté de logements </p>
-        {% endif %}  
+    <script>
+        // declaration variable var (let n autorise pas la déclaration dans une boucle for)
+        var logment_object = new Logement(
+                                        "log-{{x.id_logement}}",
+                                        "{{x.id_logement}}", 
+                                        "{{x.nom_logement}}",
+                                        "{{x.type_logement.get_type()}}",
+                                        "{{x.adresse}}",
+                                        "{{x.desc_logement}}"
+                                    );
+        var log = document.getElementById("log-{{x.id_logement}}");
+        console.log(log);
+        addLogementToArray(array_logement_obj,logment_object);
+        addLogementToArray(array_logement,log);
+    </script>
+    {% endfor %}
+    {% endif %}
+    {% if not (contenu) %}
+        <p class="no-content"> Vous n'avez pas ajouté de logements </p>
+    {% endif %}  
 </div>
 <div class="buttons">
     <ul>
@@ -135,6 +127,5 @@
         </div>
     </div>
 </div>
-
 {% endblock %}
 

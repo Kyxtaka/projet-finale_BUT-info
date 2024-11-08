@@ -310,6 +310,13 @@ def affiche_logements():
     session = db.session
     proprio = Proprietaire.query.get(current_user.id_user)
     logements = proprio.logements
+    print("len logements",len(logements))
+    if len(logements) == 0:
+        print("Aucun logement trouvé")
+        contenu = False
+    else: 
+        contenu = True 
+    print(contenu)
     type_logement = [type for type in LogementType]
     print
     print(logements)
@@ -357,8 +364,8 @@ def affiche_logements():
                 # return render_template("updateLogement.html", logement=logement)
         proprio = Proprietaire.query.get(current_user.id_user)
         logements = proprio.logements
-        return render_template("afficheLogements.html", logements=logements, type_logement=type_logement)
-    return render_template("afficheLogements.html", logements=logements, type_logement=type_logement)
+        return render_template("afficheLogements.html", logements=logements, type_logement=type_logement, contenu=contenu)
+    return render_template("afficheLogements.html", logements=logements, type_logement=type_logement, contenu=contenu)
 
 
 @app.route("/simulation/", methods =("GET","POST" ,))

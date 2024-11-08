@@ -778,7 +778,7 @@ class User(Base, UserMixin):
     id_user = Column(Integer, ForeignKey("PROPRIETAIRE.ID_PROPRIO"), name="ID_PROPRIO")    
     proprio = relationship('Proprietaire', back_populates='user', uselist=False)
     
-    def get_mail(self):
+    def get_id(self):
         """getter du mail
 
         Returns:
