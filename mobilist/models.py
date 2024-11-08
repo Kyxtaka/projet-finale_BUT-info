@@ -20,6 +20,9 @@ class LogementType(enum.Enum):
     def get_type(self):
         return self.name
 
+    def get_type(self):
+        return self.name
+
 class Avis(Base):
     __tablename__ = "AVIS"
     
@@ -180,10 +183,11 @@ class Proprietaire(Base):
     @staticmethod
     def get_by_mail(mail):
         return Proprietaire.query.filter_by(mail=mail).first()
-   
+  
 class Logement(Base):
     __tablename__ = "LOGEMENT"
     id_logement = Column(Integer, name="ID_LOGEMENT", primary_key=True)
+    nom_logement = Column(String(20), name="NOM_LOGEMENT", nullable=True)
     nom_logement = Column(String(20), name="NOM_LOGEMENT", nullable=True)
     type_logement = Column(Enum(LogementType), name="TYPE_LOGEMENT", nullable=False)
     adresse = Column(String(100), name="ADRESSE", nullable=True)
@@ -201,6 +205,7 @@ class Logement(Base):
             desc_logement (str): Description du logement 
         """
         self.id_logement = id_logement
+        self.nom_logement = nom_logement
         self.nom_logement = nom_logement
         self.type_logement = type_logement
         self.adresse = adresse_logement
@@ -246,6 +251,10 @@ class Logement(Base):
         """
         return self.desc_logement
     
+    def get_nom_logement(self):
+        return self.nom_logement
+    
+    
     def set_id_logement(self, id_logement):
         """Changer l'id du logement 
 
@@ -277,6 +286,9 @@ class Logement(Base):
             desc_logement (str): nouvelle description du logement 
         """
         self.desc_logement = desc_logement
+
+    def set_nom_logement(self, nom_logement):
+        self.nom_logement = nom_logement
     
 class AVOIR(Base):
     __tablename__ = "AVOIR"
@@ -757,7 +769,7 @@ class User(Base, UserMixin):
     mail = Column(String(50), primary_key=True, name="MAIL")
     password = Column(String(64), name="PASSWORD")
     role = Column(String(10), name="ROLE")
-    id_user = Column(Integer, ForeignKey("PROPRIETAIRE.ID_PROPRIO"), name="ID_PROPRIO")
+    id_user = Column(Integer, ForeignKey("PROPRIETAIRE.ID_PROPRIO"), name="ID_PROPRIO")    
     proprio = relationship('Proprietaire', back_populates='user', uselist=False)
     
     def get_mail(self):
