@@ -153,6 +153,8 @@ def get_pieces(logement_id):
 def ajout_bien():
     session = db.session
     form = AjoutBienForm()
+    proprio = Proprietaire.query.get(current_user.id_user)
+    bien = proprio.bien
     if form.validate_on_submit():
         try:
             print('entering try')

@@ -89,7 +89,12 @@
             <h2>Récents Ajouts</h2>
         </div>
         <div id="historique">
-            <p>Untruc</p>
+            {% for x in bien %}
+            <article>
+                <p> {{x.id_type.get_nom_type}} </p>
+                <p> {{x.id_logement.get_nom}} </p>
+            </article>
+            {% endfor %}
         </div>
     </div>
 </div>
