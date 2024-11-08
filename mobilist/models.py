@@ -62,15 +62,13 @@ class Proprietaire(Base):
     id_proprio = Column(Integer, primary_key=True, name="ID_PROPRIO")
     nom = Column(String(20), name="NOM")
     prenom = Column(String(20), name="PRENOM")
-    mail = Column(String(50), name="MAIL", unique=True, nullable=False)
     logements = relationship("Logement", secondary="AVOIR", back_populates="proprietaires")
     user = relationship("User", back_populates="proprio", uselist=False)
     
-    def __init__(self, id_proprio, mail , nom_proprio=None, prenom_proprio=None):
+    def __init__(self, id_proprio , nom_proprio=None, prenom_proprio=None):
         self.id_proprio = id_proprio
         self.nom = nom_proprio
         self.prenom = prenom_proprio
-        self.mail = mail
     
     def __repr__(self):
         return "<Proprietaire (%d) %s %s>" % (self.id_proprio, self.nom, self.prenom)
