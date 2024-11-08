@@ -13,6 +13,11 @@ main {
     
 }
 
+main{
+    margin-top: 6.1rem;
+    margin-bottom: 6rem;
+}
+
 #navbar-collapse  a {
     color: black;
 }
