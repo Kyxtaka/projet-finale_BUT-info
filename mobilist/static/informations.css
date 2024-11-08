@@ -1,0 +1,172 @@
+
+.apropos {
+    background-color: #612bb7;
+    display: block;
+    width:100%;
+    text-align: center;
+    padding: 2%;
+    font-size: 50px;  
+    color: white;
+    
+}
+
+.paragraphe1 {
+    display: block;
+    width:100%;
+    text-align: center;
+    padding: 20px;
+    font-size: 1.2rem;
+    font-weight: 600;
+
+}
+
+.section-sm, .section-md {
+    padding: 50px 0;
+}
+
+.bg-white {
+    background-color: #ffffff;
+}
+
+section {
+    display: block;
+}
+
+
+.range-md-middle {
+    align-items: center;
+}
+
+@media (min-width: 992px) {
+    .range-md-reverse {
+      flex-direction: row-reverse;
+    }
+}
+
+@media (min-width: 992px) {
+    .range-md-left {
+      justify-content: flex-start;
+    }
+}
+
+@media (min-width: 768px) {
+    .range > .cell-sm-6 {
+      flex-basis: 50%;
+      max-width: 50%;
+    }
+}
+
+[class*="cell-"] {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.range > [class*="cell"] {
+    flex: 0 0 auto;
+}
+
+.range {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+.range-50 > * {
+    pointer-events: auto;
+}
+
+@media (min-width: 768px) {
+    .range-50 {
+      transform: translateY(-50px);
+      margin-bottom: -50px;
+    }
+}
+
+.range-50 {
+    position: relative;
+    pointer-events: none;
+}
+
+.thumb-line {
+    position: relative;
+    padding: 20px;
+}
+
+
+.thumb-line img {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+
+}
+
+
+#img-book {
+    display: inline-block;
+    max-width: 100%;
+    height: auto; 
+    vertical-align: middle;
+    border: 0
+}
+
+#img-telecharger {
+    display: inline-block;
+    max-width: 100%;
+    height: 600px; 
+    vertical-align: middle;
+    border: 0;
+}
+
+.fadeInLeftSmall {
+    animation-name: fadeInLeftSmall;
+}
+
+@media (min-width: 992px) {
+    .heading-1 {
+        font-size: 60px;
+        line-height: 1.33333;
+        text-align: center;
+        
+    }
+}
+
+.heading-1 {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-family: "Josefin Sans", Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    color: #151515;
+}
+
+p {
+    margin: 0;
+    font-family: "Josefin Sans", Helvetica, Arial, sans-serif;
+}
+   
+
+.q1, .q2, .q3, .q4 {
+    text-align: justify;
+    margin-left: 4rem;
+    margin-top: 1rem;
+    font-size: larger;
+}
+
+.q4 {
+    margin-right: 5rem;
+}
+
+hr {
+    width: 70%;
+    color: black;
+}
+
+
+.inscrire {
+    text-align: center;
+}
+
+.inscrire > h1 {
+    font-size: 50px;
+    margin-top: 2rem;
+}

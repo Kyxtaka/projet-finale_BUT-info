@@ -80,25 +80,25 @@ main {
     border-color: #000000;
 }
 
- footer {
+
+footer {
     background-color: #FFFFFF;
-    position: fixed;
     bottom: 0;
     width: 100%;
     border-top: 1px solid;
 }
 
  #appstore {
-    height: 50px;
+    float:left;
+    height: 45px;
 }
 
  #googleplay {
+    float:left;
     height: 45px;
 }
 
 #groupe {
-    position: absolute;
-    top: 32px;
-    left : 540px;
+    margin-top:1%;
     text-align: center;
 }

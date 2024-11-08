@@ -196,7 +196,7 @@ def inscription():
   
 @app.route("/information")
 def information():
-    return render_template("information.html")
+    return render_template("informations.html")
 
 @app.route("/services")
 def services():
@@ -285,8 +285,6 @@ def mesBiens():
         pieces = []
     return render_template("mesBiens.html",logements=logements,logement_id=logement_id,pieces=pieces,logement_actuel=logement_actuel)
 
-    return render_template("afficheLogements.html", logements=logements)
-
 
 # Endpoint pour la page d'ajout de logement
 # utilise la methode POST pour l'envoi de formulaire
@@ -302,11 +300,8 @@ def get_pieces(logement_id):
 @app.route("/bien/ajout", methods=("GET", "POST",))
 @login_required
 def ajout_bien():
-    session = db.session
-    form = AjoutBienForm()
-    proprio = Proprietaire.query.get(current_user.id_user)
-    bien = proprio.bien
-    if form.validate_on_submit():
+    form_bien = AjoutBienForm()
+    if form_bien.validate_on_submit():
         try:
             print("Logs:", form_logs(form_bien))
             handle_form_bien(form_bien)
