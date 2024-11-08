@@ -1,4 +1,4 @@
-.logements {
+/* .logements {
     margin: 10rem;
 }
 
@@ -107,7 +107,7 @@ main {
     color:#5E5DF0;
 }
 
-/* apparence tableaux */
+
 .derniers_ajouts, .a_justifier {
     padding: 5px;
     border-top: 0.5mm solid;
@@ -160,4 +160,63 @@ footer {
 .p-footer {
     text-align: center;
     margin-top: 10px;
+} */
+
+
+.box-ajout {
+    display: flex;
+    justify-content: space-evenly;
+    background-color: rgb(211 211 211 / .6);
+    padding-top:3%;
+    padding-bottom:3%;
 }
+
+.box-ajout>div  {
+    width:20%;
+    flex-wrap: nowrap;
+    text-align: center;
+    background-color: black;
+    box-shadow: 2px 2px 15px 4px rgba(0, 0, 0, 0.1);
+}
+
+.accueil2 .tableau-ajout {
+    position: absolute;
+    top: 400px;
+    right:40%;
+    border: thin;
+
+}
+.ajout-elem {
+    width:100%;
+    display:block;
+    background-color: gray;
+    color: white;
+    padding:3px;
+}
+.ajout-elem:hover {
+    color:#5E5DF0;
+}
+
+/* apparence tableaux */
+.derniers_ajouts, .a_justifier {
+    padding: 5px;
+    border-top: 0.5mm solid;
+    margin-bottom: 1%;
+    border-color: lightgray;
+}
+
+.tableau {
+    border:0.5mm solid;
+}
+
+.voir_plus {
+    color: gray;
+    display: block;
+    text-align:center;
+    margin-top: 1%;
+
+}
+.voir_plus:hover {
+    color:#5E5DF0;
+}
+

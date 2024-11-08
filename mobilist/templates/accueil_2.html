@@ -18,52 +18,6 @@
   </head>
 <body>
   <div class="accueil2"> 
-    <header>
-      <section id="section-compte" class="">
-          <a class="liste-acces" href=''>Mon compte</a>
-          <a class="liste-acces" href=''>Aide</a>
-          <a class="liste-acces" href="{{ url_for('logout')}}">Déconnexion</a>
-      </section>
-      <!-- Fixed navbar -->
-      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-white">
-        <a href="{{ url_for('accueil_connexion') }}">
-          <img src="{{ url_for('static',filename='img/logo_mobilist.jpg') }}" alt="logo du site"/>
-        </a>
-        <div class="container-fluid">
-          <div class="collapse navbar-collapse" id="navbar-collapse">
-              <ul class="navbar-nav-left">
-                  <li class="nav-img" >
-                    <img src="{{ url_for('static',filename='img/accueil.png') }}" alt="icône accueil"/>
-                  </li>
-                  <li class="nav-item-accueil">
-                    <a class="nav-link active" aria-current="page" href="{{ url_for('accueil_connexion') }}">Accueil</a>
-                </li>
-              <li class="nav-img" >
-                <img src="{{ url_for('static',filename='img/mes-biens.png') }}" alt="icône nos services"/>
-              </li>
-              <li class="nav-item-bien">
-                <a class="nav-link active" aria-current="page" href="{{ url_for('mesBiens')}}">Mes biens</a>
-              </li> 
-              <li class="nav-img" >
-                <img src="{{ url_for('static',filename='img/mes-logements.png') }}" alt="icône contact"/>
-              </li>
-              <li class="nav-item-logement">
-                <a class="nav-link active" aria-current="page" href="{{ url_for('affiche_logements') }}">Mes logements</a>
-              </li> 
-              <li class="nav-img" >
-                <img src="{{ url_for('static',filename='img/simuler-sinistre.png') }}" alt="icône avis"/>
-              </li>
-              <li class="nav-item-sinistre">
-                <a class="nav-link active" aria-current="page" href="{{ url_for('simulation') }}">Simuler un sinistre</a>
-              </li> 
-              <li id="connexion">
-                <a id="bouton-compte" href="{{ url_for('accueil_connexion') }}">
-                  <button class="connexion" id="bouton-compte">Mon compte
-                  </button>
-                </a>
-              </li>       
-        </nav> 
-  </header>
   <main>
     {% block content %}
     <section class="ajout">

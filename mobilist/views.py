@@ -339,7 +339,7 @@ def affiche_logements():
                     print("Erreur lors de la suppression du logement")
                     print(e)
             case "UPDATE_LOGEMENT":
-                try:
+                try: 
                     print("UPDATE_LOGEMENT")
                     id_logement = request.form.get("id")
                     logement = Logement.query.get(id_logement)
