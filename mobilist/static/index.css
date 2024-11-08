@@ -1,14 +1,15 @@
- img {
-    height: 82px;
+.index img {
+    height: 65px;
+    margin-top:-4px;
 }
 
 main {
     margin-top: 6.1rem;
     margin-bottom: 6.1rem;
 }
- nav {
-    border-bottom: 1px solid;
-    
+.navbar {
+    height: 70px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 #navbar-collapse  a {
@@ -19,28 +20,36 @@ main {
     margin-bottom: 6.1rem;
 }
 
- ul {
+.index ul {
     display: flex;
     flex-wrap: nowrap;
-    margin-left: 30px;
     list-style: none;
+    margin-left:-15px;
 }
 
- li {
-    margin-left: 30px;
-    font-size: 20px;
+.index li {
+    margin-left: 35px;
+    font-size: 17px;
     text-align: center;
     margin-top: 2%;
 }
 
-
-.nav-img img {
-    height: 24px;
-    position:absolute;
-    top : 36px;
+.index li div{
+    display: flex;
+    flex-wrap: nowrap;
 }
 
- button {
+.index li div img{
+    margin-left: -20px;
+    margin-top: 9px;
+    width: auto;
+    height: 27px;
+}
+
+
+
+
+.index button {
   box-sizing: border-box;
   cursor: pointer;
   font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
@@ -55,49 +64,51 @@ main {
   touch-action: manipulation;
   width: fit-content;
   word-break: break-word;
-  position: absolute;
-  top: 28px;
+  top: 18px;
 }
 
- .connexion {
+.connexion, .mon_compte {
     border-radius: 999px;
     background: #5E5DF0;
     box-shadow: #5E5DF0 0 10px 20px -10px;
     color: #FFFFFF;
     position: absolute;
-    right: 280px;
+    right: 200px;
     border: 0;
+}
+
+.mon_compte{
+    right:25px;
 }
 
  .information {
     border-radius: 999px;
     background: #FFFFFF;
-    box-shadow: #5E5DF0 0 10px 20px -10px;
+    box-shadow: #5E5DF0 0 3px 20px -10px;
     color: #000000;
     position: absolute;
     right: 25px;
     border: 1px solid;
-    border-color: #000000;
+    border-color: gray;
 }
 
  footer {
+    height: 65px;
     background-color: #FFFFFF;
     bottom: 0;
     width: 100%;
-    border-top: 1px solid;
+    box-shadow: rgba(100, 100, 111, 0.2) 29px 29px 29px 29px;
 }
 
  #appstore {
-    float:left;
-    height: 45px;
+    height: 40px;
 }
 
  #googleplay {
-    float:left;
-    height: 45px;
+    height: 35px;
 }
 
 #groupe {
-    margin-top:1%;
+    margin-top:-32px;
     text-align: center;
 }
