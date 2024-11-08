@@ -205,7 +205,9 @@ def services():
 def affiche_logements():
     session = db.session
     proprio = Proprietaire.query.get(current_user.id_user)
-    logements = proprio.logements
+    logements = []
+    for logement in proprio.logements:
+        logements.append(logement)
     type_logement = [type for type in LogementType]
     if request.method == "POST": #utilisation de request car pas envie d'utiliser les méthodes de flask, car j utilise JS
         print("recerption de la requete")
@@ -249,9 +251,11 @@ def affiche_logements():
                     print("Erreur lors de la modification du logement")
                     print(e)
                 # return render_template("updateLogement.html", logement=logement)
-        proprio = Proprietaire.query.get(current_user.id_user)
-        logements = proprio.logements
-        return render_template("afficheLogements.html", logements=logements, type_logement=type_logement)
+        if len(logements)>0:
+            return render_template("afficheLogements.html", logements=logements, type_logement=type_logement, contenu=True)
+        else:
+            return render_template("afficheLogements.html", logements=logements, type_logement=type_logement, contenu=False)
+            
     return render_template("afficheLogements.html", logements=logements, type_logement=type_logement)
 
 

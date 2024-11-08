@@ -1,25 +1,26 @@
 ####################################################################################################################
-# Fichier set data Test, une partie de ce fichier à été généré avec l'IA Chatgpt pour creer un set de données tests#
+# Fichier de données généré partiellement avec Chatgpt #
 ####################################################################################################################
 # Attention verifier si le fichier est conforme a notre application (note aux devs)
+
 # Table PROPRIETAIRE
 - TYPE: PROPRIETAIRE
   ID_PROPRIETAIRE: 1
   NOM: BOCQUET
   PRENOM: Clémence
-  MAIL: random1@r.fr
+  MAIL: clemence@mail.com
 
 - TYPE: PROPRIETAIRE
   ID_PROPRIETAIRE: 2
   NOM: VALIN
   PRENOM: Ophélie
-  MAIL: random2@r1.fr
+  MAIL: ophelie@mail.com
 
 - TYPE: PROPRIETAIRE
   ID_PROPRIETAIRE: 3
   NOM: AKHTAR
   PRENOM: Naima
-  MAIL: random3@r.fr
+  MAIL: naima@mail.com
 
 - TYPE: PROPRIETAIRE
   ID_PROPRIETAIRE: 4
@@ -31,308 +32,244 @@
   ID_PROPRIETAIRE: 5
   NOM: VILCOQ
   PRENOM: Yohann
-  MAIL: random5@r.fr
+  MAIL: yohann@mail.com
 
 - TYPE: PROPRIETAIRE
   ID_PROPRIETAIRE: 6
   NOM: DALAIGRE
-  PRENOM: Christophe
-  MAIL: random6@r.fr
+  PRENOM: Chritophe
+  MAIL: christophe@mail.com
 
 # Table LOGEMENT
-- TYPE: LOGEMENT
-  NOM_LOGEMENT: "log1"
+- TYPE : LOGEMENT
   ID_LOGEMENT: 1
-  TYPE_LOGEMENT: MAISON
-  ADRESSE: '2 rue du pavillon, 71004 Paris'
-  DESCRIPTION: 'maison principale située à Paris avec toutes mes voitures'
+  NOM_LOGEMENT: "Appartement Rivoli"
+  TYPE_LOGEMENT: "APPART"
+  ADRESSE: "123 Rue de Rivoli, 75001 Paris, France"
+  DESCRIPTION: "Appartement cosy situé au cœur de Paris."
+  ID_PROPRIETAIRE: 1
 
-- TYPE: LOGEMENT
-  NOM_LOGEMENT: 'Résidence étudiante Aristote'
+- TYPE : LOGEMENT 
   ID_LOGEMENT: 2
-  TYPE_LOGEMENT: APPART
-  ADRESSE: "1-5-7, Esplanade de l'Université, 45100 Orléans"
-  DESCRIPTION: 'Appartement étudiant située à Orléans pour mes études de BUT Info'
-
-- TYPE: LOGEMENT
-  NOM_LOGEMENT: "Palais de l'Elysée"
+  NOM_LOGEMENT: "Maison de la Plage"
+  TYPE_LOGEMENT: "MAISON"
+  ADRESSE: "45 Avenue de la Mer, 34200 Sète, France"
+  DESCRIPTION: "Maison spacieuse avec accès direct à la plage."
+  ID_PROPRIETAIRE: 1
+  
+- TYPE : LOGEMENT
   ID_LOGEMENT: 3
-  TYPE_LOGEMENT: APPART
-  ADRESSE: "Palais de l'Elysée, rue Faubourg-Saint-Honoré"
-  DESCRIPTION: 'Chambre du futur président de France'
+  NOM_LOGEMENT: "Studio Montmartre"
+  TYPE_LOGEMENT: "APPART"
+  ADRESSE: "12 Rue Lepic, 75018 Paris, France"
+  DESCRIPTION: "Studio charmant dans le quartier animé de Montmartre."
+  ID_PROPRIETAIRE: 1
 
-- TYPE: LOGEMENT
-  NOM_LOGEMENT: 'Maison secondaire'
+- TYPE : LOGEMENT
   ID_LOGEMENT: 4
-  TYPE_LOGEMENT: MAISON
-  ADRESSE: '102 rue du flask, 10450 YFZEVL'
-  DESCRIPTION: 'maison secondaire avec piscine'
+  NOM_LOGEMENT: "Villa Provence"
+  TYPE_LOGEMENT: "MAISON"
+  ADRESSE: "5 Chemin des Oliviers, 13100 Aix-en-Provence, France"
+  DESCRIPTION: "Grande villa entourée de champs de lavande."
+  ID_PROPRIETAIRE: 1
 
-- TYPE: LOGEMENT
-  NOM_LOGEMENT: 'Appartement étudiant'
+- TYPE : LOGEMENT
   ID_LOGEMENT: 5
-  TYPE_LOGEMENT: MAISON
-  ADRESSE: '45 rue dbsdk fjbh, 10450 AILUDHB'
-  DESCRIPTION: 'appart étu'
+  NOM_LOGEMENT: "Chalet des Alpes"
+  TYPE_LOGEMENT: "MAISON"
+  ADRESSE: "10 Rue des Sapins, 74400 Chamonix, France"
+  DESCRIPTION: "Chalet avec vue sur les montagnes."
+  ID_PROPRIETAIRE: 2
 
-- TYPE: LOGEMENT
-  NOM_LOGEMENT: 'Maison secondaire'
+- TYPE : LOGEMENT
   ID_LOGEMENT: 6
-  TYPE_LOGEMENT: MAISON
-  ADRESSE: 'Isekai de truck, 666 Hell'
-  DESCRIPTION: 'maison secondaire située dans un monde parallèle'
+  NOM_LOGEMENT: "Appartement du Port"
+  TYPE_LOGEMENT: "APPART"
+  ADRESSE: "67 Quai des Chartrons, 33300 Bordeaux, France"
+  DESCRIPTION: "Appartement moderne avec vue sur la Garonne."
+  ID_PROPRIETAIRE: 3
+
+- TYPE : LOGEMENT
+  ID_LOGEMENT: 7
+  NOM_LOGEMENT: "Maison du Lac"
+  TYPE_LOGEMENT: "MAISON"
+  ADRESSE: "3 Allée du Lac, 73100 Aix-les-Bains, France"
+  DESCRIPTION: "Maison paisible au bord du lac."
+  ID_PROPRIETAIRE: 4
+
+- TYPE : LOGEMENT
+  ID_LOGEMENT: 8
+  NOM_LOGEMENT: "Loft Industriel"
+  TYPE_LOGEMENT: "APPART"
+  ADRESSE: "14 Rue des Forges, 69001 Lyon, France"
+  DESCRIPTION: "Loft style industriel dans un quartier dynamique."
+  ID_PROPRIETAIRE: 5
+
+- TYPE : LOGEMENT
+  ID_LOGEMENT: 9
+  NOM_LOGEMENT: "Villa des Pins"
+  TYPE_LOGEMENT: "MAISON"
+  ADRESSE: "18 Route des Pins, 64310 Saint-Pée-sur-Nivelle, France"
+  DESCRIPTION: "Villa entourée de pins avec piscine privée."
+  ID_PROPRIETAIRE: 6
+
 
 # Table PIECE de LOGEMENT
-- TYPE: PIECE
+- TYPE : PIECE
   ID_PIECE: 1
-  NOM_PIECE: Cuisine - arrière-cuisine
-  DESCRIPTION: 'Espace pour préparer les repas et stocker les équipements de cuisine'
-  ID_LOGEMENT: 1
+  NOM_PIECE: "Salon"
+  DESCRIPTION: "Salon spacieux avec canapé et TV"
+  ID_LOGEMENT: 4
 
-- TYPE: PIECE
+- TYPE : PIECE
   ID_PIECE: 2
-  NOM_PIECE: Salon
-  DESCRIPTION: 'Espace principal de détente et de réception'
-  ID_LOGEMENT: 1
+  NOM_PIECE: "Cuisine"
+  DESCRIPTION: "Cuisine équipée"
+  ID_LOGEMENT: 4
 
-- TYPE: PIECE
+- TYPE : PIECE
   ID_PIECE: 3
-  NOM_PIECE: Salon
-  DESCRIPTION: 'Espace principal de détente et de réception'
-  ID_LOGEMENT: 2
+  NOM_PIECE: "Chambre 1"
+  DESCRIPTION: "Chambre parentale avec lit double"
+  ID_LOGEMENT: 4
 
-- TYPE: PIECE
+- TYPE : PIECE
   ID_PIECE: 4
-  NOM_PIECE: Cuisine - arrière-cuisine
-  DESCRIPTION: 'Espace pour préparer les repas et stocker les équipements de cuisine'
-  ID_LOGEMENT: 2
-
-- TYPE: PIECE
+  NOM_PIECE: "Chambre 2"
+  DESCRIPTION: "Chambre d'amis avec lits jumeaux"
+  ID_LOGEMENT: 4
   ID_PIECE: 5
-  NOM_PIECE: Chambre1
-  DESCRIPTION: 'Chambre des parents'
-  ID_LOGEMENT: 2
+  NOM_PIECE: "Salle de bain"
+  DESCRIPTION: "Salle de bain avec douche et baignoire"
+  ID_LOGEMENT: 4
 
-- TYPE: PIECE
+- TYPE : PIECE
   ID_PIECE: 6
-  NOM_PIECE: Chambre2
-  DESCRIPTION: 'Chambre du bébé'
-  ID_LOGEMENT: 2
+  NOM_PIECE: "Terrasse"
+  DESCRIPTION: "Terrasse ensoleillée avec vue sur jardin"
+  ID_LOGEMENT: 4
 
-- TYPE: PIECE
+- TYPE : PIECE
   ID_PIECE: 7
-  NOM_PIECE: Salon
-  DESCRIPTION: 'Espace principal de détente et de réception'
-  ID_LOGEMENT: 3
+  NOM_PIECE: "Salon"
+  DESCRIPTION: "Salon confortable"
+  ID_LOGEMENT: 5
 
-- TYPE: PIECE
+- TYPE : PIECE
   ID_PIECE: 8
-  NOM_PIECE: Cuisine - arrière-cuisine
-  DESCRIPTION: 'Espace pour préparer les repas et stocker les équipements de cuisine'
-  ID_LOGEMENT: 3
+  NOM_PIECE: "Cuisine"
+  DESCRIPTION: "Cuisine équipée"
+  ID_LOGEMENT: 5
 
-- TYPE: PIECE
+- TYPE : PIECE
   ID_PIECE: 9
-  NOM_PIECE: Chambre1
-  DESCRIPTION: 'Chambre des parents'
-  ID_LOGEMENT: 3
+  NOM_PIECE: "Chambre"
+  DESCRIPTION: "Chambre avec lit double"
+  ID_LOGEMENT: 5
 
 
 # Table categorie de BIEN
-- TYPE: CATEGORIE_BIEN
+- TYPE : CATEGORIE_BIEN
   ID_CATEGORIE: 1
-  NOM_CATEGORIE: Mobilier
+  NOM_CATEGORIE: "Électronique"
 
-- TYPE: CATEGORIE_BIEN
+- TYPE : CATEGORIE_BIEN
   ID_CATEGORIE: 2
-  NOM_CATEGORIE: Gros électroménager
+  NOM_CATEGORIE: "Mobilier"
 
-- TYPE: CATEGORIE_BIEN
+- TYPE : CATEGORIE_BIEN
   ID_CATEGORIE: 3
-  NOM_CATEGORIE: Petit électroménager
+  NOM_CATEGORIE: "Électroménager"
 
-- TYPE: CATEGORIE_BIEN
+- TYPE : CATEGORIE_BIEN
   ID_CATEGORIE: 4
-  NOM_CATEGORIE: Service de table
+  NOM_CATEGORIE: "Décoration"
 
-- TYPE: CATEGORIE_BIEN
-  ID_CATEGORIE: 5
-  NOM_CATEGORIE: Divers
-
-- TYPE: CATEGORIE_BIEN
-  ID_CATEGORIE: 6
-  NOM_CATEGORIE: Electronique
 
 # Table type de BIEN
-- TYPE: TYPE_BIEN
+- TYPE : TYPE_BIEN
   ID_TYPE: 1
-  NOM_TYPE: 'cuisine'
+  NOM_TYPE: "TV"
 
-- TYPE: TYPE_BIEN
+- TYPE : TYPE_BIEN
   ID_TYPE: 2
-  NOM_TYPE: 'réfrigérateur, congélateur, lave-vaisselle'
+  NOM_TYPE: "Table"
 
-- TYPE: TYPE_BIEN
+- TYPE : TYPE_BIEN
   ID_TYPE: 3
-  NOM_TYPE: 'cafetière, bouilloire'
+  NOM_TYPE: "Réfrigérateur"
 
-- TYPE: TYPE_BIEN
+- TYPE : TYPE_BIEN
   ID_TYPE: 4
-  NOM_TYPE: 'vaisselle (assiettes, verres, couverts, plats)'
-
-- TYPE: TYPE_BIEN
-  ID_TYPE: 5
-  NOM_TYPE: 'ecran, tv, hifi'
-
-- TYPE: TYPE_BIEN
-  ID_TYPE: 6
-  NOM_TYPE: 'canapé, table, chaise, bureau'
-
-- TYPE: TYPE_BIEN
-  ID_TYPE: 7
-  NOM_TYPE: 'lit, armoire, commode'
-
-- TYPE: TYPE_BIEN
-  ID_TYPE: 8
-  NOM_TYPE: 'lave-linge, sèche-linge'
-
-- TYPE: TYPE_BIEN
-  ID_TYPE: 9
-  NOM_TYPE: 'machine d entretien (aspirateur, fer à repasser)'
+  NOM_TYPE: "Canapé"
 
 
 # Table BIEN (specific items and their details)
-- TYPE: BIEN
+- TYPE : BIEN
   ID_BIEN: 1
-  NOM_BIEN: 'Cuisine intégrée blanc laqué'
-  DATE_ACHAT: '2021-08-15'
-  PRIX: 12000
-  ID_PROPRIETAIRE: 5
-  ID_LOGEMENT: 1
-  ID_CATEGORIE: 1  # Mobilier
-  ID_TYPE_BIEN: 1
-  ID_PIECE: 1  # Cuisine - arrière-cuisine
-  ID_LOGEMENT: 1
+  NOM_BIEN: "TV écran plat"
+  DATE_ACHAT: "2022-01-15"
+  PRIX: 400
+  ID_PROPRIETAIRE: 1
+  ID_PIECE: 1
+  ID_TYPE_BIEN : 1
+  ID_LOGEMENT: 4
+  ID_CATEGORIE: 1
 
-- TYPE: BIEN
+- TYPE : BIEN
   ID_BIEN: 2
-  NOM_BIEN: 'Réfrigérateur congélateur'
-  DATE_ACHAT: '2020-11-10'
-  PRIX: 800
-  ID_LOGEMENT: 1
-  ID_PROPRIETAIRE: 5
-  ID_CATEGORIE: 2  # Gros électroménager
-  ID_TYPE_BIEN: 2
-  ID_PIECE: 1  # Cuisine - arrière-cuisine
-  ID_LOGEMENT: 1
+  NOM_BIEN: "Table basse"
+  DATE_ACHAT: "2022-01-20"
+  PRIX: 150
+  ID_PROPRIETAIRE: 1
+  ID_PIECE: 1
+  ID_TYPE_BIEN : 2
+  ID_LOGEMENT: 4
+  ID_CATEGORIE: 2
 
-- TYPE: BIEN
+- TYPE : BIEN
   ID_BIEN: 3
-  NOM_BIEN: 'Cafetière expresso'
-  DATE_ACHAT: '2022-03-05'
-  PRIX: 150
-  ID_LOGEMENT: 1
-  ID_PROPRIETAIRE: 5
-  ID_CATEGORIE: 3  # Petit électroménager
-  ID_TYPE_BIEN: 3
-  ID_PIECE: 1  # Cuisine - arrière-cuisine
-  ID_LOGEMENT: 1
+  NOM_BIEN: "Canapé"
+  DATE_ACHAT: "2022-02-10"
+  PRIX: 800
+  ID_PROPRIETAIRE: 1
+  ID_PIECE: 1
+  ID_TYPE_BIEN : 4
+  ID_LOGEMENT: 4
+  ID_CATEGORIE: 2
 
-- TYPE: BIEN
+- TYPE : BIEN
   ID_BIEN: 4
-  NOM_BIEN: 'Cuisine intégrée'
-  DATE_ACHAT: '2021-08-15'
-  PRIX: 12000
-  ID_PROPRIETAIRE: 5
-  ID_LOGEMENT: 2
-  ID_CATEGORIE: 1  # Mobilier
-  ID_TYPE_BIEN: 1
-  ID_PIECE: 4  # Cuisine - arrière-cuisine
-  ID_LOGEMENT: 2
+  NOM_BIEN: "Lampe de salon"
+  DATE_ACHAT: "2022-02-15"
+  PRIX: 50
+  ID_PROPRIETAIRE: 1
+  ID_PIECE: 1
+  ID_TYPE_BIEN : 1
+  ID_LOGEMENT: 4
+  ID_CATEGORIE: 2
 
-- TYPE: BIEN
-  ID_BIEN: 5
-  NOM_BIEN: 'Réfrigérateur congélateur'
-  DATE_ACHAT: '2020-11-10'
-  PRIX: 800
-  ID_LOGEMENT: 2
-  ID_PROPRIETAIRE: 5
-  ID_CATEGORIE: 2  # Gros électroménager
-  ID_TYPE_BIEN: 2
-  ID_PIECE: 4  # Cuisine - arrière-cuisine
-  ID_LOGEMENT: 2
+- TYPE : BIEN
+  ID_BIEN: 20
+  NOM_BIEN: "Chaise"
+  DATE_ACHAT: "2022-03-05"
+  PRIX: 50
+  ID_PROPRIETAIRE: 2
+  ID_PIECE: 7
+  ID_TYPE_BIEN : 1
+  ID_LOGEMENT: 5
+  ID_CATEGORIE: 2
 
-- TYPE: BIEN
-  ID_BIEN: 6
-  NOM_BIEN: 'Cafetière expresso'
-  DATE_ACHAT: '2022-03-05'
-  PRIX: 150
-  ID_LOGEMENT: 2
-  ID_PROPRIETAIRE: 5
-  ID_CATEGORIE: 3  # Petit électroménager
-  ID_TYPE_BIEN: 3
-  ID_PIECE: 4  # Cuisine - arrière-cuisine
-  ID_LOGEMENT: 2
-
-- TYPE: BIEN
-  ID_BIEN: 7
-  NOM_BIEN: 'Cuisine intégrée'
-  DATE_ACHAT: '2021-08-15'
-  PRIX: 12000
-  ID_PROPRIETAIRE: 5
-  ID_LOGEMENT: 2
-  ID_CATEGORIE: 1  # Mobilier
-  ID_TYPE_BIEN: 1
-  ID_PIECE: 4  # Cuisine - arrière-cuisine
-  ID_LOGEMENT: 2
-
-- TYPE: BIEN
-  ID_BIEN: 8
-  NOM_BIEN: 'Réfrigérateur congélateur'
-  DATE_ACHAT: '2020-11-10'
-  PRIX: 800
-  ID_LOGEMENT: 3
-  ID_PROPRIETAIRE: 5
-  ID_CATEGORIE: 2  # Gros électroménager
-  ID_TYPE_BIEN: 2
-  ID_PIECE: 6  # Cuisine - arrière-cuisine
-  ID_LOGEMENT: 3
-
-- TYPE: BIEN
-  ID_BIEN: 9
-  NOM_BIEN: 'Cafetière expresso'
-  DATE_ACHAT: '2022-03-05'
-  PRIX: 150
-  ID_LOGEMENT: 3
-  ID_PROPRIETAIRE: 5
-  ID_CATEGORIE: 3  # Petit électroménager
-  ID_TYPE_BIEN: 3
-  ID_PIECE: 6  # Cuisine - arrière-cuisine
-  ID_LOGEMENT: 3
-
-- TYPE: BIEN
-  ID_BIEN: 10
-  NOM_BIEN: 'Cuisine intégrée'
-  DATE_ACHAT: '2021-08-15'
-  PRIX: 12000
-  ID_PROPRIETAIRE: 5
-  ID_LOGEMENT: 3
-  ID_CATEGORIE: 1  # Mobilier
-  ID_TYPE_BIEN: 1
-  ID_PIECE: 6  # Cuisine - arrière-cuisine
-  ID_LOGEMENT: 3
-
-
-- TYPE: BIEN
-  ID_BIEN: 11
-  NOM_BIEN: 'Télévision écran plat'
-  DATE_ACHAT: '2021-01-10'
-  PRIX: 500
-  ID_PROPRIETAIRE: 5
-  ID_CATEGORIE: 6  # Electronique
-  ID_TYPE_BIEN: 5
-  ID_PIECE: 2  # Salon
-  ID_LOGEMENT: 1
+- TYPE : BIEN
+  ID_BIEN: 21
+  NOM_BIEN: "Table"
+  DATE_ACHAT: "2022-03-06"
+  PRIX: 100
+  ID_PROPRIETAIRE: 2
+  ID_PIECE: 7
+  ID_TYPE_BIEN : 1
+  ID_LOGEMENT: 5
+  ID_CATEGORIE: 2
 
 # Table JUSTIFICATIF (for each item)
 - TYPE: JUSTIFICATIF
@@ -367,21 +304,60 @@
   DESCRIPTION: "Si j'avais connu mobilist avant, je n'aurais pas pas perdu 5000€ à cause d'une inondation il y a 5 ans"
   ID_PROPRIETAIRE: 6
 
-
 # Table AVOIR : 
-- TYPE: AVOIR
-  ID_PROPRIETAIRE: 4
+- TYPE : AVOIR
+  ID_PROPRIETAIRE: 1
   ID_LOGEMENT: 1
 
-- TYPE: AVOIR
-  ID_PROPRIETAIRE: 4
+- TYPE : AVOIR
+  ID_PROPRIETAIRE: 1
   ID_LOGEMENT: 2
 
-- TYPE: AVOIR
-  ID_PROPRIETAIRE: 4
+- TYPE : AVOIR
+  ID_PROPRIETAIRE: 1
   ID_LOGEMENT: 3
 
-- TYPE: AVOIR
-  ID_PROPRIETAIRE: 5
-  ID_LOGEMENT: 1
+- TYPE : AVOIR
+  ID_PROPRIETAIRE: 1
+  ID_LOGEMENT: 4
 
+- TYPE : AVOIR
+  ID_PROPRIETAIRE: 2
+  ID_LOGEMENT: 5
+
+# Table User :
+- TYPE: USER
+  ID_USER: 1
+  MAIL: 'clemence@mail.com'
+  ROLE: "proprio"
+  PASSWORD: '1234'
+
+- TYPE: USER
+  ID_USER: 2
+  MAIL: 'ophelie@mail.com'
+  ROLE: "proprio"
+  PASSWORD: '1234'
+
+- TYPE: USER
+  ID_USER: 3
+  MAIL: 'naima@mail.com'
+  ROLE: "proprio"
+  PASSWORD: '1234'
+
+- TYPE: USER
+  ID_USER: 4
+  MAIL: 'nathan@mail.com'
+  ROLE: "proprio"
+  PASSWORD: '1234'
+
+- TYPE: USER
+  ID_USER: 5
+  MAIL: 'yohann@mail.com'
+  ROLE: "proprio"
+  PASSWORD: '1234'
+
+- TYPE: USER
+  ID_USER: 6
+  MAIL: 'christophe@mail.com'
+  ROLE: "proprio"
+  PASSWORD: '1234'
