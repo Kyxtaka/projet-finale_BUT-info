@@ -16,6 +16,8 @@ from wtforms import * #import de tous les champs
 from wtforms.validators import DataRequired
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import MultiDict
+from flask import send_file
+
 
 #constante : chemin d'acces au dossier de telechargement des justificatifs
 UPLOAD_FOLDER_JUSTIFICATIF = os.path.join(
@@ -396,3 +398,7 @@ def mesBiens():
         pieces = []
     return render_template("mesBiens.html",logements=logements,logement_id=logement_id,pieces=pieces,logement_actuel=logement_actuel)
 
+@app.route('/simulation/download')
+def download():
+    path = 'inventaire_pdf/inventaire.pdf'
+    return send_file(path, as_attachment=True)
