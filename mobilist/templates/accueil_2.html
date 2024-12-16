@@ -22,8 +22,8 @@
         <a class="ajout-elem" href="{{ url_for('ajout_bien') }}">Ajouter un bien</a>
       </div>
       <div>
-        <a href=""><img class="add" src="{{ url_for('static',filename='img/add.png') }}" alt="add something"></a>
-        <a class="ajout-elem" href="">Ajouter un logement</a>
+        <a href="{{ url_for('ajout_logement')}}"><img class="add" src="{{ url_for('static',filename='img/add.png') }}" alt="add something"></a>
+        <a class="ajout-elem" href="{{ url_for('ajout_logement')}}">Ajouter un logement</a>
       </div>
     </article>
   </section>

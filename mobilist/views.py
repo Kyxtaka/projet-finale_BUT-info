@@ -16,6 +16,7 @@ from wtforms import * #import de tous les champs
 from wtforms.validators import DataRequired
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import MultiDict
+import json
 
 #constante : chemin d'acces au dossier de telechargement des justificatifs
 UPLOAD_FOLDER_JUSTIFICATIF = os.path.join(
@@ -396,3 +397,25 @@ def mesBiens():
         pieces = []
     return render_template("mesBiens.html",logements=logements,logement_id=logement_id,pieces=pieces,logement_actuel=logement_actuel)
 
+@app.route("/logement/ajout", methods =["GET","POST"])
+def ajout_logement():
+    if request.method == "POST":
+        try:
+            session = db.session
+            proprio = Proprietaire.query.get(current_user.id_user)
+            logement = Logement(
+                id_logement=get_next_id(Logement),
+                nom_logement=request.form.get("name"),
+                adresse_logement=request.form.get("address"),
+                desc_logement=request.form.get("description"),
+                type_logement=LogementType[request.form.get("type")],
+                id_proprio=proprio.id_user
+            )
+            session.add(logement)
+            session.commit()
+            print("Logement ajouté")
+        except Exception as e:
+            session.rollback()
+            print("Erreur lors de l'ajout du logement")
+            print(e)
+    return render_template("ajout_logement.html", type_logement=[type for type in LogementType])

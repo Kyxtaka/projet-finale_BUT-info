@@ -865,3 +865,13 @@ def load_user(mail):
     return User.query.get(mail)
 
     
+def get_next_id(table: object) -> int:
+    """_summary_
+
+    Args:
+        table (object): La table pour laquelle on veut obtenir le prochain ID
+
+    Returns:
+        int: Le prochain ID disponible pour la table
+    """
+    return db.session.query(func.max(table)).scalar() + 1
