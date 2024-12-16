@@ -18,8 +18,7 @@ from werkzeug.utils import secure_filename
 from werkzeug.datastructures import MultiDict
 from flask import send_file
 from reportlab.pdfgen import canvas #pip install reportlab
-
-
+from datetime import date
 
 #constante : chemin d'acces au dossier de telechargement des justificatifs
 UPLOAD_FOLDER_JUSTIFICATIF = os.path.join(
@@ -403,18 +402,37 @@ def mesBiens():
 
 def generate_pdf() -> BytesIO:
     buffer = BytesIO()
-    p = canvas.Canvas(buffer)
+    canva = canvas.Canvas(buffer)
 
     user_data = dict() # {pièce1 : [objet1, objet2, objet3], pièce2 : ["objet1"]}
     user_data["cuisine"] = ["four", "frigo"]
     # Create a PDF document
+    proprio = Proprietaire.query.get(current_user.id_user)
+
+    canva.setFillColorRGB(0.38, 0.169, 0.718)
+    canva.setFont("Helvetica-Bold", 23)
+    canva.drawCentredString(300, 783,"Inventaire des biens")
+
+    canva.setFillColorRGB(0.792, 0.659, 1)
+    canva.rect(20, 700, 547, 30, fill=1, stroke=0)
+    canva.setFillColorRGB(0, 0, 0)
+    canva.setFont("Helvetica-Bold", 12)
+    canva.drawString(25, 710, f"VALEUR TOTALE ESTIMÉE DE TOUS LES BIENS : {date.today()}")
+
+    canva.setFillColorRGB(0, 0, 0)
+    
+
+    canva.setFont("Helvetica", 12)
+    canva.drawString(100,780, proprio.get_nom())
+    canva.drawString(100,770, proprio.get_prenom())
+
     for u in user_data.keys():
-        p.drawString(100, 680, f"elem : {user_data['cuisine']}")
-    p.drawString(100, 750, "Hello")
+        canva.drawString(100, 680, f"elem : {user_data['cuisine']}")
+    canva.drawString(150, 850, "Hello")
     y = 700
-    p.drawString(100, y, "voici votre inventaire : ")
-    p.showPage()
-    p.save()
+    canva.drawString(100, y, "voici votre inventaire : ")
+    canva.showPage()
+    canva.save()
 
     buffer.seek(0)
     return buffer
