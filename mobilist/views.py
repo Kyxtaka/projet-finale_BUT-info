@@ -377,13 +377,7 @@ def simulation():
     logements = []
     for logement in proprio.logements:
         logements.append(logement)
-    message = None
-    if request.method == "POST":
-        logement_id = request.form.get('logement_id')  
-        if not logement_id:
-            message = "Veuillez sélectionner un logement, puis réessayer."
-    return render_template("simulation.html",logements=logements,message=message)
-
+    return render_template("simulation.html",logements=logements)
 
 @app.route("/mon-compte/", methods =("POST" ,"GET",))
 def mon_compte():
@@ -406,48 +400,62 @@ def mesBiens():
     return render_template("mesBiens.html",logements=logements,logement_id=logement_id,pieces=pieces,logement_actuel=logement_actuel)
 
 @login_required
-@app.route("/simulation/", methods =("GET","POST"))
+@app.route("/generate_pdf/", methods =("GET","POST" ,))
 def generate_pdf() -> BytesIO:
     buffer = BytesIO()
     canva = canvas.Canvas(buffer)
-
     proprio = Proprietaire.query.get(current_user.id_user)
-    logement_id = request.args.get("logement")
-    loge = Logement.query.get(logement_id)
+    logements = []
+    for logement in proprio.logements:
+        logements.append(logement)
+    if request.method == "POST":
+        logement_id = request.form.get('logement_id')
+        sinistre_annee = request.form.get('sinistre_annee')
+        sinistre_type = request.form.get('sinistre_type')
+
+        if not logement_id:
+            message = "Veuillez sélectionner un logement."
+        elif not sinistre_annee:
+            message = "Veuillez indiquer l'année du sinistre."
+        elif not sinistre_type:
+            message = "Veuillez sélectionner un type de sinistre."
+        else:
+
     
-    canva.setFillColorRGB(0.38, 0.169, 0.718)
-    canva.setFont("Helvetica-Bold", 23)
-    canva.drawCentredString(300, 783,"Inventaire des biens")
+            canva.setFillColorRGB(0.38, 0.169, 0.718)
+            canva.setFont("Helvetica-Bold", 23)
+            canva.drawCentredString(300, 783,"Inventaire des biens")
 
-    canva.setFillColorRGB(0.792, 0.659, 1)
-    canva.rect(20, 700, 547, 30, fill=1, stroke=0)
-    canva.setFillColorRGB(0, 0, 0)
-    canva.setFont("Helvetica-Bold", 12)
-    canva.drawString(25, 710, f"VALEUR TOTALE ESTIMÉE DE TOUS LES BIENS : {date.today()}")
+            canva.setFillColorRGB(0.792, 0.659, 1)
+            canva.rect(20, 700, 547, 30, fill=1, stroke=0)
+            canva.setFillColorRGB(0, 0, 0)
+            canva.setFont("Helvetica-Bold", 12)
+            canva.drawString(25, 710, f"VALEUR TOTALE ESTIMÉE DE TOUS LES BIENS : {date.today()}")
 
-    canva.setFillColorRGB(0.827, 0.827, 0.827)
-    canva.rect(20, 668, 547, 30, fill=1, stroke=0)
-    canva.setFillColorRGB(0, 0, 0)
-    canva.setFont("Helvetica", 12)
-    canva.drawString(25, 680, f"NOM : {proprio.get_nom()} {proprio.get_prenom()}")
+            canva.setFillColorRGB(0.827, 0.827, 0.827)
+            canva.rect(20, 668, 547, 30, fill=1, stroke=0)
+            canva.setFillColorRGB(0, 0, 0)
+            canva.setFont("Helvetica", 12)
+            canva.drawString(25, 680, f"NOM : {proprio.get_nom()} {proprio.get_prenom()}")
 
-    canva.setFillColorRGB(0.827, 0.827, 0.827)
-    canva.rect(20, 636, 547, 30, fill=1, stroke=0)
-    canva.setFillColorRGB(0, 0, 0)
-    canva.setFont("Helvetica", 12)
-    canva.drawString(25, 650, f"MAIL : {proprio.get_mail()}")
+            canva.setFillColorRGB(0.827, 0.827, 0.827)
+            canva.rect(20, 636, 547, 30, fill=1, stroke=0)
+            canva.setFillColorRGB(0, 0, 0)
+            canva.setFont("Helvetica", 12)
+            canva.drawString(25, 650, f"MAIL : {proprio.get_mail()}")
 
-    canva.setFillColorRGB(0.827, 0.827, 0.827)
-    canva.rect(20, 604, 547, 30, fill=1, stroke=0)
-    canva.setFillColorRGB(0, 0, 0)
-    canva.setFont("Helvetica", 12)
-    canva.drawString(25, 650, f"ADRESSE DU LOGEMENT : {loge.get_adresse_logement()}")
+            canva.setFillColorRGB(0.827, 0.827, 0.827)
+            canva.rect(20, 604, 547, 30, fill=1, stroke=0)
+            canva.setFillColorRGB(0, 0, 0)
+            canva.setFont("Helvetica", 12)
+            canva.drawString(25, 650, f"ADRESSE DU LOGEMENT : {loge.get_adresse_logement()}")
 
-    canva.showPage()
-    canva.save()
+            canva.showPage()
+            canva.save()
 
-    buffer.seek(0)
-    return buffer
+            buffer.seek(0)
+            return buffer
+    return render_template("simulation.html", logements=logements, message=message)
 
 @app.route("/simulation/export", methods=['GET','POST'])
 @login_required

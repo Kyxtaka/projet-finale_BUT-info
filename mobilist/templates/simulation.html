@@ -28,10 +28,10 @@
     </div>
     <div class="logement">
         <p>Logement concerné :</p>
-        <select name="logement" id="logement-select">
+        <select name="logement_id" id="logement-select">
             <option value="">-- Choisissez un logement --</option>
             {% for loge in logements %}
-                <option value="{{ loge }}">{{ loge.nom_logement }}</option>
+                <option value="{{ loge.id_logement }}">{{ loge.nom_logement }}</option>
             {% endfor %}
         </select>
     </div>
@@ -61,7 +61,10 @@
     </div>
     <div class="telecharger">
         <p>Rapport détaillé</p>
-        <form action="{{ url_for('simulation') }}" method="POST">
+        <form action="{{ url_for('generate_pdf') }}" method="POST">
+            <input type="hidden" name="sinistre_annee" id="sinistre-annee">
+            <input type="hidden" name="sinistre_type" id="sinistre-type">
+            <input type="hidden" name="logement_id" id="logement-id">
             <button type="submit" class="download-btn">TÉLÉCHARGER</button>
         </form>
         {% if message %}
