@@ -17,6 +17,8 @@ from wtforms.validators import DataRequired
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import MultiDict
 from flask import send_file
+from reportlab.pdfgen import canvas #pip install reportlab
+
 
 
 #constante : chemin d'acces au dossier de telechargement des justificatifs
@@ -398,7 +400,27 @@ def mesBiens():
         pieces = []
     return render_template("mesBiens.html",logements=logements,logement_id=logement_id,pieces=pieces,logement_actuel=logement_actuel)
 
-@app.route('/simulation/download')
-def download():
-    path = 'inventaire_pdf/inventaire.pdf'
-    return send_file(path, as_attachment=True)
+
+def generate_pdf() -> BytesIO:
+    buffer = BytesIO()
+    p = canvas.Canvas(buffer)
+
+    user_data = dict() # {pièce1 : [objet1, objet2, objet3], pièce2 : ["objet1"]}
+    user_data["cuisine"] = ["four", "frigo"]
+    # Create a PDF document
+    for u in user_data.keys():
+        p.drawString(100, 680, f"elem : {user_data['cuisine']}")
+    p.drawString(100, 750, "Hello")
+    y = 700
+    p.drawString(100, y, "voici votre inventaire : ")
+    p.showPage()
+    p.save()
+
+    buffer.seek(0)
+    return buffer
+
+@app.route("/simulation/export", methods=['GET','POST'])
+@login_required
+def export():
+    pdf_file = generate_pdf()
+    return send_file(pdf_file, as_attachment=True, download_name='book_catalog.pdf')
