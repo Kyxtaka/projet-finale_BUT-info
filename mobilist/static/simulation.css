@@ -105,14 +105,14 @@
     margin: 0px;
 }
 
-.simulation .telecharger button {
+.simulation .telecharger a {
     margin-top: 0px;
 }
 
 .simulation .telecharger .download-btn {
     position: relative;
     left: 0px;
-    top: 0px;
+    top: 15px;
     background-color: #000;
     color: #fff;
     padding: 13px 35px;
