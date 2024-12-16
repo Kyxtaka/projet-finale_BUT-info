@@ -10,7 +10,7 @@
 
 <section class="section-connexion">
   <a href="{{ url_for('home')}}"> <img src="{{ url_for('static',filename='img/logo_mobilist.jpg') }}" alt="retour"></a>
-  <h1>L'email a été envoyé à l'adresse {% email %}</h1> 
+  <h1>L'email a été envoyé à l'adresse {{ email }}</h1> 
 
 </section>
 {% endblock %}

@@ -69,7 +69,11 @@ class IncrisptionForm(FlaskForm):
         m.update(self.password.data.encode())
         passwd = m.hexdigest()
         return user if passwd == user.password else None
-
+    
+class ResetPasswordFrom(FlaskForm):
+    mdp = PasswordField("Mot de passe")
+    valider = PasswordField("Confirmer mot de passe")
+    
 class ModificationForm(FlaskForm):
     nom = StringField('Votre nom')
     prenom = StringField('Votre Prénom')
@@ -421,13 +425,22 @@ def page_oublie():
         return render_template("mdp_oublie.html", tentative=True, form=form)
     else:
         return render_template("envoi_email.html", email=form.email.data)
-    
+ 
+@app.route("/reset/", methods=["POST", "GET"])
+def valider():
+    form = ResetPasswordFrom()
+    if form.is_submitted():
+        if form.mdp.data == form.valider.data:
+            return redirect(url_for('home'))
+        else:
+            return render_template("reinitialiser_mdp.html", form=form, tentaive=True)
+    return render_template("reinitialiser_mdp.html", form=form, tentative=False)            
 
 def reset_password(mail):
     email = "exemplemobilist@outlook.com"
-    password = "iutorleans45"
-    subject = "Sujet de l'email"
-    body = "Ceci est le corps de votre email."
+    password = "ggzb gucf uynu djih"
+    subject = "Mobilist - réinitialiser votre mot de passe"
+    body = "Pour réinitialiser votre mot de passe Mobilist\n, veuillez accéder à la page suivante : http://127.0.0.1:5000/reset/"
 
     try:
         # Configuration du serveur SMTP
