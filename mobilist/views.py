@@ -399,13 +399,20 @@ def mesBiens():
         pieces = []
     return render_template("mesBiens.html",logements=logements,logement_id=logement_id,pieces=pieces,logement_actuel=logement_actuel)
 
-
+@app.route("/simulation/", methods =("GET","POST" ,))
 def generate_pdf() -> BytesIO:
     buffer = BytesIO()
     canva = canvas.Canvas(buffer)
 
     proprio = Proprietaire.query.get(current_user.id_user)
+    logement_id = request.args.get('logement_id') 
+    logements = []
+    for logement in proprio.logements:
+        logements.append(logement)
 
+    if not logement_id:
+        message = "Veuillez sélectionner un logement."
+        return render_template('simulation.html', logements=logements, message=message)
     canva.setFillColorRGB(0.38, 0.169, 0.718)
     canva.setFont("Helvetica-Bold", 23)
     canva.drawCentredString(300, 783,"Inventaire des biens")
@@ -422,6 +429,17 @@ def generate_pdf() -> BytesIO:
     canva.setFont("Helvetica", 12)
     canva.drawString(25, 680, f"NOM : {proprio.get_nom()} {proprio.get_prenom()}")
 
+    canva.setFillColorRGB(0.827, 0.827, 0.827)
+    canva.rect(20, 636, 547, 30, fill=1, stroke=0)
+    canva.setFillColorRGB(0, 0, 0)
+    canva.setFont("Helvetica", 12)
+    canva.drawString(25, 650, f"MAIL : {proprio.get_mail()}")
+
+    canva.setFillColorRGB(0.827, 0.827, 0.827)
+    canva.rect(20, 604, 547, 30, fill=1, stroke=0)
+    canva.setFillColorRGB(0, 0, 0)
+    canva.setFont("Helvetica", 12)
+    canva.drawString(25, 650, f"ADRESSE DU LOGEMENT : {logement_id.get_adresse_logement()}")
 
     canva.showPage()
     canva.save()

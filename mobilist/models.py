@@ -189,6 +189,14 @@ class Proprietaire(Base):
             str: Prénom du propriétaire
         """
         return self.prenom
+    
+    def get_mail(self):
+        """Getter du mail  
+
+        Returns:
+            str: mail du propriétaire
+        """
+        return self.mail
 
     def set_prenom(self, prenom):
         self.prenom = prenom
