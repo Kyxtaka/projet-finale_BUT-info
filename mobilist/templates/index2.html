@@ -9,74 +9,16 @@
     <link rel="stylesheet", href="{{ url_for('static',filename='index.css') }}">
     {% endblock %}
     <title>MobiList</title>
-    {% endblock %}
     {% block scripts %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-xrR3fF2ZqRG5FO9U2mDqDlZ9UJ0n6UJ0U2rZuXrU2mZ"> </script>
-    <script>
-      var styles = `
-        #section-compte {
-          position: absolute;
-          top:80px;
-          display: block;
-          right:4%;
-          background-color: #FFFFFF;
-          border: 0.5mm solid;
-          display: grid;
-          opacity:0;
-          z-index: 10000;
-        }`
-  
-      var styleSheet = document.createElement("style")
-      styleSheet.textContent = styles
-  
-      var styleshover = `
-        #section-compte {
-          position: absolute;
-          top:80px;
-          display: block;
-          right:4%;
-          background-color: #FFFFFF;
-          border: 0.5mm solid;
-          display: grid;
-          opacity:1;
-          z-index: 10000;
-        }`
-  
-      var styleSheethover = document.createElement("style")
-      styleSheethover.textContent = styleshover
-  
-      // la suite a été produit à l'aide de chatgpt
-      const btn = document.getElementById('bouton-compte');
-      const menu = document.getElementById('section-compte');
-    
-    
-      btn.addEventListener('mouseover', function() {
-        document.head.appendChild(styleSheethover);
-      });
-  
-      menu.addEventListener('mouseover', function() {
-        document.head.appendChild(styleSheethover);
-      });
-    
-      menu.addEventListener('mouseout', function() {
-        document.head.appendChild(styleSheet);
-      });
-  
-      btn.addEventListener('mouseout', function() {
-        document.head.appendChild(styleSheet);
-      });
-    </script>
+   
+    {% endblock %}
     {% endblock %}
 </head>
     <div class="index">
     <header>
-      <section id="section-compte" class="">
-        <a class="liste-acces" href=''>Mon compte</a>
-        <a class="liste-acces" href=''>Aide</a>
-        <a class="liste-acces" href="{{ url_for('logout')}}">Déconnexion</a>
-      </section>
       <!-- Fixed navbar -->
-      <section id="section-compte" class="">
+      <section id="section-compte">
         <a class="liste-acces" href=''>Mon compte</a>
         <a class="liste-acces" href=''>Aide</a>
         <a class="liste-acces" href="{{ url_for('logout')}}">Déconnexion</a>
@@ -114,9 +56,12 @@
                         <a class="nav-link active" aria-current="page" href="{{ url_for('simulation')}}">Simuler un sinistre</a>
                     </div>
                   </li>
-                  <li id="MonCompte">
-                      <button class="mon_compte">Mon compte</button>
-                  </li>   
+                  <li id="connexion">
+                    <a id="bouton-compte" href="{{ url_for('accueil_connexion') }}">
+                      <button class="connexion" id="bouton-compte">Mon compte
+                      </button>
+                    </a>
+                  </li>      
                 </ul>
               </div>
             </div>
@@ -137,6 +82,60 @@
       <p id="groupe"> © AKHTAR NAIMA - VALIN OPHÉLIE - BOCQUET CLÉMENCE - VILCOQ YOHANN - RANDRIANTSOA NATHAN </p>
     </div>
   </footer>
+  <script>
+    var styles = `
+      #section-compte {
+        position: absolute;
+        top:80px;
+        display: block;
+        right:4%;
+        background-color: #FFFFFF;
+        border: 0.5mm solid;
+        display: grid;
+        opacity:0;
+        z-index: 10000;
+      }`
+
+    var styleSheet = document.createElement("style")
+    styleSheet.textContent = styles
+
+    var styleshover = `
+      #section-compte {
+        position: absolute;
+        top:80px;
+        display: block;
+        right:4%;
+        background-color: #FFFFFF;
+        border: 0.5mm solid;
+        display: grid;
+        opacity:1;
+        z-index: 10000;
+      }`
+
+    var styleSheethover = document.createElement("style")
+    styleSheethover.textContent = styleshover
+
+    // la suite a été produit à l'aide de chatgpt
+    const btn = document.getElementById('bouton-compte');
+    const menu = document.getElementById('section-compte');
+  
+  
+    btn.addEventListener('mouseover', function() {
+      document.head.appendChild(styleSheethover);
+    });
+
+    menu.addEventListener('mouseover', function() {
+      document.head.appendChild(styleSheethover);
+    });
+  
+    menu.addEventListener('mouseout', function() {
+      document.head.appendChild(styleSheet);
+    });
+
+    btn.addEventListener('mouseout', function() {
+      document.head.appendChild(styleSheet);
+    });
+  </script>
 </body>
 
 </html>
