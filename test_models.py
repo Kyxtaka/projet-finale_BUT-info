@@ -96,6 +96,19 @@ class UserTest(unittest.TestCase):
          self.assertEqual(piece.get_id_piece(), 2)
          self.assertEqual(piece.get_nom_piece(), "garage")
          self.assertEqual(piece.get_id_logement(),1)
+   
+   def test_typebien(self):
+      with app.app_context():
+         typebien = TypeBien(2,"électroménager")
+         self.assertEqual(typebien.get_id_type(), 2)
+         self.assertEqual(typebien.get_nom_type(), "électroménager")
+   
+   def test_categorie(self):
+      with app.app_context():
+         cat = Categorie(2, "accessoire cuisine")
+         self.assertEqual(cat.get_id_cat(),2)
+         self.assertEqual(cat.get_nom_cat(), "accessoire cuisine")
+         
                
          
 
