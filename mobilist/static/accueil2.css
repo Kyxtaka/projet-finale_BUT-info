@@ -158,19 +158,20 @@ main {
 #panneau-droit {
     display: none;
     position: fixed;
-    right: 0%;
+    right: 0;
     top : 98px;
     width: 250px;
     height: 90%;
     background-color: rgba(255,255,255,0.7);
+    box-sizing: border-box;
+}
+
+.modal-header {
+    background-color: initial;
+    background-image: linear-gradient(-180deg, #5e5df0, #2a2ae7);
     color: #FFFFFF;
-    
 }
 
-
-.modal-header, #panneau-droit>button:last-child {
-    background-color: #5e5df0;
-}
 
 #btn-fermer {
     background-color: initial;
@@ -207,7 +208,28 @@ main {
 .modal-body ul {
     display: flex;
     flex-direction: column;
-    
+    align-items: center;
+    justify-content: center;
+    margin-right: 50px;
+    padding-left: 0;
+}
+
+.modal-body li {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+#lien-info-compte,
+#lien-aide-compte,
+#lien-deconnexion {
+    display: block;    
+    width: 100%;       
+    text-align: center; 
+    padding: 10px 0;    
+    color: inherit;    
+    text-decoration: none; 
+    white-space: nowrap;   
 }
 
 
