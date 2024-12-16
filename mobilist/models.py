@@ -41,10 +41,7 @@ class Avis(Base):
     
     def get_id_avis(self):
         return self.id_avis
-    
-    def set_id_avis(self, id_avis):
-        self.id_avis = id_avis
-    
+
     def get_desc_avis(self):
         return self.desc_avis
     
@@ -53,10 +50,7 @@ class Avis(Base):
     
     def get_id_proprio(self):
         return self.id_proprio
-    
-    def set_id_proprio(self, id_proprio):
-        self.id_proprio = id_proprio
-    
+
     def get_sample():
         return Avis.query.all()
 
@@ -79,10 +73,7 @@ class Proprietaire(Base):
     
     def get_id_proprio(self):
         return self.id_proprio
-    
-    def set_id_proprio(self, id_proprio):
-        self.id_proprio = id_proprio
-    
+
     def get_nom(self):
         return self.nom
     
@@ -103,6 +94,11 @@ class Proprietaire(Base):
     def get_by_mail(mail):
         return Proprietaire.query.filter_by(mail=mail).first()
    
+    @staticmethod
+    def put_proprio(proprio):
+       db.session.add(proprio)
+       db.session.commit()
+       
 class Logement(Base):
     __tablename__ = "LOGEMENT"
     
@@ -134,10 +130,7 @@ class Logement(Base):
     
     def get_desc_logement(self):
         return self.desc_logement
-    
-    def set_id_logement(self, id_logement):
-        self.id_logement = id_logement
-    
+
     def set_type_logement(self, type_logement):
         self.type_logement = type_logement
     
@@ -146,6 +139,11 @@ class Logement(Base):
     
     def set_desc_logement(self, desc_logement):
         self.desc_logement = desc_logement
+        
+    @staticmethod
+    def put_logement(logement):
+        db.session.add(logement)
+        db.session.commit()
     
 class AVOIR(Base):
     __tablename__ = "AVOIR"
@@ -163,15 +161,9 @@ class AVOIR(Base):
     def get_id_proprio(self):
         return self.id_proprio
     
-    def set_id_proprio(self, id_proprio):
-        self.id_proprio = id_proprio
-    
     def get_id_logement(self):
         return self.id_logement
     
-    def set_id_logement(self, id_logement):
-        self.id_logement = id_logement
-
 class Bien(Base):
     __tablename__ = "BIEN"
     
@@ -203,9 +195,6 @@ class Bien(Base):
     def get_id_bien(self):
         return self.id_bien
     
-    def set_id_bien(self, id_bien):
-        self.id_bien = id_bien
-    
     def get_nom_bien(self):
         return self.nom_bien
     
@@ -227,32 +216,22 @@ class Bien(Base):
     def get_id_proprio(self):
         return self.id_proprio
     
-    def set_id_proprio(self, id_proprio):
-        self.id_proprio = id_proprio
-    
     def get_id_piece(self):
         return self.id_piece
     
-    def set_id_piece(self, id_piece):
-        self.id_piece = id_piece
-    
     def get_id_type(self):
         return self.id_type
-    
-    def set_id_type(self, id_type):
-        self.id_type = id_type
-    
     def get_id_cat(self):
         return self.id_cat
-    
-    def set_id_cat(self, id_cat):
-        self.id_cat = id_cat
 
     def get_id_logement(self):
         return self.id_logement
+    
+    @staticmethod
+    def put_bien(bien):
+        db.session.add(bien)
+        db.session.commit()
 
-    def set_id_logement(self, id_logement):
-        self.id_logement = id_logement
     
 class Piece(Base):
     __tablename__ = "PIECE"
@@ -274,9 +253,6 @@ class Piece(Base):
     def get_id_piece(self):
         return self.id_piece
     
-    def set_id_piece(self, id_piece):
-        self.id_piece = id_piece
-    
     def get_nom_piece(self):
         return self.nom_piece
     
@@ -291,10 +267,12 @@ class Piece(Base):
     
     def get_id_logement(self):
         return self.id_logement
-    
-    def set_id_logement(self, id_logement):
-        self.id_logement = id_logement
 
+    @staticmethod
+    def put_piece(piece):
+        db.session.add(piece)
+        db.session.commit()
+        
 class TypeBien(Base):
     __tablename__ = "TYPEBIEN"
     
@@ -310,15 +288,17 @@ class TypeBien(Base):
     
     def get_id_type(self):
         return self.id_type
-    
-    def set_id_type(self, id_type):
-        self.id_type = id_type
-    
+
     def get_nom_type(self):
         return self.nom_type
     
     def set_nom_type(self, nom_type):
         self.nom_type = nom_type
+        
+    @staticmethod
+    def put_type(type):
+        db.session.add(type)
+        db.session.commit()
 
 class Categorie(Base):
     __tablename__ = "CATEGORIE"
@@ -336,14 +316,18 @@ class Categorie(Base):
     def get_id_cat(self):
         return self.id_cat
     
-    def set_id_cat(self, id_cat):
-        self.id_cat = id_cat
-    
     def get_nom_cat(self):
         return self.nom_cat
     
     def set_nom_cat(self, nom_cat):
         self.nom_cat = nom_cat
+        
+    @staticmethod
+    def put_categorie(cat):
+        db.session.add(cat)
+        db.session.commit()
+        
+    
 
 class Justificatif(Base):
     __tablename__ = "JUSTIFICATIF"
@@ -367,9 +351,6 @@ class Justificatif(Base):
     def get_id_justif(self):
         return self.id_justif
     
-    def set_id_justif(self, id_justif):
-        self.id_justif = id_justif
-    
     def get_nom_justif(self):
         return self.nom_justif
     
@@ -391,8 +372,10 @@ class Justificatif(Base):
     def get_id_bien(self):
         return self.id_bien
     
-    def set_id_bien(self, id_bien):
-        self.id_bien = id_bien
+    @staticmethod
+    def put_justificatif(justif):
+        db.session.add(justif)
+        db.session.commit()
 
 class User(Base, UserMixin):
     __tablename__ = "USER"
@@ -408,13 +391,9 @@ class User(Base, UserMixin):
         self.pwd = pwd
         self.role = role
         self.id = id
-        
-        
+                
     def get_id(self):
         return self.mail
-    
-    def set_id(self, mail):
-        self.mail = mail
     
     def get_password(self):
         return self.password
@@ -431,15 +410,19 @@ class User(Base, UserMixin):
     def get_id_user(self):
         return self.id_user
     
-    def set_id_user(self, id_user):
-        self.id_user = id_user
+    def set_proprio(self, proprio):
+        self.proprio = proprio
+    
 
     @staticmethod
-    def modifier(mail, nom, prenom):
-        proprio = User.query.filter_by(mail=mail).first()
-        proprio.proprio.set_nom(nom)
-        proprio.proprio.set_prenom(prenom)
-        db.session.commit()
+    def modifier(email, nom, prenom):
+        proprio = db.session.get(User, email)
+        try:
+            proprio.proprio.set_nom(nom)
+            proprio.proprio.set_prenom(prenom)
+            db.session.commit()
+        except: 
+            print("L'utilisateur n'existe pas")
 
     @staticmethod
     def get_user(mail):
@@ -449,8 +432,17 @@ class User(Base, UserMixin):
     def get_by_mail(mail):
         return User.query.filter_by(mail=mail).first()
     
+    @staticmethod
+    def put_user(user):
+        db.session.add(user)
+        db.session.commit()
+    
+    @staticmethod
+    def get_all():
+        return User.query.all()
+    
 @login_manager.user_loader
 def load_user(mail):
-    return User.query.get(mail)
+    return db.session.get(User, mail)
 
     

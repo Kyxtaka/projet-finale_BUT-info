@@ -16,19 +16,11 @@ app.config['BOOTSTRAP_SERVE_LOCAL'] = True # configuration avec bootstrap
 app.config['TESTING'] = False
 app.config['SECRET_KEY'] = "1f371826-9114-495d-bde8-0fd605e6356d"
 # app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://{USER}:{PASSWD}@{HOST}:{PORT}/{DB}' #Serveur distant de BD (probleme de driver)
-if not app.config['TESTING']:
-    app.config['SQLALCHEMY_DATABASE_URI'] = ('sqlite:///'+mkpath('../DBMOBILIST.db')) #Fichier DB actuelle (solution fonctionnelle)
-else:
-    app.config['SQLALCHEMY_DATABASE_URI'] = ('sqlite:///'+mkpath('tests.db'))
+
+app.config['SQLALCHEMY_DATABASE_URI'] = ('sqlite:///'+mkpath('../DBMOBILIST.db')) #Fichier DB actuelle (solution fonctionnelle)
 db = SQLAlchemy(app)
-if db: print('working on DBMOBILIS') #
+print('working on DBMOBILIS') 
 Bootstrap = Bootstrap5(app)
 
 login_manager = LoginManager(app)
 login_manager.login_view = "login"
-
-def active_test():
-    global db 
-    app.config['SQLALCHEMY_DATABASE_URI'] = ('sqlite:///'+mkpath('tests.db'))
-    return db
-    
