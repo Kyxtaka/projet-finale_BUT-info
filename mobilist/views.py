@@ -15,6 +15,9 @@ from .exception import *
 from flask_wtf import FlaskForm
 from wtforms import StringField, HiddenField
 from wtforms.validators import DataRequired
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 
 @app.route("/")
@@ -120,3 +123,25 @@ def affiche_logements():
     logements = proprio.logements
     print(logements)
     return render_template("afficheLogements.html", logements=logements)
+
+def send_mail():
+    email = "eexemple044@gmail.com"
+    password = "iutorleans45"
+    recipient = "valinophelie0110@gmail.com"
+    subject = "Sujet de l'email"
+    body = "Ceci est le corps de votre email."
+    try:
+        server = smtplib.SMTP("smtp.gmail.com", 587)
+        server.starttls()  # Sécurisation de la connexion
+        server.login(email, password)
+        msg = MIMEMultipart()
+        msg["From"] = email
+        msg["To"] = recipient
+        msg["Subject"] = subject
+        msg.attach(MIMEText(body, "plain"))
+        server.sendmail(email, recipient, msg.as_string())
+        print("Email envoyé avec succès !")
+    except Exception as e:
+        print(f"Une erreur est survenue : {e}")
+    finally:
+        server.quit()
