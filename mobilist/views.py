@@ -404,9 +404,6 @@ def generate_pdf() -> BytesIO:
     buffer = BytesIO()
     canva = canvas.Canvas(buffer)
 
-    user_data = dict() # {pièce1 : [objet1, objet2, objet3], pièce2 : ["objet1"]}
-    user_data["cuisine"] = ["four", "frigo"]
-    # Create a PDF document
     proprio = Proprietaire.query.get(current_user.id_user)
 
     canva.setFillColorRGB(0.38, 0.169, 0.718)
@@ -419,18 +416,13 @@ def generate_pdf() -> BytesIO:
     canva.setFont("Helvetica-Bold", 12)
     canva.drawString(25, 710, f"VALEUR TOTALE ESTIMÉE DE TOUS LES BIENS : {date.today()}")
 
+    canva.setFillColorRGB(0.827, 0.827, 0.827)
+    canva.rect(20, 668, 547, 30, fill=1, stroke=0)
     canva.setFillColorRGB(0, 0, 0)
-    
-
     canva.setFont("Helvetica", 12)
-    canva.drawString(100,780, proprio.get_nom())
-    canva.drawString(100,770, proprio.get_prenom())
+    canva.drawString(25, 680, f"NOM : {proprio.get_nom()} {proprio.get_prenom()}")
 
-    for u in user_data.keys():
-        canva.drawString(100, 680, f"elem : {user_data['cuisine']}")
-    canva.drawString(150, 850, "Hello")
-    y = 700
-    canva.drawString(100, y, "voici votre inventaire : ")
+
     canva.showPage()
     canva.save()
 
@@ -441,4 +433,4 @@ def generate_pdf() -> BytesIO:
 @login_required
 def export():
     pdf_file = generate_pdf()
-    return send_file(pdf_file, as_attachment=True, download_name='book_catalog.pdf')
+    return send_file(pdf_file, as_attachment=True, download_name='inventaire.pdf')
