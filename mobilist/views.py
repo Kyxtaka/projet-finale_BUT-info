@@ -149,6 +149,9 @@ class AjoutBienForm(FlaskForm):
 @app.route("/accueil-connexion/")
 @login_required   
 def accueil_connexion():
+    if current_user.proprio:
+        proprietaire = current_user.proprio
+        return render_template('accueil_2.html', proprietaire=proprietaire)
     return render_template("accueil_2.html")
     
 @app.route("/login/", methods =("GET","POST" ,))
