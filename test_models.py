@@ -87,7 +87,16 @@ class UserTest(unittest.TestCase):
          self.assertEqual(logement.get_adresse(), "2 rue")
          self.assertEqual(logement.get_id_logement(),2)
          self.assertEqual(logement.get_type_logement(), "MAISON")
-         self.assertEqual(logement.get_desc_logement(), "grande maison")       
+         self.assertEqual(logement.get_desc_logement(), "grande maison") 
+         
+   def test_piece(self):
+      with app.app_context():
+         piece = Piece(2,"garage","grande piece",1)
+         self.assertEqual(piece.get_desc_piece(), "grande piece")
+         self.assertEqual(piece.get_id_piece(), 2)
+         self.assertEqual(piece.get_nom_piece(), "garage")
+         self.assertEqual(piece.get_id_logement(),1)
+               
          
 
 if __name__ == '__main__':
