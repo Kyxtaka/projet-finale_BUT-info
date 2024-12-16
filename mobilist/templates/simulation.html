@@ -61,9 +61,11 @@
     </div>
     <div class="telecharger">
         <p>Rapport détaillé</p>
-        <a class="download-btn" href="{{url_for('export')}}">TÉLÉCHARGER</a>
-        {% if error_message %}
-            <p style="color: red;">{{ error_message }}</p>
+        <form action="{{ url_for('simulation') }}" method="POST">
+            <button type="submit" class="download-btn">TÉLÉCHARGER</button>
+        </form>
+        {% if message %}
+            <p style="color: red;">{{ message }}</p>
         {% endif %}
     </div>
 </div>

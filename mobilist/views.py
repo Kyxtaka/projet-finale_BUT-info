@@ -377,7 +377,13 @@ def simulation():
     logements = []
     for logement in proprio.logements:
         logements.append(logement)
-    return render_template("simulation.html",logements=logements)
+    message = None
+    if request.method == "POST":
+        logement_id = request.form.get('logement_id')  
+        if not logement_id:
+            message = "Veuillez sélectionner un logement, puis réessayer."
+    return render_template("simulation.html",logements=logements,message=message)
+
 
 @app.route("/mon-compte/", methods =("POST" ,"GET",))
 def mon_compte():
@@ -399,20 +405,16 @@ def mesBiens():
         pieces = []
     return render_template("mesBiens.html",logements=logements,logement_id=logement_id,pieces=pieces,logement_actuel=logement_actuel)
 
-@app.route("/simulation/", methods =("GET","POST" ,))
+@login_required
+@app.route("/simulation/", methods =("GET","POST"))
 def generate_pdf() -> BytesIO:
     buffer = BytesIO()
     canva = canvas.Canvas(buffer)
 
     proprio = Proprietaire.query.get(current_user.id_user)
-    logement_id = request.args.get('logement_id') 
-    logements = []
-    for logement in proprio.logements:
-        logements.append(logement)
-
-    if not logement_id:
-        message = "Veuillez sélectionner un logement."
-        return render_template('simulation.html', logements=logements, message=message)
+    logement_id = request.args.get("logement")
+    loge = Logement.query.get(logement_id)
+    
     canva.setFillColorRGB(0.38, 0.169, 0.718)
     canva.setFont("Helvetica-Bold", 23)
     canva.drawCentredString(300, 783,"Inventaire des biens")
@@ -439,7 +441,7 @@ def generate_pdf() -> BytesIO:
     canva.rect(20, 604, 547, 30, fill=1, stroke=0)
     canva.setFillColorRGB(0, 0, 0)
     canva.setFont("Helvetica", 12)
-    canva.drawString(25, 650, f"ADRESSE DU LOGEMENT : {logement_id.get_adresse_logement()}")
+    canva.drawString(25, 650, f"ADRESSE DU LOGEMENT : {loge.get_adresse_logement()}")
 
     canva.showPage()
     canva.save()
@@ -451,4 +453,4 @@ def generate_pdf() -> BytesIO:
 @login_required
 def export():
     pdf_file = generate_pdf()
-    return send_file(pdf_file, as_attachment=True, download_name='inventaire.pdf')
+    return send_file(pdf_file, as_attachment=True, download_name='inventaire.pdf',mimetype='application/pdf')
