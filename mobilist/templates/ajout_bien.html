@@ -12,7 +12,7 @@
         const logementSelect = document.getElementById("logement-select");
         const pieceSelect = document.getElementById("piece-select");
 
-        console.log("doc loaded")
+        console.log("doc loaded");
         console.log("logementSelect",logementSelect); // logs logement disponible pour le prorietaire
         console.log("nb logement dispo",logementSelect.options.length); // nb option dans le select
 
@@ -37,7 +37,26 @@
                     console.log("pieceSelect",pieceSelect); // logs de la liste des pieces
                 })
                 .catch(error => console.error("Ereur lors de l'obtention des pieces:", error));
-        }
+        };
+
+        document.getElementById("file").addEventListener("change", function(event) {
+        
+            const file = event.target.files[0];
+            if (!file) {
+                alert("Veuillez sélectionner un fichier.");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("file", file);
+        
+            fetch("/lirefichier", {
+                method: "POST",
+                body: formData,
+            })
+            
+        });
+    });
 
         // maj de la liste des pieces en fonction du logement selectionne
         logementSelect.addEventListener("change", function() {
@@ -59,7 +78,9 @@
                 })
                 .catch(error => console.error("Ereur lors de l'obtention des pieces:", error));
         });
-    });
+
+        
+        
 </script>
 {% endblock %}
 {{ super()}}
@@ -87,17 +108,17 @@
                 {{ form.piece_bien(class="form-group-element", id="piece-select") }}
 
                 <label class="form-group-element" for="prix" id="form_prix">Prix neuf</label>
-                {{ form.prix_bien(class="form-group-element") }}
+                {{ form.prix_bien(class="form-group-element", id="prix_bien") }}
 
                 <label class="form-group-element" for="date" id="form_date">Date de l'achat</label>
-                {{ form.date_bien(class="form-group-element") }}
+                {{ form.date_bien(class="form-group-element", id="date_bien") }}
 
                 <label class="form-group-element" for="description" id="form_desc">Description</label>
                 {{ form.description_bien(class="form-group-element") }}
             </div>
-            <div id="right-side">
+            <div id="right-side" id="file">
                 <label class="form-group-element" for="justificatif" id="form_justif">Justificatif</label>
-                {{ form.file(class="form-group-element")}}
+                {{ form.file(class="form-group-element", id="file")}}
             </div>
         </div>
         {% if error == True %}

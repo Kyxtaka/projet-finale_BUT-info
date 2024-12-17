@@ -2,7 +2,7 @@ from datetime import datetime
 from flask import jsonify, render_template
 from .app import app
 from flask import redirect, render_template, url_for
-from wtforms import PasswordField
+from wtforms import PasswordField, StringField, DateField, HiddenField,FileField,SelectField,ValidationError,FloatField,TextAreaField
 from .models import User
 from hashlib import sha256
 from flask_login import login_user , current_user, AnonymousUserMixin
@@ -11,8 +11,7 @@ from flask_login import login_required
 from .commands import create_user
 from .models import *
 from .exception import *
-from flask_wtf import FlaskForm
-from wtforms import * #import de tous les champs
+from flask_wtf import FlaskForm#import de tous les champs
 from wtforms.validators import DataRequired
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import MultiDict
@@ -21,6 +20,8 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import spacy
 from PyPDF2 import PdfReader
+import re
+import json
 
 nlp = spacy.load("fr_core_news_md")
 
@@ -129,13 +130,6 @@ class UploadFileForm(FlaskForm):
             print("erreur:", e)
 
 
-    def lire_pdf(fichier):
-        reader = PdfReader(fichier)
-        texte = ""
-        for page in reader.pages:
-            texte += page.extract_text()
-        return texte
-
 class AjoutBienForm(FlaskForm):
     logement  = SelectField('Logement', validators=[DataRequired()])
     nom_bien = StringField('Nom du bien', validators=[DataRequired()])
@@ -182,7 +176,6 @@ def login() -> str:
     elif f.validate_on_submit():
         user = f.get_authenticated_user()
         if user:
-            print("test2")
             login_user(user)
             next = f.next.data or url_for("accueil_connexion")
             return redirect(next)
@@ -237,8 +230,16 @@ def get_pieces(logement_id):
 
 @app.route("/bien/ajout", methods=("GET", "POST",))
 @login_required
-def ajout_bien():
-    form_bien = AjoutBienForm()
+def ajout_bien(donnees=None):
+    if donnees is not None:
+        donnees = json.loads(donnees)
+        initial_data = {
+                "prix_bien": donnees.get("prix", 0.0),
+                "date_bien": datetime.strptime(donnees.get("date_achat", "01/01/2001"), "%d/%m/%Y/")
+            }
+        form_bien = AjoutBienForm(data=initial_data)
+    else:
+        form_bien = AjoutBienForm()
     if form_bien.validate_on_submit():
         try:
             print("Logs:", form_logs(form_bien))
@@ -479,17 +480,31 @@ def reset_password(mail):
     finally:
         server.quit()
 
-
-
+@app.route("/lirefichier/", methods=["POST","GET"])
+def lire_pdf():
+        fichier = request.files.get("file")
+        reader = PdfReader(fichier)
+        texte = ""
+        for page in reader.pages:
+            texte += page.extract_text()
+        donnees = extraire_informations(texte)
+        return redirect(url_for("ajout_bien", donnees=json.dumps(donnees)))
+    
 def extraire_informations(texte):
-    doc = nlp(texte)
     donnees = {
         "prix": "",
         "date_achat": ""
     }
-    for ent in doc.ents:
-        if ent.label_ == "PRIX":
-            donnees["prix"] = ent.text
-        elif ent.label_ == "DATE": 
-            donnees["date_achat"] = ent.text
+
+    document = texte.split("\n")
+    for ent in document:
+            if "prix" in ent.lower():
+                donnees["prix"] = int(re.findall(r'\d+', ent)[0])
+            elif "date" in ent.lower(): 
+                data = re.findall(r'\d+', ent)
+                date = ""
+                for x in data:
+                    date += x+"/"
+                donnees["date_achat"] = date
     return donnees
+ 
