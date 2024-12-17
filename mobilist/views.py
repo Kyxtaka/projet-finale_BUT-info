@@ -440,7 +440,7 @@ def reset_password(mail):
     email = "exemplemobilist@outlook.com"
     password = "ggzb gucf uynu djih"
     subject = "Mobilist - réinitialiser votre mot de passe"
-    body = "Pour réinitialiser votre mot de passe Mobilist\n, veuillez accéder à la page suivante : http://127.0.0.1:5000/reset/"
+    body = "Pour réinitialiser votre mot de passe Mobilist,\n veuillez accéder à la page suivante : http://127.0.0.1:5000/reset/"
 
     try:
         # Configuration du serveur SMTP
