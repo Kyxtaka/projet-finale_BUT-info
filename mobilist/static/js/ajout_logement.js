@@ -29,6 +29,8 @@ document.addEventListener("DOMContentLoaded", function() {
         event.preventDefault();
         console.log("arrayRooms JSON", JSON.stringify(arrayRooms.getValue()));
         document.getElementById("rooms-array").value = JSON.stringify(arrayRooms.getValue());
+
+        document.getElementById("")
         console.log("form submitted");
         logementForm.submit();
     });
@@ -103,14 +105,16 @@ document.addEventListener("DOMContentLoaded", function() {
         return table.rows.length;
     }
 
-   function getArrayRooms() {
-        return arrayRooms.getValue();
-    }   
+    // DEBUG section
+
+//    function getArrayRooms() {
+//         return arrayRooms.getValue();
+//     }   
 
     //attribution d'action pour l element arrayValue qui appelle get getArrayRooms ONLY FOR DEBUG
-    document.getElementById("arrayValue").addEventListener("click", function() {
-        console.log(getArrayRooms());
-    });
+    // document.getElementById("arrayValue").addEventListener("click", function() {
+    //     console.log(getArrayRooms());
+    // });
 
 });
 

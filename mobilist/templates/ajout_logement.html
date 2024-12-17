@@ -22,7 +22,7 @@
             <label class="form-label" for="type">Type logement:</label>
 
             {% for val in type_logement %}
-                <input type="radio" class="type-logement" value="{{val.get_type()}}" name="typeL">{{val.get_type()}}</input>
+                <input type="radio" class="type-logement" value="{{val.get_type()}}" name="typeL" required>{{val.get_type()}}</input>
             {% endfor %}
 
             <label class="form-label" for="address">Adresse logement:</label>
@@ -32,9 +32,6 @@
             <input class="form-input form-textarea" type="text" placeholder="Description du logement" id="edit-description-input" name="description" default="">
 
             <button type="button" class="btn-open-room-form" onclick="toggleFormPopup('add-piece-popup-form')">Ajouter pièce</button>
-
-            
-
             <button class="btn btn-primary mb-3" id="formsumbmit" type="submit">Ajouter</button> 
         </form>
         <!-- <p>List piece à ajouté</p> -->
@@ -50,7 +47,8 @@
             <tbody id="room-list">
             </tbody>
         </table>
-        <input type="button" value="ArrayValue" id="arrayValue">
+        <!-- debug button -->
+        <!-- <input type="button" value="ArrayValue" id="arrayValue">  -->
         <div class="overlay-container" id="add-piece-popup-form">
             <div class="popup-box">
                 <div>
