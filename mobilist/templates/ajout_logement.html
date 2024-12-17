@@ -1,7 +1,5 @@
 {% extends "index2.html" %}
 {% block styles %}
-<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='ajout_bien.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='ajout_logement.css') }}">
 {{ super()}}
 {% endblock %}
@@ -36,7 +34,7 @@
             <label class="form-label" for="description">Description logement:</label>
             <input class="form-input form-textarea" type="text" placeholder="Description du logement" id="edit-description-input" name="description">
 
-            <button type="button" class="btn-open-room-form" onclick="toggleFormPopup('add-piece-popup-form')">Ajouter pièce</button>
+            <button type="button" class="btn-open-room-form" onclick=toggleFormPopup('add-piece-popup-form')>Ajouter pièce</button>
 
             <p>List piece à ajouté</p>
             <!-- <h2>Pièce a ajouter</h2>d
