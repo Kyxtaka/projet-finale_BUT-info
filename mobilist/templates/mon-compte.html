@@ -1,31 +1,13 @@
-{% extends "accueil_2.html" %}
-
+{% extends "base.html" %}
 {% block styles %}
-{{ super()}}
-<link rel="stylesheet" href="{{ url_for('static', filename='') }}">
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='mon-compte.css')}}">
 {% endblock %}
 {% block content %}
-<section class ="titre">
-    <h1 class="access-compte"> Bonjour, {{ current_user.proprio.prenom }} {{ current_user.proprio.nom }}</h1>
-    <section>
-        <article class="donnees">
-          <form class="form-horizontal" role="form" method ="POST" action ="{{ url_for('mon_compte') }}"> 
-
-            <span id="nom">
-            {{ form.nom.label }}
-            </span>
-            <span id="prenom">
-            {{ form.prenom(size=50, class_="form-control") }}
-            </span>
-          </form> 
-        </article>
-        <article>
-            <div>
-            </div>
-            <div>
-            </div>
-        </article>
-    </section>
-</section>
+<div class="header">
+  <h1> Mon compte</h1>
+  <!--<img > -->
+</div> 
 
 {% endblock %}

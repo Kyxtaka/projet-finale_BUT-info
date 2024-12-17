@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    {% block head %}
+    <title>MobiList</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block styles %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='base.css') }}">
+    {% endblock %}
+    {% endblock %}
+    {% block scripts %}
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>  
+    {% endblock %}
+  </head>
+  <script>
+
+    function afficherMenu() {
+      var section = document.getElementById("panneau-droit");
+
+      if (section.classList.contains('visible')) {
+        // Si la classe 'visible' est présente, on la retire pour cacher le menu
+        section.classList.remove('visible');
+      } else {
+        // Si la classe 'visible' n'est pas présente, on l'ajoute pour afficher le menu
+        section.classList.add('visible');
+    }
+    }
+
+  </script>
+    <header>
+      <section id="section-compte" class="">
+          <a class="liste-acces" href='#'>Mon compte</a>
+          <a class="liste-acces" href='#'>Aide</a>
+          <a class="liste-acces" href="{{ url_for('logout')}}">Déconnexion</a>
+      </section>
+      <!-- Fixed navbar -->
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-white">
+        <a href="{{ url_for('accueil_connexion') }}">
+          <img src="{{ url_for('static',filename='img/logo_mobilist.jpg') }}" alt="logo du site"/>
+        </a>
+        <div class="container-fluid">
+          <div class="collapse navbar-collapse" id="navbar-collapse">
+              <ul class="navbar-nav-left">
+                  <li class="nav-img" >
+                    <img src="{{ url_for('static',filename='img/accueil.png') }}" alt="icône accueil"/>
+                  </li>
+                  <li class="nav-item-accueil">
+                    <a class="nav-link active" aria-current="page" href="{{ url_for('accueil_connexion') }}">Accueil</a>
+                </li>
+              <li class="nav-img" >
+                <img src="{{ url_for('static',filename='img/mes-biens.png') }}" alt="icône nos services"/>
+              </li>
+              <li class="nav-item-bien">
+                <a class="nav-link active" aria-current="page" href="{{ url_for('mesBiens')}}">Mes biens</a>
+              </li> 
+              <li class="nav-img" >
+                <img src="{{ url_for('static',filename='img/mes-logements.png') }}" alt="icône contact"/>
+              </li>
+              <li class="nav-item-logement">
+                <a class="nav-link active" aria-current="page" href="{{ url_for('affiche_logements') }}">Mes logements</a>
+              </li> 
+              <li class="nav-img" >
+                <img src="{{ url_for('static',filename='img/simuler-sinistre.png') }}" alt="icône avis"/>
+              </li>
+              <li class="nav-item-sinistre">
+                <a class="nav-link active" aria-current="page" href="{{ url_for('simulation') }}">Simuler un sinistre</a>
+              </li> 
+              <li class="connexion">
+                  <button onclick="afficherMenu()" id="connexion" id="bouton-compte">Mon compte</button>
+              </li>
+      </nav>
+      <div class="section-droite">
+        <section id="panneau-droit" class="wb-overlay modal-content overlay-def wb-panel-r wb-init wb-overlay-inited user-closed open" aria-hidden="false" tabindex="-1" role="dialog">
+          <header class="modal-header">
+            <h2 class="modal-title">{{ proprietaire.nom }} {{ proprietaire.prenom }}</h2>
+          </header>
+          <hr />
+          <div class="modal-body">
+            <ul class="list-unstyled">
+              <li><a id="lien-info-compte" href="{{ url_for('compte') }}"> Mes informations </a></li>
+              <li><a id="lien-aide-compte" href="#"> Aide </a></li>
+              <li><a id="lien-deconnexion" href="{{ url_for('accueil') }}"> Déconnexion </a></li>
+            </ul>
+            <button onclick="afficherMenu()" class="btn btn-sm btn-primary pull-left overlay-close" id="btn-fermer" type="button">
+              Fermer
+            </button>
+          </div>
+          <div class="modal-footer">
+          </div>
+        </section>
+      </div>                  
+  </header>
+  <main>
+    {% block content %}
+
+    {% endblock %}
+    <footer class="footer mt-auto py-3 bg-light">
+        <div class="footer">
+          <img id="appstore" src="{{ url_for('static',filename='img/appstore.jpg') }}" alt="Dispo sur appstore"/>
+          <img id="googleplay" src="{{ url_for('static',filename='img/googleplay.png') }}" alt="Dispo sur Google play"/>
+          <p class="p-footer"> © AKHTAR NAIMA - VALIN OPHÉLIE - BOCQUET CLÉMENCE - VILCOQ YOHANN - RANDRIANTSOA NATHAN </p>
+        </div>
+      </footer>
+  </main>
+</html>
+  

@@ -19,8 +19,8 @@ from werkzeug.datastructures import MultiDict
 
 #constante : chemin d'acces au dossier de telechargement des justificatifs
 UPLOAD_FOLDER_JUSTIFICATIF = os.path.join(
-    os.path.abspath(os.path.dirname(__file__)), 
-    app.config['UPLOAD_FOLDER'], 
+    os.path.abspath(os.path.dirname(__file__)),
+    app.config['UPLOAD_FOLDER'],
     'justificatifs'
 )
 
@@ -36,7 +36,11 @@ def accueil():
 def avis():
     return render_template("avis.html")
 
-   
+@app.route("/mon-compte.html")
+def compte():
+    return render_template("mon-compte.html")
+
+
 class LoginForm(FlaskForm):
     mail = StringField('Adresse e-mail')
     password = PasswordField('Mot de passe')
@@ -69,7 +73,7 @@ class IncrisptionForm(FlaskForm):
 class ModificationForm(FlaskForm):
     nom = StringField('Votre nom')
     prenom = StringField('Votre Prénom')
-    
+
 class UploadFileForm(FlaskForm):
     file = FileField('File', validators=[DataRequired()])
 
@@ -83,19 +87,19 @@ class UploadFileForm(FlaskForm):
         #########################################################
 
     def validate_file_format(self, form, field):
-            filename = field.data
-            print("form:", form)
-            print("field:", field)
-            print("field.data:", field.data)
-            
-            if filename:
-                print("filname:", filename)
-                if not (filename.endswith(".pdf") or filename.endswith(".png") or filename.endswith(".jpg") or filename.endswith(".jpeg")):
-                    raise ValidationError("Le fichier doit être de type PDF, PNG, JPG ou JPEG")
-                elif len(filename) > 50:
-                    raise ValidationError("Le nom du fichier est trop long")
-            else:
-                raise ValidationError("Le fichier est vide")
+        filename = field.data
+        print("form:", form)
+        print("field:", field)
+        print("field.data:", field.data)
+
+        if filename:
+            print("filname:", filename)
+            if not (filename.endswith(".pdf") or filename.endswith(".png") or filename.endswith(".jpg") or filename.endswith(".jpeg")):
+                raise ValidationError("Le fichier doit être de type PDF, PNG, JPG ou JPEG")
+            elif len(filename) > 50:
+                raise ValidationError("Le nom du fichier est trop long")
+        else:
+            raise ValidationError("Le fichier est vide")
 
     def validate_file_size(self, form, field):
         file = field.data
@@ -103,8 +107,8 @@ class UploadFileForm(FlaskForm):
             if len(file.read()) > 1000000:
                 raise ValidationError("Le fichier est trop volumineux")
         else:
-            raise ValidationError("Le fichier est vide")  
-        
+            raise ValidationError("Le fichier est vide")
+
     def create_justificatif_bien(self):
         try:
             file = self.file.data
@@ -123,7 +127,7 @@ class AjoutBienForm(FlaskForm):
     date_bien = DateField("Date de l'achat", validators=[DataRequired()])
     description_bien = TextAreaField('Description')
     file = FileField('File')
-    id_proprio = HiddenField("id_proprio") 
+    id_proprio = HiddenField("id_proprio")
 
     def __init__(self,*args, **kwargs):
         super(AjoutBienForm, self).__init__(*args, **kwargs)
@@ -144,16 +148,16 @@ class AjoutBienForm(FlaskForm):
             return os.path.join(CUSTOM_UPLOAD_FOLDER_JUSTIFICATIF, file.filename) # retourne le chemin du fichier, pour l'enregistrement en BD
         except Exception as e:
             print("erreur:", e)
-        
+
 
 @app.route("/accueil-connexion/")
-@login_required   
+@login_required
 def accueil_connexion():
     if current_user.proprio:
         proprietaire = current_user.proprio
         return render_template('accueil_2.html', proprietaire=proprietaire)
     return render_template("accueil_2.html")
-    
+
 @app.route("/login/", methods =("GET","POST" ,))
 def login() -> str:
     f = LoginForm()
@@ -176,10 +180,10 @@ def login() -> str:
 from flask_login import logout_user
 @app.route("/logout/")
 @login_required
-def logout():   
+def logout():
     logout_user()
     return redirect(url_for('home'))
-    
+
 
 @app.route("/inscription/", methods=("GET", "POST",))
 def inscription():
@@ -194,7 +198,7 @@ def inscription():
         return redirect(url_for('login'))
     return render_template(
     "inscription.html", form=f, present=False)
-  
+
 @app.route("/information")
 def information():
     return render_template("informations.html")
@@ -204,7 +208,7 @@ def services():
     return render_template("services.html")
 
 @app.route("/afficheLogements")
-@login_required   
+@login_required
 def affiche_logements():
     session = db.session
     proprio = Proprietaire.query.get(current_user.id_user)
@@ -258,7 +262,7 @@ def affiche_logements():
             return render_template("afficheLogements.html", logements=logements, type_logement=type_logement, contenu=True)
         else:
             return render_template("afficheLogements.html", logements=logements, type_logement=type_logement, contenu=False)
-            
+
     return render_template("afficheLogements.html", logements=logements, type_logement=type_logement)
 
 
@@ -314,17 +318,17 @@ def ajout_bien():
         except Exception as e:
             print("error ajout bien")
             print("Logs:", form_logs(form_bien))
-            return render_template("ajout_bien.html", 
-                               form=form_bien,     
+            return render_template("ajout_bien.html",
+                               form=form_bien,
                                error=True)
-    return render_template("ajout_bien.html", 
-                            form=form_bien, 
+    return render_template("ajout_bien.html",
+                            form=form_bien,
                             error=False)
 
 def handle_form_bien(form_bien: AjoutBienForm):
     try:
         session = db.session
-        
+
         id_bien = Bien.get_max_id()+1
         nom_bien = form_bien.nom_bien.data
         date_achat = form_bien.date_bien.data
@@ -335,14 +339,14 @@ def handle_form_bien(form_bien: AjoutBienForm):
         id_type = form_bien.type_bien.data
         id_cat = form_bien.categorie_bien.data
         nouv_bien = Bien(
-            id_bien=id_bien, 
-            nom_bien=nom_bien, 
-            date_achat=date_achat, 
-            prix=prix, 
-            id_proprio=id_proprio, 
-            id_piece=id_piece, 
-            id_logement=id_logement, 
-            id_type=id_type, 
+            id_bien=id_bien,
+            nom_bien=nom_bien,
+            date_achat=date_achat,
+            prix=prix,
+            id_proprio=id_proprio,
+            id_piece=id_piece,
+            id_logement=id_logement,
+            id_type=id_type,
             id_cat=id_cat)
         session.add(nouv_bien)
         session.commit()
@@ -384,9 +388,10 @@ def link_justification_bien(form: AjoutBienForm, file_path: str, id_bien: int) -
         return False
     return True
 
+
 def form_logs(form: FlaskForm):
-    print("form sumbited:",form.is_submitted())
-    print("form value valid:",form.validate_on_submit())
+    print("form sumbited:", form.is_submitted())
+    print("form value valid:", form.validate_on_submit())
     if isinstance(form, AjoutBienForm):
         print("Ajout bien form detected")
         if form.file.data:
@@ -394,5 +399,5 @@ def form_logs(form: FlaskForm):
             print("file data:", form.file.data)
         else:
             print("file data is empty")
-    print("form errors:",form.errors)
+    print("form errors:", form.errors)
     print("form data:", form.data)

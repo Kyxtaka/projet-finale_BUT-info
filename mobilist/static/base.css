@@ -1,0 +1,198 @@
+img {
+    height: 82px;
+}
+
+nav {
+    border-bottom: 1px solid; 
+}
+
+main {
+    margin-top: 6.1rem;
+    margin-bottom: 6.1rem;
+}
+
+
+#navbar-collapse>ul>li>a, .mon-compte a {
+    color: black;
+}
+
+
+
+.liste-acces {
+    padding:4%;
+    color: black;
+    border-top: 0.5mm solid;
+
+}
+
+header>nav ul {
+    display: flex;
+    flex-wrap: nowrap;
+    margin-left: 30px;
+    list-style: none;
+}
+
+header>nav li {
+    margin-left: 30px;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 2%;
+}
+
+
+.nav-img img {
+    height: 24px;
+    position:absolute;
+    top : 38px;
+}
+
+#connexion {
+    font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    opacity: 1;
+    outline: 0 solid transparent;
+    padding: 7px 20px;
+    position: absolute;
+    top: 28px;
+    border-radius: 999px;
+    background: #5E5DF0;
+    box-shadow: #5E5DF0 0 10px 20px -10px;
+    color: #FFFFFF;
+    right: 50px;
+    border: 0;
+    overflow: hidden;
+
+}
+
+#connexion::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    bottom: -50%;
+    left: -50%;
+    background: linear-gradient(to bottom, rgba(229, 172, 142, 0), rgba(255,255,255,0.5) 50%, rgba(229, 172, 142, 0));
+    transform: rotateZ(60deg) translate(-5em, 7.5em);
+}
+
+#connexion:hover::after, .connexion:focus:after {
+    animation: sheen 1s forwards;
+}
+
+@keyframes sheen {
+    100% {
+      transform: rotateZ(60deg) translate(1em, -9em);
+    }
+}
+
+#panneau-droit {
+    visibility: hidden;
+    position: fixed;
+    right: 0;
+    top : 98px;
+    width: 250px;
+    height: 90%;
+    opacity: 0;
+    transform: translateX(100%);
+    background-color: rgba(255,255,255,0.8);
+    box-sizing: border-box;
+    transition: opacity 0.5s ease, transform 0.5s ease, visibility 0s 0.5s;
+}
+
+#panneau-droit.visible {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.modal-header {
+    background-color: initial;
+    background-image: linear-gradient(-180deg, #5e5df0, #2a2ae7);
+    color: #FFFFFF;
+}
+
+
+#btn-fermer {
+    background-color: initial;
+    background-image: linear-gradient(-180deg, #5e5df0, #2a2ae7);
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: inherit;
+    font-weight: 500;
+    height: 40px;
+    line-height: 40px;
+    outline: 0;
+    overflow: hidden;
+    padding: 0 20px;
+    pointer-events: auto;
+    position: relative;
+    text-align: center;
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+    vertical-align: top;
+    white-space: nowrap;
+    width: 100%;
+    z-index: 9;
+    border: 0;
+    transition: box-shadow .2s;
+}
+
+#btn-fermer:hover {
+  box-shadow: rgba(55, 0, 255, 0.5) 0 3px 8px;
+}
+
+.modal-body ul {
+    display: flex;
+    flex-direction: column;
+    font-size: 20px ;
+    
+}
+  
+#lien-info-compte,
+#lien-aide-compte,
+#lien-deconnexion {
+    display: block;    
+    width: 100%;       
+    text-align: center; 
+    padding: 10px 0;    
+    color: inherit;    
+    text-decoration: none; 
+    white-space: nowrap;   
+    
+}
+
+#lien-info-compte:hover,
+#lien-aide-compte:hover,
+#lien-deconnexion:hover {
+    background-color: rgb(219, 219, 219);
+}
+
+footer {
+    background-color: #FFFFFF;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid;
+}
+
+#appstore {
+    float:left;
+    height: 50px;
+}
+
+#googleplay {
+    float:left;
+    height: 45px;
+}
+
+.p-footer {
+    text-align: center;
+    margin-top: 10px;
+}
+
+
