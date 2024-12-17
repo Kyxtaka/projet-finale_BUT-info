@@ -1,10 +1,11 @@
 from sqlalchemy.orm import registry, relationship, Session
-from sqlalchemy import select, Column, Integer, String, Enum, Date, DECIMAL, Float, String, create_engine, DateTime
+from sqlalchemy import select, Column, Integer, String, Enum, Date, DECIMAL, Float, String, create_engine, DateTime, CheckConstraint
 from .app import db, login_manager
 from sqlalchemy.sql.schema import ForeignKey
 from datetime import date, datetime, timedelta
 from flask_login import UserMixin
 from sqlalchemy.sql.expression import func
+from hashlib import sha256
 import enum
 import yaml, os.path
 import time
@@ -811,7 +812,9 @@ class User(Base, UserMixin):
         Args:
             password (str): nouveau mot de passe
         """
-        self.password = password
+        m = sha256()
+        m.update(password.encode())
+        self.password = m.hexdigest()    
     
     def get_role(self):
         """getter du role de user
@@ -867,6 +870,7 @@ class ChangePasswordToken(Base):
     datetime = Column(DateTime, name="DATETIME")
     duration = Column(Integer, name="DURATION")
     expiration = Column(DateTime, name="EXPIRATION")
+    used = Column(Integer, CheckConstraint('USED IN (0, 1)'), name="USED")
 
     def __init__(self, accountEmail, duration=10): # generation d'un token ==> supprime l'ancien ci une nouvelle requette est demander et que un token existe celui ci est automatiquement supprimer
         if ChangePasswordToken.query.filter_by(accountEmail=accountEmail).first():
@@ -877,13 +881,27 @@ class ChangePasswordToken(Base):
         self.datetime = datetime.now()
         self.duration = duration
         self.expiration = self.datetime + timedelta(minutes=duration)
+        self.used = 0
 
     def is_expired(self) -> bool:
-        return datetime.now() > self.expiration
+        return datetime.now() > self.expiration or self.used == 1
     
     def liked_user(self) -> User:
         return User.query.get(self.accountEmail)
     
+    def get_token(self) -> str:
+        return self.token
+    
+    def get_email(self) -> str:
+        return self.accountEmail
+    
+    def set_used(self) -> None:
+        self.used = 1
+        db.session.commit()
+    
+    @staticmethod
+    def verify_token(token: str) -> bool:
+        return ChangePasswordToken.query.filter_by(token=token).first() is not None
     
     @staticmethod
     def get_by_token(token: str) -> 'ChangePasswordToken':

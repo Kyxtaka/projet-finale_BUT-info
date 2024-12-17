@@ -11,8 +11,9 @@
 <section class="section-connexion">
   <a href="{{ url_for('home')}}"> <img src="{{ url_for('static',filename='img/logo_mobilist.jpg') }}" alt="retour"></a>
   <h1>Mot de passe oublié</h1> 
-  <form class="form-horizontal" role="form" method ="POST" action ="{{ url_for('valider') }}"> 
+  <form class="form-horizontal" role="form" method ="POST" action =""> 
   <div class="form-control-static">
+    <!-- {{form.hidden_tag() }} -->
     {{ form.mdp.label }}
     {{ form.mdp(size=50, class_="form-control", placeholder ="Votre mot de passe") }}
     {{ form.valider.label }}
@@ -23,8 +24,8 @@
     <button type="submit" class="btn btn-primary mb-3"> Enregistrer</button>
   </span>
 </form>
-{% if (tentative) %}
+<!-- {% if (tentative) %}
 <p> Le mot de passe est différent </p>
-{% endif %}
+{% endif %} -->
 </section>
 {% endblock %}
