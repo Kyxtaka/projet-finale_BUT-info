@@ -16,6 +16,14 @@ from wtforms import * #import de tous les champs
 from wtforms.validators import DataRequired
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import MultiDict
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+import spacy
+from PyPDF2 import PdfReader
+
+nlp = spacy.load("fr_core_news_md")
+
 
 #constante : chemin d'acces au dossier de telechargement des justificatifs
 UPLOAD_FOLDER_JUSTIFICATIF = os.path.join(
@@ -65,10 +73,17 @@ class IncrisptionForm(FlaskForm):
         m.update(self.password.data.encode())
         passwd = m.hexdigest()
         return user if passwd == user.password else None
-
+    
+class ResetPasswordFrom(FlaskForm):
+    mdp = PasswordField("Mot de passe")
+    valider = PasswordField("Confirmer mot de passe")
+    
 class ModificationForm(FlaskForm):
     nom = StringField('Votre nom')
     prenom = StringField('Votre Prénom')
+
+class ResetForm(FlaskForm):
+    email = StringField("Votre email")
     
 class UploadFileForm(FlaskForm):
     file = FileField('File', validators=[DataRequired()])
@@ -113,6 +128,14 @@ class UploadFileForm(FlaskForm):
         except Exception as e:
             print("erreur:", e)
 
+
+    def lire_pdf(fichier):
+        reader = PdfReader(fichier)
+        texte = ""
+        for page in reader.pages:
+            texte += page.extract_text()
+        return texte
+
 class AjoutBienForm(FlaskForm):
     logement  = SelectField('Logement', validators=[DataRequired()])
     nom_bien = StringField('Nom du bien', validators=[DataRequired()])
@@ -152,7 +175,7 @@ def accueil_connexion():
     return render_template("accueil_2.html")
     
 @app.route("/login/", methods =("GET","POST" ,))
-def login():
+def login() -> str:
     f = LoginForm()
     if not f.is_submitted():
         f.next.data = request.args.get("next")
@@ -163,9 +186,12 @@ def login():
             login_user(user)
             next = f.next.data or url_for("accueil_connexion")
             return redirect(next)
+        return render_template(
+        "connexion.html",
+        form=f,mdp=False)
     return render_template(
     "connexion.html",
-    form=f)
+    form=f,mdp=True)
 
 from flask_login import logout_user
 @app.route("/logout/")
@@ -396,3 +422,74 @@ def mesBiens():
         pieces = []
     return render_template("mesBiens.html",logements=logements,logement_id=logement_id,pieces=pieces,logement_actuel=logement_actuel)
 
+@app.route("/motdepasseoublie/", methods=["POST", "GET"])
+def page_oublie():
+    form = ResetForm()
+    tentative = None
+    if form.is_submitted():
+        tentative = False
+        if User.get_by_mail(form.email.data) != None:
+            reset_password(form.email.data)
+            tentative = True
+    if tentative is None:
+        return render_template("mdp_oublie.html", tentative=False, form=form)
+    elif not tentative:
+        return render_template("mdp_oublie.html", tentative=True, form=form)
+    else:
+        return render_template("envoi_email.html", email=form.email.data)
+ 
+@app.route("/reset/", methods=["POST", "GET"])
+def valider():
+    form = ResetPasswordFrom()
+    if form.is_submitted():
+        if form.mdp.data == form.valider.data:
+            return redirect(url_for('home'))
+        else:
+            return render_template("reinitialiser_mdp.html", form=form, tentaive=True)
+    return render_template("reinitialiser_mdp.html", form=form, tentative=False)            
+
+def reset_password(mail):
+    email = "exemplemobilist@outlook.com"
+    password = "ggzb gucf uynu djih"
+    subject = "Mobilist - réinitialiser votre mot de passe"
+    body = "Pour réinitialiser votre mot de passe Mobilist,\n veuillez accéder à la page suivante : http://127.0.0.1:5000/reset/"
+
+    try:
+        # Configuration du serveur SMTP
+        print("smthg")
+        server = smtplib.SMTP("smtp.office365.com")
+        server.starttls() 
+        print("2")
+        server.login(email, password)
+        print("etape 1")
+
+        msg = MIMEMultipart()
+        msg["From"] = email
+        msg["To"] = mail
+        msg["Subject"] = subject
+        msg.attach(MIMEText(body, "plain"))
+        print("etapt2")
+
+        server.sendmail(email, mail, msg.as_string())
+        print("Email envoyé avec succès !")
+
+    except Exception as e:
+        print(f"Une erreur est survenue : {e}")
+
+    finally:
+        server.quit()
+
+
+
+def extraire_informations(texte):
+    doc = nlp(texte)
+    donnees = {
+        "prix": "",
+        "date_achat": ""
+    }
+    for ent in doc.ents:
+        if ent.label_ == "PRIX":
+            donnees["prix"] = ent.text
+        elif ent.label_ == "DATE": 
+            donnees["date_achat"] = ent.text
+    return donnees

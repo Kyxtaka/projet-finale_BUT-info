@@ -21,12 +21,16 @@
   <div class="form-control-static">
     {{ form.password.label }}
     {{ form.password(size=50, class_="form-control", placeholder ="monmotdepasse123") }}
-  </div>  
+  </div> 
+  {% if not (mdp) %}
+  <p class="erreur"> Votre mot de passe est erroné </p>
+  {% endif %} 
   
   <span class="form-control-static">
     <button type="submit" class="btn btn-primary mb-3">Se connecter</button>
   </span>
 </form>
  <p class="signin"> Pas de compte ? Commencez <a href="{{ url_for('inscription')}}">maintenant</a> !</p>
+ <p class="signin"> <a href="{{ url_for('page_oublie')}}"> Mot de passe oublié <a> <p>
 </section>
 {% endblock %}
