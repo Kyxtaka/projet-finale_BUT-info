@@ -19,6 +19,10 @@ from werkzeug.datastructures import MultiDict
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import spacy
+from PyPDF2 import PdfReader
+
+nlp = spacy.load("fr_core_news_md")
 
 
 #constante : chemin d'acces au dossier de telechargement des justificatifs
@@ -123,6 +127,14 @@ class UploadFileForm(FlaskForm):
             print("file saved")
         except Exception as e:
             print("erreur:", e)
+
+
+    def lire_pdf(fichier):
+        reader = PdfReader(fichier)
+        texte = ""
+        for page in reader.pages:
+            texte += page.extract_text()
+        return texte
 
 class AjoutBienForm(FlaskForm):
     logement  = SelectField('Logement', validators=[DataRequired()])
@@ -466,3 +478,18 @@ def reset_password(mail):
 
     finally:
         server.quit()
+
+
+
+def extraire_informations(texte):
+    doc = nlp(texte)
+    donnees = {
+        "prix": "",
+        "date_achat": ""
+    }
+    for ent in doc.ents:
+        if ent.label_ == "PRIX":
+            donnees["prix"] = ent.text
+        elif ent.label_ == "DATE": 
+            donnees["date_achat"] = ent.text
+    return donnees
