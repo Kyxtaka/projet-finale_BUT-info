@@ -21,6 +21,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 # import spacy
 from PyPDF2 import PdfReader
+from .secure_constante import GOOGLE_SMTP, GOOGLE_SMTP_PWD, GOOGLE_SMTP_USER
 
 # nlp = spacy.load("fr_core_news_md")
 
@@ -474,15 +475,21 @@ def set_password_page():
 
 def send_change_pwd_email(mail, token) -> bool:
     sent_status = False
-    email = "eexemple044@gmail.com"
-    password = "ggzb gucf uynu djih"
+    # email = "eexemple044@gmail.com"
+    # password = "ggzb gucf uynu djih"
+    email = GOOGLE_SMTP_USER
+    password = GOOGLE_SMTP_PWD
     subject = "Mobilist - réinitialiser votre mot de passe"
-    generated_change_password_link = f"http://127.0.0.1:5000/forgotPassword/setPassword?token={token}"
+    protocol = "http"
+    domain = "127.0.0.1:5000"
+    port = "5000"
+    generated_change_password_link = f"{protocol}://{domain}:{port}/forgotPassword/setPassword?token={token}"
     body = f"Pour réinitialiser votre mot de passe Mobilist,\n veuillez accéder à la page suivante : {generated_change_password_link}"
     try:
         # Configuration du serveur SMTP
         print("smthg")
-        server = smtplib.SMTP("smtp.gmail.com")
+        server = smtplib.SMTP(GOOGLE_SMTP)
+        # server = smtplib.SMTP("smtp.gmail.com", 587) # server smtp de google
         server.starttls() 
         print("2")
         server.login(email, password)
