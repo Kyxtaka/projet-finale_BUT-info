@@ -1,7 +1,7 @@
 from datetime import datetime
 from flask import jsonify, render_template
 from .app import app
-from flask import redirect, render_template, url_for
+from flask import redirect, render_template, url_for, render_template_string
 from wtforms import PasswordField
 from .models import User
 from hashlib import sha256
@@ -403,7 +403,7 @@ def ajout_logement():
         print("Ajout logement")
         print(f"form data: {request.form}")
         logement_name = request.form.get("name")
-        logement_type = request.form.get("type")
+        logement_type = request.form.get("typeL")
         logement_address = request.form.get("address")
         logement_description = request.form.get("description")
         print(f"values: {logement_name}, {logement_type}, {logement_address}, {logement_description}")
@@ -411,24 +411,26 @@ def ajout_logement():
             proprio = Proprietaire.query.get(current_user.id_user)
             print(f"Proprio: {proprio}")
 
-            new_logement = create_logement(logement_name, logement_address, logement_description, logement_type)
+            new_logement = create_logement(logement_name, logement_type, logement_address, logement_description )
 
             link_logement_owner(new_logement, proprio)
             print(f"New logement: {new_logement}")
 
-            rooms = json.loads(request.form.get("rooms"))
+            rooms = json.loads(request.form.get("rooms-array"))
+            print(f"Rooms: {rooms}")
             for room in rooms:
-                ajout_piece_logement(new_logement, room["name"], room["desc"])
+                print(f"setting room: {room}")
+                ajout_piece_logement(new_logement, room["name"], room["description"])
 
-            render_template(url_for("accueil_connexion"))
+            return redirect(url_for("accueil_connexion"))
         except Exception as e:
-            print("Erreur lors de l'ajout du logement")
+            print("Erreur lors de l'ajout du logement phase 1")
             print(e)
     return render_template("ajout_logement.html", type_logement=[type for type in LogementType])
 
-def create_logement(name: str, address: str, description: str, type: str) -> Logement:
+def create_logement(name: str, type: str, address: str, description: str) -> Logement:
     session = db.session
-    id_logement = get_next_id(Logement)
+    id_logement = Logement.next_id()
     print("id_logement:", id_logement)
     enum_type = LogementType[type]
     print("enum_type:", enum_type)
@@ -436,7 +438,7 @@ def create_logement(name: str, address: str, description: str, type: str) -> Log
         id_logement = id_logement,
         nom_logement = name,
         type_logement = enum_type,
-        adresse = address,
+        adresse_logement = address,
         desc_logement = description 
     )
     try:
@@ -446,7 +448,7 @@ def create_logement(name: str, address: str, description: str, type: str) -> Log
         print("Logement ajouté")
     except Exception as e:
         session.rollback()
-        print("Erreur lors de l'ajout du logement")
+        print("Erreur lors de l'ajout du logement phase 2")
         print(e)
     return new_logement
 
@@ -454,7 +456,8 @@ def ajout_piece_logement(Logement: Logement, room_name: str = "", desc: str = ""
     session = db.session
     success = False
     try:
-        id_piece = get_next_id(Piece)
+        id_piece = Piece.next_id()
+        print(f"new piece id: {id_piece}")
         new_piece = Piece(
             id_piece=id_piece,
             nom_piece=room_name,
@@ -475,7 +478,11 @@ def link_logement_owner(logement: Logement, proprio: Proprietaire):
     session = db.session
     success = False
     try:
-        proprio.logements.append(logement)
+        link = AVOIR(
+            id_proprio=proprio.get_id_proprio(),
+            id_logement=logement.get_id_logement()
+        )
+        session.add(link)
         session.commit()
         print("Logement lié au propriétaire")
         success = True
@@ -484,3 +491,8 @@ def link_logement_owner(logement: Logement, proprio: Proprietaire):
         print("Erreur lors de la liaison du logement au propriétaire")
         print(e)
     return success
+
+
+@app.route("/test/")
+def test():
+    return render_template_string(str(Logement.next_id()))

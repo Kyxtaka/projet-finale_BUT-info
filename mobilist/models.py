@@ -195,7 +195,7 @@ class Logement(Base):
     pieces = relationship("Piece")
     proprietaires = relationship("Proprietaire", secondary="AVOIR", back_populates="logements")
     
-    def __init__(self, id_logement, nom_logement,type_logement, adresse_logement, desc_logement):
+    def __init__(self, id_logement, nom_logement, type_logement, adresse_logement, desc_logement):
         """Init d'un logement
 
         Args:
@@ -295,6 +295,11 @@ class Logement(Base):
 
     def get_pieces_list(self) -> list:
             return Piece.query.filter_by(id_logement=self.id_logement).all()
+    
+    @staticmethod
+    def next_id() -> int:
+        return db.session.query(func.max(Logement.id_logement)).scalar() +1
+    
     
 class AVOIR(Base):
     __tablename__ = "AVOIR"
@@ -546,6 +551,14 @@ class Piece(Base):
 
     def get_list_biens(self):
         return Bien.query.filter_by(id_logement=self.id_logement,id_piece=self.id_piece).all()
+    
+    @staticmethod
+    def get_max_id():
+        return db.session.query(func.max(Piece.id_piece)).scalar()
+    
+    @staticmethod
+    def next_id():
+        return db.session.query(func.max(Piece.id_piece)).scalar() + 1
         
 class TypeBien(Base):
     __tablename__ = "TYPEBIEN"
