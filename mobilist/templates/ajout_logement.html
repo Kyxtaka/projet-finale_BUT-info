@@ -5,17 +5,14 @@
 {% endblock %}
 {% block scripts %}
 {{ super()}}
-<!-- utilisation de JS pour actualiser les choix de pieces en fonction du logement -->
-<script src="{{ url_for('static', filename='js/ajout_logement.js') }}"></script> 
-<script>
-    console.log('test');
-</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/7.5.5/rxjs.umd.min.js"></script>
+<script src="{{ url_for('static', filename='js/ajout_logement.js') }}"></script>
 {% endblock %}
 {{ super()}}
 {% block content %}
 <div id="add-logement-container"> 
     <h1>Ajoutez un bien à votre logement</h1>
-        <form class="form-container" method="POST">
+        <form class="form-container" method="POST" id="add-logement-form">
             <input type="hidden" id="type-form" name="type-form" value="ADD_LOGEMENT" required>
             <input type="hidden" id="rooms-array" name="rooms-array" value="" >
 
@@ -29,48 +26,45 @@
             {% endfor %}
 
             <label class="form-label" for="address">Adresse logement:</label>
-            <input class="form-input" type="text" placeholder="Adresse du logement" id="edit-adress-input" name="address" >
+            <input class="form-input" type="text" placeholder="Adresse du logement" id="edit-adress-input" name="address" required>
 
             <label class="form-label" for="description">Description logement:</label>
-            <input class="form-input form-textarea" type="text" placeholder="Description du logement" id="edit-description-input" name="description">
+            <input class="form-input form-textarea" type="text" placeholder="Description du logement" id="edit-description-input" name="description" default="">
 
-            <button type="button" class="btn-open-room-form" onclick=toggleFormPopup('add-piece-popup-form')>Ajouter pièce</button>
+            <button type="button" class="btn-open-room-form" onclick="toggleFormPopup('add-piece-popup-form')">Ajouter pièce</button>
 
-            <p>List piece à ajouté</p>
-            <!-- <h2>Pièce a ajouter</h2>d
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nom</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody id="room-table">
-                    <tr>
-                        <td><input type="text" class="room-name" placeholder="Nom de la pièce"></td>
-                        <td><input type="text" class="room-description" placeholder="Description de la pièce"></td>
-                    </tr>
-            </table> -->
+            
 
             <button class="btn btn-primary mb-3" id="formsumbmit" type="submit">Ajouter</button> 
         </form>
+        <!-- <p>List piece à ajouté</p> -->
+        <h2>Pièce a ajouter</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="room-list">
+            </tbody>
+        </table>
+        <input type="button" value="ArrayValue" id="arrayValue">
         <div class="overlay-container" id="add-piece-popup-form">
             <div class="popup-box">
-                <form class="ajout-piece" method="POST">
-                    <input type="hidden" id="type-form" name="type-form" value="ADD_PIECE" required>
-                    <div>
-                        <label class="form-label" for="name">Nom de la pièce :</label>
-                        <input class="form-input" type="text" placeholder="Entrez le nom de la pièce"  id="edit-name-input" name="name" required>
-                    </div>
-                    <div>
-                        <label class="form-label" for="description">Description de la pièce :</label>
-                        <input class="form-input form-textarea" type="text" placeholder="Description de la pièce" id="edit-description-input" name="description">
-                    </div>
-                    <div class="form-btn-container">
-                        <button type="button" class="btn-close-popup" onclick="toggleFormPopup('add-piece-popup-form')">Annuler</button>
-                        <button type="submit" class="btn-submit" >Confirmer</button>
-                    </div>
-                </form>
+                <div>
+                    <label class="form-label" for="name">Nom de la pièce :</label>
+                    <input class="form-input" type="text" placeholder="Entrez le nom de la pièce"  id="edit-room-name-input" name="name" required>
+                </div>
+                <div>
+                    <label class="form-label" for="description">Description de la pièce :</label>
+                    <input class="form-input form-textarea" type="text" placeholder="Description de la pièce" id="edit-room-description-input" name="description">
+                </div>
+                <div class="form-btn-container">
+                    <button type="button" class="btn-close-popup" onclick="toggleFormPopup('add-piece-popup-form')">Annuler</button>
+                    <button type="submit" class="btn-submit" id="add-room-btn">Confirmer</button>
+                </div>
             </div>
         </div>
         

@@ -399,23 +399,82 @@ def mesBiens():
 
 @app.route("/logement/ajout", methods =["GET","POST"])
 def ajout_logement():
+    session = db.session
     if request.method == "POST":
-        try:
-            session = db.session
+        print("Ajout logement")
+        print(f"form data: {request.form}")
+        logement_name = request.form.get("name")
+        logement_type = request.form.get("type")
+        logement_address = request.form.get("address")
+        logement_description = request.form.get("description")
+        try: 
             proprio = Proprietaire.query.get(current_user.id_user)
-            logement = Logement(
-                id_logement=get_next_id(Logement),
-                nom_logement=request.form.get("name"),
-                adresse_logement=request.form.get("address"),
-                desc_logement=request.form.get("description"),
-                type_logement=LogementType[request.form.get("type")],
-                id_proprio=proprio.id_user
-            )
-            session.add(logement)
-            session.commit()
-            print("Logement ajouté")
+            print(f"Proprio: {proprio}")
+            new_logement = create_logement(logement_name, logement_address, logement_description, logement_type, proprio)
+            print(f"New logement: {new_logement}")
+            rooms = json.loads(request.form.get("rooms"))
+            for room in rooms:
+                ajout_piece_logement(room["name"], room["desc"], new_logement)
         except Exception as e:
             session.rollback()
             print("Erreur lors de l'ajout du logement")
             print(e)
     return render_template("ajout_logement.html", type_logement=[type for type in LogementType])
+
+def create_logement(name: str, address: str, description: str, type: str, proprio: Proprietaire):
+    session = db.session
+    try:
+        id_logement = get_next_id(Logement)
+        enum_type = LogementType[type]
+        new_logement = Logement(
+            id_logement = id_logement,
+            nom_logement = name,
+            type_logement = enum_type,
+            adresse = address,
+            desc_logement = description 
+        )
+        session.add(new_logement)
+        session.commit()
+        new_logement = Logement.query.get(id_logement)  
+        print("Logement ajouté")
+        link_logement_owner(new_logement, proprio)
+    except Exception as e:
+        session.rollback()
+        print("Erreur lors de l'ajout du logement")
+        print(e)
+    return new_logement
+
+def ajout_piece_logement(room_name: str, desc: str, Logement: Logement):
+    session = db.session
+    success = False
+    try:
+        id_piece = get_next_id(Piece)
+        new_piece = Piece(
+            id_piece=id_piece,
+            nom_piece=room_name,
+            desc_piece=desc,
+            id_logement=Logement.get_id_logement()
+        )
+        session.add(new_piece)
+        session.commit()
+        print("Piece ajoutée")
+        success = True
+    except Exception as e:
+        session.rollback()
+        print("Erreur lors de l'ajout de la piece")
+        print(e)
+    return success
+
+def link_logement_owner(logement: Logement, proprio: Proprietaire):
+    session = db.session
+    success = False
+    try:
+        proprio.logements.append(logement)
+        session.commit()
+        print("Logement lié au propriétaire")
+        success = True
+    except Exception as e:
+        session.rollback()
+        print("Erreur lors de la liaison du logement au propriétaire")
+        print(e)
+    return success
