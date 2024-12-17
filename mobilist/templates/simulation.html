@@ -5,71 +5,68 @@
 {% endblock %}
 {% block content %}
 <div class="simulation">
-    <div class="bandeau">
-        <h1>Simuler un sinistre</h1>
-    </div>
-    <div class="annee">
-        <p>Année du sinistre :</p>
-        <p>🛈 L'année du sinistre impacte les dégâts possibles et la valeur de vos biens remboursables.</p>
-        <input type="number" class="form-control" data-date-end-date="0d" min="1900" max="2024" step="1" value="2024"/>
-    </div>
-    <hr width="20%" position="centre"/>
-    <div class="type">
-        <p>Type de sinistre :</p>
-        <select name="sinistre" id="sinistre-select">
-          <option value="">-- Choisissez un type --</option>
-          <option value="Inondation">Inondation</option>
-          <option value="Incendie">Incendie</option>
-          <option value="Glissement de terrain">Glissement de terrain</option>
-          <option value="Tempête">Tempête</option>
-          <option value="Tremblement de terre">Tremblement de terre</option>
-        </select>
+    <form action="{{ url_for('generate_pdf') }}" method="POST">
+        <div class="bandeau">
+            <h1>Simuler un sinistre</h1>
+        </div>
+        <div class="annee">
+            <p>Année du sinistre :</p>
+            <p>🛈 L'année du sinistre impacte les dégâts possibles et la valeur de vos biens remboursables.</p>
+            <input type="number" class="form-control" name="sinistre_annee" data-date-end-date="0d" min="1900" max="2024" step="1" value="2024"/>
+        </div>
         <hr width="20%" position="centre"/>
-    </div>
-    <div class="logement">
-        <p>Logement concerné :</p>
-        <select name="logement_id" id="logement-select">
-            <option value="">-- Choisissez un logement --</option>
-            {% for loge in logements %}
-                <option value="{{ loge.id_logement }}">{{ loge.nom_logement }}</option>
-            {% endfor %}
-        </select>
-    </div>
-    <div class="info">
-        <p> 🛈 Pour rappel, voici vos logements :</p>
-        <table class="styled-table">
-            <thead>
-                <tr>
-                    <th>Nom</th>
-                    <th>Type</th>
-                    <th>Adresse</th>
-                    <th>Description</th>
-                </tr>
-            </thead>
-            <tbody>
+        <div class="type">
+            <p>Type de sinistre :</p>
+            <select name="sinistre_type" id="sinistre-select">
+              <option value="">-- Choisissez un type --</option>
+              <option value="Inondation">Inondation</option>
+              <option value="Incendie">Incendie</option>
+              <option value="Glissement de terrain">Glissement de terrain</option>
+              <option value="Tempête">Tempête</option>
+              <option value="Tremblement de terre">Tremblement de terre</option>
+            </select>
+            <hr width="20%" position="centre"/>
+        </div>
+        <div class="logement">
+            <p>Logement concerné :</p>
+            <select name="logement_id" id="logement-select">
+                <option value="">-- Choisissez un logement --</option>
                 {% for loge in logements %}
-                <tr>
-                    <td>{{ loge.nom_logement }}</td>
-                    <td>{{ loge.type_logement.get_type() }}</td>
-                    <td>{{ loge.adresse }}</td>
-                    <td>{{ loge.description }}</td>
-                </tr>
+                    <option value="{{ loge.id_logement }}">{{ loge.nom_logement }}</option>
                 {% endfor %}
-            </tbody>
-        </table>
-        <hr width="20%" position="centre"/>
-    </div>
-    <div class="telecharger">
-        <p>Rapport détaillé</p>
-        <form action="{{ url_for('generate_pdf') }}" method="POST">
-            <input type="hidden" name="sinistre_annee" id="sinistre-annee">
-            <input type="hidden" name="sinistre_type" id="sinistre-type">
-            <input type="hidden" name="logement_id" id="logement-id">
-            <button type="submit" class="download-btn">TÉLÉCHARGER</button>
-        </form>
-        {% if message %}
-            <p style="color: red;">{{ message }}</p>
-        {% endif %}
-    </div>
+            </select>
+        </div>
+        <div class="info">
+            <p> 🛈 Pour rappel, voici vos logements :</p>
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Type</th>
+                        <th>Adresse</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for loge in logements %}
+                    <tr>
+                        <td>{{ loge.nom_logement }}</td>
+                        <td>{{ loge.type_logement.get_type() }}</td>
+                        <td>{{ loge.adresse }}</td>
+                        <td>{{ loge.description }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <hr width="20%" position="centre"/>
+        </div>
+        <div class="telecharger">
+            <p>Rapport détaillé</p>
+                <button type="submit" class="download-btn">TÉLÉCHARGER</button>
+            {% if message %}
+                <p style="color: red;">{{ message }}</p>
+            {% endif %}
+        </div>
+    </form>
 </div>
 {% endblock %}
