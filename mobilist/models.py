@@ -468,6 +468,19 @@ class Bien(Base):
         bien = Bien.query.filter_by(id_bien=id_bien).first()
         return Piece.query.filter_by(id_piece=bien.id_piece).first()
     
+    @staticmethod
+    def get_data_bien(id):
+        result = Bien.query.filter_by(id_bien=id).first()
+        return result
+    
+    def get_typelogement(self, bien):
+        return Logement.query.filter_by(id_logement=bien.id_logement).first()
+     
+    def get_catbien(self, bien):
+        return Categorie.query.filter_by(id_cat=bien.id_cat).first()
+    
+    def get_typebien(self, bien):
+        return TypeBien.query.filter_by(id_type=bien.id_type).first()
     
 class Piece(Base):
     __tablename__ = "PIECE"

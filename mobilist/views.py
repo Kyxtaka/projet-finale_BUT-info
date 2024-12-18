@@ -182,10 +182,10 @@ def biens():
     for elem in biens:
         for j in range(len(elem)):
             bien = elem[j]
-            infos.append([bien.nom_bien, bien.get_nom_logement_by_bien(bien.id_bien).nom_logement, bien.get_nom_piece_by_bien(bien.id_bien).nom_piece])
+            infos.append([bien.nom_bien, bien.get_nom_logement_by_bien(bien.id_bien).nom_logement, bien.get_nom_piece_by_bien(bien.id_bien).nom_piece, str(bien.id_bien)])
     a_justifier = []
     for justifie in justifies:
-        a_justifier.append([justifie.nom_bien, justifie.get_nom_logement_by_bien(justifie.id_bien).nom_logement, justifie.get_nom_piece_by_bien(justifie.id_bien).nom_piece])
+        a_justifier.append([justifie.nom_bien, justifie.get_nom_logement_by_bien(justifie.id_bien).nom_logement, justifie.get_nom_piece_by_bien(justifie.id_bien).nom_piece, str(justifie.id_bien)])
     return infos, a_justifier
     
 @app.route("/login/", methods =("GET","POST" ,))
@@ -512,3 +512,25 @@ def extraire_informations(texte):
         elif ent.label_ == "DATE": 
             donnees["date_achat"] = ent.text
     return donnees
+
+@app.route("/modifierbien/", methods=["POST", "GET"])
+def modifier_bien():
+    id = request.args.get("id")
+    bien = Bien.get_data_bien(id)
+    form_bien = AjoutBienForm()
+    form_bien.prix_bien.data = bien.prix
+    form_bien.nom_bien.data = bien.nom_bien
+    form_bien.logement.data = bien.get_typelogement(bien).type_logement
+    form_bien.categorie_bien.data = bien.get_catbien(bien).nom_cat
+    form_bien.type_bien.data = bien .get_typebien(bien).nom_type
+    
+    if form_bien.validate_on_submit():
+        try:
+            return redirect(url_for("accueil_connexion"))
+        except Exception as e:
+            return render_template("ajout_bien.html", 
+                               form=form_bien,     
+                               error=True)
+    return render_template("ajout_bien.html", 
+                            form=form_bien, 
+                            error=False)
