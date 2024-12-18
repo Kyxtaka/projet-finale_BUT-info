@@ -1,3 +1,12 @@
+main #formsumbmit {
+    margin-left: 41%;
+    margin-top: 30px;
+    width: 20%;
+    height: 60px;
+    background: #5E5DF0;
+    box-shadow: #5E5DF0 0 10px 20px -10px;
+}
+
 .overlay-container {
     display: none;
     position: fixed;
@@ -90,3 +99,52 @@
     justify-content: space-between;
 }
 
+.form-content { 
+    display: flex ;
+    flex-direction: column;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    margin: auto;
+    padding: 2%;
+    border-radius: 25px;
+    width: 85%;
+}
+
+.form-content > div * {
+    border-radius: 5px;
+}
+
+
+main h1{
+    padding-top : 30px;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+main h2{
+    text-align: center;
+}
+
+form-content label{
+    text-align: left;
+    font-weight: bold;
+}
+
+span{
+    
+}
+
+th {
+    width:3%;   
+    text-align: center;
+}
+
+td{
+    text-align: center;
+    vertical-align: middle;
+}
+
+#first-row{
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 25px;
+}
