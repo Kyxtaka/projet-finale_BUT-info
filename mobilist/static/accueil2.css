@@ -31,6 +31,12 @@ img {
     background-color: black;
     box-shadow: 2px 2px 15px 4px rgba(0, 0, 0, 0.1);
 }
+.tableau th{
+    padding-right: 65px;
+}
+.tableau a {
+    color: black;
+}
 
 .accueil2 .tableau-ajout {
     position: absolute;
@@ -53,7 +59,7 @@ img {
 }
 
 .derniers_ajouts, .a_justifier {
-    padding: 5px;
+    padding: 10px;
     border-top: 0.5mm solid;
     margin-bottom: 1%;
     border-color: lightgray;

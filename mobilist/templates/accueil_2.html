@@ -32,7 +32,7 @@
   <table class="tableau">
     <thead>
       <tr>
-        <th scope="col" class="col">Type de bien</th>
+        <th scope="col" class="col">Nom du bien</th>
         <th scope="col" class="col">Logement</th>
         <th scope="col" class="col">Pièce</th>
       </tr>
@@ -47,14 +47,14 @@
       {% endfor %}
     </tbody>
     </table>
-    <a href="{{ url_for('ensemble_biens', infos=infos, justifies=justifies)}}" class="voir_plus"><u>Voir plus</u></a>
+    <a href="{{ url_for('ensemble_biens')}}" class="voir_plus"><u>Voir plus</u></a>
   </section>
   <section class="a_justifier">
     <h3>À justifier </h3>
   <table class="tableau">
     <thead>
       <tr>
-        <th scope="col" class="col">Type de bien</th>
+        <th scope="col" class="col">Nom du bien</th>
         <th scope="col" class="col">Logement</th>
         <th scope="col" class="col">Pièce</th>
       </tr>
@@ -69,6 +69,6 @@
       {% endfor %}
     </tbody>
     </table>
-    <a href="{{ url_for('ensemble_biens', info='infos', justifie='justifies')}}" class="voir_plus"><u>Voir plus</u></a>
+    <a href="{{ url_for('ensemble_biens')}}" class="voir_plus"><u>Voir plus</u></a>
   </section>{% endblock %}
 

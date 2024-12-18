@@ -1,4 +1,4 @@
-from datetime import datetime
+
 from flask import jsonify, render_template
 from .app import app
 from flask import redirect, render_template, url_for
@@ -15,12 +15,13 @@ from flask_wtf import FlaskForm
 from wtforms import * #import de tous les champs
 from wtforms.validators import DataRequired
 from werkzeug.utils import secure_filename
-from werkzeug.datastructures import MultiDict
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import spacy
 from PyPDF2 import PdfReader
+import ast
+
 
 nlp = spacy.load("fr_core_news_md")
 
@@ -129,7 +130,7 @@ class UploadFileForm(FlaskForm):
             print("erreur:", e)
 
 
-    def lire_pdf(fichier):
+    def lire_pdf(self,fichier):
         reader = PdfReader(fichier)
         texte = ""
         for page in reader.pages:
@@ -172,6 +173,10 @@ class AjoutBienForm(FlaskForm):
 @app.route("/accueil-connexion/", methods=["POST", "GET"])
 @login_required   
 def accueil_connexion():
+    infos, a_justifier = biens()
+    return render_template("accueil_2.html", infos=infos[:4], justifies=a_justifier[:4])
+
+def biens():
     biens, justifies = User.get_biens_by_user(current_user.mail)
     infos = []
     for elem in biens:
@@ -181,8 +186,7 @@ def accueil_connexion():
     a_justifier = []
     for justifie in justifies:
         a_justifier.append([justifie.nom_bien, justifie.get_nom_logement_by_bien(justifie.id_bien).nom_logement, justifie.get_nom_piece_by_bien(justifie.id_bien).nom_piece])
-        
-    return render_template("accueil_2.html", infos=infos[:4], justifies=a_justifier[:4])
+    return infos, a_justifier
     
 @app.route("/login/", methods =("GET","POST" ,))
 def login() -> str:
@@ -192,7 +196,6 @@ def login() -> str:
     elif f.validate_on_submit():
         user = f.get_authenticated_user()
         if user:
-            print("test2")
             login_user(user)
             next = f.next.data or url_for("accueil_connexion")
             return redirect(next)
@@ -266,9 +269,8 @@ def ajout_bien():
 
 @app.route("/ensemblebiens/", methods=["GET"])
 @login_required
-def ensemble_biens(info=[], justifie=[]):
-    info=request.form.get['info']
-    justifie=request.form.get['justifie']
+def ensemble_biens():
+    info, justifie = biens()
     return render_template("ensemble_biens.html", infos=info, justifies=justifie)
     
 def handle_form_bien(form_bien: AjoutBienForm):
