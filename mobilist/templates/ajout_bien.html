@@ -66,7 +66,7 @@
 {% block content %}
 <div class="ajout-logement"> 
     <h1>Ajoutez un bien à votre logement</h1>
-    <form  class="form-group" form='form' id="form" action="{{ url_for('ajout_bien') }}" method="POST" enctype="multipart/form-data">
+    <form  class="form-group" form='form' id="form" action="{{ url_for('accueil_connexion') }}" method="POST" enctype="multipart/form-data">
         <div class="box-container" id="main-form">
             <div id="left-side">
                 {{ form.csrf_token }}

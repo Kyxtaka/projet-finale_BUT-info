@@ -169,10 +169,20 @@ class AjoutBienForm(FlaskForm):
             print("erreur:", e)
         
 
-@app.route("/accueil-connexion/")
+@app.route("/accueil-connexion/", methods=["POST", "GET"])
 @login_required   
 def accueil_connexion():
-    return render_template("accueil_2.html")
+    biens, justifies = User.get_biens_by_user(current_user.mail)
+    infos = []
+    for elem in biens:
+        for j in range(len(elem)):
+            bien = elem[j]
+            infos.append([bien.nom_bien, bien.get_nom_logement_by_bien(bien.id_bien).nom_logement, bien.get_nom_piece_by_bien(bien.id_bien).nom_piece])
+    a_justifier = []
+    for justifie in justifies:
+        a_justifier.append([justifie.nom_bien, justifie.get_nom_logement_by_bien(justifie.id_bien).nom_logement, justifie.get_nom_piece_by_bien(justifie.id_bien).nom_piece])
+        
+    return render_template("accueil_2.html", infos=infos[:4], justifies=a_justifier[:4])
     
 @app.route("/login/", methods =("GET","POST" ,))
 def login() -> str:
@@ -253,6 +263,7 @@ def ajout_bien():
     return render_template("ajout_bien.html", 
                             form=form_bien, 
                             error=False)
+
 
 def handle_form_bien(form_bien: AjoutBienForm):
     try:

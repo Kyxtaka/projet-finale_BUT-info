@@ -5,6 +5,7 @@ from sqlalchemy.sql.schema import ForeignKey
 from datetime import date
 from flask_login import UserMixin
 from sqlalchemy.sql.expression import func
+from sqlalchemy import desc
 import enum
 import yaml, os.path
 import time
@@ -351,6 +352,15 @@ class AVOIR(Base):
             id_proprio (int): nouvel id du logement
         """
         self.id_logement = id_logement
+    
+    @staticmethod
+    def get_biens_by_proprio(idproprio):
+        result = AVOIR.query.filter_by(id_proprio=idproprio)
+        liste_biens = []
+        for elem in result:
+            liste_biens.append(Bien.query.filter_by(id_logement=elem.id_logement).order_by(desc(Bien.id_bien)).all())
+        return liste_biens
+        
 
 class Bien(Base):
     __tablename__ = "BIEN"
@@ -450,6 +460,15 @@ class Bien(Base):
     def get_max_id() -> int:
         return db.session.query(func.max(Bien.id_bien)).scalar()
     
+    def get_nom_logement_by_bien(self, id_bien):
+        bien = Bien.query.filter_by(id_bien=id_bien).first()
+        return Logement.query.filter_by(id_logement=bien.id_logement).first()
+    
+    def get_nom_piece_by_bien(self, id_bien):
+        bien = Bien.query.filter_by(id_bien=id_bien).first()
+        return Piece.query.filter_by(id_piece=bien.id_piece).first()
+    
+    
 class Piece(Base):
     __tablename__ = "PIECE"
     
@@ -543,7 +562,8 @@ class Piece(Base):
             id_logement (int): nouvell id du logement
         """
         self.id_logement = id_logement
-
+    
+    
     def get_list_biens(self):
         return Bien.query.filter_by(id_logement=self.id_logement,id_piece=self.id_piece).all()
         
@@ -771,6 +791,17 @@ class Justificatif(Base):
             id_bien (int): nouvel ID
         """
         self.id_bien = id_bien
+    
+    @staticmethod
+    def possede_justificatif(biens):
+        liste_non_justifies = []
+        for bien in biens:
+            for j in range(len(bien)):
+                result = Justificatif.query.filter_by(id_bien=bien[j].id_bien).first()
+                if result==None:
+                    liste_non_justifies.append(bien[j])
+        return liste_non_justifies
+                    
 
 class User(Base, UserMixin):
     __tablename__ = "USER"
@@ -860,6 +891,14 @@ class User(Base, UserMixin):
     def get_by_mail(mail):
         return User.query.filter_by(mail=mail).first()
     
+    @staticmethod
+    def get_biens_by_user(user):
+        result = User.query.filter_by(mail=user).first()
+        id_proprio = result.proprio.get_id_proprio()
+        biens = AVOIR.get_biens_by_proprio(id_proprio)
+        non_justifies = Justificatif.possede_justificatif(biens)
+        return biens,non_justifies
+            
 @login_manager.user_loader
 def load_user(mail):
     return User.query.get(mail)

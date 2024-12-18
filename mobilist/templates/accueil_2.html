@@ -35,10 +35,17 @@
         <th scope="col" class="col">Type de bien</th>
         <th scope="col" class="col">Logement</th>
         <th scope="col" class="col">Pièce</th>
-        <th scope="col" class="col">Date d'ajout</th>
       </tr>
     </thead>
     <tbody>
+      {% for bien in infos %}
+      <tr>
+        {% for elem in bien %}
+        <td>{{ elem }}</td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </tbody>
     </table>
     <a href="" class="voir_plus"><u>Voir plus</u></a>
   </section>
@@ -50,10 +57,16 @@
         <th scope="col" class="col">Type de bien</th>
         <th scope="col" class="col">Logement</th>
         <th scope="col" class="col">Pièce</th>
-        <th scope="col" class="col">Date d'ajout</th>
       </tr>
     </thead>
     <tbody>
+      {% for bien in justifies %}
+      <tr>
+        {% for elem in bien %}
+        <td>{{ elem }}</td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
     </tbody>
     </table>
     <a href="" class="voir_plus"><u>Voir plus</u></a>
