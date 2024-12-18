@@ -59,8 +59,10 @@
     <a href="" class="voir_plus"><u>Voir plus</u></a>
   </section>
   <section class="telecharger">
-    <p>Votre inventaire ici</p>
-    <button type="submit" class="download-btn">TÉLÉCHARGER</button>
+    <form method="POST" action="/accueil-connexion/">
+      <p>Votre inventaire ici</p>
+      <button type="submit" name="bouton_telecharger" class="download-btn">TÉLÉCHARGER</button>
+    </form>
   </section>
 {% endblock %}
 

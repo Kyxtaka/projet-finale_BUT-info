@@ -197,13 +197,16 @@ def generate_pdf_tous_logements(proprio,logements) -> BytesIO:
     y -= height_box
     # Parcours des pièces et des biens
     for loge in logements:
+        print (loge)
+        print(loge.id_logement)
         if y < 3 * cm:
             canva.showPage()
             y = height - 2 * cm
         canva.setFont("Helvetica-Bold", 13)
-        canva.drawString(1 * cm, y, f"Logement : {loge.nom_logement} ({loge.adresse})")
+        canva.drawString(1 * cm, y, f"{loge.nom_logement} ({loge.adresse})")
         y -= 1 * cm
         pieces = db.session.query(Piece).filter_by(id_logement=loge.id_logement).all()
+        print(pieces)
         for p in pieces:
             if y < 3 * cm:  # Saut de page si besoin
                 canva.showPage()
@@ -213,6 +216,7 @@ def generate_pdf_tous_logements(proprio,logements) -> BytesIO:
             y -= 0.7 * cm
             biens = db.session.query(Bien, Categorie).join(Categorie, Bien.id_cat == Categorie.id_cat) \
                 .filter(Bien.id_piece == p.id_piece).all()
+            print(biens)
             biens_par_categorie = {}
             for bien, categorie in biens:
                 biens_par_categorie.setdefault(categorie.nom_cat, []).append((bien.nom_bien, bien.prix))
@@ -236,15 +240,16 @@ def generate_pdf_tous_logements(proprio,logements) -> BytesIO:
     buffer.seek(0)
     return send_file(buffer, as_attachment=True, download_name="inventaire_biens.pdf", mimetype="application/pdf")
 
-@app.route("/accueil-connexion/",methods =("GET","POST" ,))
+@app.route("/accueil-connexion/", methods =("GET","POST" ,))
 @login_required   
 def accueil_connexion():
     proprio = Proprietaire.query.get(current_user.id_user)
     logements = []
     for logement in proprio.logements:
         logements.append(logement)
-    if request.method == "GET":
-        return generate_pdf_tous_logements(proprio,logements)
+    if request.method == 'POST':
+        if 'bouton_telecharger' in request.form:
+            return generate_pdf_tous_logements(proprio,logements)
     return render_template("accueil_2.html")
     
 @app.route("/login/", methods =("GET","POST" ,))
