@@ -418,7 +418,7 @@ def generate_pdf() -> BytesIO:
     if request.method == "POST":
         if not logement_id or not sinistre_annee or not sinistre_type:
             message = "Veuillez sélectionner tous les champs."
-            return render_template("simulation.html", logements=logements, 
+            return render_template("simulation.html", logements=logements,
                                    message=message, logement_id=logement_id,
                                    sinistre_annee=sinistre_annee,
                                    sinistre_type=sinistre_type)
@@ -428,7 +428,7 @@ def generate_pdf() -> BytesIO:
         y = height - 2 * cm
 
         # Fonction qui dessine des blocs gris avec du texte
-        def draw_grey_box_with_text(canva, x, y, width, height, text, font="Helvetica", font_size=12):
+        def draw_grey_box_with_text(canva, x, y, width, height, text, font="Helvetica", font_size=13):
             canva.setFillColorRGB(0.827, 0.827, 0.827)
             canva.rect(x, y, width, height, fill=1, stroke=0)
             canva.setFillColorRGB(0, 0, 0)
@@ -438,7 +438,7 @@ def generate_pdf() -> BytesIO:
         # Titre 
         canva.setFillColorRGB(0.38, 0.169, 0.718)
         canva.setFont("Helvetica-Bold", 20)
-        canva.drawCentredString(width / 2, y, "Inventaire des biens")
+        canva.drawCentredString(width / 2, y, "INVENTAIRE DES BIENS")
         y -= 1 * cm
 
         # Sous-titre
@@ -449,6 +449,8 @@ def generate_pdf() -> BytesIO:
 
         # Valeur totale
         total_valeur = db.session.query(func.sum(Bien.prix)).filter(Bien.id_logement == logement_id).scalar()
+        if total_valeur == None:
+            total_valeur = 0
         canva.setFillColorRGB(0.792, 0.659, 1)
         canva.rect(20, y, width - 40, 1 * cm, fill=1, stroke=0)
         canva.setFillColorRGB(0, 0, 0)
