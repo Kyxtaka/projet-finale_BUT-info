@@ -41,7 +41,9 @@
       {% for bien in infos %}
       <tr>
         {% for elem in bien %}
-        <td>{{ elem }}</td>
+        {% if not (elem.isdigit()) %}
+        <td> {{ elem }}</td>
+        {% endif%}
         {% endfor %}
       </tr>
       {% endfor %}
@@ -63,7 +65,9 @@
       {% for bien in justifies %}
       <tr>
         {% for elem in bien %}
-        <td>{{ elem }}</td>
+        {% if not (elem.isdigit()) %}
+        <td> {{ elem }}</td>
+        {% endif%}
         {% endfor %}
       </tr>
       {% endfor %}

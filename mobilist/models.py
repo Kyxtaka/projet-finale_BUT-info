@@ -482,6 +482,18 @@ class Bien(Base):
     def get_typebien(self, bien):
         return TypeBien.query.filter_by(id_type=bien.id_type).first()
     
+    @staticmethod
+    def modifier_bien(id, nom, logement, prix, date, categorie, type):
+        result = Bien.query.filter_by(id_bien=id).first()
+        result.nom_bien = nom
+        result.prix = prix
+        result.id_logement = logement
+        result.id_cat = categorie
+        result.id_type = type
+        result.date_achat = date
+        db.session.commit()
+        
+    
 class Piece(Base):
     __tablename__ = "PIECE"
     

@@ -6,8 +6,7 @@
 {% block styles %}
 {{ super() }}
 <link rel="stylesheet" href="{{ url_for('static', filename='accueil2.css') }}">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>  
+
 {% endblock %}
 {% endblock %}
 {% block content %}
@@ -27,8 +26,8 @@
       {% for bien in infos %}
       <tr>
         {% for elem in bien %}
-        {% if not elem.isdigit() %}
-        <td> <a href="{{ url_for('modifier_bien', id=elem[3])}}"> {{ elem }} </a> </td>
+        {% if not (elem.isdigit()) %}
+        <td> <a href="{{ url_for('modifier_bien', id=bien[3])}}"> {{ elem }} </a> </td>
         {% endif%}
         {% endfor %}
       
@@ -51,8 +50,8 @@
       {% for bien in justifies %}
       <tr>
         {% for elem in bien %}
-        {% if not elem.isdigit() %}
-        <td> <a href="{{ url_for('modifier_bien', id=elem[3])}}"> {{ elem }} </a> </td>
+        {% if not (elem.isdigit()) %}
+        <td> <a href="{{ url_for('modifier_bien', id=bien[3])}}"> {{ elem }} </a> </td>
         {% endif%}
         {% endfor %}
       </tr>

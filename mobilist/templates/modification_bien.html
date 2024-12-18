@@ -65,8 +65,8 @@
 {{ super()}}
 {% block content %}
 <div class="ajout-logement"> 
-    <h1>Ajoutez un bien à votre logement</h1>
-    <form  class="form-group" form='form' id="form" action="{{ url_for('accueil_connexion') }}" method="POST" enctype="multipart/form-data">
+    <h1>Modifier un bien à votre logement</h1>
+    <form  class="form-group" form='form' id="form" action="{{ url_for('modifier_bien', id=form.id_bien) }}" method="POST" enctype="multipart/form-data">
         <div class="box-container" id="main-form">
             <div id="left-side">
                 {{ form.csrf_token }}
@@ -107,7 +107,7 @@
                 console.log("affichage du formulaire {{form.data}}")
             </script>
         {% endif %}
-        <button class="btn btn-primary mb-3" id="formsumbmit" type="submit">Modifier</button> 
+        <button class="btn btn-primary mb-3" id="formsubmit" type="submit">Modifier</button> 
     </form>
     <div class="box-container" id="recent-ajout">
         <div id="titre-box">

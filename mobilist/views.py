@@ -138,19 +138,21 @@ class UploadFileForm(FlaskForm):
         return texte
 
 class AjoutBienForm(FlaskForm):
-    logement  = SelectField('Logement', validators=[DataRequired()])
+    logement  = SelectField('Logement', validators=[DataRequired()], coerce=int)
     nom_bien = StringField('Nom du bien', validators=[DataRequired()])
-    type_bien = SelectField('Type de bien', validators=[DataRequired()])
-    categorie_bien = SelectField('Catégorie', validators=[DataRequired()])
-    piece_bien = SelectField('Nombre de pièces', validators=[DataRequired()])
+    type_bien = SelectField('Type de bien', validators=[DataRequired()],coerce=int)
+    categorie_bien = SelectField('Catégorie', validators=[DataRequired()], coerce=int)
+    piece_bien = SelectField('Nombre de pièces', validators=[DataRequired()], coerce=int)
     prix_bien = FloatField('Prix neuf', validators=[DataRequired()])
     date_bien = DateField("Date de l'achat", validators=[DataRequired()])
     description_bien = TextAreaField('Description')
     file = FileField('File')
     id_proprio = HiddenField("id_proprio") 
+    id_bien = HiddenField("id_proprio")
 
     def __init__(self,*args, **kwargs):
         super(AjoutBienForm, self).__init__(*args, **kwargs)
+        self.id_bien = None
         self.id_proprio = current_user.id_user
         self.logement.choices = [(l.get_id_logement(), l.get_nom_logement()) for l in Proprietaire.query.get(current_user.id_user).logements]
         self.type_bien.choices = [(t.id_type, t.nom_type) for t in TypeBien.query.all()]
@@ -168,7 +170,26 @@ class AjoutBienForm(FlaskForm):
             return os.path.join(CUSTOM_UPLOAD_FOLDER_JUSTIFICATIF, file.filename) # retourne le chemin du fichier, pour l'enregistrement en BD
         except Exception as e:
             print("erreur:", e)
-        
+    
+    def set_id(self,id):
+        self.id_bien = id
+    def get_log_choices(self,nom):
+        for elem in self.logement.choices:
+            if elem[1]==nom:
+                return elem[0]
+        return ""
+
+    def get_type_bien_choices(self, nom):
+        for elem in self.type_bien.choices:
+            if elem[1]==nom:
+                return elem[0]
+        return ""
+    
+    def get_cat_bien_choices(self, nom):
+        for elem in self.categorie_bien.choices:
+            if elem[1]==nom:
+                return elem[0]
+        return ""
 
 @app.route("/accueil-connexion/", methods=["POST", "GET"])
 @login_required   
@@ -517,20 +538,34 @@ def extraire_informations(texte):
 def modifier_bien():
     id = request.args.get("id")
     bien = Bien.get_data_bien(id)
-    form_bien = AjoutBienForm()
-    form_bien.prix_bien.data = bien.prix
-    form_bien.nom_bien.data = bien.nom_bien
-    form_bien.logement.data = bien.get_typelogement(bien).type_logement
-    form_bien.categorie_bien.data = bien.get_catbien(bien).nom_cat
-    form_bien.type_bien.data = bien .get_typebien(bien).nom_type
-    
+    try:
+        form_bien = AjoutBienForm()
+        form_bien.set_id(id)
+        form_bien.prix_bien.data = bien.prix
+        form_bien.nom_bien.data = bien.nom_bien
+        form_bien.logement.data = form_bien.get_log_choices(bien.get_typelogement(bien).nom_logement)
+        form_bien.categorie_bien.data = form_bien.get_cat_bien_choices(bien.get_catbien(bien).nom_cat)
+        form_bien.type_bien.data = form_bien.get_type_bien_choices(bien.get_typebien(bien).nom_type)
+    except Exception as e: 
+        form_bien = AjoutBienForm()
+
     if form_bien.validate_on_submit():
         try:
+            Bien.modifier_bien(
+                form_bien.id_bien, 
+                form_bien.nom_bien.data,
+                form_bien.logement.data,
+                form_bien.prix_bien.data,
+                form_bien.date_bien.data, 
+                form_bien.categorie_bien.data, 
+                form_bien.type_bien.data
+                ) # rediriger avec le form
             return redirect(url_for("accueil_connexion"))
         except Exception as e:
-            return render_template("ajout_bien.html", 
+            print(e)
+            return render_template("modification_bien.html", 
                                form=form_bien,     
                                error=True)
-    return render_template("ajout_bien.html", 
+    return render_template("modification_bien.html", 
                             form=form_bien, 
                             error=False)
