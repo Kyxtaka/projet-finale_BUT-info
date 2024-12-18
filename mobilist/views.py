@@ -468,8 +468,7 @@ def affiche_logements():
                     print("DELETE_LOGEMENT")
                     id_logement = request.form.get("id")
                     logement = Logement.query.get(id_logement)
-                    print("logement recupere",logement)
-                    session.delete(logement)
+                    logement.delete(Proprietaire.query.get(current_user.id_user))
                     session.commit()
                     print("Logement supprimé")
                 except Exception as e:

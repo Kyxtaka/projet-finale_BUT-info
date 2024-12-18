@@ -102,6 +102,10 @@ class Avis(Base):
 
     def get_sample():
         return Avis.query.all()
+    
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
 
 class Proprietaire(Base):
     __tablename__ = "PROPRIETAIRE"
@@ -181,6 +185,14 @@ class Proprietaire(Base):
     @staticmethod
     def get_by_mail(mail):
         return Proprietaire.query.filter_by(mail=mail).first()
+    
+    def delete(self):
+        for logement in self.logements:
+            logement.delete()
+        AVOIR.query.filter_by(id_proprio=self.id_proprio).delete()
+        User.query.filter_by(mail=self.mail).delete()
+        db.session.delete(self)
+        db.session.commit()
    
 class Logement(Base):
     __tablename__ = "LOGEMENT"
@@ -302,6 +314,24 @@ class Logement(Base):
             return 1
         return Logement.get_max_id() + 1
     
+    def delete(self, proprio: Proprietaire):
+        list_assoc = AVOIR.query.filter_by(id_logement=self.id_logement).all()
+        for assoc in list_assoc:
+            if assoc.get_id_proprio() == proprio.get_id_proprio():
+                assoc.delete()
+        last_assoc = AVOIR.query.filter_by(id_logement=self.id_logement).all()
+        list_bien = Bien.query.filter_by(id_logement=self.id_logement).all()
+        for bien in list_bien:
+            if bien.get_id_proprio() == proprio.get_id_proprio():
+                bien.delete()
+        if len(last_assoc) == 0:
+            Piece.query.filter_by(id_logement=self.id_logement).delete()
+            db.session.delete(self)
+            db.session.commit()
+        else:
+            print("Le logement est associé à d'autres propriétaires, mais celui ne l'est plus à vous")
+            
+    
 class AVOIR(Base):
     __tablename__ = "AVOIR"
 
@@ -347,6 +377,10 @@ class AVOIR(Base):
 
     def set_id_logement(self, id_logement):
         self.id_logement = id_logement
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
 
 class Bien(Base):
     __tablename__ = "BIEN"
@@ -426,6 +460,11 @@ class Bien(Base):
 
     def set_id_logement(self, id_logement):
         self.id_logement = id_logement
+
+    def delete(self):
+        Justificatif.query.filter_by(id_bien=self.id_bien).delete()
+        db.session.delete(self)
+        db.session.commit()
 
     @staticmethod
     def get_max_id():
@@ -536,6 +575,11 @@ class Piece(Base):
         if Piece.get_max_id() is None:
             return 1
         return Piece.get_max_id() + 1
+    
+    def delete(self):
+        Bien.query.filter_by(id_piece=self.id_piece).delete()
+        db.session.delete(self)
+        db.session.commit()
         
 class TypeBien(Base):
     __tablename__ = "TYPEBIEN"
@@ -596,6 +640,10 @@ class TypeBien(Base):
         db.session.add(type)
         db.session.commit()
 
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
 class Categorie(Base):
     __tablename__ = "CATEGORIE"
 
@@ -653,6 +701,10 @@ class Categorie(Base):
     @staticmethod
     def put_categorie(cat):
         db.session.add(cat)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
         db.session.commit()
         
 class Justificatif(Base):
@@ -759,6 +811,10 @@ class Justificatif(Base):
 
     def set_id_bien(self, id_bien):
         self.id_bien = id_bien
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
 
     @staticmethod
     def get_max_id():
