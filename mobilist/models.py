@@ -11,6 +11,10 @@ import time
 
 Base = db.Model
 
+def set_base(db):
+    global Base
+    Base=db.Model
+
 class LogementType(enum.Enum):
     __tablename__ = "LOGEMENTTYPE"
     
@@ -60,11 +64,6 @@ class Avis(Base):
         return self.id_avis
     
     def set_id_avis(self, id_avis):
-        """Changer l'ID de l'avis
-
-        Args:
-            id_avis (int): Nouvelle ID pour avis (doit être unique)
-        """
         self.id_avis = id_avis
     
     def get_desc_avis(self):
@@ -92,11 +91,6 @@ class Avis(Base):
         return self.id_proprio
     
     def set_id_proprio(self, id_proprio):
-        """Changer le propriétaire ayant posté l'avis
-
-        Args:
-            id_proprio (int): Nouvelle ID pour le propriétaire
-        """
         self.id_proprio = id_proprio
     
     def get_sample():
@@ -108,22 +102,13 @@ class Proprietaire(Base):
     id_proprio = Column(Integer, primary_key=True, name="ID_PROPRIO")
     nom = Column(String(20), name="NOM")
     prenom = Column(String(20), name="PRENOM")
-    mail = Column(String(50), name="MAIL", unique=True, nullable=False)
     logements = relationship("Logement", secondary="AVOIR", back_populates="proprietaires")
     user = relationship("User", back_populates="proprio", uselist=False)
     
-    def __init__(self, id_proprio, mail, nom_proprio=None, prenom_proprio=None):
-        """Init d'un propriétaire
-
-        Args:
-            id_proprio (int): ID du propriétaire (unique)
-            nom_proprio (str, optional): Nom du propriétaire. Defaults to None.
-            prenom_proprio (str, optional): Prénom du propriétaire. Defaults to None.
-        """
+    def __init__(self, id_proprio, mail , nom_proprio=None, prenom_proprio=None):
         self.id_proprio = id_proprio
         self.nom = nom_proprio
         self.prenom = prenom_proprio
-        self.mail = mail
     
     def __repr__(self):
         """Représentation d'un propriétaire
@@ -142,11 +127,6 @@ class Proprietaire(Base):
         return self.id_proprio
     
     def set_id_proprio(self, id_proprio):
-        """Changer l'ID du propriétaire
-
-        Args:
-            id_proprio (int): Nouvel ID (unique)
-        """
         self.id_proprio = id_proprio
     
     def get_nom(self):
@@ -183,7 +163,7 @@ class Proprietaire(Base):
     @staticmethod
     def get_by_mail(mail):
         return Proprietaire.query.filter_by(mail=mail).first()
-  
+   
 class Logement(Base):
     __tablename__ = "LOGEMENT"
     
@@ -250,25 +230,9 @@ class Logement(Base):
         """
         return self.desc_logement
     
-    def get_nom_logement(self) -> str:
-        return self.nom_logement
-
     def set_id_logement(self, id_logement):
-        """Changer l'id du logement 
-
-        Args:
-            id_logement (int): Nouvel id (unique)
-        """
-        self.id_logement = id_logement  
-
-    def set_nom_logement(self, nom_logement: str) -> None:
-        """Changer le nom du logement
-
-        Args:
-            nom_logement (str): Nouveau nom du logement
-        """
-        self.nom_logement = nom_logement
-
+        self.id_logement = id_logement
+    
     def set_type_logement(self, type_logement):
         """Changer le type du logement 
 
@@ -292,9 +256,6 @@ class Logement(Base):
             desc_logement (str): nouvelle description du logement 
         """
         self.desc_logement = desc_logement
-
-    def get_pieces_list(self) -> list:
-            return Piece.query.filter_by(id_logement=self.id_logement).all()
     
 class AVOIR(Base):
     __tablename__ = "AVOIR"
@@ -329,11 +290,6 @@ class AVOIR(Base):
         return self.id_proprio
     
     def set_id_proprio(self, id_proprio):
-        """changer l'id du propriétaire
-
-        Args:
-            id_proprio (int): nouvel id du propriétaire
-        """
         self.id_proprio = id_proprio
     
     def get_id_logement(self):
@@ -345,11 +301,6 @@ class AVOIR(Base):
         return self.id_logement
     
     def set_id_logement(self, id_logement):
-        """changer l'id du logement
-
-        Args:
-            id_proprio (int): nouvel id du logement
-        """
         self.id_logement = id_logement
 
 class Bien(Base):
@@ -395,9 +346,6 @@ class Bien(Base):
     def get_id_bien(self):
         return self.id_bien
     
-    def set_id_bien(self, id_bien):
-        self.id_bien = id_bien
-    
     def get_nom_bien(self):
         return self.nom_bien
     
@@ -419,36 +367,19 @@ class Bien(Base):
     def get_id_proprio(self):
         return self.id_proprio
     
-    def set_id_proprio(self, id_proprio):
-        self.id_proprio = id_proprio
-    
     def get_id_piece(self):
         return self.id_piece
     
-    def set_id_piece(self, id_piece):
-        self.id_piece = id_piece
-    
     def get_id_type(self):
         return self.id_type
-    
-    def set_id_type(self, id_type):
-        self.id_type = id_type
-    
     def get_id_cat(self):
         return self.id_cat
-    
-    def set_id_cat(self, id_cat):
-        self.id_cat = id_cat
 
     def get_id_logement(self):
         return self.id_logement
 
     def set_id_logement(self, id_logement):
         self.id_logement = id_logement
-
-    @staticmethod
-    def get_max_id() -> int:
-        return db.session.query(func.max(Bien.id_bien)).scalar()
     
 class Piece(Base):
     __tablename__ = "PIECE"
@@ -489,11 +420,6 @@ class Piece(Base):
         return self.id_piece
     
     def set_id_piece(self, id_piece):
-        """changer le nom de la pièce
-
-        Args:
-            id_piece (int): nouvel id de la pièce
-        """
         self.id_piece = id_piece
     
     def get_nom_piece(self):
@@ -537,16 +463,8 @@ class Piece(Base):
         return self.id_logement
     
     def set_id_logement(self, id_logement):
-        """changer l'id du logement où est contenu la pièce 
-
-        Args:
-            id_logement (int): nouvell id du logement
-        """
         self.id_logement = id_logement
 
-    def get_list_biens(self):
-        return Bien.query.filter_by(id_logement=self.id_logement,id_piece=self.id_piece).all()
-        
 class TypeBien(Base):
     __tablename__ = "TYPEBIEN"
     
@@ -580,11 +498,6 @@ class TypeBien(Base):
         return self.id_type
     
     def set_id_type(self, id_type):
-        """changer l'id du type
-
-        Args:
-            id_type (int): nouvel id du type (unique)
-        """
         self.id_type = id_type
     
     def get_nom_type(self):
@@ -602,6 +515,11 @@ class TypeBien(Base):
             nom_type (str): nouveau nom du type de bien
         """
         self.nom_type = nom_type
+        
+    @staticmethod
+    def put_type(type):
+        db.session.add(type)
+        db.session.commit()
 
 class Categorie(Base):
     __tablename__ = "CATEGORIE"
@@ -636,11 +554,6 @@ class Categorie(Base):
         return self.id_cat
     
     def set_id_cat(self, id_cat):
-        """Modification de l'id
-
-        Args:
-            id_cat (int): nouvel id
-        """
         self.id_cat = id_cat
     
     def get_nom_cat(self):
@@ -658,6 +571,13 @@ class Categorie(Base):
             nom_cat (str): nouveau nom de la catégorie
         """
         self.nom_cat = nom_cat
+        
+    @staticmethod
+    def put_categorie(cat):
+        db.session.add(cat)
+        db.session.commit()
+        
+    
 
 class Justificatif(Base):
     __tablename__ = "JUSTIFICATIF"
@@ -701,11 +621,6 @@ class Justificatif(Base):
         return self.id_justif
     
     def set_id_justif(self, id_justif):
-        """modification de l'ID du justificatif
-
-        Args:
-            id_justif (int): nouvel ID du justificatif (unique)
-        """
         self.id_justif = id_justif
     
     def get_nom_justif(self):
@@ -765,11 +680,6 @@ class Justificatif(Base):
         return self.id_bien
     
     def set_id_bien(self, id_bien):
-        """modifie le bien auquel est associé le justificatif
-
-        Args:
-            id_bien (int): nouvel ID
-        """
         self.id_bien = id_bien
 
 class User(Base, UserMixin):
@@ -781,6 +691,12 @@ class User(Base, UserMixin):
     id_user = Column(Integer, ForeignKey("PROPRIETAIRE.ID_PROPRIO"), name="ID_PROPRIO")    
     proprio = relationship('Proprietaire', back_populates='user', uselist=False)
     
+    def __init__(self, mail,pwd, role, id):
+        self.mail = mail
+        self.pwd = pwd
+        self.role = role
+        self.id = id
+                
     def get_id(self):
         """getter du mail
 
@@ -789,12 +705,7 @@ class User(Base, UserMixin):
         """
         return self.mail
     
-    def set_mail(self, mail):
-        """modifie le mail du user
-
-        Args:
-            mail (str): nouveau mail
-        """
+    def set_id(self, mail):
         self.mail = mail
     
     def get_password(self):
@@ -838,30 +749,34 @@ class User(Base, UserMixin):
         return self.id_user
     
     def set_id_user(self, id_user):
-        """modifie l'id de user (unique)
-
-        Args:
-            id_user (int): nouvel id de user
-        """
         self.id_user = id_user
-    
-    @staticmethod
-    def get_by_mail(mail):
-        return User.query.filter_by(mail=mail).first()
-    
+
     @staticmethod
     def modifier(mail, nom, prenom):
         proprio = Proprietaire.get_by_mail(mail)
         proprio.set_nom(nom)
         proprio.set_prenom(prenom)
         db.session.commit()
-        
+
+    @staticmethod
+    def get_user(mail):
+        return User.query.get_or_404(mail)
+    
     @staticmethod
     def get_by_mail(mail):
         return User.query.filter_by(mail=mail).first()
     
+    @staticmethod
+    def put_user(user):
+        db.session.add(user)
+        db.session.commit()
+    
+    @staticmethod
+    def get_all():
+        return User.query.all()
+    
 @login_manager.user_loader
 def load_user(mail):
-    return User.query.get(mail)
+    return db.session.get(User, mail)
 
     

@@ -24,8 +24,7 @@ def loaddb(filename):
                 new_proprietaire = Proprietaire(
                     id_proprio = entity['ID_PROPRIETAIRE'], 
                     nom_proprio = entity['NOM'],
-                    prenom_proprio = entity['PRENOM'],
-                    mail = entity['MAIL']
+                    prenom_proprio = entity['PRENOM']
                 )
                 session.add(new_proprietaire)
             case 'LOGEMENT':
