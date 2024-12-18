@@ -264,7 +264,13 @@ def ajout_bien():
                             form=form_bien, 
                             error=False)
 
-
+@app.route("/ensemblebiens/", methods=["GET"])
+@login_required
+def ensemble_biens(info=[], justifie=[]):
+    info=request.form.get['info']
+    justifie=request.form.get['justifie']
+    return render_template("ensemble_biens.html", infos=info, justifies=justifie)
+    
 def handle_form_bien(form_bien: AjoutBienForm):
     try:
         session = db.session
