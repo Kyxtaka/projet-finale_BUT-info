@@ -1,7 +1,7 @@
 from datetime import datetime
 from flask import jsonify, render_template
 from .app import app
-from flask import redirect, render_template, url_for
+from flask import redirect, render_template, url_for, render_template_string
 from wtforms import PasswordField
 from .models import User
 from hashlib import sha256
@@ -16,14 +16,15 @@ from wtforms import * #import de tous les champs
 from wtforms.validators import DataRequired
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import MultiDict
+import json
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-# import spacy
+import spacy
 from PyPDF2 import PdfReader
 from .secure_constante import GOOGLE_SMTP, GOOGLE_SMTP_PWD, GOOGLE_SMTP_USER
 
-# nlp = spacy.load("fr_core_news_md")
+nlp = spacy.load("fr_core_news_md")
 
 
 #constante : chemin d'acces au dossier de telechargement des justificatifs
@@ -511,3 +512,104 @@ def send_change_pwd_email(mail, token) -> bool:
     finally:
         server.quit()
         return sent_status
+    
+    
+@app.route("/logement/ajout", methods =["GET","POST"])
+def ajout_logement():
+    if request.method == "POST":
+        print("Ajout logement")
+        print(f"form data: {request.form}")
+        logement_name = request.form.get("name")
+        logement_type = request.form.get("typeL")
+        logement_address = request.form.get("address")
+        logement_description = request.form.get("description")
+        print(f"values: {logement_name}, {logement_type}, {logement_address}, {logement_description}")
+        try: 
+            proprio = Proprietaire.query.get(current_user.id_user)
+            print(f"Proprio: {proprio}")
+
+            new_logement = create_logement(logement_name, logement_type, logement_address, logement_description )
+
+            link_logement_owner(new_logement, proprio)
+            print(f"New logement: {new_logement}")
+
+            rooms = json.loads(request.form.get("rooms-array"))
+            print(f"Rooms: {rooms}")
+            for room in rooms:
+                print(f"setting room: {room}")
+                ajout_piece_logement(new_logement, room["name"], room["description"])
+
+            return redirect(url_for("accueil_connexion"))
+        except Exception as e:
+            print("Erreur lors de l'ajout du logement phase 1")
+            print(e)
+    return render_template("ajout_logement.html", type_logement=[type for type in LogementType])
+
+def create_logement(name: str, type: str, address: str, description: str) -> Logement:
+    session = db.session
+    id_logement = Logement.next_id()
+    print("id_logement:", id_logement)
+    enum_type = LogementType[type]
+    print("enum_type:", enum_type)
+    new_logement = Logement(
+        id_logement = id_logement,
+        nom_logement = name,
+        type_logement = enum_type,
+        adresse_logement = address,
+        desc_logement = description 
+    )
+    try:
+        session.add(new_logement)
+        session.commit()
+        new_logement = Logement.query.get(id_logement)  
+        print("Logement ajouté")
+    except Exception as e:
+        session.rollback()
+        print("Erreur lors de l'ajout du logement phase 2")
+        print(e)
+    return new_logement
+
+def ajout_piece_logement(Logement: Logement, room_name: str = "", desc: str = ""):
+    session = db.session
+    success = False
+    try:
+        id_piece = Piece.next_id()
+        print(f"new piece id: {id_piece}")
+        new_piece = Piece(
+            id_piece=id_piece,
+            nom_piece=room_name,
+            desc_piece=desc,
+            id_logement=Logement.get_id_logement()
+        )
+        session.add(new_piece)
+        session.commit()
+        print("Piece ajoutée")
+        success = True
+    except Exception as e:
+        session.rollback()
+        print("Erreur lors de l'ajout de la piece")
+        print(e)
+    return success
+
+def link_logement_owner(logement: Logement, proprio: Proprietaire):
+    session = db.session
+    success = False
+    try:
+        link = AVOIR(
+            id_proprio=proprio.get_id_proprio(),
+            id_logement=logement.get_id_logement()
+        )
+        session.add(link)
+        session.commit()
+        print("Logement lié au propriétaire")
+        success = True
+    except Exception as e:
+        session.rollback()
+        print("Erreur lors de la liaison du logement au propriétaire")
+        print(e)
+    return success
+
+
+@app.route("/test/")
+def test():
+    return render_template_string(str(Logement.next_id()))
