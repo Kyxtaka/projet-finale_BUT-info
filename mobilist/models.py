@@ -34,7 +34,6 @@ class LogementType(enum.Enum):
     def get_type(self):
         return self.name
 
-
 class Avis(Base):
     __tablename__ = "AVIS"
 
@@ -103,7 +102,6 @@ class Avis(Base):
 
     def get_sample():
         return Avis.query.all()
-
 
 class Proprietaire(Base):
     __tablename__ = "PROPRIETAIRE"
@@ -304,7 +302,6 @@ class Logement(Base):
             return 1
         return Logement.get_max_id() + 1
     
-    
 class AVOIR(Base):
     __tablename__ = "AVOIR"
 
@@ -351,7 +348,6 @@ class AVOIR(Base):
     def set_id_logement(self, id_logement):
         self.id_logement = id_logement
 
-
 class Bien(Base):
     __tablename__ = "BIEN"
 
@@ -364,6 +360,7 @@ class Bien(Base):
     id_logement = Column(Integer, ForeignKey("PIECE.ID_LOGEMENT", ondelete="CASCADE"), nullable=False, name="ID_LOGEMENT")
     id_type = Column(Integer, ForeignKey("TYPEBIEN.ID_TYPE_BIEN"), nullable=False, name="ID_TYPE_BIEN")
     id_cat = Column(Integer, ForeignKey("CATEGORIE.ID_CATEGORIE"), nullable=False, name="ID_CATEGORIE")
+    # piece = relationship("Piece", backref="biens", uselist=False, cascade="all, delete")
     
     
     def __init__(self, id_bien, nom_bien, id_proprio, date_achat, prix, id_piece, id_logement,  id_type, id_cat):
@@ -436,6 +433,8 @@ class Bien(Base):
     
     @staticmethod
     def next_id():
+        if Bien.get_max_id() is None:
+            return 1
         return Bien.get_max_id() + 1
     
 class Piece(Base):
@@ -656,8 +655,6 @@ class Categorie(Base):
         db.session.add(cat)
         db.session.commit()
         
-    
-
 class Justificatif(Base):
     __tablename__ = "JUSTIFICATIF"
 
@@ -763,6 +760,15 @@ class Justificatif(Base):
     def set_id_bien(self, id_bien):
         self.id_bien = id_bien
 
+    @staticmethod
+    def get_max_id():
+        return db.session.query(func.max(Justificatif.id_justif)).scalar()
+    
+    @staticmethod
+    def next_id():
+        if Justificatif.get_max_id() is None:
+            return 1
+        return Justificatif.get_max_id() + 1
 
 class User(Base, UserMixin):
     __tablename__ = "USER"
@@ -858,7 +864,6 @@ class User(Base, UserMixin):
     def get_all():
         return User.query.all()
     
-    
 class ChangePasswordToken(Base):
     __tablename__ = "CHANGEPASSWORDTOKEN"
     accountEmail = Column(String(50), ForeignKey("USER.MAIL"), primary_key=True, name="ACCOUNT_EMAIL")
@@ -913,12 +918,10 @@ class ChangePasswordToken(Base):
             db.session.rollback()
             return False
 
-    
 @login_manager.user_loader
 def load_user(mail):
     return db.session.get(User, mail)
 
-    
 def get_next_id(table: object) -> int:
     """_summary_
 

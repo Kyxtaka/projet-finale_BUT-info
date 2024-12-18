@@ -207,11 +207,16 @@ def generate_pdf_tous_logements(proprio,logements) -> BytesIO:
     y -= 1.5 * cm
     # Valeur totale
     # func.sum(Bien.prixtotal_valeur
-    list_bien = db.session.query(Bien).filter_by(id_proprio=proprio.id_proprio)
-    total_valeur = 0
-    for bien in list_bien:
-        print(bien.__repr__())
-        total_valeur += db.session.query(Bien.prix).filter_by(id_bien=bien.id_bien).scalar()
+    #list_bien = db.session.query(Bien).filter_by(id_proprio=proprio.id_proprio)
+    #total_valeur = 0
+    #for bien in list_bien:
+    #    print(bien.__repr__())
+    #    total_valeur += db.session.query(Bien.prix).filter_by(id_bien=bien.id_bien).scalar()
+
+    total_valeur = db.session.query(func.sum(Bien.prix)).filter(Bien.id_proprio == proprio.id_proprio).scalar()
+    if total_valeur == None:
+        total_valeur = 0
+    print(total_valeur)
     # db.session.query(Logement).filter_by(id_logement=logement_id).first().adresse
 
     canva.setFillColorRGB(0.792, 0.659, 1)
@@ -230,8 +235,6 @@ def generate_pdf_tous_logements(proprio,logements) -> BytesIO:
     y -= height_box
     # Parcours des pièces et des biens
     for loge in logements:
-        print (loge)
-        print(loge.id_logement)
         if y < 3 * cm:
             canva.showPage()
             y = height - 2 * cm
@@ -239,7 +242,6 @@ def generate_pdf_tous_logements(proprio,logements) -> BytesIO:
         canva.drawString(1 * cm, y, f"{loge.nom_logement} ({loge.adresse})")
         y -= 1 * cm
         pieces = db.session.query(Piece).filter_by(id_logement=loge.id_logement).all()
-        print(pieces)
         for p in pieces:
             if y < 3 * cm:  # Saut de page si besoin
                 canva.showPage()
@@ -369,7 +371,7 @@ def handle_form_bien(form_bien: AjoutBienForm):
     try:
         session = db.session
 
-        id_bien = Bien.get_max_id()+1
+        id_bien = Bien.next_id()+1
         nom_bien = form_bien.nom_bien.data
         date_achat = form_bien.date_bien.data
         id_proprio =  form_bien.id_proprio
@@ -406,7 +408,7 @@ def handle_form_bien(form_bien: AjoutBienForm):
 def link_justification_bien(form: AjoutBienForm, file_path: str, id_bien: int) -> bool:
     session = db.session
     file = form.file.data
-    id_justificatif = session.query(func.max(Justificatif.id_justif)).scalar() + 1
+    id_justificatif = Justificatif.next_id()
     nom_justificatif = file.filename
     date_ajout = date.today()
     url = file_path
@@ -455,7 +457,6 @@ def affiche_logements():
         contenu = True
     print(contenu)
     type_logement = [type for type in LogementType]
-    print
     print(logements)
     if request.method == "POST": #utilisation de request car pas envie d'utiliser les méthodes de flask, car j utilise JS
         print("recerption de la requete")
