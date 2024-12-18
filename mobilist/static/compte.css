@@ -102,6 +102,32 @@ h4 {
     color: rgb(184, 183, 183);
 }
 
+#menu-modif {
+    visibility: hidden;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#modif-close {
+    background-color: #f44336;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 5px;
+}
+
+#menu-modif.visible {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(0);
+}
 
 footer {
     position: fixed;

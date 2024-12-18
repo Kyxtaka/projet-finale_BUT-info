@@ -4,6 +4,20 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='compte.css') }}">
 {% endblock %}
 {% block content %}
+<script>
+
+  function afficherPopUp() {
+    var menu = document.getElementById('menu-modif');
+
+    if (menu.classList.contains('visible')) {
+        menu.classList.remove('visible');
+      
+      } else {
+        menu.classList.add('visible');
+      }
+  }
+
+</script>
 <section class ="titre">
     <div id="image-user">
       <img class="image-user" src="{{ url_for('static',filename='img/user.jpg') }}" alt="icône de l'utilisateur">
@@ -31,14 +45,18 @@
 </article>
 <ul class="gestion-profil">
   <li class="modification">
-    <a href="#">
-      <button onclick="" id="modif-infos" type="button"><img id="image-crayon" src="{{ url_for('static',filename='img/modification.png') }}" alt="icône crayon">
-        Modifier le profil </button>
-    </a>
+    <button onclick="afficherPopUp()" id="modif-infos" type="button"><img id="image-crayon" src="{{ url_for('static',filename='img/modification.png') }}" alt="icône crayon">
+      Modifier le profil </button>
   </li>
   <li class="changement-mdp">
       <button onclick="" id="changer-mdp" type="button">Changer le mot de passe</button>
   </li>
 </ul>
 </section>
+
+<!-- Le contenu du menu -->
+<div id="menu-modif">
+  <h2> Hello ! </h2>
+  <button onclick="afficherPopUp()" id="modif-close">Fermer</button>
+</div>
 {% endblock %}
