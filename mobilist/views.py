@@ -481,7 +481,7 @@ def send_change_pwd_email(mail, token) -> bool:
     password = GOOGLE_SMTP_PWD
     subject = "Mobilist - réinitialiser votre mot de passe"
     protocol = "http"
-    domain = "127.0.0.1:5000"
+    domain = "127.0.0.1"
     port = "5000"
     generated_change_password_link = f"{protocol}://{domain}:{port}/forgotPassword/setPassword?token={token}"
     body = f"Pour réinitialiser votre mot de passe Mobilist,\n veuillez accéder à la page suivante : {generated_change_password_link}"
