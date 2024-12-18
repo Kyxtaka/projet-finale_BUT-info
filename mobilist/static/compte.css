@@ -1,0 +1,108 @@
+
+h1 {
+    position: relative;
+    text-align: center;
+}
+
+#user {
+    color: #3333b6;
+}
+
+
+#image-user {
+    text-align: center;
+    padding: 25px;
+    margin-top: 10px;
+}
+
+hr {
+    width: 60%;
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+
+.infos-user {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    gap: 10px;  
+    text-align: center;
+    padding: 60px 0;
+    
+}
+
+.infos-user > h2 {
+    text-decoration: underline;
+}
+
+.donnees {
+    width: 50%;
+    border: solid 0.5px;
+    font-size: 30px;
+    font-weight: 400 ;
+    display: flex;
+    flex-direction: column; 
+    gap: 15px;
+    margin-bottom: 100px;
+}
+
+#modif-infos {
+    font-family: -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+    border-radius: 6px;
+    border: none;
+    color: #fff;
+    background: linear-gradient(180deg, #6f6fdb 0%, #5E5DF0 100%);
+    background-origin: border-box;
+    box-shadow: 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    text-decoration: none;
+}
+
+#nom-user {
+    margin-top: 10px;
+}
+
+#mail-user {
+    margin-bottom: 10px;
+}
+
+#modif-infos:focus {
+    box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2), 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+    outline: 0;
+}
+
+
+#image-crayon {
+    height: 30px;
+    width: 30px;
+    margin-right: 8px;
+}
+
+#changer-mdp {
+    border-radius: 6px;
+    background: #FFFFFF;
+    box-shadow: #5E5DF0 0 3px 20px -10px;
+    color: #000000;
+    border: 1px solid;
+    border-color: gray;
+    height: 40px;
+}
+
+.gestion-profil {
+    display: flex;
+    align-items: center;
+    padding: 6px 14px;
+}
+
+h4 {
+    color: rgb(184, 183, 183);
+}
+
+
+footer {
+    position: fixed;
+}
