@@ -480,7 +480,6 @@ def reset_password(mail):
         server.quit()
 
 
-
 def extraire_informations(texte):
     doc = nlp(texte)
     donnees = {
