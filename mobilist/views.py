@@ -811,6 +811,7 @@ def test():
 
 
 
+
 def extraire_informations(texte):
     doc = nlp(texte)
     donnees = {

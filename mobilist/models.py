@@ -262,6 +262,9 @@ class Logement(Base):
     
     def set_id_logement(self, id_logement):
         self.id_logement = id_logement
+
+    def set_nom_logement(self, nom_logement):
+        self.nom_logement = nom_logement
     
     def set_type_logement(self, type_logement):
         """Changer le type du logement 
@@ -291,13 +294,14 @@ class Logement(Base):
             return Piece.query.filter_by(id_logement=self.id_logement).all()
     
     @staticmethod
-    def next_id() -> int:
-        return db.session.query(func.max(Logement.id_logement)).scalar() +1
-    
+    def get_max_id():
+        return db.session.query(func.max(Logement.id_logement)).scalar()
     
     @staticmethod
     def next_id() -> int:
-        return db.session.query(func.max(Logement.id_logement)).scalar() +1
+        if Logement.get_max_id() is None:
+            return 1
+        return Logement.get_max_id() + 1
     
     
 class AVOIR(Base):
@@ -528,8 +532,10 @@ class Piece(Base):
         return db.session.query(func.max(Piece.id_piece)).scalar()
     
     @staticmethod
-    def next_id():
-        return db.session.query(func.max(Piece.id_piece)).scalar() + 1
+    def next_id() -> int:
+        if Bien.get_max_id() is None:
+            return 1
+        return Bien.get_max_id() + 1
         
 class TypeBien(Base):
     __tablename__ = "TYPEBIEN"
