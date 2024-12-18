@@ -206,9 +206,14 @@ def generate_pdf_tous_logements(proprio,logements) -> BytesIO:
     canva.drawCentredString(width / 2, y, f"en date du {date.today()}")
     y -= 1.5 * cm
     # Valeur totale
-    total_valeur = db.session.query(func.sum(Bien.prix)).scalar()
-    if total_valeur == None:
-        total_valeur = 0
+    # func.sum(Bien.prixtotal_valeur
+    list_bien = db.session.query(Bien).filter_by(id_proprio=proprio.id_proprio)
+    total_valeur = 0
+    for bien in list_bien:
+        print(bien.__repr__())
+        total_valeur += db.session.query(Bien.prix).filter_by(id_bien=bien.id_bien).scalar()
+    # db.session.query(Logement).filter_by(id_logement=logement_id).first().adresse
+
     canva.setFillColorRGB(0.792, 0.659, 1)
     canva.rect(20, y, width - 40, 1 * cm, fill=1, stroke=0)
     canva.setFillColorRGB(0, 0, 0)
