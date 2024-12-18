@@ -534,9 +534,9 @@ class Piece(Base):
     
     @staticmethod
     def next_id() -> int:
-        if Bien.get_max_id() is None:
+        if Piece.get_max_id() is None:
             return 1
-        return Bien.get_max_id() + 1
+        return Piece.get_max_id() + 1
         
 class TypeBien(Base):
     __tablename__ = "TYPEBIEN"
