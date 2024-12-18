@@ -114,7 +114,7 @@ def create_user(mail, password, role):
         proprio = Proprietaire.get_by_mail(mail)
         if proprio is None:
             id = int(Proprietaire.max_id())+1
-            proprio = Proprietaire(id_proprio=id, mail = mail)
+            proprio = Proprietaire(id_proprio=id, mail = mail, nom_proprio = "temp", prenom_proprio = "temp")
             db.session.add(proprio)
         else: 
             id = proprio.get_id_proprio()

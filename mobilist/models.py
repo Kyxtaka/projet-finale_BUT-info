@@ -117,6 +117,7 @@ class Proprietaire(Base):
     
     def __init__(self, id_proprio, mail , nom_proprio=None, prenom_proprio=None):
         self.id_proprio = id_proprio
+        self.mail = mail
         self.nom = nom_proprio
         self.prenom = prenom_proprio
     
@@ -772,11 +773,11 @@ class User(Base, UserMixin):
     id_user = Column(Integer, ForeignKey("PROPRIETAIRE.ID_PROPRIO", ondelete="CASCADE"), name="ID_PROPRIO")    
     proprio = relationship('Proprietaire', back_populates='user', uselist=False, cascade="all, delete")
     
-    def __init__(self, mail,pwd, role, id):
-        self.mail = mail
-        self.pwd = pwd
-        self.role = role
-        self.id = id
+    # def __init__(self, mail, password, role, id):
+    #     self.mail = mail
+    #     self.password = password
+    #     self.role = role
+    #     self.id = id
                 
     def get_id(self):
         """getter du mail
