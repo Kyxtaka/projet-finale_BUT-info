@@ -1,4 +1,18 @@
-<html>
-    <h1>Invalid token or unauthorized access</h1>
+    {% extends "index.html" %}
+    {% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='unauthorized.css')}}">
+    {{ super()}}
+    {% endblock %}
+    {% block scripts %}
+    {{ super()}}
+    <script>
+        console.log('test');
+    </script>
+    {% endblock %}
+    {{ super()}}
+    {% block content %}
+    <h1>La page que vous avez demandé n'existe pas (ou plus)</h1>
+    <p>  </p>
     <a href="{{ url_for('home')}}">retour à l'acceuill</a>
-</html>
+{% endblock %} 
