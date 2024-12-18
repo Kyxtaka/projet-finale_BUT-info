@@ -205,6 +205,14 @@ class Logement(Base):
             int: ID du logement
         """
         return self.id_logement
+    
+    def get_nom_logement(self) -> str:
+        """Getter du nom du logement
+
+        Returns:
+            str: Nom du logement
+        """
+        return self.nom_logement
 
     def get_type_logement(self) -> LogementType:
         """Getter du type du logement
@@ -380,6 +388,14 @@ class Bien(Base):
 
     def set_id_logement(self, id_logement):
         self.id_logement = id_logement
+
+    @staticmethod
+    def get_max_id():
+        return db.session.query(func.max(Bien.id_bien)).scalar()
+    
+    @staticmethod
+    def next_id():
+        return Bien.get_max_id() + 1
     
 class Piece(Base):
     __tablename__ = "PIECE"
@@ -464,6 +480,10 @@ class Piece(Base):
     
     def set_id_logement(self, id_logement):
         self.id_logement = id_logement
+
+    def get_list_biens(self):
+        return Bien.query.filter_by(id_logement=self.id_logement,
+                                    id_piece=self.id_piece).all()
 
 class TypeBien(Base):
     __tablename__ = "TYPEBIEN"
