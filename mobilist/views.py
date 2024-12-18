@@ -27,8 +27,8 @@ nlp = spacy.load("fr_core_news_md")
 
 #constante : chemin d'acces au dossier de telechargement des justificatifs
 UPLOAD_FOLDER_JUSTIFICATIF = os.path.join(
-    os.path.abspath(os.path.dirname(__file__)), 
-    app.config['UPLOAD_FOLDER'], 
+    os.path.abspath(os.path.dirname(__file__)),
+    app.config['UPLOAD_FOLDER'],
     'justificatifs'
 )
 
@@ -44,7 +44,7 @@ def accueil():
 def avis():
     return render_template("avis.html")
 
-   
+
 class LoginForm(FlaskForm):
     mail = StringField('Adresse e-mail')
     password = PasswordField('Mot de passe')
@@ -73,18 +73,21 @@ class IncrisptionForm(FlaskForm):
         m.update(self.password.data.encode())
         passwd = m.hexdigest()
         return user if passwd == user.password else None
-    
+
 class ResetPasswordFrom(FlaskForm):
     mdp = PasswordField("Mot de passe")
     valider = PasswordField("Confirmer mot de passe")
-    
+
+
 class ModificationForm(FlaskForm):
-    nom = StringField('Votre nom')
+    nom = StringField('Votre Nom')
     prenom = StringField('Votre Prénom')
+    mail = StringField('Votre Adresse e-mail')
+    
 
 class ResetForm(FlaskForm):
     email = StringField("Votre email")
-    
+
 class UploadFileForm(FlaskForm):
     file = FileField('File', validators=[DataRequired()])
 
@@ -98,19 +101,19 @@ class UploadFileForm(FlaskForm):
         #########################################################
 
     def validate_file_format(self, form, field):
-            filename = field.data
-            print("form:", form)
-            print("field:", field)
-            print("field.data:", field.data)
-            
-            if filename:
-                print("filname:", filename)
-                if not (filename.endswith(".pdf") or filename.endswith(".png") or filename.endswith(".jpg") or filename.endswith(".jpeg")):
-                    raise ValidationError("Le fichier doit être de type PDF, PNG, JPG ou JPEG")
-                elif len(filename) > 50:
-                    raise ValidationError("Le nom du fichier est trop long")
-            else:
-                raise ValidationError("Le fichier est vide")
+        filename = field.data
+        print("form:", form)
+        print("field:", field)
+        print("field.data:", field.data)
+
+        if filename:
+            print("filname:", filename)
+            if not (filename.endswith(".pdf") or filename.endswith(".png") or filename.endswith(".jpg") or filename.endswith(".jpeg")):
+                raise ValidationError("Le fichier doit être de type PDF, PNG, JPG ou JPEG")
+            elif len(filename) > 50:
+                raise ValidationError("Le nom du fichier est trop long")
+        else:
+            raise ValidationError("Le fichier est vide")
 
     def validate_file_size(self, form, field):
         file = field.data
@@ -118,8 +121,8 @@ class UploadFileForm(FlaskForm):
             if len(file.read()) > 1000000:
                 raise ValidationError("Le fichier est trop volumineux")
         else:
-            raise ValidationError("Le fichier est vide")  
-        
+            raise ValidationError("Le fichier est vide")
+
     def create_justificatif_bien(self):
         try:
             file = self.file.data
@@ -146,7 +149,7 @@ class AjoutBienForm(FlaskForm):
     date_bien = DateField("Date de l'achat", validators=[DataRequired()])
     description_bien = TextAreaField('Description')
     file = FileField('File')
-    id_proprio = HiddenField("id_proprio") 
+    id_proprio = HiddenField("id_proprio")
 
     def __init__(self,*args, **kwargs):
         super(AjoutBienForm, self).__init__(*args, **kwargs)
@@ -167,13 +170,13 @@ class AjoutBienForm(FlaskForm):
             return os.path.join(CUSTOM_UPLOAD_FOLDER_JUSTIFICATIF, file.filename) # retourne le chemin du fichier, pour l'enregistrement en BD
         except Exception as e:
             print("erreur:", e)
-        
+
 
 @app.route("/accueil-connexion/")
-@login_required   
+@login_required
 def accueil_connexion():
     return render_template("accueil_2.html")
-    
+
 @app.route("/login/", methods =("GET","POST" ,))
 def login() -> str:
     f = LoginForm()
@@ -195,10 +198,10 @@ def login() -> str:
 
 from flask_login import logout_user
 @app.route("/logout/")
-def logout():   
+def logout():
     logout_user()
     return redirect(url_for('home'))
-    
+
 
 @app.route("/inscription/", methods=("GET", "POST",))
 def inscription():
@@ -215,7 +218,7 @@ def inscription():
         return render_template("accueil_2.html")
     return render_template(
     "inscription.html", form=f, present=False)
-  
+
 @app.route("/information")
 def information():
     return render_template("information.html")
@@ -247,17 +250,17 @@ def ajout_bien():
         except Exception as e:
             print("error ajout bien")
             print("Logs:", form_logs(form_bien))
-            return render_template("ajout_bien.html", 
-                               form=form_bien,     
+            return render_template("ajout_bien.html",
+                               form=form_bien,
                                error=True)
-    return render_template("ajout_bien.html", 
-                            form=form_bien, 
+    return render_template("ajout_bien.html",
+                            form=form_bien,
                             error=False)
 
 def handle_form_bien(form_bien: AjoutBienForm):
     try:
         session = db.session
-        
+
         id_bien = Bien.get_max_id()+1
         nom_bien = form_bien.nom_bien.data
         date_achat = form_bien.date_bien.data
@@ -268,14 +271,14 @@ def handle_form_bien(form_bien: AjoutBienForm):
         id_type = form_bien.type_bien.data
         id_cat = form_bien.categorie_bien.data
         nouv_bien = Bien(
-            id_bien=id_bien, 
-            nom_bien=nom_bien, 
-            date_achat=date_achat, 
-            prix=prix, 
-            id_proprio=id_proprio, 
-            id_piece=id_piece, 
-            id_logement=id_logement, 
-            id_type=id_type, 
+            id_bien=id_bien,
+            nom_bien=nom_bien,
+            date_achat=date_achat,
+            prix=prix,
+            id_proprio=id_proprio,
+            id_piece=id_piece,
+            id_logement=id_logement,
+            id_type=id_type,
             id_cat=id_cat)
         session.add(nouv_bien)
         session.commit()
@@ -331,7 +334,7 @@ def form_logs(form: FlaskForm):
     print("form data:", form.data)
 
 @app.route("/afficheLogements/", methods=("GET", "POST",))
-@login_required   
+@login_required
 def affiche_logements():
     session = db.session
     proprio = Proprietaire.query.get(current_user.id_user)
@@ -340,8 +343,8 @@ def affiche_logements():
     if len(logements) == 0:
         print("Aucun logement trouvé")
         contenu = False
-    else: 
-        contenu = True 
+    else:
+        contenu = True
     print(contenu)
     type_logement = [type for type in LogementType]
     print
@@ -365,7 +368,7 @@ def affiche_logements():
                     print("Erreur lors de la suppression du logement")
                     print(e)
             case "UPDATE_LOGEMENT":
-                try: 
+                try:
                     print("UPDATE_LOGEMENT")
                     id_logement = request.form.get("id")
                     logement = Logement.query.get(id_logement)
@@ -437,7 +440,7 @@ def page_oublie():
         return render_template("mdp_oublie.html", tentative=True, form=form)
     else:
         return render_template("envoi_email.html", email=form.email.data)
- 
+
 @app.route("/reset/", methods=["POST", "GET"])
 def valider():
     form = ResetPasswordFrom()
@@ -446,7 +449,7 @@ def valider():
             return redirect(url_for('home'))
         else:
             return render_template("reinitialiser_mdp.html", form=form, tentaive=True)
-    return render_template("reinitialiser_mdp.html", form=form, tentative=False)            
+    return render_template("reinitialiser_mdp.html", form=form, tentative=False)
 
 def reset_password(mail):
     email = "exemplemobilist@outlook.com"
@@ -458,7 +461,7 @@ def reset_password(mail):
         # Configuration du serveur SMTP
         print("smthg")
         server = smtplib.SMTP("smtp.office365.com")
-        server.starttls() 
+        server.starttls()
         print("2")
         server.login(email, password)
         print("etape 1")
@@ -490,6 +493,6 @@ def extraire_informations(texte):
     for ent in doc.ents:
         if ent.label_ == "PRIX":
             donnees["prix"] = ent.text
-        elif ent.label_ == "DATE": 
+        elif ent.label_ == "DATE":
             donnees["date_achat"] = ent.text
     return donnees

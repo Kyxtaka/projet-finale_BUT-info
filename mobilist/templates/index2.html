@@ -14,25 +14,37 @@
    
     {% endblock %}
     {% endblock %}
-</head>
+  </head>
+  <script>
+
+    function afficherMenu() {
+      var section = document.getElementById("panneau-droit");
+
+      if (section.classList.contains('visible')) {
+          section.classList.remove('visible');
+        
+        // Si la classe 'visible' est présente, on la retire pour cacher le menu
+        
+      } else {
+        // Si la classe 'visible' n'est pas présente, on l'ajoute pour afficher le menu
+        section.classList.add('visible');
+      }
+    }
+
+  </script>
     <div class="index">
     <header>
-      <!-- Fixed navbar -->
-      <section id="section-compte">
-        <a class="liste-acces" href=''>Mon compte</a>
-        <a class="liste-acces" href=''>Aide</a>
-        <a class="liste-acces" href="{{ url_for('logout')}}">Déconnexion</a>
-      </section>  
+      <!-- Fixed navbar --> 
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-white">
         <div class="logo">
-          <a href="#">
+          <a href="{{ url_for('accueil_connexion')}}">
             <img src="{{ url_for('static',filename='img/logo_mobilist_etendu.png') }}" alt="logo du site"/>
           </a>
         </div>
         <div class="container-fluid">
           <div class="collapse navbar-collapse" id="navbar-collapse">
               <ul class="navbar-nav-left">
-                  <li class="nav-img" >
+                  <li class="nav-img" ></a>
                     <div class=BAccueil>
                       <a href="{{ url_for('accueil') }}"><img src="{{ url_for('static',filename='img/accueil.png') }}" alt="icône accueil"/></a>
                       <a class="nav-link active" aria-current="page" href="{{ url_for('accueil_connexion') }}">Accueil</a>
@@ -57,15 +69,33 @@
                     </div>
                   </li>
                   <li id="connexion">
-                    <a id="bouton-compte" href="{{ url_for('accueil_connexion') }}">
-                      <button class="connexion" id="bouton-compte">Mon compte
+                      <button onclick="afficherMenu()" class="connexion" id="bouton-compte">Mon compte
                       </button>
-                    </a>
                   </li>      
                 </ul>
               </div>
             </div>
-        </nav>         
+            <div class="section-droite">
+          <section id="panneau-droit" class="wb-overlay modal-content overlay-def wb-panel-r wb-init wb-overlay-inited user-closed open" aria-hidden="false" tabindex="-1" role="dialog">
+            <header class="modal-header">
+              <h2 class="modal-title">Bienvenue</h2>
+            </header>
+            <hr />
+            <div class="modal-body">
+              <ul class="list-unstyled">
+                <li><a id="lien-info-compte" href="{{ url_for('mon_compte') }}"> Mes informations </a></li>
+                <li><a id="lien-aide-compte" href="#"> Aide </a></li>
+                <li><a id="lien-deconnexion" href="{{ url_for('accueil') }}"> Déconnexion </a></li>
+              </ul>
+              <button onclick="afficherMenu()" class="btn btn-sm btn-primary pull-left overlay-close" id="btn-fermer" type="button">
+                Fermer
+              </button>
+            </div>
+            <div class="modal-footer">
+            </div>
+          </section>
+        </div>         
+        </nav>
     </header>          
   </header>
   <main class="flex-shrink-0">
@@ -82,61 +112,99 @@
       <p id="groupe"> © AKHTAR NAIMA - VALIN OPHÉLIE - BOCQUET CLÉMENCE - VILCOQ YOHANN - RANDRIANTSOA NATHAN </p>
     </div>
   </footer>
-  <script>
-    var styles = `
-      #section-compte {
-        position: absolute;
-        top:80px;
-        display: block;
-        right:4%;
-        background-color: #FFFFFF;
-        border: 0.5mm solid;
-        display: grid;
-        opacity:0;
-        z-index: 10000;
-      }`
-
-    var styleSheet = document.createElement("style")
-    styleSheet.textContent = styles
-
-    var styleshover = `
-      #section-compte {
-        position: absolute;
-        top:80px;
-        display: block;
-        right:4%;
-        background-color: #FFFFFF;
-        border: 0.5mm solid;
-        display: grid;
-        opacity:1;
-        z-index: 10000;
-      }`
-
-    var styleSheethover = document.createElement("style")
-    styleSheethover.textContent = styleshover
-
-    // la suite a été produit à l'aide de chatgpt
-    const btn = document.getElementById('bouton-compte');
-    const menu = document.getElementById('section-compte');
-  
-  
-    btn.addEventListener('mouseover', function() {
-      document.head.appendChild(styleSheethover);
-    });
-
-    menu.addEventListener('mouseover', function() {
-      document.head.appendChild(styleSheethover);
-    });
-  
-    menu.addEventListener('mouseout', function() {
-      document.head.appendChild(styleSheet);
-    });
-
-    btn.addEventListener('mouseout', function() {
-      document.head.appendChild(styleSheet);
-    });
-  </script>
 </body>
+<style>
+
+#panneau-droit {
+    visibility: hidden;
+    position: fixed;
+    right: 0;
+    top : 98px;
+    width: 250px;
+    height: 45%;
+    opacity: 0;
+    transform: translateX(100%);
+    background-color: rgba(255,255,255,0.8);
+    box-sizing: border-box;
+    transition: opacity 0.5s ease, transform 0.5s ease, visibility 0s 0.5s; 
+}
+
+#panneau-droit.visible {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    
+}
+
+.modal-header {
+    background-color: initial;
+    background-image: linear-gradient(-180deg, #5e5df0, #2a2ae7);
+    color: #FFFFFF;
+}
+
+
+#btn-fermer {
+    background-color: initial;
+    background-image: linear-gradient(-180deg, #5e5df0, #2a2ae7);
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: inherit;
+    font-weight: 500;
+    height: 40px;
+    line-height: 40px;
+    outline: 0;
+    overflow: hidden;
+    padding: 0 20px;
+    pointer-events: auto;
+    position: relative;
+    text-align: center;
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+    vertical-align: top;
+    white-space: nowrap;
+    width: 100%;
+    z-index: 9;
+    border: 0;
+    transition: box-shadow .2s;
+}
+
+#btn-fermer:hover {
+  box-shadow: rgba(55, 0, 255, 0.5) 0 3px 8px;
+}
+
+.modal-body ul {
+    display: flex;
+    flex-direction: column;
+    font-size: 22px ;
+    justify-content: center;
+    align-items: center;
+}
+
+  
+#lien-info-compte,
+#lien-aide-compte,
+#lien-deconnexion {
+    display: block;    
+    width: 100%;       
+    text-align: center; 
+    padding: 10px 0;    
+    color: inherit;   
+    text-decoration: none; 
+    white-space: nowrap;   
+    
+}
+
+#lien-info-compte:hover,
+#lien-aide-compte:hover,
+#lien-deconnexion:hover {
+    background-color: rgb(219, 219, 219);
+}
+</style>
 
 </html>
 
