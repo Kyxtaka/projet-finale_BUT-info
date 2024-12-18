@@ -811,3 +811,15 @@ def test():
 
 
 
+def extraire_informations(texte):
+    doc = nlp(texte)
+    donnees = {
+        "prix": "",
+        "date_achat": ""
+    }
+    for ent in doc.ents:
+        if ent.label_ == "PRIX":
+            donnees["prix"] = ent.text
+        elif ent.label_ == "DATE": 
+            donnees["date_achat"] = ent.text
+    return donnees

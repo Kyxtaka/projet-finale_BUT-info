@@ -40,10 +40,8 @@ class Avis(Base):
 
     id_avis = Column(Integer, name="ID_AVIS", primary_key=True)
     desc_avis = Column(String(1000), name="DESCRIPTION", nullable=True)
-    id_proprio = Column(Integer,
-                        ForeignKey("PROPRIETAIRE.ID_PROPRIO"),
-                        nullable=False,
-                        name="ID_PROPRIO")
+    id_proprio = Column(Integer, ForeignKey("PROPRIETAIRE.ID_PROPRIO", ondelete="CASCADE"), nullable=False, name="ID_PROPRIO")
+    
 
     def __init__(self, id_avis, desc_avis, id_proprio):
         """Init d'un Avis
@@ -113,8 +111,9 @@ class Proprietaire(Base):
     id_proprio = Column(Integer, primary_key=True, name="ID_PROPRIO")
     nom = Column(String(20), name="NOM")
     prenom = Column(String(20), name="PRENOM")
-    logements = relationship("Logement", secondary="AVOIR", back_populates="proprietaires")
-    user = relationship("User", back_populates="proprio", uselist=False)
+    mail = Column(String(50), name="MAIL", unique=True, nullable=False)
+    logements = relationship("Logement", secondary="AVOIR", back_populates="proprietaires", cascade="all, delete")
+    user = relationship("User", back_populates="proprio", cascade="all, delete", uselist=False)
     
     def __init__(self, id_proprio, mail , nom_proprio=None, prenom_proprio=None):
         self.id_proprio = id_proprio
@@ -194,8 +193,8 @@ class Logement(Base):
                            nullable=False)
     adresse = Column(String(100), name="ADRESSE", nullable=True)
     desc_logement = Column(String(1000), name="DESC_LOGEMENT", nullable=True)
-    pieces = relationship("Piece")
-    proprietaires = relationship("Proprietaire", secondary="AVOIR", back_populates="logements")
+    pieces = relationship("Piece", backref="logement", cascade="all, delete")
+    proprietaires = relationship("Proprietaire", secondary="AVOIR", back_populates="logements", passive_deletes=True)
     
     def __init__(self, id_logement, nom_logement, type_logement, adresse_logement, desc_logement):
         """Init d'un logement
@@ -304,14 +303,8 @@ class Logement(Base):
 class AVOIR(Base):
     __tablename__ = "AVOIR"
 
-    id_proprio = Column(Integer,
-                        ForeignKey("PROPRIETAIRE.ID_PROPRIO"),
-                        name="ID_PROPRIO",
-                        primary_key=True)
-    id_logement = Column(Integer,
-                         ForeignKey("LOGEMENT.ID_LOGEMENT"),
-                         name="ID_LOGEMENT",
-                         primary_key=True)
+    id_proprio = Column(Integer, ForeignKey("PROPRIETAIRE.ID_PROPRIO", ondelete="CASCADE"), name="ID_PROPRIO", primary_key=True)
+    id_logement = Column(Integer, ForeignKey("LOGEMENT.ID_LOGEMENT", ondelete="CASCADE"), name="ID_LOGEMENT", primary_key=True)
 
     def __init__(self, id_proprio, id_logement):
         """init d'un lien entre logement et propriétaire
@@ -361,29 +354,14 @@ class Bien(Base):
     nom_bien = Column(String(100), name="NOM_BIEN", nullable=False)
     date_achat = Column(Date, name="DATE_ACHAT", nullable=True)
     prix = Column(Float, name="PRIX", nullable=True)
-    id_proprio = Column(Integer,
-                        ForeignKey("PROPRIETAIRE.ID_PROPRIO"),
-                        nullable=False,
-                        name="ID_PROPRIO")
-    id_piece = Column(Integer,
-                      ForeignKey("PIECE.ID_PIECE"),
-                      nullable=False,
-                      name="ID_PIECE")
-    id_logement = Column(Integer,
-                         ForeignKey("PIECE.ID_LOGEMENT"),
-                         nullable=False,
-                         name="ID_LOGEMENT")
-    id_type = Column(Integer,
-                     ForeignKey("TYPEBIEN.ID_TYPE_BIEN"),
-                     nullable=False,
-                     name="ID_TYPE_BIEN")
-    id_cat = Column(Integer,
-                    ForeignKey("CATEGORIE.ID_CATEGORIE"),
-                    nullable=False,
-                    name="ID_CATEGORIE")
-
-    def __init__(self, id_bien, nom_bien, id_proprio, date_achat, prix,
-                 id_piece, id_logement, id_type, id_cat):
+    id_proprio = Column(Integer, ForeignKey("PROPRIETAIRE.ID_PROPRIO", ondelete="CASCADE"), nullable=False, name="ID_PROPRIO")
+    id_piece = Column(Integer, ForeignKey("PIECE.ID_PIECE", ondelete="CASCADE"), nullable=False, name="ID_PIECE")
+    id_logement = Column(Integer, ForeignKey("PIECE.ID_LOGEMENT", ondelete="CASCADE"), nullable=False, name="ID_LOGEMENT")
+    id_type = Column(Integer, ForeignKey("TYPEBIEN.ID_TYPE_BIEN"), nullable=False, name="ID_TYPE_BIEN")
+    id_cat = Column(Integer, ForeignKey("CATEGORIE.ID_CATEGORIE"), nullable=False, name="ID_CATEGORIE")
+    
+    
+    def __init__(self, id_bien, nom_bien, id_proprio, date_achat, prix, id_piece, id_logement,  id_type, id_cat):
         """_summary_
 
         Args:
@@ -464,12 +442,8 @@ class Piece(Base):
                       name="ID_PIECE")
     nom_piece = Column(String(20), nullable=True, name="NOM_PIECE")
     desc_piece = Column(String(1000), nullable=True, name="DESCRIPTION")
-    id_logement = Column(Integer,
-                         ForeignKey("LOGEMENT.ID_LOGEMENT"),
-                         primary_key=True,
-                         nullable=False,
-                         name="ID_LOGEMENT")
-
+    id_logement = Column(Integer, ForeignKey("LOGEMENT.ID_LOGEMENT",ondelete="CASCADE"), primary_key=True, nullable=False, name="ID_LOGEMENT")
+    
     def __init__(self, id_piece, nom_piece, desc_piece, id_logement):
         """Init d'une pièce dans un logement
 
@@ -684,11 +658,8 @@ class Justificatif(Base):
     nom_justif = Column(String(30), name="NOM_JUSTIFICATIF")
     date_ajout = Column(Date, name="DATE_AJOUT")
     URL = Column(String(200), name="URL")
-    id_bien = Column(Integer,
-                     ForeignKey("BIEN.ID_BIEN"),
-                     primary_key=True,
-                     name="ID_BIEN")
-
+    id_bien = Column(Integer, ForeignKey("BIEN.ID_BIEN", ondelete="CASCADE"), primary_key=True, name="ID_BIEN")
+    
     def __init__(self, id_justif, nom_justif, date_ajout, URL, id_bien):
         """init d'un justificatif
 
@@ -792,8 +763,8 @@ class User(Base, UserMixin):
     mail = Column(String(50), primary_key=True, name="MAIL")
     password = Column(String(64), name="PASSWORD")
     role = Column(String(10), name="ROLE")
-    id_user = Column(Integer, ForeignKey("PROPRIETAIRE.ID_PROPRIO"), name="ID_PROPRIO")    
-    proprio = relationship('Proprietaire', back_populates='user', uselist=False)
+    id_user = Column(Integer, ForeignKey("PROPRIETAIRE.ID_PROPRIO", ondelete="CASCADE"), name="ID_PROPRIO")    
+    proprio = relationship('Proprietaire', back_populates='user', uselist=False, cascade="all, delete")
     
     def __init__(self, mail,pwd, role, id):
         self.mail = mail
