@@ -26,6 +26,15 @@ from .secure_constante import GOOGLE_SMTP, GOOGLE_SMTP_PWD, GOOGLE_SMTP_USER
 
 nlp = spacy.load("fr_core_news_md")
 
+from flask import send_file
+from reportlab.pdfgen import canvas #pip install reportlab
+from datetime import date
+from datetime import datetime
+from reportlab.lib.units import cm
+from reportlab.lib.pagesizes import A4
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfbase import pdfmetrics
+pdfmetrics.registerFont(TTFont('DejaVuSans', 'DejaVuSans.ttf'))
 
 #constante : chemin d'acces au dossier de telechargement des justificatifs
 UPLOAD_FOLDER_JUSTIFICATIF = os.path.join(
@@ -171,9 +180,101 @@ class AjoutBienForm(FlaskForm):
             print("erreur:", e)
         
 
-@app.route("/accueil-connexion/")
+def generate_pdf_tous_logements(proprio,logements) -> BytesIO:
+    buffer = BytesIO()
+    canva = canvas.Canvas(buffer, pagesize=A4)
+    width, height = A4
+    y = height - 2 * cm
+    # Fonction qui dessine des blocs gris avec du texte
+    def draw_grey_box_with_text(canva, x, y, width, height, text, font="Helvetica", font_size=13):
+        canva.setFillColorRGB(0.827, 0.827, 0.827)
+        canva.rect(x, y, width, height, fill=1, stroke=0)
+        canva.setFillColorRGB(0, 0, 0)
+        canva.setFont(font, font_size)
+        canva.drawString(x + 5, y + height / 2 - font_size / 2, text)
+    # Titre 
+    canva.setFillColorRGB(0.38, 0.169, 0.718)
+    canva.setFont("Helvetica-Bold", 20)
+    canva.drawCentredString(width / 2, y, "INVENTAIRE DES BIENS")
+    y -= 1 * cm
+    # Sous-titre
+    canva.setFillColorRGB(0, 0, 0)
+    canva.setFont("Helvetica-Bold", 15)
+    canva.drawCentredString(width / 2, y, f"en date du {date.today()}")
+    y -= 1.5 * cm
+    # Valeur totale
+    total_valeur = db.session.query(func.sum(Bien.prix)).scalar()
+    if total_valeur == None:
+        total_valeur = 0
+    canva.setFillColorRGB(0.792, 0.659, 1)
+    canva.rect(20, y, width - 40, 1 * cm, fill=1, stroke=0)
+    canva.setFillColorRGB(0, 0, 0)
+    canva.setFont("Helvetica-Bold", 12)
+    canva.drawString(25, y + 8, f"VALEUR TOTALE ESTIMÉE DE TOUS LES BIENS : {total_valeur} €")
+    y -= 1.5 * cm
+    # Informations
+    height_box = 1 * cm
+    draw_grey_box_with_text(canva, 20, y-3, width - 40, height_box, f"NOM : {proprio.get_nom()} {proprio.get_prenom()}")
+    y -= height_box
+    draw_grey_box_with_text(canva, 20, y-6, width - 40, height_box, f"MAIL : {proprio.get_mail()}")
+    y -= height_box
+    draw_grey_box_with_text(canva, 20, y-9, width - 40, height_box, f"ANNÉE DU SINISTRE : {datetime.now().year}")
+    y -= height_box
+    # Parcours des pièces et des biens
+    for loge in logements:
+        print (loge)
+        print(loge.id_logement)
+        if y < 3 * cm:
+            canva.showPage()
+            y = height - 2 * cm
+        canva.setFont("Helvetica-Bold", 13)
+        canva.drawString(1 * cm, y, f"{loge.nom_logement} ({loge.adresse})")
+        y -= 1 * cm
+        pieces = db.session.query(Piece).filter_by(id_logement=loge.id_logement).all()
+        print(pieces)
+        for p in pieces:
+            if y < 3 * cm:  # Saut de page si besoin
+                canva.showPage()
+                y = height - 2 * cm
+            canva.setFont("Helvetica-Bold", 12)
+            canva.drawString(1 * cm, y, f"{p.get_nom_piece()}")
+            y -= 0.7 * cm
+            biens = db.session.query(Bien, Categorie).join(Categorie, Bien.id_cat == Categorie.id_cat) \
+                .filter(Bien.id_piece == p.id_piece).all()
+            print(biens)
+            biens_par_categorie = {}
+            for bien, categorie in biens:
+                biens_par_categorie.setdefault(categorie.nom_cat, []).append((bien.nom_bien, bien.prix))
+            for cat, items in biens_par_categorie.items():
+                canva.setFont("Helvetica-Bold", 11)
+                canva.drawString(2 * cm, y, f"{cat}")
+                y -= 0.5 * cm
+                canva.setFont("Helvetica", 10)
+                for nom_bien, prix in items:
+                    canva.drawString(3 * cm, y, f"- {nom_bien}")
+                    canva.drawRightString(width - 2 * cm, y, f"{prix} €")
+                    y -= 0.5 * cm
+                    if y < 3 * cm:  # Saut de page si besoin
+                        canva.showPage()
+                        y = height - 2 * cm
+                y -= 0.5 * cm  # Espace entre catégories
+            # Ligne de fin
+            canva.line(1 * cm, y, width - 2 * cm, y)
+            y -= 1 * cm        
+    canva.save()
+    buffer.seek(0)
+    return send_file(buffer, as_attachment=True, download_name="inventaire_biens.pdf", mimetype="application/pdf")
+
+@app.route("/accueil-connexion/", methods =("GET","POST" ,))
 @login_required   
 def accueil_connexion():
+    proprio = Proprietaire.query.get(current_user.id_user)
+    logements = []
+    for logement in proprio.logements:
+        logements.append(logement)
+    if request.method == 'POST':
+        if 'bouton_telecharger' in request.form:
+            return generate_pdf_tous_logements(proprio,logements)
     return render_template("accueil_2.html")
     
 @app.route("/login/", methods =("GET","POST" ,))
@@ -395,6 +496,85 @@ def affiche_logements():
         return render_template("afficheLogements.html", logements=logements, type_logement=type_logement, contenu=contenu)
     return render_template("afficheLogements.html", logements=logements, type_logement=type_logement, contenu=contenu)
 
+def generate_pdf(proprio,logement_id,sinistre_annee,sinistre_type) -> BytesIO:
+    buffer = BytesIO()
+    canva = canvas.Canvas(buffer, pagesize=A4)
+    width, height = A4
+    y = height - 2 * cm
+    # Fonction qui dessine des blocs gris avec du texte
+    def draw_grey_box_with_text(canva, x, y, width, height, text, font="Helvetica", font_size=13):
+        canva.setFillColorRGB(0.827, 0.827, 0.827)
+        canva.rect(x, y, width, height, fill=1, stroke=0)
+        canva.setFillColorRGB(0, 0, 0)
+        canva.setFont(font, font_size)
+        canva.drawString(x + 5, y + height / 2 - font_size / 2, text)
+    # Titre 
+    canva.setFillColorRGB(0.38, 0.169, 0.718)
+    canva.setFont("Helvetica-Bold", 20)
+    canva.drawCentredString(width / 2, y, "INVENTAIRE DES BIENS")
+    y -= 1 * cm
+    # Sous-titre
+    canva.setFillColorRGB(0, 0, 0)
+    canva.setFont("Helvetica-Bold", 15)
+    canva.drawCentredString(width / 2, y, f"en date du {date.today()}")
+    y -= 1.5 * cm
+    # Valeur totale
+    total_valeur = db.session.query(func.sum(Bien.prix)).filter(Bien.id_logement == logement_id).scalar()
+    if total_valeur == None:
+        total_valeur = 0
+    canva.setFillColorRGB(0.792, 0.659, 1)
+    canva.rect(20, y, width - 40, 1 * cm, fill=1, stroke=0)
+    canva.setFillColorRGB(0, 0, 0)
+    canva.setFont("Helvetica-Bold", 12)
+    canva.drawString(25, y + 8, f"VALEUR TOTALE ESTIMÉE DE TOUS LES BIENS : {total_valeur} €")
+    y -= 1.5 * cm
+    # Informations
+    height_box = 1 * cm
+    draw_grey_box_with_text(canva, 20, y-3, width - 40, height_box, f"NOM : {proprio.get_nom()} {proprio.get_prenom()}")
+    y -= height_box
+    draw_grey_box_with_text(canva, 20, y-6, width - 40, height_box, f"MAIL : {proprio.get_mail()}")
+    y -= height_box
+    adresse = db.session.query(Logement).filter_by(id_logement=logement_id).first().adresse
+    draw_grey_box_with_text(canva, 20, y-9, width - 40, height_box, f"ADRESSE DU LOGEMENT : {adresse}")
+    y -= height_box
+    draw_grey_box_with_text(canva, 20, y-12, width - 40, height_box, f"ANNÉE DU SINISTRE : {sinistre_annee}")
+    y -= height_box
+    draw_grey_box_with_text(canva, 20, y-15, width - 40, height_box, f"TYPE DE SINISTRE : {sinistre_type}")
+    y -= 1.5 * cm
+    # Parcours des pièces et des biens
+    pieces = db.session.query(Piece).filter_by(id_logement=logement_id).all()
+    for p in pieces:
+        if y < 3 * cm:  # Saut de page si besoin
+            canva.showPage()
+            y = height - 2 * cm
+        canva.setFont("Helvetica-Bold", 12)
+        canva.drawString(1 * cm, y, f"{p.get_nom_piece()}")
+        y -= 0.7 * cm
+        biens = db.session.query(Bien, Categorie).join(Categorie, Bien.id_cat == Categorie.id_cat) \
+            .filter(Bien.id_piece == p.id_piece).all()
+        biens_par_categorie = {}
+        for bien, categorie in biens:
+            biens_par_categorie.setdefault(categorie.nom_cat, []).append((bien.nom_bien, bien.prix))
+        for cat, items in biens_par_categorie.items():
+            canva.setFont("Helvetica-Bold", 11)
+            canva.drawString(2 * cm, y, f"{cat}")
+            y -= 0.5 * cm
+            canva.setFont("Helvetica", 10)
+            for nom_bien, prix in items:
+                canva.drawString(3 * cm, y, f"- {nom_bien}")
+                canva.drawRightString(width - 2 * cm, y, f"{prix} €")
+                y -= 0.5 * cm
+                if y < 3 * cm:  # Saut de page si besoin
+                    canva.showPage()
+                    y = height - 2 * cm
+            y -= 0.5 * cm  # Espace entre catégories
+        # Ligne de fin
+        canva.line(1 * cm, y, width - 2 * cm, y)
+        y -= 1 * cm        
+    canva.save()
+    buffer.seek(0)
+    return send_file(buffer, as_attachment=True, download_name="inventaire_biens.pdf", mimetype="application/pdf")
+
 
 @app.route("/simulation/", methods =("GET","POST" ,))
 def simulation():
@@ -402,12 +582,27 @@ def simulation():
     logements = []
     for logement in proprio.logements:
         logements.append(logement)
+    logement_id = request.form.get('logement_id')
+    sinistre_annee = request.form.get('sinistre_annee')
+    sinistre_type = request.form.get('sinistre_type')
+
+    # Message d'erreur si tous les champs ne sont pas sélectionnés
+    if request.method == "POST":
+        if not logement_id or not sinistre_annee or not sinistre_type:
+            message = "Veuillez sélectionner tous les champs."
+            return render_template("simulation.html", logements=logements,
+                                   message=message, logement_id=logement_id,
+                                   sinistre_annee=sinistre_annee,
+                                   sinistre_type=sinistre_type)
+        return generate_pdf(proprio,logement_id,sinistre_annee,sinistre_type)
     return render_template("simulation.html",logements=logements)
+
 
 @app.route("/mon-compte/", methods =("POST" ,"GET",))
 def mon_compte():
     form=ModificationForm()
     return render_template("mon-compte.html", form=form)
+
 
 @app.route("/mesBiens/", methods =["GET"])
 def mesBiens():
@@ -613,3 +808,6 @@ def link_logement_owner(logement: Logement, proprio: Proprietaire):
 @app.route("/test/")
 def test():
     return render_template_string(str(Logement.next_id()))
+
+
+

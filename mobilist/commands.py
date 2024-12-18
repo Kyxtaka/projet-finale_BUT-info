@@ -137,3 +137,4 @@ def passwd(mail, password):
     else: 
         print(f"user {mail} not found)")
     db.session.commit()
+

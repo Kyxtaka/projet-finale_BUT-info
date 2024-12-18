@@ -9,8 +9,14 @@ from hashlib import sha256
 import enum
 import yaml, os.path
 import time
+from jinja2 import (
+    Environment,
+    FileSystemLoader,
+)
+from io import BytesIO
 
 Base = db.Model
+
 
 def set_base(db):
     global Base
@@ -18,7 +24,7 @@ def set_base(db):
 
 class LogementType(enum.Enum):
     __tablename__ = "LOGEMENTTYPE"
-    
+
     APPART = "appart"
     MAISON = "maison"
 
@@ -28,13 +34,16 @@ class LogementType(enum.Enum):
     def get_type(self):
         return self.name
 
+
 class Avis(Base):
     __tablename__ = "AVIS"
-    
+
     id_avis = Column(Integer, name="ID_AVIS", primary_key=True)
     desc_avis = Column(String(1000), name="DESCRIPTION", nullable=True)
-    id_proprio = Column(Integer, ForeignKey("PROPRIETAIRE.ID_PROPRIO"), nullable=False, name="ID_PROPRIO")
-    
+    id_proprio = Column(Integer,
+                        ForeignKey("PROPRIETAIRE.ID_PROPRIO"),
+                        nullable=False,
+                        name="ID_PROPRIO")
 
     def __init__(self, id_avis, desc_avis, id_proprio):
         """Init d'un Avis
@@ -47,7 +56,7 @@ class Avis(Base):
         self.id_avis = id_avis
         self.desc_avis = desc_avis
         self.id_proprio = id_proprio
-    
+
     def __repr__(self):
         """Représentation de la classe Avis
 
@@ -55,7 +64,7 @@ class Avis(Base):
             str: Chaîne de caractère contenant l'id de l'avis et sa description
         """
         return "<Avis (%d) %s>" % (self.id_avis, self.desc_avis)
-    
+
     def get_id_avis(self):
         """Getter de l'ID de l'avis
 
@@ -63,10 +72,10 @@ class Avis(Base):
             int: ID de l'avis
         """
         return self.id_avis
-    
+
     def set_id_avis(self, id_avis):
         self.id_avis = id_avis
-    
+
     def get_desc_avis(self):
         """Getter de du contenu de l'avis
 
@@ -74,7 +83,7 @@ class Avis(Base):
             str: Contenu de l'avis
         """
         return self.desc_avis
-    
+
     def set_desc_avis(self, desc_avis):
         """Changer le contenu de l'avis
 
@@ -82,7 +91,7 @@ class Avis(Base):
             desc_avis (str): Nouveau contenu pour l'avis
         """
         self.desc_avis = desc_avis
-    
+
     def get_id_proprio(self):
         """Getter de l'ID du propriétaire (ayant posté l'avis)
 
@@ -90,16 +99,17 @@ class Avis(Base):
             int: ID du propriétaire
         """
         return self.id_proprio
-    
+
     def set_id_proprio(self, id_proprio):
         self.id_proprio = id_proprio
-    
+
     def get_sample():
         return Avis.query.all()
 
+
 class Proprietaire(Base):
     __tablename__ = "PROPRIETAIRE"
-    
+
     id_proprio = Column(Integer, primary_key=True, name="ID_PROPRIO")
     nom = Column(String(20), name="NOM")
     prenom = Column(String(20), name="PRENOM")
@@ -117,8 +127,9 @@ class Proprietaire(Base):
         Returns:
             str: Une chaîne de caractère contenant l'ID, le nom, et le prénom
         """
-        return "<Proprietaire (%d) %s %s>" % (self.id_proprio, self.nom, self.prenom)
-    
+        return "<Proprietaire (%d) %s %s>" % (self.id_proprio, self.nom,
+                                              self.prenom)
+
     def get_id_proprio(self):
         """Getter de l'ID du propriétaire
 
@@ -126,10 +137,10 @@ class Proprietaire(Base):
             int: ID du propriétaire
         """
         return self.id_proprio
-    
+
     def set_id_proprio(self, id_proprio):
         self.id_proprio = id_proprio
-    
+
     def get_nom(self):
         """Getter du nom
 
@@ -137,7 +148,7 @@ class Proprietaire(Base):
             str: Nom du propriétaire
         """
         return self.nom
-    
+
     def set_nom(self, nom):
         """Changer le nom 
 
@@ -145,7 +156,7 @@ class Proprietaire(Base):
             nom (str): Nouveau nom
         """
         self.nom = nom
-    
+
     def get_prenom(self):
         """Getter du prénom 
 
@@ -154,23 +165,33 @@ class Proprietaire(Base):
         """
         return self.prenom
     
+    def get_mail(self):
+        """Getter du mail  
+
+        Returns:
+            str: mail du propriétaire
+        """
+        return self.mail
+
     def set_prenom(self, prenom):
         self.prenom = prenom
-    
+
     @staticmethod
     def max_id():
         return db.session.query(func.max(Proprietaire.id_proprio)).scalar()
-    
+
     @staticmethod
     def get_by_mail(mail):
         return Proprietaire.query.filter_by(mail=mail).first()
    
 class Logement(Base):
     __tablename__ = "LOGEMENT"
-    
+
     id_logement = Column(Integer, name="ID_LOGEMENT", primary_key=True)
     nom_logement = Column(String(20), name="NOM_LOGEMENT", nullable=True)
-    type_logement = Column(Enum(LogementType), name="TYPE_LOGEMENT", nullable=False)
+    type_logement = Column(Enum(LogementType),
+                           name="TYPE_LOGEMENT",
+                           nullable=False)
     adresse = Column(String(100), name="ADRESSE", nullable=True)
     desc_logement = Column(String(1000), name="DESC_LOGEMENT", nullable=True)
     pieces = relationship("Piece")
@@ -190,15 +211,16 @@ class Logement(Base):
         self.type_logement = type_logement
         self.adresse = adresse_logement
         self.desc_logement = desc_logement
-        
+
     def __repr__(self):
         """Représentation d'un logement 
 
         Returns:
             str: Contenant l'ID, le type, et l'adresse
         """
-        return "<Logement (%d) %s %s>" % (self.id_logement, self.type_logement, self.adresse)
-    
+        return "<Logement (%d) %s %s>" % (self.id_logement, self.type_logement,
+                                          self.adresse)
+
     def get_id_logement(self) -> int:
         """Getter de l'ID du logement
 
@@ -230,7 +252,7 @@ class Logement(Base):
             str: Adresse du logement
         """
         return self.adresse
-    
+
     def get_desc_logement(self):
         """Getter de la descritpion du logement 
 
@@ -249,7 +271,7 @@ class Logement(Base):
             type_logement (enum(str)): "maison" ou "appartement"
         """
         self.type_logement = type_logement
-    
+
     def set_adresse_logement(self, adresse):
         """Changer l'adresse du logement 
 
@@ -257,7 +279,7 @@ class Logement(Base):
             adresse (str): nouvelle adresse du logement 
         """
         self.adresse = adresse
-    
+
     def set_desc_logement(self, desc_logement):
         """Changer la description du logement 
 
@@ -282,8 +304,14 @@ class Logement(Base):
 class AVOIR(Base):
     __tablename__ = "AVOIR"
 
-    id_proprio = Column(Integer, ForeignKey("PROPRIETAIRE.ID_PROPRIO"), name="ID_PROPRIO", primary_key=True)
-    id_logement = Column(Integer, ForeignKey("LOGEMENT.ID_LOGEMENT"), name="ID_LOGEMENT", primary_key=True)
+    id_proprio = Column(Integer,
+                        ForeignKey("PROPRIETAIRE.ID_PROPRIO"),
+                        name="ID_PROPRIO",
+                        primary_key=True)
+    id_logement = Column(Integer,
+                         ForeignKey("LOGEMENT.ID_LOGEMENT"),
+                         name="ID_LOGEMENT",
+                         primary_key=True)
 
     def __init__(self, id_proprio, id_logement):
         """init d'un lien entre logement et propriétaire
@@ -302,7 +330,7 @@ class AVOIR(Base):
             str : une chaine ce craractère contenant l'id du propriéatire et celuo du logement
         """
         return "Avoir %d %d" % (self.id_proprio, self.id_logement)
-    
+
     def get_id_proprio(self):
         """getter de l'ID du propriétaire
 
@@ -310,10 +338,10 @@ class AVOIR(Base):
             int: id du propriétaire
         """
         return self.id_proprio
-    
+
     def set_id_proprio(self, id_proprio):
         self.id_proprio = id_proprio
-    
+
     def get_id_logement(self):
         """getter de l'id du logement
 
@@ -321,25 +349,41 @@ class AVOIR(Base):
             int: id du logement
         """
         return self.id_logement
-    
+
     def set_id_logement(self, id_logement):
         self.id_logement = id_logement
 
+
 class Bien(Base):
     __tablename__ = "BIEN"
-    
+
     id_bien = Column(Integer, name="ID_BIEN", primary_key=True)
     nom_bien = Column(String(100), name="NOM_BIEN", nullable=False)
     date_achat = Column(Date, name="DATE_ACHAT", nullable=True)
     prix = Column(Float, name="PRIX", nullable=True)
-    id_proprio = Column(Integer, ForeignKey("PROPRIETAIRE.ID_PROPRIO"), nullable=False, name="ID_PROPRIO")
-    id_piece = Column(Integer, ForeignKey("PIECE.ID_PIECE"), nullable=False, name="ID_PIECE")
-    id_logement = Column(Integer, ForeignKey("PIECE.ID_LOGEMENT"), nullable=False, name="ID_LOGEMENT")
-    id_type = Column(Integer, ForeignKey("TYPEBIEN.ID_TYPE_BIEN"), nullable=False, name="ID_TYPE_BIEN")
-    id_cat = Column(Integer, ForeignKey("CATEGORIE.ID_CATEGORIE"), nullable=False, name="ID_CATEGORIE")
-    
-    
-    def __init__(self, id_bien, nom_bien, id_proprio, date_achat, prix, id_piece, id_logement,  id_type, id_cat):
+    id_proprio = Column(Integer,
+                        ForeignKey("PROPRIETAIRE.ID_PROPRIO"),
+                        nullable=False,
+                        name="ID_PROPRIO")
+    id_piece = Column(Integer,
+                      ForeignKey("PIECE.ID_PIECE"),
+                      nullable=False,
+                      name="ID_PIECE")
+    id_logement = Column(Integer,
+                         ForeignKey("PIECE.ID_LOGEMENT"),
+                         nullable=False,
+                         name="ID_LOGEMENT")
+    id_type = Column(Integer,
+                     ForeignKey("TYPEBIEN.ID_TYPE_BIEN"),
+                     nullable=False,
+                     name="ID_TYPE_BIEN")
+    id_cat = Column(Integer,
+                    ForeignKey("CATEGORIE.ID_CATEGORIE"),
+                    nullable=False,
+                    name="ID_CATEGORIE")
+
+    def __init__(self, id_bien, nom_bien, id_proprio, date_achat, prix,
+                 id_piece, id_logement, id_type, id_cat):
         """_summary_
 
         Args:
@@ -361,31 +405,31 @@ class Bien(Base):
         self.id_logement = id_logement
         self.id_type = id_type
         self.id_cat = id_cat
-    
+
     def __repr__(self):
         return "<Bien (%d) %s>" % (self.id_bien, self.nom_bien)
-    
+
     def get_id_bien(self):
         return self.id_bien
     
     def get_nom_bien(self):
         return self.nom_bien
-    
+
     def set_nom_bien(self, nom_bien):
         self.nom_bien = nom_bien
-    
+
     def get_date_achat(self):
         return self.date_achat
-    
+
     def set_date_achat(self, date_achat):
         self.date_achat = date_achat
-    
+
     def get_prix(self):
         return self.prix
-    
+
     def set_prix(self, prix):
         self.prix = prix
-    
+
     def get_id_proprio(self):
         return self.id_proprio
     
@@ -413,12 +457,19 @@ class Bien(Base):
     
 class Piece(Base):
     __tablename__ = "PIECE"
-    
-    id_piece = Column(Integer, primary_key=True, nullable=False, name="ID_PIECE")
+
+    id_piece = Column(Integer,
+                      primary_key=True,
+                      nullable=False,
+                      name="ID_PIECE")
     nom_piece = Column(String(20), nullable=True, name="NOM_PIECE")
     desc_piece = Column(String(1000), nullable=True, name="DESCRIPTION")
-    id_logement = Column(Integer, ForeignKey("LOGEMENT.ID_LOGEMENT"), primary_key=True, nullable=False, name="ID_LOGEMENT")
-    
+    id_logement = Column(Integer,
+                         ForeignKey("LOGEMENT.ID_LOGEMENT"),
+                         primary_key=True,
+                         nullable=False,
+                         name="ID_LOGEMENT")
+
     def __init__(self, id_piece, nom_piece, desc_piece, id_logement):
         """Init d'une pièce dans un logement
 
@@ -432,7 +483,7 @@ class Piece(Base):
         self.nom_piece = nom_piece
         self.desc_piece = desc_piece
         self.id_logement = id_logement
-        
+
     def __repr__(self):
         """représentation de la pièce
 
@@ -440,7 +491,7 @@ class Piece(Base):
             str: une chaîne de caractère contenant l'id de la pièce ainsi que son nom
         """
         return "<Piece (%d) %s >" % (self.id_piece, self.nom_piece)
-    
+
     def get_id_piece(self):
         """getter de l'id de la pièce
 
@@ -448,10 +499,10 @@ class Piece(Base):
             int: id de la pièce
         """
         return self.id_piece
-    
+
     def set_id_piece(self, id_piece):
         self.id_piece = id_piece
-    
+
     def get_nom_piece(self):
         """getter du nom de la pièce
 
@@ -459,7 +510,7 @@ class Piece(Base):
             str: nom de la pièce
         """
         return self.nom_piece
-    
+
     def set_nom_piece(self, nom_piece):
         """changer le nom de la pièce
 
@@ -467,7 +518,7 @@ class Piece(Base):
             nom_piece (str): Nouveau nom de la pièce 
         """
         self.nom_piece = nom_piece
-    
+
     def get_desc_piece(self):
         """getter de la description de la pièce 
 
@@ -475,7 +526,7 @@ class Piece(Base):
             str: description de la pièce
         """
         return self.desc_piece
-    
+
     def set_desc_piece(self, desc_piece):
         """changer la description de la pièce 
 
@@ -483,7 +534,7 @@ class Piece(Base):
             desc_piece (str): nouvelle description de la pièce
         """
         self.desc_piece = desc_piece
-    
+
     def get_id_logement(self):
         """getter de l'id du logement de la pièce
 
@@ -491,7 +542,7 @@ class Piece(Base):
             int: id du logement où est contenu la pièce
         """
         return self.id_logement
-    
+
     def set_id_logement(self, id_logement):
         self.id_logement = id_logement
 
@@ -508,10 +559,13 @@ class Piece(Base):
         
 class TypeBien(Base):
     __tablename__ = "TYPEBIEN"
-    
-    id_type = Column(Integer, primary_key=True, nullable=False, name="ID_TYPE_BIEN")
+
+    id_type = Column(Integer,
+                     primary_key=True,
+                     nullable=False,
+                     name="ID_TYPE_BIEN")
     nom_type = Column(String(20), nullable=False, name="NOM_TYPE")
-    
+
     def __init__(self, id_type, nom_type):
         """Init d'un type de bien
 
@@ -521,7 +575,7 @@ class TypeBien(Base):
         """
         self.id_type = id_type
         self.nom_type = nom_type
-    
+
     def __repr__(self):
         """représentation du type de bien
 
@@ -529,7 +583,7 @@ class TypeBien(Base):
             str: contenant l'id et le nom du type
         """
         return "<TypeBien (%d) %s >" % (self.id_type, self.nom_type)
-    
+
     def get_id_type(self):
         """getter de l'id du type
 
@@ -537,10 +591,10 @@ class TypeBien(Base):
             int: l'id du type
         """
         return self.id_type
-    
+
     def set_id_type(self, id_type):
         self.id_type = id_type
-    
+
     def get_nom_type(self):
         """getter du nom du type 
 
@@ -548,7 +602,7 @@ class TypeBien(Base):
             str: nom du type de bien
         """
         return self.nom_type
-    
+
     def set_nom_type(self, nom_type):
         """changer le nom du type
 
@@ -564,10 +618,13 @@ class TypeBien(Base):
 
 class Categorie(Base):
     __tablename__ = "CATEGORIE"
-    
-    id_cat = Column(Integer, primary_key=True, nullable=False, name="ID_CATEGORIE")
+
+    id_cat = Column(Integer,
+                    primary_key=True,
+                    nullable=False,
+                    name="ID_CATEGORIE")
     nom_cat = Column(String(20), nullable=False, name="NOM_CATEGORIE")
-    
+
     def __init__(self, id_cat, nom_cat):
         """init d'une catégorie de bien
 
@@ -577,7 +634,7 @@ class Categorie(Base):
         """
         self.id_cat = id_cat
         self.nom_cat = nom_cat
-    
+
     def __repr__(self):
         """représentation d'une catégorie de bien
 
@@ -585,7 +642,7 @@ class Categorie(Base):
             str: contenant l'id et le nom de la catégorie
         """
         return "<Categorie (%d) %s >" % (self.id_cat, self.nom_cat)
-    
+
     def get_id_cat(self):
         """getter de l'id de la catégorie
 
@@ -593,10 +650,10 @@ class Categorie(Base):
             int: 
         """
         return self.id_cat
-    
+
     def set_id_cat(self, id_cat):
         self.id_cat = id_cat
-    
+
     def get_nom_cat(self):
         """getter du nom de la catégorie
 
@@ -604,7 +661,7 @@ class Categorie(Base):
             int: 
         """
         return self.nom_cat
-    
+
     def set_nom_cat(self, nom_cat):
         """Modification du nom de la catégorie
 
@@ -622,13 +679,16 @@ class Categorie(Base):
 
 class Justificatif(Base):
     __tablename__ = "JUSTIFICATIF"
-    
+
     id_justif = Column(Integer, primary_key=True, name="ID_JUSTIFICATIF")
     nom_justif = Column(String(30), name="NOM_JUSTIFICATIF")
     date_ajout = Column(Date, name="DATE_AJOUT")
     URL = Column(String(200), name="URL")
-    id_bien = Column(Integer, ForeignKey("BIEN.ID_BIEN"), primary_key=True, name="ID_BIEN")
-    
+    id_bien = Column(Integer,
+                     ForeignKey("BIEN.ID_BIEN"),
+                     primary_key=True,
+                     name="ID_BIEN")
+
     def __init__(self, id_justif, nom_justif, date_ajout, URL, id_bien):
         """init d'un justificatif
 
@@ -644,15 +704,17 @@ class Justificatif(Base):
         self.date_ajout = date_ajout
         self.URL = URL
         self.id_bien = id_bien
-    
+
     def __repr__(self):
         """représentation du justificatif
 
         Returns:
             str: String contenant l'ID du justificatif, son nom, sa date d'ajout, et le lien vers l'image justificatif, ainsi que l'ID du bien associé
         """
-        return "<Justificatif (%d) %s %s %s %d>" % (self.id_justif, self.nom_justif, self.date_ajout, self.URL, self.id_bien)
-    
+        return "<Justificatif (%d) %s %s %s %d>" % (
+            self.id_justif, self.nom_justif, self.date_ajout, self.URL,
+            self.id_bien)
+
     def get_id_justif(self):
         """getter de l'ID du justificatif
 
@@ -660,10 +722,10 @@ class Justificatif(Base):
             int: ID du justificatif
         """
         return self.id_justif
-    
+
     def set_id_justif(self, id_justif):
         self.id_justif = id_justif
-    
+
     def get_nom_justif(self):
         """getter du nom du justificatif
 
@@ -671,7 +733,7 @@ class Justificatif(Base):
             str: nom du justificatif
         """
         return self.nom_justif
-    
+
     def set_nom_justif(self, nom_justif):
         """Modifie le nom du justificatif
 
@@ -679,7 +741,7 @@ class Justificatif(Base):
             nom_justif (str): nouveau nom du justificatif
         """
         self.nom_justif = nom_justif
-    
+
     def get_date_ajout(self):
         """getter de la date d'ajout
 
@@ -687,7 +749,7 @@ class Justificatif(Base):
             str: date de l'ajout du justificatif
         """
         return self.date_ajout
-    
+
     def set_date_ajout(self, date_ajout):
         """modification de la date d'ajout
 
@@ -695,7 +757,7 @@ class Justificatif(Base):
             date_ajout (str): nouvelle date d'ajout
         """
         self.date_ajout = date_ajout
-    
+
     def get_URL(self):
         """getter de l'URL vers l'image du justificatif
 
@@ -703,7 +765,7 @@ class Justificatif(Base):
             str: URL vers l'image du justificatif
         """
         return self.URL
-    
+
     def set_URL(self, URL):
         """modifie l'URL vers l'ilage du justificatif
 
@@ -711,7 +773,7 @@ class Justificatif(Base):
             URL (str): nouvel URL
         """
         self.URL = URL
-    
+
     def get_id_bien(self):
         """getter de l'ID du bien associé
 
@@ -719,13 +781,14 @@ class Justificatif(Base):
             int: ID du bien associé
         """
         return self.id_bien
-    
+
     def set_id_bien(self, id_bien):
         self.id_bien = id_bien
 
+
 class User(Base, UserMixin):
     __tablename__ = "USER"
-    
+
     mail = Column(String(50), primary_key=True, name="MAIL")
     password = Column(String(64), name="PASSWORD")
     role = Column(String(10), name="ROLE")
@@ -748,7 +811,7 @@ class User(Base, UserMixin):
     
     def set_id(self, mail):
         self.mail = mail
-    
+
     def get_password(self):
         """getter du mot de passe de user
 
@@ -756,7 +819,7 @@ class User(Base, UserMixin):
             str: mot de passe de user
         """
         return self.password
-    
+
     def set_password(self, password):
         """modifie le mot de passe de user
 
@@ -774,7 +837,7 @@ class User(Base, UserMixin):
             str: role de user
         """
         return self.role
-    
+
     def set_role(self, role):
         """modifie le role de user
 
@@ -782,7 +845,7 @@ class User(Base, UserMixin):
             role (str): nouveau role de user
         """
         self.role = role
-    
+
     def get_id_user(self):
         """getter de l'id de user
 
@@ -790,7 +853,7 @@ class User(Base, UserMixin):
             int: id de user
         """
         return self.id_user
-    
+
     def set_id_user(self, id_user):
         self.id_user = id_user
 

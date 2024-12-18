@@ -100,19 +100,24 @@
     padding: 12px 15px;
 }
 
-.simulation .telecharger p{
+.simulation .telecharger p:first-child{
     font-style: italic;
     margin: 0px;
 }
 
-.simulation .telecharger button {
+.simulation .telecharger p{
+    font-style: italic;
+    margin: 30px;
+}
+
+.simulation .telecharger a {
     margin-top: 0px;
 }
 
 .simulation .telecharger .download-btn {
     position: relative;
     left: 0px;
-    top: 0px;
+    top: 15px;
     background-color: #000;
     color: #fff;
     padding: 13px 35px;

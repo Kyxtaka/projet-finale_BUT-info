@@ -57,5 +57,12 @@
     </tbody>
     </table>
     <a href="" class="voir_plus"><u>Voir plus</u></a>
-  </section>{% endblock %}
+  </section>
+  <section class="telecharger">
+    <form method="POST" action="/accueil-connexion/">
+      <p>Votre inventaire ici</p>
+      <button type="submit" name="bouton_telecharger" class="download-btn">TÉLÉCHARGER</button>
+    </form>
+  </section>
+{% endblock %}
 
