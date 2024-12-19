@@ -296,7 +296,7 @@ def generate_pdf_tous_logements(proprio,logements) -> BytesIO:
                 y -= 0.5 * cm  # Espace entre catégories
             canva.setFont("Helvetica-Bold", 11)
             canva.drawRightString(width - 2 * cm, y, f"Total : {total_piece}€")
-            y -= 1 * cm  # Ligne après le total
+            y -= 1 * cm  
             # Ligne de fin
             canva.line(1 * cm, y, width - 2 * cm, y)
             y -= 1 * cm        
@@ -601,25 +601,36 @@ def generate_pdf(proprio,logement_id,sinistre_annee,sinistre_type) -> BytesIO:
             y = height - 2 * cm
         canva.setFont("Helvetica-Bold", 12)
         canva.drawString(1 * cm, y, f"{p.get_nom_piece()}")
+        canva.drawRightString(width - 6 * cm, y, "Prix neuf")
+        canva.drawRightString(width - 2 * cm, y, f"Avec vétusté")
         y -= 0.7 * cm
         biens = db.session.query(Bien, Categorie).join(Categorie, Bien.id_cat == Categorie.id_cat) \
             .filter(Bien.id_piece == p.id_piece).all()
         biens_par_categorie = {}
+        total_piece = 0
         for bien, categorie in biens:
-            biens_par_categorie.setdefault(categorie.nom_cat, []).append((bien.nom_bien, bien.prix))
+            # vétusté = (âge de l'équipement/durée de vie estimée) x 100, ici on considère que la durée de vie = 10ans  (source : www.pap.fr)
+            age_equipement = datetime.now().year - bien.date_achat.year
+            vetuste = age_equipement / 10 * 100
+            biens_par_categorie.setdefault(categorie.nom_cat, []).append((bien.nom_bien, bien.prix, bien.prix - vetuste))
+            total_piece += bien.prix - vetuste        
         for cat, items in biens_par_categorie.items():
             canva.setFont("Helvetica-Bold", 11)
             canva.drawString(2 * cm, y, f"{cat}")
             y -= 0.5 * cm
             canva.setFont("Helvetica", 10)
-            for nom_bien, prix in items:
+            for nom_bien, prix, vetuste in items:
                 canva.drawString(3 * cm, y, f"- {nom_bien}")
-                canva.drawRightString(width - 2 * cm, y, f"{prix} €")
+                canva.drawRightString(width - 6 * cm, y, f"{prix} €")
+                canva.drawRightString(width - 2 * cm, y, f"{vetuste} €")
                 y -= 0.5 * cm
                 if y < 3 * cm:  # Saut de page si besoin
                     canva.showPage()
                     y = height - 2 * cm
             y -= 0.5 * cm  # Espace entre catégories
+        canva.setFont("Helvetica-Bold", 11)
+        canva.drawRightString(width - 2 * cm, y, f"Total : {total_piece}€")
+        y -= 1 * cm
         # Ligne de fin
         canva.line(1 * cm, y, width - 2 * cm, y)
         y -= 1 * cm        
