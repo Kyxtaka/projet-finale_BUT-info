@@ -190,6 +190,9 @@ class AjoutBienForm(FlaskForm):
             if elem[1]==nom:
                 return elem[0]
         return ""
+    
+    def __str__(self):
+        return "Form Bien, values :"+self.nom_bien.data
 
 @app.route("/accueil-connexion/", methods=["POST", "GET"])
 @login_required   
@@ -536,30 +539,35 @@ def extraire_informations(texte):
 
 @app.route("/modifierbien/", methods=["POST", "GET"])
 def modifier_bien():
-    id = request.args.get("id")
+    id = request.values.get("id")
     bien = Bien.get_data_bien(id)
-    try:
-        form_bien = AjoutBienForm()
+    form_bien = AjoutBienForm()
+
+    if request.method == "GET":
         form_bien.set_id(id)
         form_bien.prix_bien.data = bien.prix
         form_bien.nom_bien.data = bien.nom_bien
         form_bien.logement.data = form_bien.get_log_choices(bien.get_typelogement(bien).nom_logement)
         form_bien.categorie_bien.data = form_bien.get_cat_bien_choices(bien.get_catbien(bien).nom_cat)
         form_bien.type_bien.data = form_bien.get_type_bien_choices(bien.get_typebien(bien).nom_type)
-    except Exception as e: 
-        form_bien = AjoutBienForm()
-
-    if form_bien.validate_on_submit():
+        
+    if request.method == "POST" and form_bien.validate_on_submit():
         try:
+            nom = request.form.get("nom_bien")
+            logement = request.form.get("logement")
+            prix = request.form.get("prix_bien")
+            date = request.form.get("date_bien")
+            categorie = request.form.get("categorie_bien")
+            type_b = request.form.get("type_bien")
             Bien.modifier_bien(
-                form_bien.id_bien, 
-                form_bien.nom_bien.data,
-                form_bien.logement.data,
-                form_bien.prix_bien.data,
-                form_bien.date_bien.data, 
-                form_bien.categorie_bien.data, 
-                form_bien.type_bien.data
-                ) # rediriger avec le form
+                int(id), 
+                nom,
+                int(logement),
+                float(prix),
+                date, 
+                int(categorie), 
+                int(type_b)
+                ) 
             return redirect(url_for("accueil_connexion"))
         except Exception as e:
             print(e)

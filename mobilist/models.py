@@ -5,6 +5,7 @@ from sqlalchemy.sql.schema import ForeignKey
 from datetime import date
 from flask_login import UserMixin
 from sqlalchemy.sql.expression import func
+import datetime
 from sqlalchemy import desc
 import enum
 import yaml, os.path
@@ -490,9 +491,9 @@ class Bien(Base):
         result.id_logement = logement
         result.id_cat = categorie
         result.id_type = type
-        result.date_achat = date
+        date_list = date.split("-")
+        result.date_achat = datetime.date(int(date_list[0]), int(date_list[1]), int(date_list[2]))
         db.session.commit()
-        
     
 class Piece(Base):
     __tablename__ = "PIECE"
