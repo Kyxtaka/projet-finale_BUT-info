@@ -73,7 +73,7 @@
       {% endfor %}
     </tbody>
     </table>
-    <a href="" class="voir_plus"><u>Voir plus</u></a>
+    <a href="{{ url_for('ensemble_biens')}}" class="voir_plus"><u>Voir plus</u></a>
   </section>
   <section class="telecharger">
     <form method="POST" action="/accueil-connexion/">
@@ -81,6 +81,5 @@
       <button type="submit" name="bouton_telecharger" class="download-btn">TÉLÉCHARGER</button>
     </form>
   </section>
-    <a href="{{ url_for('ensemble_biens')}}" class="voir_plus"><u>Voir plus</u></a>
   </section>{% endblock %}
 

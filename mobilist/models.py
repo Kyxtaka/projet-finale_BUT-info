@@ -520,6 +520,11 @@ class Bien(Base):
         if Bien.get_max_id() is None:
             return 1
         return Bien.get_max_id() + 1
+
+    def get_justif(self, id):
+        return Justificatif.query.filter_by(id_bien=id).first()
+    
+        
     
 class Piece(Base):
     __tablename__ = "PIECE"
@@ -857,7 +862,7 @@ class Justificatif(Base):
 
     def set_id_bien(self, id_bien):
         self.id_bien = id_bien
-    
+        
     @staticmethod
     def possede_justificatif(biens):
         liste_non_justifies = []
