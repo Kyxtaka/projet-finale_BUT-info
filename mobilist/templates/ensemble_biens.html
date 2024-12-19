@@ -29,7 +29,7 @@
         {% for elem in bien %}
         {% if bien[4] == elem %}
         <td> 
-          <a href="{{ elem.URL }}"> 
+          <a href="{{ url_for('open_fic', url=elem.URL) }}"> 
             {% if elem == 'Aucun' %}
               {{ elem }} 
             {% else %}

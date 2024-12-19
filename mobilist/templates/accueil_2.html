@@ -35,14 +35,29 @@
         <th scope="col" class="col">Nom du bien</th>
         <th scope="col" class="col">Logement</th>
         <th scope="col" class="col">Pièce</th>
+        <th scope="col" class="col">Justificatif</th>
       </tr>
     </thead>
     <tbody>
       {% for bien in infos %}
       <tr>
         {% for elem in bien %}
-        {% if not (elem.isdigit()) %}
-        <td> {{ elem }}</td>
+        {% if bien[4] == elem %}
+        <td> 
+          <a href="{{ url_for('open_fic', url=elem.URL) }}"> 
+            {% if elem == 'Aucun' %}
+              {{ elem }} 
+            {% else %}
+              {{ elem.nom_justif}}
+            {% endif %}
+          </a> 
+        </td>
+        {% elif not (elem.isdigit()) %}
+        <td> 
+          <a href="{{ url_for('modifier_bien', id=bien[3])}}"> 
+            {{ elem }} 
+          </a> 
+        </td>
         {% endif%}
         {% endfor %}
       </tr>
@@ -59,6 +74,7 @@
         <th scope="col" class="col">Nom du bien</th>
         <th scope="col" class="col">Logement</th>
         <th scope="col" class="col">Pièce</th>
+  
       </tr>
     </thead>
     <tbody>

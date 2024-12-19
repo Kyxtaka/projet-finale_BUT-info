@@ -1,6 +1,7 @@
 
 from flask import jsonify, render_template
 from .app import app
+
 from flask import redirect, render_template, url_for, render_template_string
 from wtforms import PasswordField
 from .models import User
@@ -23,7 +24,7 @@ from email.mime.multipart import MIMEMultipart
 import spacy
 from PyPDF2 import PdfReader
 from .secure_constante import GOOGLE_SMTP, GOOGLE_SMTP_PWD, GOOGLE_SMTP_USER
-import ast
+import webbrowser
 
 
 nlp = spacy.load("fr_core_news_md")
@@ -303,6 +304,13 @@ def generate_pdf_tous_logements(proprio,logements) -> BytesIO:
 @app.route("/accueil-connexion/", methods =("GET","POST" ,))
 @login_required   
 def accueil_connexion():
+    proprio = Proprietaire.query.get(current_user.id_user)
+    logements = []
+    for logement in proprio.logements:
+        logements.append(logement)
+    if request.method == 'POST':
+        if 'bouton_telecharger' in request.form:
+            return generate_pdf_tous_logements(proprio,logements)
     infos, a_justifier = biens()
     return render_template("accueil_2.html", infos=infos[:4], justifies=a_justifier[:4])
 
@@ -903,3 +911,9 @@ def modifier_bien():
                             form=form_bien, 
                             error=False)
     
+@app.route("/open", methods=["GET"])
+@login_required
+def open_fic():
+    url = request.args.get("url")
+    webbrowser.open('/'+url)
+    return redirect(url_for('accueil_connexion'))
