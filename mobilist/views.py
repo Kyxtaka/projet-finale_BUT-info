@@ -234,20 +234,10 @@ def generate_pdf_tous_logements(proprio,logements) -> BytesIO:
     canva.setFont("Helvetica-Bold", 15)
     canva.drawCentredString(width / 2, y, f"en date du {date.today()}")
     y -= 1.5 * cm
-    # Valeur totale
-    # func.sum(Bien.prixtotal_valeur
-    #list_bien = db.session.query(Bien).filter_by(id_proprio=proprio.id_proprio)
-    #total_valeur = 0
-    #for bien in list_bien:
-    #    print(bien.__repr__())
-    #    total_valeur += db.session.query(Bien.prix).filter_by(id_bien=bien.id_bien).scalar()
-
+    # Valeur
     total_valeur = db.session.query(func.sum(Bien.prix)).filter(Bien.id_proprio == proprio.id_proprio).scalar()
     if total_valeur == None:
         total_valeur = 0
-    print(total_valeur)
-    # db.session.query(Logement).filter_by(id_logement=logement_id).first().adresse
-
     canva.setFillColorRGB(0.792, 0.659, 1)
     canva.rect(20, y, width - 40, 1 * cm, fill=1, stroke=0)
     canva.setFillColorRGB(0, 0, 0)
@@ -277,20 +267,26 @@ def generate_pdf_tous_logements(proprio,logements) -> BytesIO:
                 y = height - 2 * cm
             canva.setFont("Helvetica-Bold", 12)
             canva.drawString(1 * cm, y, f"{p.get_nom_piece()}")
+            canva.drawRightString(width - 6 * cm, y, "Prix neuf")
+            canva.drawRightString(width - 2 * cm, y, f"Avec vétusté")
             y -= 0.7 * cm
             biens = db.session.query(Bien, Categorie).join(Categorie, Bien.id_cat == Categorie.id_cat) \
                 .filter(Bien.id_piece == p.id_piece).all()
             biens_par_categorie = {}
             for bien, categorie in biens:
-                biens_par_categorie.setdefault(categorie.nom_cat, []).append((bien.nom_bien, bien.prix))
+                # vétusté = (âge de l'équipement/durée de vie estimée) x 100, ici on considère que la durée de vie = 10ans  (source : www.pap.fr)
+                age_equipement = datetime.now().year - bien.date_achat.year
+                vetuste = age_equipement / 10 * 100
+                biens_par_categorie.setdefault(categorie.nom_cat, []).append((bien.nom_bien, bien.prix, bien.prix - vetuste))
             for cat, items in biens_par_categorie.items():
                 canva.setFont("Helvetica-Bold", 11)
                 canva.drawString(2 * cm, y, f"{cat}")
                 y -= 0.5 * cm
                 canva.setFont("Helvetica", 10)
-                for nom_bien, prix in items:
+                for nom_bien, prix, vetuste in items:
                     canva.drawString(3 * cm, y, f"- {nom_bien}")
-                    canva.drawRightString(width - 2 * cm, y, f"{prix} €")
+                    canva.drawRightString(width - 6 * cm, y, f"{prix} €")
+                    canva.drawRightString(width - 2 * cm, y, f"{vetuste} €")
                     y -= 0.5 * cm
                     if y < 3 * cm:  # Saut de page si besoin
                         canva.showPage()
