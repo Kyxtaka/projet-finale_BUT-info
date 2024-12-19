@@ -93,9 +93,29 @@
 
 <div id="menu-mdp">
   <h2> Modification du mot de passe </h2>
-  <ul>
-    <li><button onclick="" id="submit" type="submit" class="btn btn-primary mb-3">Enregistrer</button></li>
-    <li><button onclick="afficherChangement()" id="annuler">Annuler</button></li>
-  </ul>
+  <form class="form-horizontal" role="form" method ="POST" action ="{{ url_for('modif_mdp') }}">
+    {{ form.hidden_tag() }}
+    <div class="form-control-static">
+      <p class="content" >{{ form.mdp_actuel.label }}</p>
+      {{ form.mdp_actuel(size=50, class_="form-control") }}
+    </div>
+    <div class="form-control-static">
+      <p class="content" >{{ form.mdp.label }}</p>
+      {{ form.mdp(size=50, class_="form-control") }}
+    </div>
+    <div class="form-control-static">
+      <p class="content" >{{ form.mdp_confirm.label }}</p>
+      {{ form.mdp_confirm(size=50, class_="form-control") }}
+    </div>
+
+    {% if different %}
+    <div role="tooltip" id="infobulle">Le mot de passe fourni est différent de celui attendu</div>
+    {% endif %}
+
+    <span class="form-control-static">
+      <button id="submit" type="submit" class="btn btn-primary mb-3">Enregistrer</button>
+    </span>
+  </form>
+  <button onclick="afficherChangement()" id="annuler">Annuler</button>
 </div>
 {% endblock %}

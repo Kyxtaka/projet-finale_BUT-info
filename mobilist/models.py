@@ -870,6 +870,11 @@ class User(Base, UserMixin):
         db.session.commit()
 
     @staticmethod
+    def modifier_passwd(self, passwrd):
+        self.set_password(passwrd)
+        db.session.commit()
+
+    @staticmethod
     def get_by_mail(mail):
         return User.query.filter_by(mail=mail).first()
 

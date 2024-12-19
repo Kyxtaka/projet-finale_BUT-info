@@ -86,6 +86,7 @@ class ModificationForm(FlaskForm):
                                validators=[DataRequired()])
     mdp = PasswordField('Nouveau mot de passe', validators=[DataRequired()])
     mdp_confirm = PasswordField('Confirmer le mot de passe', validators=[DataRequired()])
+    different = False
 
 
 class ResetForm(FlaskForm):
@@ -420,7 +421,20 @@ def mon_compte():
         return redirect(url_for('mon_compte'))
     return render_template("mon-compte.html", form=form)
 
-
+@app.route("/modif_mdp/", methods =("POST" ,"GET",))
+def modif_mdp():
+    form = ModificationForm()
+    if form.validate_on_submit():
+        if request.form.get('mdp_actuel') == current_user.password:
+            test = request.form.get('mdp')
+            confirmation = request.form.get('mdp_confirm')
+            if test == confirmation :
+                User.modifier_passwd(request.form.get('mdp'))
+                flash("Votre mot de passe a été mis à jour avec succès.", "success")
+            else :
+                form.different = True
+        return redirect(url_for('mon_compte'))
+    return render_template("mon-compte.html", form=form)
 
 
 @app.route("/mesBiens/", methods =["GET"])
