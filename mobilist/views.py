@@ -251,7 +251,6 @@ def generate_pdf_tous_logements(proprio,logements) -> BytesIO:
             y -= 0.7 * cm
             biens = db.session.query(Bien, Categorie).join(Categorie, Bien.id_cat == Categorie.id_cat) \
                 .filter(Bien.id_piece == p.id_piece).all()
-            print(biens)
             biens_par_categorie = {}
             for bien, categorie in biens:
                 biens_par_categorie.setdefault(categorie.nom_cat, []).append((bien.nom_bien, bien.prix))
@@ -295,7 +294,6 @@ def login() -> str:
     elif f.validate_on_submit():
         user = f.get_authenticated_user()
         if user:
-            print("test2")
             login_user(user)
             next = f.next.data or url_for("accueil_connexion")
             return redirect(next)
@@ -449,15 +447,12 @@ def affiche_logements():
     session = db.session
     proprio = Proprietaire.query.get(current_user.id_user)
     logements = proprio.logements
-    print("len logements",len(logements))
     if len(logements) == 0:
         print("Aucun logement trouvé")
         contenu = False
     else:
         contenu = True
-    print(contenu)
     type_logement = [type for type in LogementType]
-    print(logements)
     if request.method == "POST": #utilisation de request car pas envie d'utiliser les méthodes de flask, car j utilise JS
         print("recerption de la requete")
         form_type = request.form.get("type-form")
@@ -691,20 +686,16 @@ def send_change_pwd_email(mail, token) -> bool:
     body = f"Pour réinitialiser votre mot de passe Mobilist,\n veuillez accéder à la page suivante : {generated_change_password_link}"
     try:
         # Configuration du serveur SMTP
-        print("smthg")
         server = smtplib.SMTP(GOOGLE_SMTP)
         # server = smtplib.SMTP("smtp.gmail.com", 587) # server smtp de google
         server.starttls() 
-        print("2")
         server.login(email, password)
-        print("etape 1")
 
         msg = MIMEMultipart()
         msg["From"] = email
         msg["To"] = mail
         msg["Subject"] = subject
         msg.attach(MIMEText(body, "plain"))
-        print("etapt2")
 
         server.sendmail(email, mail, msg.as_string())
         print("Email envoyé avec succès !")
@@ -816,9 +807,6 @@ def link_logement_owner(logement: Logement, proprio: Proprietaire):
 @app.route("/test/")
 def test():
     return render_template_string(str(Logement.next_id()))
-
-
-
 
 def extraire_informations(texte):
     doc = nlp(texte)

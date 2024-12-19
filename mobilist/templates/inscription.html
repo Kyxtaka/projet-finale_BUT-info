@@ -22,7 +22,7 @@
   </div>
   
   <div class="form-control-static">
-    {{ form.mail.label }}
+    <p>{{ form.mail.label }}</p>
     {{ form.mail(size=50, class_="form-control", placeholder ="email@exemple.com") }}
     {% if present %}
     <div role="tooltip" id="infobulle">Vous avez déjà un compte</div>
@@ -30,7 +30,7 @@
   </div>
 
   <div class="form-control-static">
-    {{ form.password.label }}
+    <p>{{ form.password.label }}</p>
     {{ form.password(size=50, class_="form-control", placeholder="monmotdepasse123") }}
   </div>  
   
