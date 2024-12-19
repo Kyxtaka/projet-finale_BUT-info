@@ -1,5 +1,5 @@
 main #formsumbmit {
-    margin-left: 41%;
+    margin-left: 40%;
     margin-top: 30px;
     width: 20%;
     height: 60px;
@@ -123,6 +123,7 @@ main h1{
 
 main h2{
     text-align: center;
+    margin-bottom: 30px;
 }
 
 form-content label{
@@ -145,6 +146,41 @@ td{
 }
 
 #first-row{
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    border-radius: 25px;
+    box-shadow: rgba(0, 0, 151, 0.2) 0px 7px 29px 0px;
+    border-radius: 5px;
+}
+
+table{
+    box-shadow: rgba(0, 0, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 5px;
+}
+
+table button{
+    background: rgb(204,0,102);
+    box-shadow: rgb(204,0,102) 0 10px 20px -10px;
+    color: #FFFFFF;
+}
+
+.form-content label, .form-content input{
+    display: block;
+    width: 70%;
+    margin-bottom: 10px;
+    margin: auto;
+    text-align: center;
+    border-radius: 5px;
+    background-color: white;
+}
+.form-content input{
+    width: 50%;
+    margin: auto;
+}
+
+#first-collumn{
+    width: 80%;
+    margin:auto;
+}
+
+.btn-open-room-form{
+    margin: 20px;
+    margin-top: 10px;
 }
