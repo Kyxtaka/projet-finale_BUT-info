@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import jsonify, render_template
+from flask import flash, jsonify, render_template
 from .app import app
 from flask import redirect, render_template, url_for, render_template_string
 from wtforms import PasswordField
@@ -91,10 +91,14 @@ class ResetPasswordFrom(FlaskForm):
 
 
 class ModificationForm(FlaskForm):
-    nom = StringField('Votre Nom')
-    prenom = StringField('Votre Prénom')
-    mail = StringField('Votre Adresse e-mail')
-    
+    nom = StringField('Votre Nom', validators=[DataRequired()])
+    prenom = StringField('Votre Prénom', validators=[DataRequired()])
+    mdp_actuel = PasswordField('Mot de passe actuel',
+                               validators=[DataRequired()])
+    mdp = PasswordField('Nouveau mot de passe', validators=[DataRequired()])
+    mdp_confirm = PasswordField('Confirmer le mot de passe', validators=[DataRequired()])
+    different = False
+
 
 class ResetForm(FlaskForm):
     email = StringField("Votre email")
@@ -603,9 +607,39 @@ def simulation():
 
 @app.route("/mon-compte/", methods =("POST" ,"GET",))
 def mon_compte():
-    form=ModificationForm()
+    form = ModificationForm()
+    if current_user.is_authenticated and current_user.proprio:
+        form.nom.data = current_user.proprio.nom
+        form.prenom.data = current_user.proprio.prenom
+    if request.method == "POST":
+        User.modifier(current_user.mail, request.form.get('nom'), request.form.get('prenom'))
+        flash("Vos informations ont été mises à jour avec succès.", "success")
+        return redirect(url_for('mon_compte'))
     return render_template("mon-compte.html", form=form)
 
+@app.route("/modif_mdp/", methods =("POST" ,"GET",))
+def modif_mdp():
+    form = ModificationForm()
+    if request.method == "POST":
+        print("submit")
+        if hash_password(request.form.get('mdp_actuel')) == current_user.password:
+            print("check passed")
+            test = request.form.get('mdp')
+            confirmation = request.form.get('mdp_confirm')
+            if test == confirmation :
+                print("same")
+                User.get_by_mail(current_user.mail).set_password(test)
+                db.session.commit()
+                flash("Votre mot de passe a été mis à jour avec succès.", "success")
+            else :
+                form.different = True
+        return redirect(url_for('mon_compte'))
+    return render_template("mon-compte.html", form=form)
+
+def hash_password(password):
+    m = sha256()
+    m.update(password.encode())
+    return m.hexdigest()
 
 @app.route("/mesBiens/", methods =["GET"])
 def mesBiens():
@@ -810,10 +844,7 @@ def test():
 
 def extraire_informations(texte):
     doc = nlp(texte)
-    donnees = {
-        "prix": "",
-        "date_achat": ""
-    }
+    donnees = {"prix": "", "date_achat": ""}
     for ent in doc.ents:
         if ent.label_ == "PRIX":
             donnees["prix"] = ent.text
