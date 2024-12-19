@@ -1,4 +1,4 @@
-from datetime import datetime
+
 from flask import jsonify, render_template
 from .app import app
 from flask import redirect, render_template, url_for, render_template_string
@@ -23,6 +23,8 @@ from email.mime.multipart import MIMEMultipart
 import spacy
 from PyPDF2 import PdfReader
 from .secure_constante import GOOGLE_SMTP, GOOGLE_SMTP_PWD, GOOGLE_SMTP_USER
+import ast
+
 
 nlp = spacy.load("fr_core_news_md")
 
@@ -143,7 +145,7 @@ class UploadFileForm(FlaskForm):
             print("erreur:", e)
 
 
-    def lire_pdf(fichier):
+    def lire_pdf(self,fichier):
         reader = PdfReader(fichier)
         texte = ""
         for page in reader.pages:
@@ -151,19 +153,21 @@ class UploadFileForm(FlaskForm):
         return texte
 
 class AjoutBienForm(FlaskForm):
-    logement  = SelectField('Logement', validators=[DataRequired()])
+    logement  = SelectField('Logement', validators=[DataRequired()], coerce=int)
     nom_bien = StringField('Nom du bien', validators=[DataRequired()])
-    type_bien = SelectField('Type de bien', validators=[DataRequired()])
-    categorie_bien = SelectField('Catégorie', validators=[DataRequired()])
-    piece_bien = SelectField('Nombre de pièces', validators=[DataRequired()])
+    type_bien = SelectField('Type de bien', validators=[DataRequired()],coerce=int)
+    categorie_bien = SelectField('Catégorie', validators=[DataRequired()], coerce=int)
+    piece_bien = SelectField('Nombre de pièces', validators=[DataRequired()], coerce=int)
     prix_bien = FloatField('Prix neuf', validators=[DataRequired()])
     date_bien = DateField("Date de l'achat", validators=[DataRequired()])
     description_bien = TextAreaField('Description')
     file = FileField('File')
-    id_proprio = HiddenField("id_proprio")
+    id_proprio = HiddenField("id_proprio") 
+    id_bien = HiddenField("id_proprio")
 
     def __init__(self,*args, **kwargs):
         super(AjoutBienForm, self).__init__(*args, **kwargs)
+        self.id_bien = None
         self.id_proprio = current_user.id_user
         self.logement.choices = [(l.get_id_logement(), l.get_nom_logement()) for l in Proprietaire.query.get(current_user.id_user).logements]
         self.type_bien.choices = [(t.id_type, t.nom_type) for t in TypeBien.query.all()]
@@ -181,7 +185,29 @@ class AjoutBienForm(FlaskForm):
             return os.path.join(CUSTOM_UPLOAD_FOLDER_JUSTIFICATIF, file.filename) # retourne le chemin du fichier, pour l'enregistrement en BD
         except Exception as e:
             print("erreur:", e)
+    
+    def set_id(self,id):
+        self.id_bien = id
+    def get_log_choices(self,nom):
+        for elem in self.logement.choices:
+            if elem[1]==nom:
+                return elem[0]
+        return ""
 
+    def get_type_bien_choices(self, nom):
+        for elem in self.type_bien.choices:
+            if elem[1]==nom:
+                return elem[0]
+        return ""
+    
+    def get_cat_bien_choices(self, nom):
+        for elem in self.categorie_bien.choices:
+            if elem[1]==nom:
+                return elem[0]
+        return ""
+    
+    def __str__(self):
+        return "Form Bien, values :"+self.nom_bien.data
 
 def generate_pdf_tous_logements(proprio,logements) -> BytesIO:
     buffer = BytesIO()
@@ -277,15 +303,21 @@ def generate_pdf_tous_logements(proprio,logements) -> BytesIO:
 @app.route("/accueil-connexion/", methods =("GET","POST" ,))
 @login_required   
 def accueil_connexion():
-    proprio = Proprietaire.query.get(current_user.id_user)
-    logements = []
-    for logement in proprio.logements:
-        logements.append(logement)
-    if request.method == 'POST':
-        if 'bouton_telecharger' in request.form:
-            return generate_pdf_tous_logements(proprio,logements)
-    return render_template("accueil_2.html")
+    infos, a_justifier = biens()
+    return render_template("accueil_2.html", infos=infos[:4], justifies=a_justifier[:4])
 
+def biens():
+    biens, justifies = User.get_biens_by_user(current_user.mail)
+    infos = []
+    for elem in biens:
+        for j in range(len(elem)):
+            bien = elem[j]
+            infos.append([bien.nom_bien, bien.get_nom_logement_by_bien(bien.id_bien).nom_logement, bien.get_nom_piece_by_bien(bien.id_bien).nom_piece, str(bien.id_bien)])
+    a_justifier = []
+    for justifie in justifies:
+        a_justifier.append([justifie.nom_bien, justifie.get_nom_logement_by_bien(justifie.id_bien).nom_logement, justifie.get_nom_piece_by_bien(justifie.id_bien).nom_piece, str(justifie.id_bien)])
+    return infos, a_justifier
+    
 @app.route("/login/", methods =("GET","POST" ,))
 def login() -> str:
     f = LoginForm()
@@ -365,6 +397,12 @@ def ajout_bien():
                             form=form_bien,
                             error=False)
 
+@app.route("/ensemblebiens/", methods=["GET"])
+@login_required
+def ensemble_biens():
+    info, justifie = biens()
+    return render_template("ensemble_biens.html", infos=info, justifies=justifie)
+    
 def handle_form_bien(form_bien: AjoutBienForm):
     try:
         session = db.session
@@ -820,3 +858,44 @@ def extraire_informations(texte):
         elif ent.label_ == "DATE":
             donnees["date_achat"] = ent.text
     return donnees
+
+@app.route("/modifierbien/", methods=["POST", "GET"])
+def modifier_bien():
+    id = request.values.get("id")
+    bien = Bien.get_data_bien(id)
+    form_bien = AjoutBienForm()
+
+    if request.method == "GET":
+        form_bien.set_id(id)
+        form_bien.prix_bien.data = bien.prix
+        form_bien.nom_bien.data = bien.nom_bien
+        form_bien.logement.data = form_bien.get_log_choices(bien.get_typelogement(bien).nom_logement)
+        form_bien.categorie_bien.data = form_bien.get_cat_bien_choices(bien.get_catbien(bien).nom_cat)
+        form_bien.type_bien.data = form_bien.get_type_bien_choices(bien.get_typebien(bien).nom_type)
+        
+    if request.method == "POST" and form_bien.validate_on_submit():
+        try:
+            nom = request.form.get("nom_bien")
+            logement = request.form.get("logement")
+            prix = request.form.get("prix_bien")
+            date = request.form.get("date_bien")
+            categorie = request.form.get("categorie_bien")
+            type_b = request.form.get("type_bien")
+            Bien.modifier_bien(
+                int(id), 
+                nom,
+                int(logement),
+                float(prix),
+                date, 
+                int(categorie), 
+                int(type_b)
+                ) 
+            return redirect(url_for("accueil_connexion"))
+        except Exception as e:
+            print(e)
+            return render_template("modification_bien.html", 
+                               form=form_bien,     
+                               error=True)
+    return render_template("modification_bien.html", 
+                            form=form_bien, 
+                            error=False)

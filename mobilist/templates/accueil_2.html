@@ -32,28 +32,45 @@
   <table class="tableau">
     <thead>
       <tr>
-        <th scope="col" class="col">Type de bien</th>
+        <th scope="col" class="col">Nom du bien</th>
         <th scope="col" class="col">Logement</th>
         <th scope="col" class="col">Pièce</th>
-        <th scope="col" class="col">Date d'ajout</th>
       </tr>
     </thead>
     <tbody>
+      {% for bien in infos %}
+      <tr>
+        {% for elem in bien %}
+        {% if not (elem.isdigit()) %}
+        <td> {{ elem }}</td>
+        {% endif%}
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </tbody>
     </table>
-    <a href="" class="voir_plus"><u>Voir plus</u></a>
+    <a href="{{ url_for('ensemble_biens')}}" class="voir_plus"><u>Voir plus</u></a>
   </section>
   <section class="a_justifier">
     <h3>À justifier </h3>
   <table class="tableau">
     <thead>
       <tr>
-        <th scope="col" class="col">Type de bien</th>
+        <th scope="col" class="col">Nom du bien</th>
         <th scope="col" class="col">Logement</th>
         <th scope="col" class="col">Pièce</th>
-        <th scope="col" class="col">Date d'ajout</th>
       </tr>
     </thead>
     <tbody>
+      {% for bien in justifies %}
+      <tr>
+        {% for elem in bien %}
+        {% if not (elem.isdigit()) %}
+        <td> {{ elem }}</td>
+        {% endif%}
+        {% endfor %}
+      </tr>
+      {% endfor %}
     </tbody>
     </table>
     <a href="" class="voir_plus"><u>Voir plus</u></a>
@@ -65,4 +82,6 @@
     </form>
   </section>
 {% endblock %}
+    <a href="{{ url_for('ensemble_biens')}}" class="voir_plus"><u>Voir plus</u></a>
+  </section>{% endblock %}
 

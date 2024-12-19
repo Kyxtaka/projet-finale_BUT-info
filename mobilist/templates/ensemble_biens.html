@@ -1,0 +1,62 @@
+{% extends "index2.html" %}
+{% block head %}
+<title>MobiList</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='accueil2.css') }}">
+
+{% endblock %}
+{% endblock %}
+{% block content %}
+<div class="accueil2"> 
+<main>
+  <section class="derniers_ajouts">
+    <h3>Récents ajouts </h3>
+  <table class="tableau">
+    <thead>
+      <tr>
+        <th scope="col" class="col">Nom du bien</th>
+        <th scope="col" class="col">Logement</th>
+        <th scope="col" class="col">Pièce</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for bien in infos %}
+      <tr>
+        {% for elem in bien %}
+        {% if not (elem.isdigit()) %}
+        <td> <a href="{{ url_for('modifier_bien', id=bien[3])}}"> {{ elem }} </a> </td>
+        {% endif%}
+        {% endfor %}
+      
+      </tr>
+      {% endfor %}
+    </tbody>
+    </table>
+  </section>
+  <section class="a_justifier">
+    <h3>À justifier </h3>
+  <table class="tableau">
+    <thead>
+      <tr>
+        <th scope="col" class="col">Nom du bien</th>
+        <th scope="col" class="col">Logement</th>
+        <th scope="col" class="col">Pièce</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for bien in justifies %}
+      <tr>
+        {% for elem in bien %}
+        {% if not (elem.isdigit()) %}
+        <td> <a href="{{ url_for('modifier_bien', id=bien[3])}}"> {{ elem }} </a> </td>
+        {% endif%}
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </tbody>
+    </table>
+  </section>{% endblock %}
+

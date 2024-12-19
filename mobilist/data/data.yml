@@ -197,13 +197,21 @@
   NOM_PIECE: "Cuisine"
   DESCRIPTION: "Cuisine équipée"
   ID_LOGEMENT: 4
+  NOM_PIECE: "Cuisine"
+  DESCRIPTION: "Cuisine équipée"
+  ID_LOGEMENT: 4
 
+- TYPE : PIECE
 - TYPE : PIECE
   ID_PIECE: 3
   NOM_PIECE: "Chambre 1"
   DESCRIPTION: "Chambre parentale avec lit double"
   ID_LOGEMENT: 4
+  NOM_PIECE: "Chambre 1"
+  DESCRIPTION: "Chambre parentale avec lit double"
+  ID_LOGEMENT: 4
 
+- TYPE : PIECE
 - TYPE : PIECE
   ID_PIECE: 4
   NOM_PIECE: "Chambre 2"
@@ -254,25 +262,41 @@
   NOM_PIECE: "Salle de bain"
   DESCRIPTION: "Salle de bain avec douche et baignoire"
   ID_LOGEMENT: 4
+  NOM_PIECE: "Salle de bain"
+  DESCRIPTION: "Salle de bain avec douche et baignoire"
+  ID_LOGEMENT: 4
 
+- TYPE : PIECE
 - TYPE : PIECE
   ID_PIECE: 6
   NOM_PIECE: "Terrasse"
   DESCRIPTION: "Terrasse ensoleillée avec vue sur jardin"
   ID_LOGEMENT: 4
+  NOM_PIECE: "Terrasse"
+  DESCRIPTION: "Terrasse ensoleillée avec vue sur jardin"
+  ID_LOGEMENT: 4
 
+- TYPE : PIECE
 - TYPE : PIECE
   ID_PIECE: 7
   NOM_PIECE: "Salon"
   DESCRIPTION: "Salon confortable"
   ID_LOGEMENT: 5
+  NOM_PIECE: "Salon"
+  DESCRIPTION: "Salon confortable"
+  ID_LOGEMENT: 5
 
+- TYPE : PIECE
 - TYPE : PIECE
   ID_PIECE: 8
   NOM_PIECE: "Cuisine"
   DESCRIPTION: "Cuisine équipée"
   ID_LOGEMENT: 5
+  NOM_PIECE: "Cuisine"
+  DESCRIPTION: "Cuisine équipée"
+  ID_LOGEMENT: 5
 
+- TYPE : PIECE
 - TYPE : PIECE
   ID_PIECE: 9
   NOM_PIECE: "Chambre"
@@ -685,11 +709,40 @@
   PASSWORD: '1234'
 
 - TYPE: USER
+  ID_USER: 1
+  MAIL: 'clemence@mail.com'
+  ROLE: "proprio"
+  PASSWORD: '1234'
+
+- TYPE: USER
+  ID_USER: 2
+  MAIL: 'ophelie@mail.com'
+  ROLE: "proprio"
+  PASSWORD: '1234'
+
+- TYPE: USER
+  ID_USER: 3
+  MAIL: 'naima@mail.com'
+  ROLE: "proprio"
+  PASSWORD: '1234'
+
+- TYPE: USER
   ID_USER: 4
   MAIL: 'nathan@mail.com'
   ROLE: "proprio"
   PASSWORD: '1234'
 
+- TYPE: USER
+  ID_USER: 5
+  MAIL: 'yohann@mail.com'
+  ROLE: "proprio"
+  PASSWORD: '1234'
+
+- TYPE: USER
+  ID_USER: 6
+  MAIL: 'christophe@mail.com'
+  ROLE: "proprio"
+  PASSWORD: '1234'
 - TYPE: USER
   ID_USER: 5
   MAIL: 'yohann@mail.com'

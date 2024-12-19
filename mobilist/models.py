@@ -5,6 +5,8 @@ from sqlalchemy.sql.schema import ForeignKey
 from datetime import date, datetime, timedelta
 from flask_login import UserMixin
 from sqlalchemy.sql.expression import func
+import datetime
+from sqlalchemy import desc
 from hashlib import sha256
 import enum
 import yaml, os.path
@@ -377,6 +379,15 @@ class AVOIR(Base):
 
     def set_id_logement(self, id_logement):
         self.id_logement = id_logement
+    
+    @staticmethod
+    def get_biens_by_proprio(idproprio):
+        result = AVOIR.query.filter_by(id_proprio=idproprio)
+        liste_biens = []
+        for elem in result:
+            liste_biens.append(Bien.query.filter_by(id_logement=elem.id_logement).order_by(desc(Bien.id_bien)).all())
+        return liste_biens
+        
 
     def delete(self):
         db.session.delete(self)
@@ -470,6 +481,40 @@ class Bien(Base):
     def get_max_id():
         return db.session.query(func.max(Bien.id_bien)).scalar()
     
+    def get_nom_logement_by_bien(self, id_bien):
+        bien = Bien.query.filter_by(id_bien=id_bien).first()
+        return Logement.query.filter_by(id_logement=bien.id_logement).first()
+    
+    def get_nom_piece_by_bien(self, id_bien):
+        bien = Bien.query.filter_by(id_bien=id_bien).first()
+        return Piece.query.filter_by(id_piece=bien.id_piece).first()
+    
+    @staticmethod
+    def get_data_bien(id):
+        result = Bien.query.filter_by(id_bien=id).first()
+        return result
+    
+    def get_typelogement(self, bien):
+        return Logement.query.filter_by(id_logement=bien.id_logement).first()
+     
+    def get_catbien(self, bien):
+        return Categorie.query.filter_by(id_cat=bien.id_cat).first()
+    
+    def get_typebien(self, bien):
+        return TypeBien.query.filter_by(id_type=bien.id_type).first()
+    
+    @staticmethod
+    def modifier_bien(id, nom, logement, prix, date, categorie, type):
+        result = Bien.query.filter_by(id_bien=id).first()
+        result.nom_bien = nom
+        result.prix = prix
+        result.id_logement = logement
+        result.id_cat = categorie
+        result.id_type = type
+        date_list = date.split("-")
+        result.date_achat = datetime.date(int(date_list[0]), int(date_list[1]), int(date_list[2]))
+        db.session.commit()
+    
     @staticmethod
     def next_id():
         if Bien.get_max_id() is None:
@@ -562,7 +607,8 @@ class Piece(Base):
 
     def set_id_logement(self, id_logement):
         self.id_logement = id_logement
-
+    
+    
     def get_list_biens(self):
         return Bien.query.filter_by(id_logement=self.id_logement,id_piece=self.id_piece).all()
     
@@ -811,6 +857,17 @@ class Justificatif(Base):
 
     def set_id_bien(self, id_bien):
         self.id_bien = id_bien
+    
+    @staticmethod
+    def possede_justificatif(biens):
+        liste_non_justifies = []
+        for bien in biens:
+            for j in range(len(bien)):
+                result = Justificatif.query.filter_by(id_bien=bien[j].id_bien).first()
+                if result==None:
+                    liste_non_justifies.append(bien[j])
+        return liste_non_justifies
+                    
 
     def delete(self):
         db.session.delete(self)
@@ -911,6 +968,15 @@ class User(Base, UserMixin):
     @staticmethod
     def get_by_mail(mail):
         return User.query.filter_by(mail=mail).first()
+    
+    @staticmethod
+    def get_biens_by_user(user):
+        result = User.query.filter_by(mail=user).first()
+        id_proprio = result.proprio.get_id_proprio()
+        biens = AVOIR.get_biens_by_proprio(id_proprio)
+        non_justifies = Justificatif.possede_justificatif(biens)
+        return biens,non_justifies
+            
     @staticmethod
     def put_user(user):
         db.session.add(user)
