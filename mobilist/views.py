@@ -58,7 +58,6 @@ def accueil():
 def avis():
     return render_template("avis.html")
 
-
 class LoginForm(FlaskForm):
     mail = StringField('Adresse e-mail')
     password = PasswordField('Mot de passe')
@@ -92,7 +91,6 @@ class ResetPasswordFrom(FlaskForm):
     mdp = PasswordField("Mot de passe")
     valider = PasswordField("Confirmer mot de passe")
 
-
 class ModificationForm(FlaskForm):
     nom = StringField('Votre Nom', validators=[DataRequired()])
     prenom = StringField('Votre Prénom', validators=[DataRequired()])
@@ -101,7 +99,6 @@ class ModificationForm(FlaskForm):
     mdp = PasswordField('Nouveau mot de passe', validators=[DataRequired()])
     mdp_confirm = PasswordField('Confirmer le mot de passe', validators=[DataRequired()])
     different = False
-
 
 class ResetForm(FlaskForm):
     email = StringField("Votre email")
@@ -214,7 +211,6 @@ class AjoutBienForm(FlaskForm):
 
     def __str__(self):
         return "Form Bien, values :"+self.nom_bien.data
-
 
 def generate_pdf_tous_logements(proprio,logements) -> BytesIO:
     buffer = BytesIO()
@@ -331,12 +327,6 @@ def biens():
     for justifie in justifies:
         a_justifier.append([justifie.nom_bien, justifie.get_nom_logement_by_bien(justifie.id_bien).nom_logement, justifie.get_nom_piece_by_bien(justifie.id_bien).nom_piece, str(justifie.id_bien)])
     return infos, a_justifier
-
-# @app.route("/accueil-connexion/", methods=["POST", "GET"])
-# @login_required   
-# def accueil_connexion():
-#     infos, a_justifier = biens()
-#     return render_template("accueil_2.html", infos=infos[:4], justifies=a_justifier[:4])
 
 @app.route("/login/", methods =("GET","POST" ,))
 def login() -> str:
@@ -636,7 +626,6 @@ def generate_pdf(proprio,logement_id,sinistre_annee,sinistre_type) -> BytesIO:
     buffer.seek(0)
     return send_file(buffer, as_attachment=True, download_name="inventaire_biens.pdf", mimetype="application/pdf")
 
-
 @app.route("/simulation/", methods =("GET","POST" ,))
 def simulation():
     proprio = Proprietaire.query.get(current_user.id_user)
@@ -794,8 +783,7 @@ def send_change_pwd_email(mail, token) -> bool:
     finally:
         server.quit()
         return sent_status
-    
-    
+       
 @app.route("/logement/ajout", methods =["GET","POST"])
 def ajout_logement():
     if request.method == "POST":
@@ -890,7 +878,6 @@ def link_logement_owner(logement: Logement, proprio: Proprietaire):
         print("Erreur lors de la liaison du logement au propriétaire")
         print(e)
     return success
-
 
 @app.route("/test/")
 def test():
