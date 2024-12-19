@@ -1,8 +1,13 @@
 from datetime import datetime
-from flask import flash, jsonify, render_template
+from flask import (
+    flash, jsonify, 
+    render_template, 
+    send_file, redirect, 
+    render_template, url_for, 
+    render_template_string
+    )
 from .app import app
-
-from flask import redirect, render_template, url_for, render_template_string
+from .secure_constante import GOOGLE_SMTP, GOOGLE_SMTP_PWD, GOOGLE_SMTP_USER
 from wtforms import PasswordField
 from .models import User
 from hashlib import sha256
@@ -23,19 +28,11 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import spacy
 from PyPDF2 import PdfReader
-from .secure_constante import GOOGLE_SMTP, GOOGLE_SMTP_PWD, GOOGLE_SMTP_USER
 import ast
-
-from .secure_constante import GOOGLE_SMTP, GOOGLE_SMTP_PWD, GOOGLE_SMTP_USER
 import webbrowser
-
-
 nlp = spacy.load("fr_core_news_md")
-
-from flask import send_file
 from reportlab.pdfgen import canvas #pip install reportlab
-from datetime import date
-from datetime import datetime
+from datetime import datetime, date
 from reportlab.lib.units import cm
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfbase.ttfonts import TTFont

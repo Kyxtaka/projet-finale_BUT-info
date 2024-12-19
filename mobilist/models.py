@@ -7,7 +7,6 @@ from datetime import date, datetime, timedelta
 from flask_login import UserMixin
 from sqlalchemy.sql.expression import func
 from hashlib import sha256
-import datetime
 from sqlalchemy import desc
 import enum
 import yaml, os.path
