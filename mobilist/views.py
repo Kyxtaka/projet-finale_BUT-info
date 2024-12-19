@@ -1,8 +1,7 @@
 from datetime import datetime
 from flask import flash, jsonify, render_template
-
-from flask import jsonify, render_template
 from .app import app
+
 from flask import redirect, render_template, url_for, render_template_string
 from wtforms import PasswordField
 from .models import User
@@ -26,6 +25,9 @@ import spacy
 from PyPDF2 import PdfReader
 from .secure_constante import GOOGLE_SMTP, GOOGLE_SMTP_PWD, GOOGLE_SMTP_USER
 import ast
+
+from .secure_constante import GOOGLE_SMTP, GOOGLE_SMTP_PWD, GOOGLE_SMTP_USER
+import webbrowser
 
 
 nlp = spacy.load("fr_core_news_md")
@@ -947,3 +949,10 @@ def modifier_bien():
     return render_template("modification_bien.html", 
                             form=form_bien, 
                             error=False)
+    
+@app.route("/open", methods=["GET"])
+@login_required
+def open_fic():
+    url = request.args.get("url")
+    webbrowser.open('/'+url)
+    return redirect(url_for('accueil_connexion'))

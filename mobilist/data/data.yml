@@ -133,6 +133,7 @@
   ID_LOGEMENT: 4
 
 - TYPE : PIECE
+- TYPE : PIECE
   ID_PIECE: 4
   NOM_PIECE: "Chambre 2"
   DESCRIPTION: "Chambre d'amis avec lits jumeaux"

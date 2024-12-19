@@ -107,20 +107,8 @@
                 console.log("affichage du formulaire {{form.data}}")
             </script>
         {% endif %}
-        <button class="btn btn-primary mb-3" id="formsubmit" type="submit">Modifier</button> 
+        <button class="btn btn-primary mb-3" id="formsumbmit" type="submit">Modifier</button> 
     </form>
-    <div class="box-container" id="recent-ajout">
-        <div id="titre-box">
-            <h2>Récents Ajouts</h2>
-        </div>
-        <div id="historique">
-            {% for x in bien %}
-            <article>
-                <p> {{x.id_type.get_nom_type}} </p>
-                <p> {{x.id_logement.get_nom}} </p>
-            </article>
-            {% endfor %}
-        </div>
-    </div>
+
 </div>
 {% endblock %} 
