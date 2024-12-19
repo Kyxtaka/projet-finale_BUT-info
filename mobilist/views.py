@@ -242,7 +242,7 @@ def generate_pdf_tous_logements(proprio,logements) -> BytesIO:
     canva.rect(20, y, width - 40, 1 * cm, fill=1, stroke=0)
     canva.setFillColorRGB(0, 0, 0)
     canva.setFont("Helvetica-Bold", 12)
-    canva.drawString(25, y + 8, f"VALEUR TOTALE ESTIMÉE DE TOUS LES BIENS : {total_valeur} €")
+    canva.drawString(25, y + 8, f"VALEUR TOTALE ESTIMÉE DE TOUS LES BIENS SANS VETUSTE: {total_valeur} €")
     y -= 1.5 * cm
     # Informations
     height_box = 1 * cm
@@ -578,7 +578,7 @@ def generate_pdf(proprio,logement_id,sinistre_annee,sinistre_type) -> BytesIO:
     canva.rect(20, y, width - 40, 1 * cm, fill=1, stroke=0)
     canva.setFillColorRGB(0, 0, 0)
     canva.setFont("Helvetica-Bold", 12)
-    canva.drawString(25, y + 8, f"VALEUR TOTALE ESTIMÉE DE TOUS LES BIENS : {total_valeur} €")
+    canva.drawString(25, y + 8, f"VALEUR TOTALE ESTIMÉE DE TOUS LES BIENS SANS VETUSTE: {total_valeur} €")
     y -= 1.5 * cm
     # Informations
     height_box = 1 * cm
