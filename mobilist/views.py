@@ -429,7 +429,7 @@ def modif_mdp():
             test = request.form.get('mdp')
             confirmation = request.form.get('mdp_confirm')
             if test == confirmation :
-                User.modifier_passwd(request.form.get('mdp'))
+                current_user.set_password(test)
                 flash("Votre mot de passe a été mis à jour avec succès.", "success")
             else :
                 form.different = True

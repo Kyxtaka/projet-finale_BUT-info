@@ -1,3 +1,4 @@
+from hashlib import sha256
 from sqlalchemy.orm import registry, relationship, Session
 from sqlalchemy import select, Column, Integer, String, Enum, Date, DECIMAL, Float, String, create_engine
 from .app import db, login_manager
@@ -824,7 +825,9 @@ class User(Base, UserMixin):
         Args:
             password (str): nouveau mot de passe
         """
-        self.password = password
+        m = sha256()
+        m.update(password.encode())
+        self.password = m.hexdigest()
 
     def get_role(self):
         """getter du role de user
