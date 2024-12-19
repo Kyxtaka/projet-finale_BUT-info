@@ -273,11 +273,13 @@ def generate_pdf_tous_logements(proprio,logements) -> BytesIO:
             biens = db.session.query(Bien, Categorie).join(Categorie, Bien.id_cat == Categorie.id_cat) \
                 .filter(Bien.id_piece == p.id_piece).all()
             biens_par_categorie = {}
+            total_piece = 0
             for bien, categorie in biens:
                 # vétusté = (âge de l'équipement/durée de vie estimée) x 100, ici on considère que la durée de vie = 10ans  (source : www.pap.fr)
                 age_equipement = datetime.now().year - bien.date_achat.year
                 vetuste = age_equipement / 10 * 100
                 biens_par_categorie.setdefault(categorie.nom_cat, []).append((bien.nom_bien, bien.prix, bien.prix - vetuste))
+                total_piece += bien.prix - vetuste
             for cat, items in biens_par_categorie.items():
                 canva.setFont("Helvetica-Bold", 11)
                 canva.drawString(2 * cm, y, f"{cat}")
@@ -292,6 +294,9 @@ def generate_pdf_tous_logements(proprio,logements) -> BytesIO:
                         canva.showPage()
                         y = height - 2 * cm
                 y -= 0.5 * cm  # Espace entre catégories
+            canva.setFont("Helvetica-Bold", 11)
+            canva.drawRightString(width - 2 * cm, y, f"Total : {total_piece}€")
+            y -= 1 * cm  # Ligne après le total
             # Ligne de fin
             canva.line(1 * cm, y, width - 2 * cm, y)
             y -= 1 * cm        
