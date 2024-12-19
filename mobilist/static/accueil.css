@@ -89,9 +89,7 @@
     display: grid;
     justify-items: center;
 }
-.message a, .appeler a {
-    color: black;
-}
+
 
 .accueil .inscription h2{
     padding-top: 20px;

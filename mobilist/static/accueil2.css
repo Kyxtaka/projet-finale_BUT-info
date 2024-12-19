@@ -16,7 +16,6 @@ img {
     margin:5%;
 }
 
-
 .box-ajout {
     display: flex;
     justify-content: space-evenly;
@@ -31,7 +30,6 @@ img {
     text-align: center;
     background-color: black;
     box-shadow: 2px 2px 15px 4px rgba(0, 0, 0, 0.1);
-    padding-top: 0.5%;
 }
 .tableau th{
     padding-right: 65px;
@@ -102,7 +100,7 @@ a {
     display:block;
     background-color: gray;
     color: white;
-    padding:5px;
+    padding:3px;
 }
 
 .ajout-elem:hover {
