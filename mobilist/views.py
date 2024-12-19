@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import jsonify, render_template
+from flask import flash, jsonify, render_template
 from .app import app
 from flask import redirect, render_template, url_for
 from wtforms import PasswordField
@@ -80,10 +80,13 @@ class ResetPasswordFrom(FlaskForm):
 
 
 class ModificationForm(FlaskForm):
-    nom = StringField('Votre Nom')
-    prenom = StringField('Votre Prénom')
-    mail = StringField('Votre Adresse e-mail')
-    
+    nom = StringField('Votre Nom', validators=[DataRequired()])
+    prenom = StringField('Votre Prénom', validators=[DataRequired()])
+    mdp_actuel = PasswordField('Mot de passe actuel',
+                               validators=[DataRequired()])
+    mdp = PasswordField('Nouveau mot de passe', validators=[DataRequired()])
+    mdp_confirm = PasswordField('Confirmer le mot de passe', validators=[DataRequired()])
+
 
 class ResetForm(FlaskForm):
     email = StringField("Votre email")
@@ -407,8 +410,18 @@ def simulation():
 
 @app.route("/mon-compte/", methods =("POST" ,"GET",))
 def mon_compte():
-    form=ModificationForm()
+    form = ModificationForm()
+    if current_user.is_authenticated and current_user.proprio:
+        form.nom.data = current_user.proprio.nom
+        form.prenom.data = current_user.proprio.prenom
+    if form.validate_on_submit():
+        User.modifier(current_user.mail, request.form.get('nom'), request.form.get('prenom'))
+        flash("Vos informations ont été mises à jour avec succès.", "success")
+        return redirect(url_for('mon_compte'))
     return render_template("mon-compte.html", form=form)
+
+
+
 
 @app.route("/mesBiens/", methods =["GET"])
 def mesBiens():
@@ -486,10 +499,7 @@ def reset_password(mail):
 
 def extraire_informations(texte):
     doc = nlp(texte)
-    donnees = {
-        "prix": "",
-        "date_achat": ""
-    }
+    donnees = {"prix": "", "date_achat": ""}
     for ent in doc.ents:
         if ent.label_ == "PRIX":
             donnees["prix"] = ent.text

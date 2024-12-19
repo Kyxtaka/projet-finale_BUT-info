@@ -6,14 +6,31 @@
 {% block content %}
 <script>
 
-  function afficherPopUp() {
-    var menu = document.getElementById('menu-modif');
+  function afficherModif() {
+    var menuModif = document.getElementById('menu-modif');
+    var menuMdp = document.getElementById('menu-mdp');
 
-    if (menu.classList.contains('visible')) {
-        menu.classList.remove('visible');
+    if (menuModif.classList.contains('visible')) {
+        menuModif.classList.remove('visible');
       
       } else {
-        menu.classList.add('visible');
+        if (!menuMdp.classList.contains('visible')) {
+          menuModif.classList.add('visible');
+        }
+      }
+  }
+
+  function afficherChangement() {
+    var menuMdp = document.getElementById('menu-mdp');
+    var menuModif = document.getElementById('menu-modif');
+
+    if (menuMdp.classList.contains('visible')) {
+        menuMdp.classList.remove('visible');
+      
+      } else {
+        if (!menuModif.classList.contains('visible')) {
+          menuMdp.classList.add('visible');
+        }
       }
   }
 
@@ -45,18 +62,40 @@
 </article>
 <ul class="gestion-profil">
   <li class="modification">
-    <button onclick="afficherPopUp()" id="modif-infos" type="button"><img id="image-crayon" src="{{ url_for('static',filename='img/modification.png') }}" alt="icône crayon">
+    <button onclick="afficherModif()" id="modif-infos" type="button"><img id="image-crayon" src="{{ url_for('static',filename='img/modification.png') }}" alt="icône crayon">
       Modifier le profil </button>
   </li>
   <li class="changement-mdp">
-      <button onclick="" id="changer-mdp" type="button">Changer le mot de passe</button>
+      <button onclick="afficherChangement()" id="changer-mdp" type="button">Changer le mot de passe</button>
   </li>
 </ul>
 </section>
 
-<!-- Le contenu du menu -->
 <div id="menu-modif">
-  <h2> Hello ! </h2>
-  <button onclick="afficherPopUp()" id="modif-close">Fermer</button>
+  <h2> Modification du profil </h2>
+  <form class="form-horizontal" role="form" method ="POST" action ="{{ url_for('mon_compte') }}">  
+    {{ form.hidden_tag() }}
+    <div class="form-control-static">
+      <p class="content" >{{ form.nom.label }}</p>
+      {{ form.nom(size=50, class_="form-control") }}
+    </div>
+    <div class="form-control-static">
+      <p class="content" >{{ form.prenom.label }}</p>
+      {{ form.prenom(size=50, class_="form-control") }}
+    </div>
+
+    <span class="form-control-static">
+      <button id="submit" type="submit" class="btn btn-primary mb-3">Enregistrer</button>
+    </span>
+  </form> 
+    <button onclick="afficherModif()" id="annuler">Annuler</button>
+</div>
+
+<div id="menu-mdp">
+  <h2> Modification du mot de passe </h2>
+  <ul>
+    <li><button onclick="" id="submit" type="submit" class="btn btn-primary mb-3">Enregistrer</button></li>
+    <li><button onclick="afficherChangement()" id="annuler">Annuler</button></li>
+  </ul>
 </div>
 {% endblock %}
