@@ -136,15 +136,13 @@ class Proprietaire(Base):
         self.nom = nom_proprio
         self.prenom = prenom_proprio
     
+    
     def __repr__(self):
         """Représentation d'un propriétaire
 
         Returns:
             str: Une chaîne de caractère contenant l'ID, le nom, et le prénom
         """
-        return "<Proprietaire (%d) %s %s>" % (self.id_proprio, self.nom,
-                                              self.prenom)
-
         return "<Proprietaire (%d) %s %s>" % (self.id_proprio, self.nom,
                                               self.prenom)
 
@@ -215,6 +213,11 @@ class Proprietaire(Base):
         User.query.filter_by(mail=self.mail).delete()
         db.session.delete(self)
         db.session.commit()
+        
+    @staticmethod
+    def put_proprio(proprio):
+       db.session.add(proprio)
+       db.session.commit()
    
 class Logement(Base):
     __tablename__ = "LOGEMENT"
@@ -357,6 +360,11 @@ class Logement(Base):
             db.session.commit()
         else:
             print("Le logement est associé à d'autres propriétaires, mais celui ne l'est plus à vous")
+        
+    @staticmethod
+    def put_logement(logement):
+            db.session.add(logement)
+            db.session.commit()
             
     
 class AVOIR(Base):
@@ -558,6 +566,11 @@ class Bien(Base):
         date_list = date.split("-")
         result.date_achat = datetime.date(int(date_list[0]), int(date_list[1]), int(date_list[2]))
         db.session.commit()
+        
+    @staticmethod
+    def put_bien(bien):
+        db.session.add(bien)
+        db.session.commit()
     
 class Piece(Base):
     __tablename__ = "PIECE"
@@ -672,6 +685,11 @@ class Piece(Base):
     def delete(self):
         Bien.query.filter_by(id_piece=self.id_piece).delete()
         db.session.delete(self)
+        db.session.commit()
+        
+    @staticmethod
+    def put_piece(piece):
+        db.session.add(piece)
         db.session.commit()
         
 class TypeBien(Base):
@@ -953,19 +971,16 @@ class Justificatif(Base):
             return 1
         return Justificatif.get_max_id() + 1
 
-    def delete(self):
-        db.session.delete(self)
-        db.session.commit()
 
     @staticmethod
     def get_max_id():
         return db.session.query(func.max(Justificatif.id_justif)).scalar()
     
     @staticmethod
-    def next_id():
-        if Justificatif.get_max_id() is None:
-            return 1
-        return Justificatif.get_max_id() + 1
+    def put_justificatif(justif):
+        db.session.add(justif)
+        db.session.commit()
+
 
 class User(Base, UserMixin):
     __tablename__ = "USER"
@@ -977,11 +992,11 @@ class User(Base, UserMixin):
     id_user = Column(Integer, ForeignKey("PROPRIETAIRE.ID_PROPRIO", ondelete="CASCADE"), name="ID_PROPRIO")    
     proprio = relationship('Proprietaire', back_populates='user', uselist=False, cascade="all, delete")
     
-    # def __init__(self, mail, password, role, id):
-    #     self.mail = mail
-    #     self.password = password
-    #     self.role = role
-    #     self.id = id
+    def __init__(self, mail, password, role, id):
+        self.mail = mail
+        self.password = password
+        self.role = role
+        self.id = id
                 
     def get_id(self):
         """getter du mail
@@ -1045,11 +1060,14 @@ class User(Base, UserMixin):
         self.id_user = id_user
 
     @staticmethod
-    def modifier(mail, nom, prenom):
-        proprio = Proprietaire.get_by_mail(mail)
-        proprio.set_nom(nom)
-        proprio.set_prenom(prenom)
-        db.session.commit()
+    def modifier(email, nom, prenom):
+        proprio = db.session.get(User, email)
+        try:
+            proprio.proprio.set_nom(nom)
+            proprio.proprio.set_prenom(prenom)
+            db.session.commit()
+        except: 
+            print("L'utilisateur n'existe pas")
 
     @staticmethod
     def get_user(mail):
@@ -1075,6 +1093,9 @@ class User(Base, UserMixin):
     @staticmethod
     def get_all():
         return User.query.all()
+    
+    def set_proprio(self, proprio):
+        self.proprio = proprio
     
 class ChangePasswordToken(Base):
     __tablename__ = "CHANGEPASSWORDTOKEN"

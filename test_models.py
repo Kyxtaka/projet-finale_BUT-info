@@ -5,6 +5,8 @@ from flask_sqlalchemy  import SQLAlchemy
 from flask_bootstrap import Bootstrap5
 from flask_login import LoginManager
 import datetime
+from flask import session
+import pytest
 # from .secure_constante import *
 import os
 from mobilist.app import mkpath, app, db
@@ -25,7 +27,7 @@ class UserTest(unittest.TestCase):
         
    def test_proprietaire(self):
       with app.app_context():
-         proprio = Proprietaire(1, "John", "Kevin")
+         proprio = Proprietaire(1,"johnkevin@email.com", "John", "Kevin")
          user = User("johnkevin@email.com", "lol123", "proprietaire", 1)
          Proprietaire.put_proprio(proprio)
          User.put_user(user)
@@ -47,7 +49,7 @@ class UserTest(unittest.TestCase):
 
    def test_user(self):
       with app.app_context():
-         proprio = Proprietaire(2, "Martin", "Trixy")
+         proprio = Proprietaire(2,"trixymartin@email.com", "Martin", "Trixy")
          user = User("trixymartin@email.com", "lol123", "proprietaire", 2)
          
          Proprietaire.put_proprio(proprio)
@@ -84,7 +86,7 @@ class UserTest(unittest.TestCase):
    def test_logement(self):
       with app.app_context():
          logement = Logement(2,"maison 2","MAISON","2 rue","grande maison")
-         self.assertEqual(logement.get_adresse(), "2 rue")
+         self.assertEqual(logement.get_adresse_logement(), "2 rue")
          self.assertEqual(logement.get_id_logement(),2)
          self.assertEqual(logement.get_type_logement(), "MAISON")
          self.assertEqual(logement.get_desc_logement(), "grande maison") 
@@ -108,7 +110,8 @@ class UserTest(unittest.TestCase):
          cat = Categorie(2, "accessoire cuisine")
          self.assertEqual(cat.get_id_cat(),2)
          self.assertEqual(cat.get_nom_cat(), "accessoire cuisine")
-         
+      
+   
                
          
 
