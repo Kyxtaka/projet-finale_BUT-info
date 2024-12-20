@@ -30,7 +30,7 @@ def loaddb(filename):
             case 'LOGEMENT':
                 new_logement = Logement(
                     id_logement = entity['ID_LOGEMENT'],
-                    nom_logement= entity['NOM_LOGEMENT'],
+                    nom_logement = entity['NOM_LOGEMENT'],
                     type_logement = entity['TYPE_LOGEMENT'],
                     adresse_logement = entity['ADRESSE'],
                     desc_logement = entity['DESCRIPTION'])
@@ -92,6 +92,8 @@ def loaddb(filename):
                     id_logement = entity['ID_LOGEMENT']
                 )
                 session.add(new_avoir)
+            case 'USER':
+                create_user(entity['MAIL'], entity['PASSWORD'], entity['ROLE'])
         db.session.commit()
     print(f"loaded file: {filename}")
 
@@ -112,7 +114,7 @@ def create_user(mail, password, role):
         proprio = Proprietaire.get_by_mail(mail)
         if proprio is None:
             id = int(Proprietaire.max_id())+1
-            proprio = Proprietaire(id_proprio=id, mail = mail)
+            proprio = Proprietaire(id_proprio=id, mail = mail, nom_proprio = "temp", prenom_proprio = "temp")
             db.session.add(proprio)
         else: 
             id = proprio.get_id_proprio()
@@ -135,3 +137,4 @@ def passwd(mail, password):
     else: 
         print(f"user {mail} not found)")
     db.session.commit()
+

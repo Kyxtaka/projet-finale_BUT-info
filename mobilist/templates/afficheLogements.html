@@ -1,27 +1,127 @@
 {% extends "index2.html" %}
 {% block styles %}
 {{ super() }}
-<link rel="stylesheet" href="{{ url_for('static', filename='affiche_logements.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='affichageLogements.css')}}">
+
 {% endblock %}
+{% block scripts %}
+{{ super() }}
+<!-- import JS -->
+<script src="{{ url_for('static', filename='js/affichage_logements.js') }}"></script> 
+{% endblock %}  
 {% block content %}
-<h1> Mes logements </h1>
-<div class="logements">
-    {% for x in logements %}
-    <section>
-        <h1>Logement n°{{x.id_logement}}</h1>
-        <article>
-            <h3>Nom: {{x.nom_logement}}</h3>
-            <h3>Type:{{x.type_logement.get_type()}}</h3>
-            <h3>Adresse:{{x.adresse}}</h3>
-            <h3>Pièces :</h3>
-            <h3>Description : {{x.desc_logement}}</h3>
-        </article>
-    </section>
-    <div class="buttons">
+<div class="img-logement">
+    <img id="img-log" src="{{ url_for('static',filename='img/logement.png') }}" alt="page affichage logements"/>
+</div> 
 
+<div class="list-logements">
+    <h1> Mes logements </h1>
+    <div class="log">
+      {% if contenu %}
+        {% for x in logements %}
+        <section class="logement" id="log-{{ x.id_logement }}">
+            <h1>Logement n°{{x.id_logement}}</h1>
+            <article>
+                <h3>Nom : {{x.nom_logement}}</h3>
+                <h3>Type : {{x.type_logement.get_type()}}</h3>
+                <h3>Adresse : {{x.adresse}}</h3>
+                <h3>Pièces : </h3>
+                <h3>Description : {{x.desc_logement}}</h3>
+            </article>
+        </section>
     </div>
+    <script>
+        // declaration variable var (let n autorise pas la déclaration dans une boucle for)
+        var logment_object = new Logement(
+                                        "log-{{x.id_logement}}",
+                                        "{{x.id_logement}}", 
+                                        "{{x.nom_logement}}",
+                                        "{{x.type_logement.get_type()}}",
+                                        "{{x.adresse}}",
+                                        "{{x.desc_logement}}"
+                                    );
+        var log = document.getElementById("log-{{x.id_logement}}");
+        console.log(log);
+        addLogementToArray(array_logement_obj,logment_object);
+        addLogementToArray(array_logement,log);
+    </script>
     {% endfor %}
+    {% endif %}
+    {% if not (contenu) %}
+        <p class="no-content"> Vous n'avez pas ajouté de logements </p>
+    {% endif %}  
+</div>
+<div class="buttons">
+    <button class="action-btn" id="supprimer" onclick="toggleFormPopup('delete-popup-form')">SUPPRIMER</button>
+    <button class="action-btn" id='modifier' onclick="toggleFormPopup('edit-popup-form')">MODIFIER</button>
+</div> 
 
+<!-- For de modification -->
+<div id="edit-popup-form" class="overlay-container">
+    <div class="popup-box">
+        <h2 style="color: green;">Modification infos logement</h2>
+        <form class="form-container" method="POST">
+            <input type="hidden" id="type-form" name="type-form" value="UPDATE_LOGEMENT" required>
+            <input type="hidden" id="edit-id-input" name="id" required>
+
+            <label class="form-label" for="name">Nom :</label>
+            <input class="form-input" type="text" placeholder="Entrez le nom du logement"  id="edit-name-input" name="name" required>
+
+            <label class="form-label" for="type">Type logement:</label>
+            <select class="form-input" name="type" id="edit-type-input">
+                {% for val in type_logement %}
+                  <option value="{{val.get_type()}}">{{val.get_type()}}</option>
+                {% endfor %}
+            </select>
+
+            <label class="form-label" for="address">Adresse logement:</label>
+            <input class="form-input" type="text" placeholder="Adresse du logement" id="edit-adress-input" name="address" >
+
+            <label class="form-label" for="description">Description logement:</label>
+            <input class="form-input form-textarea" type="text" placeholder="Description du logement" id="edit-description-input" name="description">
+
+            <div class="form-btn-container">
+                <button type="button" class="btn-close-popup" onclick="toggleFormPopup('edit-popup-form')">Annuler</button>
+                <button type="submit" class="btn-submit" >Confirmer</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Form de suppression -->
+<div id="delete-popup-form" class="overlay-container">
+    <div class="popup-box">
+        <h2 style="color: red;"> CONFIRMATION SUPPRESION LOGEMENT</h2>
+        <form class="form-container" method="POST">
+            <input type="hidden" id="type-form" name="type-form" value="DELETE_LOGEMENT" required>
+            <input type="hidden" id="delete-id-input" name="id" required>
+
+            <label class="form-label" for="name">NOM :</label>
+            <input class="form-input" type="text" placeholder="Nom" value="Le nom du logement concerne" id="delete-name-input" name="name" required disabled>
+
+            <label class="form-label" for="type">TYPE :</label>
+            <input class="form-input" type="text" placeholder="Type" value="Le type du logement concerne" id="delete-type-input" name="type"  disabled>
+
+            <label class="form-label" for="address">ADRESSE :</label>
+            <input class="form-input" type="text" placeholder="adresse" value="L' adresse du logement concerne" id="delete-address-input" name="address"  disabled>
+
+            <div class="form-btn-container">
+                <button  type="button"  class="btn-submit" onclick="toggleFormPopup('delete-popup-form')">Annuler</button>
+                <button type="submit" class="btn-close-popup" >SUPPRIMER</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Popup erreur selection de logement -->
+<div id="unselected-logement-popup", class="overlay-container">
+    <div class="popup-box">
+        <h2 style="color: red;"> Aucun logement selectionné</h2>
+        <h3 style="color: blue;"> Veuillez selectionner un logement</h3>
+        <div class="form-btn-container">
+            <button  type="button"  class="btn-submit" onclick="toggleFormPopup('unselected-logement-popup')">Continuer</button>
+        </div>
+    </div>
 </div>
 {% endblock %}
 

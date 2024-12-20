@@ -1,0 +1,126 @@
+.nav-item-sinistre a {
+    font-weight: bold;
+}
+
+.simulation {
+    margin-bottom: 120px;
+    text-align: center;
+}
+
+.simulation .bandeau {
+    background-color:  #612bb7;
+    height: 130px;
+}
+
+.simulation p {
+    position: relative;
+    left: 0px;
+    top: 0px;
+    text-align: center;
+}
+
+.simulation hr{
+    margin-top: 25px;
+}
+
+.simulation .bandeau h1{
+    color: white;
+    text-align: center;
+    padding-top: 35px;
+}
+
+.simulation .annee {
+    align-items: center;
+    margin-top: 20px;
+}
+
+.simulation .annee p:first-child, .logement p:first-child, .type p{
+    font-weight: bold;
+}
+
+.simulation .annee input{
+    width: 100px;
+    margin: auto;
+}
+
+.simulation .type {
+    padding-top: 10px;
+}
+
+.simulation .type select, .logement select {
+    position: relative;
+    margin-bottom: 1%;
+    width: 14%;
+    padding: 10px;
+    border: 1px solid #ccd0d5;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    background-size: 16px;
+}
+
+.simulation .type select option, .logement select option {
+    padding: 10px;
+    background-color: #ffffff;
+    font-size: 16px;
+}
+
+.simulation .logement {
+    margin-top: 30px;
+}
+
+.simulation .info{
+    align-items: center;
+    margin-bottom: 2px;
+}
+
+.simulation .info p {
+    margin-top: 10px;
+}
+
+.simulation .info table {
+    margin-left: 580px;
+}
+
+.simulation .styled-table {
+    font-size: 1em;
+    min-width: 400px;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    margin-left: 40%;
+    margin-top: 1%;
+}
+
+.simulation .styled-table thead tr {
+    background-color: #612bb7;
+    color: #ffffff;
+    text-align: left;
+}
+
+.simulation .styled-table th,td {
+    padding: 12px 15px;
+}
+
+.simulation .telecharger p:first-child{
+    font-style: italic;
+    margin: 0px;
+}
+
+.simulation .telecharger p{
+    font-style: italic;
+    margin: 30px;
+}
+
+.simulation .telecharger a {
+    margin-top: 0px;
+}
+
+.simulation .telecharger .download-btn {
+    position: relative;
+    left: 0px;
+    top: 15px;
+    background-color: #000;
+    color: #fff;
+    padding: 13px 35px;
+    font-size: 16px;
+    font-weight: bold;
+}

@@ -1,5 +1,6 @@
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
   "width": 495,
   "height": 440,
   "cx": [
@@ -11,6 +12,7 @@
     [ "BIEN", 183 ],
     [ "AVOIR", 321 ],
     [ "AVIS", 438 ],
+=======
 =======
   "width": 476,
   "height": 466,
@@ -31,6 +33,7 @@
   ],
   "cy": [
 <<<<<<< HEAD
+<<<<<<< HEAD
     [ "TYPEBIEN", 51 ],
     [ "POSSEDER", 51 ],
     [ "PROPRIETAIRE", 51 ],
@@ -44,6 +47,7 @@
     [ "LOGEMENT", 270 ],
     [ "JUSTIFICATIF", 380 ],
     [ "PIECE", 380 ]
+=======
 =======
     [ "TYPEBIEN", 68 ],
     [ "POSSEDER", 68 ],

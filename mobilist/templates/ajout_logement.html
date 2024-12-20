@@ -1,0 +1,91 @@
+{% extends "index2.html" %}
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='_reboot.scss') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='ajout_logement.css') }}">
+{{ super()}}
+{% endblock %}
+{% block scripts %}
+{{ super()}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/7.5.5/rxjs.umd.min.js"></script>
+<script src="{{ url_for('static', filename='js/ajout_logement.js') }}"></script>
+{% endblock %}
+{{ super()}}
+{% block content %}
+<div id="add-logement-container"> 
+    <h1>Ajoutez un logement</h1>
+        <form class="form-container" method="POST" id="add-logement-form">
+            <div class="form-content" style="text-align: center;">
+                <h2>Logement</h2>
+                <div id="first-collumn" style="text-align: center"; >
+                    <div>
+                        <input type="hidden" id="type-form" name="type-form" value="ADD_LOGEMENT" required>
+                        <input type="hidden" id="rooms-array" name="rooms-array" value="" >
+                    </div>
+                    <div>
+                        <label class="form-label" for="name">Nom :</label>
+                        <input class="form-input" type="text" placeholder="Entrez le nom du logement"  id="edit-name-input" name="name" required>
+                    </div>
+                    <div>
+                        <label class="form-label" for="type">Type logement:</label>
+                        {% for val in type_logement %}
+                            <div>
+                            <span class="radio-span" id="span-{{val.get_type()}}">{{val.get_type()}}</span>
+                            <input type="radio" class="type-logement" id="radio-{{val.get_type()}}" value="{{val.get_type()}}" name="typeL" required></input>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div>
+                        <label class="form-label" for="address">Adresse logement:</label>
+                        <input class="form-input" type="text" placeholder="Adresse du logement" id="edit-adress-input" name="address" required>
+                    </div>
+                    <div>
+                        <label class="form-label" for="description">Description logement:</label>
+                        <input class="form-input form-textarea" type="text" placeholder="Description du logement" id="edit-description-input" name="description" default="">
+                    </div>
+                    <div>
+                        <button type="button" class="btn-open-room-form" onclick="toggleFormPopup('add-piece-popup-form')">Ajouter pièce</button>
+                    </div>
+                </div>
+                <div>
+                    <!-- <p>List piece à ajouté</p> -->
+                    <h2>Pièces à ajouter</h2>
+                    <table>
+                        <thead>
+                            <tr id="first-row" style="text-align: center;">
+                                <th>Nom</th>
+                                <th>Description</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="room-list">
+                        </tbody>
+                    </table>
+                    <!-- debug button -->
+                    <!-- <input type="button" value="ArrayValue" id="arrayValue">  -->
+                </div>
+            </div>
+            <div>
+                <button class="btn btn-primary mb-3" id="formsumbmit" type="submit">Ajouter</button> 
+            </div>
+            
+            
+        </form>
+
+        <div class="overlay-container" id="add-piece-popup-form">
+            <div class="popup-box">
+                <div>
+                    <label class="form-label" for="name">Nom de la pièce :</label>
+                    <input class="form-input" type="text" placeholder="Entrez le nom de la pièce"  id="edit-room-name-input" name="name" required>
+                </div>
+                <div>
+                    <label class="form-label" for="description">Description de la pièce :</label>
+                    <input class="form-input form-textarea" type="text" placeholder="Description de la pièce" id="edit-room-description-input" name="description">
+                </div>
+                <div class="form-btn-container">
+                    <button type="button" class="btn-close-popup" onclick="toggleFormPopup('add-piece-popup-form')">Annuler</button>
+                    <button type="submit" class="btn-submit" id="add-room-btn">Confirmer</button>
+                </div>
+            </div>
+        </div>
+</div>
+{% endblock %} 

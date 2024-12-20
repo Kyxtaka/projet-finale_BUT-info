@@ -1,40 +1,41 @@
-main .nav-img img {
-    position:absolute;
-    top : 36px;
-}
 
-main .paragraphe1 {
-    background-color: lightgray;
-    position: absolute;
-    top: 200px;
+.apropos {
+    background-color: #612bb7;
     display: block;
     width:100%;
-    height: 120px;
     text-align: center;
-    padding: 20px;
-    font-size: larger;
-    
+    padding: 2%;
+    font-size: 50px;  
+    color: white;
 }
-
-main .paragraphe2 {
-    position: absolute;
-    top: 380px;
+.paragraphe1 {
     display: block;
     width:100%;
-    height: 120px;
     text-align: center;
     padding: 20px;
-    font-size: larger;
+}
+.paragraphe2, .inscrire {
+    display: block;
+    width:50%;
+    text-align: left;
+    padding: 2%;
 }
 
 main .paragraphe3 {
-    background-color: lightgray;
+    background-color: #d3d3d3;
     position: absolute;
     top: 650px;
     display: block;
-    width:100%;
-    height: 120px;
-    text-align: center;
-    padding: 20px;
+    text-align: right;
+    padding: 2%;
+}
+p {
     font-size: larger;
+}
+h1 {
+    font-size: 40px;
+    margin: 2px;
+}
+hr {
+    color: lightgray;
 }

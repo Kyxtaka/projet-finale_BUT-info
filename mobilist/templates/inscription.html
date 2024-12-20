@@ -1,28 +1,28 @@
 
 {% block styles %}
 
-<link rel="stylesheet" href="{{ url_for('static', filename='connexion.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='connexion.css') }}">
 {% endblock %}
 {% block content %}
 
-<a href="{{ url_for('home') }}"> <img class="retour" src="{{ url_for('static',filename='img/retour.png') }}" alt="retour"></a>
-<section>
-  <a> <img src="{{ url_for('static',filename='img/logo_mobilist.jpg') }}" alt="retour"></a>
+<a href="{{ url_for('home') }}"><button class="accueil" role="button">Accueil</button></a>
+<section class="section-connexion">
+  <a href="{{ url_for('home')}}"> <img src="{{ url_for('static',filename='img/logo_mobilist.jpg') }}" alt="retour"></a>
   <h1>Inscription</h1> 
   <form class="form-horizontal" role="form" method ="POST" action ="{{ url_for('inscription') }}"> 
     {{ form.hidden_tag() }}
-    <div class="form-control-static">
-      {{ form.nom.label }}
-      {{ form.nom(size=50, class_="form-control", placeholder ="Votre nom") }}
-    </div> 
+  <div class="form-control-static">
+    <p>{{ form.nom.label }}</p>
+    {{ form.nom(size=50, class_="form-control", placeholder ="Votre nom") }}
+  </div> 
 
-    <div class="form-control-static">
-      {{ form.prenom.label }}
-      {{ form.prenom(size=50, class_="form-control", placeholder ="Votre prénom") }}
-    </div>
+  <div class="form-control-static">
+    <p>{{ form.prenom.label }}</p>
+    {{ form.prenom(size=50, class_="form-control", placeholder ="Votre prénom") }}
+  </div>
   
   <div class="form-control-static">
-    {{ form.mail.label }}
+    <p>{{ form.mail.label }}</p>
     {{ form.mail(size=50, class_="form-control", placeholder ="email@exemple.com") }}
     {% if present %}
     <div role="tooltip" id="infobulle">Vous avez déjà un compte</div>
@@ -30,8 +30,8 @@
   </div>
 
   <div class="form-control-static">
-    {{ form.password.label }}
-    {{ form.password(size=50, class_="form-control") }}
+    <p>{{ form.password.label }}</p>
+    {{ form.password(size=50, class_="form-control", placeholder="monmotdepasse123") }}
   </div>  
   
   <span class="form-control-static">
