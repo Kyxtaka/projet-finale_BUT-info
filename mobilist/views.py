@@ -37,7 +37,7 @@ from reportlab.lib.units import cm
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase import pdfmetrics
-pdfmetrics.registerFont(TTFont('DejaVuSans', 'DejaVuSans.ttf'))
+# pdfmetrics.registerFont(TTFont('DejaVuSans', 'DejaVuSans.ttf'))
 
 #constante : chemin d'acces au dossier de telechargement des justificatifs
 UPLOAD_FOLDER_JUSTIFICATIF = os.path.join(
@@ -956,5 +956,5 @@ def modifier_bien():
 @login_required
 def open_fic():
     url = request.args.get("url")
-    webbrowser.open('/'+url)
+    # webbrowser.open('/'+url)
     return redirect(url_for('accueil_connexion'))
