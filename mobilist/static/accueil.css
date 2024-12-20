@@ -54,6 +54,8 @@
     height: 300px;
 }
 
+
+
 .accueil .texte1, .texte2{
     z-index: 1;
     position: relative;
@@ -87,7 +89,9 @@
     display: grid;
     justify-items: center;
 }
-
+.message a, .appeler a {
+    color: black;
+}
 
 .accueil .inscription h2{
     padding-top: 20px;
@@ -166,9 +170,9 @@
     font-weight: bold;
  }
 
- .accueil .telephone{
+.accueil .telephone{
     text-align: center;
- }
+}
 
 .accueil .mail img {
     width : 40px;

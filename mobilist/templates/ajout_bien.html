@@ -1,0 +1,113 @@
+{% extends "index2.html" %}
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='ajout_bien.css') }}">
+{{ super()}}
+{% endblock %}
+{% block scripts %}
+{{ super()}}
+<!-- utilisation de JS pour actualiser les choix de pieces en fonction du logement -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const logementSelect = document.getElementById("logement-select");
+        const pieceSelect = document.getElementById("piece-select");
+
+        console.log("doc loaded")
+        console.log("logementSelect",logementSelect); // logs logement disponible pour le prorietaire
+        console.log("nb logement dispo",logementSelect.options.length); // nb option dans le select
+
+        // initialisation de la liste des pieces
+        if (logementSelect.options.length === 0) {
+            pieceSelect.innerHTML = "";
+        } else {
+            const logementId = logementSelect.value;
+            console.log("const logementId",logementId); // logs id du logement
+            fetch(`/get_pieces/${logementId}`) // requete pour obtenir les pieces au format json
+                .then(response => response.json())
+                .then(console.log("fetch ok"))
+                .then(data => {
+                    console.log("data",data); // logs du logement (pieces obtenues)
+                    pieceSelect.innerHTML = "";
+                    data.pieces.forEach(piece => {
+                        const option = document.createElement("option");
+                        option.value = piece.id;
+                        option.textContent = piece.name;
+                        pieceSelect.appendChild(option);
+                    });
+                    console.log("pieceSelect",pieceSelect); // logs de la liste des pieces
+                })
+                .catch(error => console.error("Ereur lors de l'obtention des pieces:", error));
+        }
+
+        // maj de la liste des pieces en fonction du logement selectionne
+        logementSelect.addEventListener("change", function() {
+            const logementId = this.value;
+            console.log("const logementId",logementId); // logs id du logement
+            fetch(`/get_pieces/${logementId}`) // requete pour obtenir les pieces au format json
+                .then(response => response.json())
+                .then(console.log("fetch ok"))
+                .then(data => {
+                    console.log("data",data); // logs du logement (pieces obtenues)
+                    pieceSelect.innerHTML = "";
+                    data.pieces.forEach(piece => {
+                        const option = document.createElement("option");
+                        option.value = piece.id;
+                        option.textContent = piece.name;
+                        pieceSelect.appendChild(option);
+                    });
+                    console.log("pieceSelect",pieceSelect); // logs de la liste des pieces
+                })
+                .catch(error => console.error("Ereur lors de l'obtention des pieces:", error));
+        });
+    });
+</script>
+{% endblock %}
+{{ super()}}
+{% block content %}
+<div class="ajout-logement"> 
+    <h1>Ajoutez un bien à votre logement</h1>
+    <form  class="form-group" form='form' id="form" action="{{ url_for('ajout_bien') }}" method="POST" enctype="multipart/form-data">
+        <div class="box-container" id="main-form">
+            <div id="left-side">
+                {{ form.csrf_token }}
+                {{ form.hidden_tag() }}
+                <label class="form-group-element" for="logement" id="form_logement">Le logement</label>
+                {{ form.logement(class="form-group-element", id="logement-select") }}
+
+                <label class="form-group-element" for="nom" id="form_nom">Nom du bien</label>
+                {{ form.nom_bien(class="form-group-element") }}
+
+                <label class="form-group-element" for="categorie" id="form_cat">Categorie du bien</label>
+                {{ form.categorie_bien(class="form-group-element") }}
+
+                <label class="form-group-element" for="type" id="form_type">Type du bien</label>
+                {{ form.type_bien(class="form-group-element") }}
+
+                <label class="form-group-element" for="piece" id="form_piece">Piece</label>
+                {{ form.piece_bien(class="form-group-element", id="piece-select") }}
+
+                <label class="form-group-element" for="prix" id="form_prix">Prix neuf</label>
+                {{ form.prix_bien(class="form-group-element") }}
+
+                <label class="form-group-element" for="date" id="form_date">Date de l'achat</label>
+                {{ form.date_bien(class="form-group-element") }}
+
+                <label class="form-group-element" for="description" id="form_desc">Description</label>
+                {{ form.description_bien(class="form-group-element") }}
+            </div>
+            <div id="right-side">
+                <label class="form-group-element" for="justificatif" id="form_justif">Justificatif</label>
+                {{ form.file(class="form-group-element")}}
+            </div>
+        </div>
+        {% if error == True %}
+            <script>
+                window.alert("Erreur lors de l'ajout du bien: {{form.errors}}")
+                console.log("Erreur lors de l'ajout du bien: {{form.errors}}")
+                console.log("affichage du formulaire {{form.data}}")
+            </script>
+        {% endif %}
+        <button class="btn btn-primary mb-3" id="formsumbmit" type="submit">Ajouter</button> 
+    </form>
+</div>
+{% endblock %} 

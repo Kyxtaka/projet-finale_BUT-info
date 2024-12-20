@@ -9,30 +9,48 @@
     <link rel="stylesheet", href="{{ url_for('static',filename='index.css') }}">
     {% endblock %}
     <title>MobiList</title>
+    {% block scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-xrR3fF2ZqRG5FO9U2mDqDlZ9UJ0n6UJ0U2rZuXrU2mZ"> </script>
+   
     {% endblock %}
-</head>
+    {% endblock %}
+  </head>
+  <script>
+
+    function afficherMenu() {
+      var section = document.getElementById("panneau-droit");
+
+      if (section.classList.contains('visible')) {
+        section.classList.remove('visible');
+
+      } else {
+        section.classList.add('visible');
+      }
+    }
+
+  </script>
     <div class="index">
     <header>
-      <!-- Fixed navbar -->
+      <!-- Fixed navbar --> 
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-white">
         <div class="logo">
-          <a href="#">
-            <img src="{{ url_for('static',filename='img/logo_mobilist.png') }}" alt="logo du site"/>
+          <a href="{{ url_for('accueil_connexion')}}">
+            <img src="{{ url_for('static',filename='img/logo_mobilist_etendu.png') }}" alt="logo du site"/>
           </a>
         </div>
         <div class="container-fluid">
           <div class="collapse navbar-collapse" id="navbar-collapse">
               <ul class="navbar-nav-left">
-                  <li class="nav-img" >
+                  <li class="nav-img" ></a>
                     <div class=BAccueil>
-                      <a href="{{ url_for('accueil') }}"><img src="{{ url_for('static',filename='img/accueil.png') }}" alt="icône accueil"/></a>
-                      <a class="nav-link active" aria-current="page" href="{{ url_for('accueil') }}">Accueil</a>
+                      <a href="{{ url_for('accueil_connexion') }}"><img src="{{ url_for('static',filename='img/accueil.png') }}" alt="icône accueil"/></a>
+                      <a class="nav-link active" aria-current="page" href="{{ url_for('accueil_connexion') }}">Accueil</a>
                     </div>
                   </li>
                   <li class="nav-img" >
-                    <div class="BBiens">
+                    <div class="Biens">
                         <img src="{{ url_for('static',filename='img/mes-biens.png') }}" alt="icône mes biens"/>
-                        <a class="nav-link active" aria-current="page" href="#">Mes biens</a>
+                        <a class="nav-link active" aria-current="page" href="{{ url_for('mesBiens')}}">Mes biens</a>
                     </div>
                   </li>
                     <li class="nav-img" >
@@ -44,15 +62,38 @@
                   <li class="nav-img" >
                     <div class="BSinistres">
                         <img src="{{ url_for('static',filename='img/simuler-sinistre.png') }}" alt="icône simuler un sinistre"/>
-                        <a class="nav-link active" aria-current="page" href="#">Simuler un sinistre</a>
+                        <a class="nav-link active" aria-current="page" href="{{ url_for('simulation')}}">Simuler un sinistre</a>
                     </div>
                   </li>
-                  <li id="MonCompte">
-                    <a href="{{ url_for('logout') }}">
-                        <button class="mon_compte">Mon compte</button>
-                    </a>
-                  </li>   
-                </ul>           
+                  <li id="connexion">
+                      <button onclick="afficherMenu()" class="connexion" id="bouton-compte">Mon compte
+                      </button>
+                  </li>      
+                </ul>
+              </div>
+            </div>
+            <div class="section-droite">
+          <section id="panneau-droit" class="wb-overlay modal-content overlay-def wb-panel-r wb-init wb-overlay-inited user-closed open" aria-hidden="false" tabindex="-1" role="dialog">
+            <header class="modal-header">
+              <h2 class="modal-title">Bienvenue</h2>
+            </header>
+            <hr />
+            <div class="modal-body">
+              <ul class="list-unstyled">
+                <li><a id="lien-info-compte" href="{{ url_for('mon_compte') }}"> Mes informations </a></li>
+                <li><a id="lien-aide-compte" href="#"> Aide </a></li>
+                <li><a id="lien-deconnexion" href="{{ url_for('accueil') }}"> Déconnexion </a></li>
+              </ul>
+              <button onclick="afficherMenu()" class="btn btn-sm btn-primary pull-left overlay-close" id="btn-fermer" type="button">
+                Fermer
+              </button>
+            </div>
+            <div class="modal-footer">
+            </div>
+          </section>
+        </div>         
+        </nav>
+    </header>          
   </header>
   <main class="flex-shrink-0">
     <div class="content">
@@ -61,15 +102,106 @@
     {% endblock %}
     </div>
   </main>
-
   <footer class="footer mt-auto py-3 bg-light">
     <div class="footer">
-      <img id="appstore" src="{{ url_for('static',filename='img/appstore.jpg') }}" alt="Dispo sur appstore"/>
+      <img id="appstore" src="{{ url_for('static',filename='img/appstore.png') }}" alt="Dispo sur appstore"/>
       <img id="googleplay" src="{{ url_for('static',filename='img/googleplay.png') }}" alt="Dispo sur Google play"/>
       <p id="groupe"> © AKHTAR NAIMA - VALIN OPHÉLIE - BOCQUET CLÉMENCE - VILCOQ YOHANN - RANDRIANTSOA NATHAN </p>
     </div>
   </footer>
 </body>
+<style>
+
+#panneau-droit {
+    visibility: hidden;
+    position: fixed;
+    right: 0;
+    top : 98px;
+    width: 250px;
+    height: 45%;
+    opacity: 0;
+    transform: translateX(100%);
+    background-color: rgba(255,255,255,0.8);
+    box-sizing: border-box;
+    transition: opacity 0.5s ease, transform 0.5s ease, visibility 0s 0.5s; 
+}
+
+#panneau-droit.visible {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    
+}
+
+.modal-header {
+    background-color: initial;
+    background-image: linear-gradient(-180deg, #5e5df0, #2a2ae7);
+    color: #FFFFFF;
+}
+
+
+#btn-fermer {
+    background-color: initial;
+    background-image: linear-gradient(-180deg, #5e5df0, #2a2ae7);
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: inherit;
+    font-weight: 500;
+    height: 40px;
+    line-height: 40px;
+    outline: 0;
+    overflow: hidden;
+    padding: 0 20px;
+    pointer-events: auto;
+    position: relative;
+    text-align: center;
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+    vertical-align: top;
+    white-space: nowrap;
+    width: 100%;
+    z-index: 9;
+    border: 0;
+    transition: box-shadow .2s;
+}
+
+#btn-fermer:hover {
+  box-shadow: rgba(55, 0, 255, 0.5) 0 3px 8px;
+}
+
+.modal-body ul {
+    display: flex;
+    flex-direction: column;
+    font-size: 30px ;
+    justify-content: center;
+    align-items: center;
+}
+
+  
+#lien-info-compte,
+#lien-aide-compte,
+#lien-deconnexion {
+    display: block;    
+    width: 100%;       
+    text-align: center; 
+    padding: 10px 0;    
+    color: inherit;   
+    text-decoration: none; 
+    white-space: nowrap;   
+    
+}
+
+#lien-info-compte:hover,
+#lien-aide-compte:hover,
+#lien-deconnexion:hover {
+    background-color: rgb(219, 219, 219);
+}
+</style>
 
 </html>
 

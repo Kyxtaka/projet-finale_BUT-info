@@ -7,7 +7,7 @@
 <div class="accueil">
     <div class="mobilist">
         <div class="img_maison">
-            <img src="{{ url_for('static', filename='img/insurance_accueuil.jpg') }}" alt="maison">
+            <img src="{{ url_for('static', filename='img/insurance_accueuil.png') }}" alt="maison">
         </div>
         <div class="schema_titre">
             <h1>MOBILIST,</h1>
@@ -32,6 +32,7 @@
             <button class="inscrire">S'INSCRIRE</button>
         </a>
     </div>
+    
     <div class="contact">
         <div class="texte_contact">
             <div class="debut">
@@ -45,13 +46,13 @@
                 <img src="{{ url_for('static', filename='img/telephone.jpg') }}" alt="téléphone">
                 <p>Par téléphone</p>
                 <p>Nos conseillers vous répondent du lundi au<br>vendredi de 8h à 19h00.</br></p>
-                <button class="appeler">APPELER UN CONSEILLER</button>
+                <button class="appeler"><a href="tel:0102030405">APPELER UN CONSEILLER</a></button>
             </div>
             <div class="mail">
                 <img src="{{ url_for('static', filename='img/mail.jpg') }}" alt="mail">
                 <p>Par e-mail</p>
                 <p>Envoyez-nous un message. Un conseiller<br>prendra en charge votre demande.</br></p>
-                <button class="message">ENVOYER UN MESSAGE</button>
+                <button class="message"><a href="mailto:eexemple044@gmail.com">ENVOYER UN MESSAGE</a></button>
             </div>
         </div>
     </div>

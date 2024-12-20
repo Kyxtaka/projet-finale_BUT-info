@@ -4,9 +4,12 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='connexion.css')}}">
 {% endblock %}
 {% block content %}
-<a href="{{ url_for('home') }}"> <img class="retour" src="{{ url_for('static',filename='img/retour.png') }}" alt="retour"></a>
-<section>
-  <a> <img src="{{ url_for('static',filename='img/logo_mobilist.jpg') }}" alt="retour"></a>
+<span>
+  <a href="{{ url_for('home') }}"><button class="accueil" role="button">Accueil</button></a>
+</span>
+
+<section class="section-connexion">
+  <a href="{{ url_for('home')}}"> <img src="{{ url_for('static',filename='img/logo_mobilist.jpg') }}" alt="retour"></a>
   <h1>Connexion</h1> 
   <form class="form-horizontal" role="form" method ="POST" action ="{{ url_for('login') }}"> 
   {{ form.hidden_tag() }}
@@ -17,13 +20,17 @@
 
   <div class="form-control-static">
     {{ form.password.label }}
-    {{ form.password(size=50, class_="form-control") }}
-  </div>  
+    {{ form.password(size=50, class_="form-control", placeholder ="monmotdepasse123") }}
+  </div> 
+  {% if not (mdp) %}
+  <p class="erreur"> Votre mot de passe est erroné </p>
+  {% endif %} 
   
   <span class="form-control-static">
     <button type="submit" class="btn btn-primary mb-3">Se connecter</button>
   </span>
 </form>
- <p id="signin"> Pas de compte ? Commencez <a href="{{ url_for('inscription')}}">maintenant</a> !</p>
+ <p class="signin"> Pas de compte ? Commencez <a href="{{ url_for('inscription')}}">maintenant</a> !</p>
+ <p class="signin"> <a href="{{ url_for('page_oublie')}}"> Mot de passe oublié <a> <p>
 </section>
 {% endblock %}

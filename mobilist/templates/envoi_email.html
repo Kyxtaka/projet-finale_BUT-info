@@ -1,0 +1,16 @@
+
+{% block styles %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='connexion.css')}}">
+{% endblock %}
+{% block content %}
+<span>
+  <a href="{{ url_for('home') }}"><button class="accueil" role="button">Accueil</button></a>
+</span>
+
+<section class="section-connexion">
+  <a href="{{ url_for('home')}}"> <img src="{{ url_for('static',filename='img/logo_mobilist.jpg') }}" alt="retour"></a>
+  <h1>L'email a été envoyé à l'adresse {{ email }}</h1> 
+
+</section>
+{% endblock %}
