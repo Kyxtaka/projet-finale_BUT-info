@@ -6,38 +6,39 @@
 # Table PROPRIETAIRE
 - TYPE: PROPRIETAIRE
   ID_PROPRIETAIRE: 1
+  MAIL: clemence@mail.com
   NOM: BOCQUET
   PRENOM: Clémence
-  MAIL: clemence@mail.com
 
 - TYPE: PROPRIETAIRE
   ID_PROPRIETAIRE: 2
+  MAIL: ophelie@mail.com
   NOM: VALIN
   PRENOM: Ophélie
-  MAIL: ophelie@mail.com
 
 - TYPE: PROPRIETAIRE
   ID_PROPRIETAIRE: 3
+  MAIL: naima@mail.com
   NOM: AKHTAR
   PRENOM: Naima
-  MAIL: naima@mail.com
 
 - TYPE: PROPRIETAIRE
   ID_PROPRIETAIRE: 4
+  MAIL: nathan@mail.com
   NOM: RANDRIANTSOA
   PRENOM: Nathan
 
 - TYPE: PROPRIETAIRE
   ID_PROPRIETAIRE: 5
+  MAIL: yohann@mail.com
   NOM: VILCOQ
   PRENOM: Yohann
-  MAIL: yohann@mail.com
 
 - TYPE: PROPRIETAIRE
   ID_PROPRIETAIRE: 6
+  MAIL: christophe@mail.com
   NOM: DALAIGRE
   PRENOM: Chritophe
-  MAIL: christophe@mail.com
 
 # Table LOGEMENT
 - TYPE : LOGEMENT
@@ -132,7 +133,6 @@
   DESCRIPTION: "Chambre parentale avec lit double"
   ID_LOGEMENT: 4
 
-- TYPE : PIECE
 - TYPE : PIECE
   ID_PIECE: 4
   NOM_PIECE: "Chambre 2"

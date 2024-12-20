@@ -80,23 +80,11 @@
     <tbody>
       {% for bien in justifies %}
       <tr>
-        {% if bien[4] == elem %}
-        <td> 
-          <a href="{{ url_for('open_fic', url=elem.URL) }}"> 
-            {% if elem == 'Aucun' %}
-              {{ elem }} 
-            {% else %}
-              {{ elem.nom_justif}}
-            {% endif %}
-          </a> 
-        </td>
-        {% elif not (elem.isdigit()) %}
-        <td> 
-          <a href="{{ url_for('modifier_bien', id=bien[3])}}"> 
-            {{ elem }} 
-          </a> 
-        </td>
+        {% for elem in bien %}
+        {% if not (elem.isdigit()) %}
+        <td> {{ elem }}</td>
         {% endif%}
+        {% endfor %}
       </tr>
       {% endfor %}
     </tbody>
@@ -108,7 +96,6 @@
       <p>Votre inventaire ici</p>
       <button type="submit" name="bouton_telecharger" class="download-btn">TÉLÉCHARGER</button>
     </form>
-
   </section>
 {% endblock %}
 

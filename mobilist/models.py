@@ -572,6 +572,9 @@ class Bien(Base):
     def put_bien(bien):
         db.session.add(bien)
         db.session.commit()
+        
+    def get_justif(self, id):
+        return Justificatif.query.filter_by(id_bien=id).first()
     
 class Piece(Base):
     __tablename__ = "PIECE"
