@@ -372,7 +372,8 @@ def inscription():
             return render_template("inscription.html", form=f, present=True)
         create_user(f.mail.data, f.password.data, "proprio")
         User.modifier(f.mail.data, f.nom.data, f.prenom.data)
-        return render_template("accueil_2.html")
+        # return render_template("accueil_2.html")
+        return redirect(url_for("accueil_connexion"))
     return render_template(
     "inscription.html", form=f, present=False)
 
