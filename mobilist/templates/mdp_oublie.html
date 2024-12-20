@@ -1,0 +1,28 @@
+
+{% block styles %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='connexion.css')}}">
+{% endblock %}
+{% block content %}
+<span>
+  <a href="{{ url_for('home') }}"><button class="accueil" role="button">Accueil</button></a>
+</span>
+
+<section class="section-connexion">
+  <a href="{{ url_for('home')}}"> <img src="{{ url_for('static',filename='img/logo_mobilist.jpg') }}" alt="retour"></a>
+  <h1>Mot de passe oublié</h1> 
+  <form class="form-horizontal" role="form" method ="POST" action ="{{ url_for('page_oublie') }}"> 
+  <div class="form-control-static">
+
+    {{ form.email(size=50, class_="form-control", placeholder ="email@exemple.com") }}
+  </div>
+
+  <span class="form-control-static">
+    <button type="submit" class="btn btn-primary mb-3"> Envoyer mail</button>
+  </span>
+</form>
+{% if (tentative) %}
+<p> L'email n'existe pas </p>
+{% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,206 @@
+.accueil {
+    margin-top: 90px;
+    margin-bottom: 140px;
+}
+
+.nav-item-accueil {
+    font-weight: bold;
+}
+
+.accueil p {
+    position : relative;
+    left: 0px;
+    top: 0px;
+}
+
+.accueil .mobilist{
+    display: flex;
+}
+
+.accueil .schema_titre{
+    margin-top: 40px;
+    margin-left: 300px;
+}
+
+.accueil .img_maison > img{
+    width: 600px;
+    height: 400px;
+    margin-top: 100px;
+}
+
+.accueil .schema{
+    display: flex;
+    position: relative;
+    margin-top: 20px;
+}
+
+.accueil h1 {
+    font-size: 40px;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+.accueil .schema_titre > h1:first-child{
+    color : #612bb7;
+}
+
+.accueil .schema {
+    justify-content:center;
+}
+
+.accueil .bulle img{
+    position: relative;
+    width : 100px;
+    height: 300px;
+}
+
+
+
+.accueil .texte1, .texte2{
+    z-index: 1;
+    position: relative;
+}
+
+.accueil .texte1{
+    margin-top: 135px;
+    margin-right: 10px;
+}
+
+.accueil .texte2{
+    margin-top: 24px;
+}
+
+.accueil .texte2 p:first-child{
+    margin-bottom: 180px;
+}
+
+.accueil .texte1 > p, .texte2 > p {
+    font-size: 15px;
+    font-family: sans-serif;
+    font-weight: bold;
+    margin-bottom: 80px;
+}
+
+
+.accueil .inscription{
+    margin-top: 30px;
+    height: 155px;
+    background-color: #e9eaee;
+    display: grid;
+    justify-items: center;
+}
+.message a, .appeler a {
+    color: black;
+}
+
+.accueil .inscription h2{
+    padding-top: 20px;
+    padding-bottom: 10px;
+    text-align: center;
+    font-size: 25;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+.accueil .inscription a {
+    text-decoration: none;
+}
+
+.accueil button {
+  border-radius: 999px;
+  box-sizing: border-box;
+  cursor: pointer;
+  font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  opacity: 1;
+  outline: 0 solid transparent;
+  padding: 8px 18px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: fit-content;
+  word-break: break-word;
+  position: relative;
+}
+
+.accueil .inscription .inscrire {
+    background: #5E5DF0;
+    box-shadow: #5E5DF0 0 10px 20px -10px;
+    color: #FFFFFF;
+    display: block;
+    margin: auto;
+    margin-top: -65px;
+}
+
+.accueil .debut {
+    display: flex;
+    justify-content: center;
+}
+
+.accueil .debut p:last-child {
+    color: #612bb7;
+}
+
+.accueil .debut p {
+    font-size: 20;
+    font-family: sans-serif;
+    font-weight: bold;
+    margin: 3px;
+    padding-top: 5px;
+}
+
+.accueil .texte_contact > p{
+    font-size: 15;
+    font-family: sans-serif;
+    margin : auto;
+    padding-top: 10px;
+    text-align: center;
+}
+
+.accueil .telephone img {
+    width : 40px;
+    height: 40px;
+}
+
+.accueil .telephone p:nth-child(2){
+    font-size: 15;
+    font-family: sans-serif;
+    font-weight: bold;
+ }
+
+.accueil .telephone{
+    text-align: center;
+}
+
+.accueil .mail img {
+    width : 40px;
+    height: 40px;
+}
+
+.accueil .mail p:nth-child(2){
+    font-size: 15;
+    font-family: sans-serif;
+    font-weight: bold;
+ }
+
+ .accueil .mail{
+    text-align: center;
+    margin-left: 100px;
+ }
+
+.accueil .coord {
+    display: flex;
+    padding-top: 35px;
+    justify-content: center;
+}
+
+
+.accueil .coord button {
+    color: rgb(0, 0, 0);
+    border-color: rgb(0, 0, 0); 
+    display: block;
+    margin : auto;
+    position: relative;
+}

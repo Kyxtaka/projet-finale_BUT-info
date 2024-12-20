@@ -1,0 +1,121 @@
+{% extends "index2.html" %}
+{% block styles %}
+{{ super()}}
+<link rel="stylesheet" href="{{ url_for('static', filename='compte.css') }}">
+{% endblock %}
+{% block content %}
+<script>
+
+  function afficherModif() {
+    var menuModif = document.getElementById('menu-modif');
+    var menuMdp = document.getElementById('menu-mdp');
+
+    if (menuModif.classList.contains('visible')) {
+        menuModif.classList.remove('visible');
+      
+      } else {
+        if (!menuMdp.classList.contains('visible')) {
+          menuModif.classList.add('visible');
+        }
+      }
+  }
+
+  function afficherChangement() {
+    var menuMdp = document.getElementById('menu-mdp');
+    var menuModif = document.getElementById('menu-modif');
+
+    if (menuMdp.classList.contains('visible')) {
+        menuMdp.classList.remove('visible');
+      
+      } else {
+        if (!menuModif.classList.contains('visible')) {
+          menuMdp.classList.add('visible');
+        }
+      }
+  }
+
+</script>
+<section class ="titre">
+    <div id="image-user">
+      <img class="image-user" src="{{ url_for('static',filename='img/user.jpg') }}" alt="icône de l'utilisateur">
+    </div>
+    <h1 class="access-compte"> Bonjour, <span id="user">{{ current_user.proprio.prenom }} {{ current_user.proprio.nom }}</span></h1>
+</section>
+<hr />
+<section class="infos-user">
+  <h2> Votre profil </h2>
+<article class="donnees">
+  <span id="nom-user">
+    <h4>Nom</h4>
+    {{ current_user.proprio.nom }}
+  </span>
+  
+  <span id="prenom-user">
+    <h4>Prénom</h4>
+    {{ current_user.proprio.prenom }}
+  </span>
+  
+  <span id="mail-user">
+    <h4>Adresse email</h4>
+    {{ current_user.proprio.mail }}
+  </span>       
+</article>
+<ul class="gestion-profil">
+  <li class="modification">
+    <button onclick="afficherModif()" id="modif-infos" type="button"><img id="image-crayon" src="{{ url_for('static',filename='img/modification.png') }}" alt="icône crayon">
+      Modifier le profil </button>
+  </li>
+  <li class="changement-mdp">
+      <button onclick="afficherChangement()" id="changer-mdp" type="button">Changer le mot de passe</button>
+  </li>
+</ul>
+</section>
+
+<div id="menu-modif">
+  <h2> Modification du profil </h2>
+  <form class="form-horizontal" role="form" method ="POST" action ="{{ url_for('mon_compte') }}">  
+    {{ form.hidden_tag() }}
+    <div class="form-control-static">
+      <p class="content" >{{ form.nom.label }}</p>
+      {{ form.nom(size=50, class_="form-control") }}
+    </div>
+    <div class="form-control-static">
+      <p class="content" >{{ form.prenom.label }}</p>
+      {{ form.prenom(size=50, class_="form-control") }}
+    </div>
+
+    <span class="form-control-static">
+      <button id="submit" type="submit" class="btn btn-primary mb-3">Enregistrer</button>
+    </span>
+  </form> 
+    <button onclick="afficherModif()" id="annuler">Annuler</button>
+</div>
+
+<div id="menu-mdp">
+  <h2> Modification du mot de passe </h2>
+  <form class="form-horizontal" role="form" method ="POST" action ="{{ url_for('modif_mdp') }}">
+    {{ form.hidden_tag() }}
+    <div class="form-control-static">
+      <p class="content" >{{ form.mdp_actuel.label }}</p>
+      {{ form.mdp_actuel(size=50, class_="form-control") }}
+    </div>
+    <div class="form-control-static">
+      <p class="content" >{{ form.mdp.label }}</p>
+      {{ form.mdp(size=50, class_="form-control") }}
+    </div>
+    <div class="form-control-static">
+      <p class="content" >{{ form.mdp_confirm.label }}</p>
+      {{ form.mdp_confirm(size=50, class_="form-control") }}
+    </div>
+
+    {% if different %}
+    <div role="tooltip" id="infobulle">Le mot de passe fourni est différent de celui attendu</div>
+    {% endif %}
+
+    <span class="form-control-static">
+      <button id="submit" type="submit" class="btn btn-primary mb-3">Enregistrer</button>
+    </span>
+  </form>
+  <button onclick="afficherChangement()" id="annuler">Annuler</button>
+</div>
+{% endblock %}
