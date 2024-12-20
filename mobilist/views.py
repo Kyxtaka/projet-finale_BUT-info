@@ -278,8 +278,11 @@ def generate_pdf_tous_logements(proprio,logements) -> BytesIO:
                 # vétusté = (âge de l'équipement/durée de vie estimée) x 100, ici on considère que la durée de vie = 10ans  (source : www.pap.fr)
                 age_equipement = datetime.now().year - bien.date_achat.year
                 vetuste = age_equipement / 10 * 100
-                biens_par_categorie.setdefault(categorie.nom_cat, []).append((bien.nom_bien, bien.prix, bien.prix - vetuste))
-                total_piece += bien.prix - vetuste
+                total_current_piece = bien.prix - vetuste
+                if total_current_piece <= bien.prix:
+                    total_current_piece = 0
+                biens_par_categorie.setdefault(categorie.nom_cat, []).append((bien.nom_bien, bien.prix, total_current_piece))
+                total_piece += total_current_piece
             for cat, items in biens_par_categorie.items():
                 canva.setFont("Helvetica-Bold", 11)
                 canva.drawString(2 * cm, y, f"{cat}")
@@ -288,7 +291,7 @@ def generate_pdf_tous_logements(proprio,logements) -> BytesIO:
                 for nom_bien, prix, vetuste in items:
                     canva.drawString(3 * cm, y, f"- {nom_bien}")
                     canva.drawRightString(width - 6 * cm, y, f"{prix} €")
-                    canva.drawRightString(width - 2 * cm, y, f"{vetuste} €")
+                    canva.drawRightString(width - 2 * cm, y, f"{total_current_piece} €")
                     y -= 0.5 * cm
                     if y < 3 * cm:  # Saut de page si besoin
                         canva.showPage()
@@ -612,8 +615,11 @@ def generate_pdf(proprio,logement_id,sinistre_annee,sinistre_type) -> BytesIO:
             # vétusté = (âge de l'équipement/durée de vie estimée) x 100, ici on considère que la durée de vie = 10ans  (source : www.pap.fr)
             age_equipement = datetime.now().year - bien.date_achat.year
             vetuste = age_equipement / 10 * 100
-            biens_par_categorie.setdefault(categorie.nom_cat, []).append((bien.nom_bien, bien.prix, bien.prix - vetuste))
-            total_piece += bien.prix - vetuste        
+            total_current_piece = bien.prix - vetuste
+            if total_current_piece <= bien.prix:
+                total_current_piece = 0
+            biens_par_categorie.setdefault(categorie.nom_cat, []).append((bien.nom_bien, bien.prix, total_current_piece))
+            total_piece += total_current_piece       
         for cat, items in biens_par_categorie.items():
             canva.setFont("Helvetica-Bold", 11)
             canva.drawString(2 * cm, y, f"{cat}")
@@ -622,7 +628,7 @@ def generate_pdf(proprio,logement_id,sinistre_annee,sinistre_type) -> BytesIO:
             for nom_bien, prix, vetuste in items:
                 canva.drawString(3 * cm, y, f"- {nom_bien}")
                 canva.drawRightString(width - 6 * cm, y, f"{prix} €")
-                canva.drawRightString(width - 2 * cm, y, f"{vetuste} €")
+                canva.drawRightString(width - 2 * cm, y, f"{total_current_piece} €")
                 y -= 0.5 * cm
                 if y < 3 * cm:  # Saut de page si besoin
                     canva.showPage()
