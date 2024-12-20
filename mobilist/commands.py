@@ -23,6 +23,7 @@ def loaddb(filename):
             case 'PROPRIETAIRE':
                 new_proprietaire = Proprietaire(
                     id_proprio = entity['ID_PROPRIETAIRE'], 
+                    mail = entity['MAIL'],
                     nom_proprio = entity['NOM'],
                     prenom_proprio = entity['PRENOM']
                 )
