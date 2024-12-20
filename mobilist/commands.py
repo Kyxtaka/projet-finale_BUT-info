@@ -110,16 +110,19 @@ def create_user(mail, password, role):
     from hashlib import sha256
     m = sha256()
     m.update(password.encode())
-    id = None
+    id_p = None
     if role != "admin":
         proprio = Proprietaire.get_by_mail(mail)
         if proprio is None:
-            id = int(Proprietaire.max_id())+1
-            proprio = Proprietaire(id_proprio=id, mail = mail, nom_proprio = "temp", prenom_proprio = "temp")
+            max_p = Proprietaire.max_id()
+            if max_p == None:
+                max_p = 0
+            id_p = int(max_p)+1
+            proprio = Proprietaire(id_proprio=id_p, mail = mail, nom_proprio = "temp", prenom_proprio = "temp")
             db.session.add(proprio)
         else: 
-            id = proprio.get_id_proprio()
-    u = User(mail = mail, password = m.hexdigest(), role = role, id_user = id)
+            id_p = proprio.get_id_proprio()
+    u = User(mail = mail, password = m.hexdigest(), role = role, id_user = id_p)
     db.session.add(u)
     db.session.commit()
      

@@ -199,7 +199,8 @@ class Proprietaire(Base):
 
     @staticmethod
     def max_id():
-        return db.session.query(func.max(Proprietaire.id_proprio)).scalar()
+        max_id =  db.session.query(func.max(Proprietaire.id_proprio)).scalar()
+        return max_id
 
 
     @staticmethod
@@ -992,11 +993,11 @@ class User(Base, UserMixin):
     id_user = Column(Integer, ForeignKey("PROPRIETAIRE.ID_PROPRIO", ondelete="CASCADE"), name="ID_PROPRIO")    
     proprio = relationship('Proprietaire', back_populates='user', uselist=False, cascade="all, delete")
     
-    def __init__(self, mail, password, role, id):
+    def __init__(self, mail, password, role, id_user):
         self.mail = mail
         self.password = password
         self.role = role
-        self.id = id
+        self.id_user = id_user
                 
     def get_id(self):
         """getter du mail
